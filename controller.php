@@ -21,11 +21,16 @@ if (isset($_POST['from']) and $_POST['from'] == 'login') {
 
 			$_SESSION['accID'] = $res['accID'];
 
+
 			$qry = mysqli_query($connection, "select * from std_prof_view where accID = '" .$res['accID']. "' ");
 
 			if (mysqli_num_rows($qry) > 0) {
+				$res1 = mysqli_fetch_assoc($qry);
 			
-			header("Location: students-dashboard.php");
+			$_SESSION['stprofID'] = $res1['stprofID'];
+
+			 header("Location: students-dashboard.php");
+
 
 			}else{
 

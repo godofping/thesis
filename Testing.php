@@ -44,21 +44,44 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js"></script>
 <script type="text/javascript">
     
+Push.Permission.request();
 
+setInterval(function(){ 
+    
+    $.get("check.php",
+        function(data, status){
+
+            console.log(data);
+
+            var obj = JSON.parse(data);
+            var toDisplay = obj.toDisplay;
+
+            if (toDisplay == 'Yes') {
+                var obj = JSON.parse(data);
+
+                var toWhom = obj.toWhom;
+                var message = obj.message;
+
+                display(toWhom, message);
+
+                
+
+            }
+        
+        }
+  );
+
+
+
+}, 5000);
+    
+    
+function display(toWhom, message)
+{
+    Push.create(toWhom, {
   
-function test(){
-    Push.Permission.request();
-   <?php
-$qry1 = mysqli_query($connection, "select * from testingTbl where isSend = '0'");
-$res1 = mysqli_fetch_assoc($qry1);
-$aw = $res1['name'];
-$updateThis = $res1['testID'];
-
-if ($aw != "") {
- ?>
-    Push.create('<?php echo $aw; ?>', {
-        body: 'This is a notification.',
-        icon: 'icon.png',
+        body: message,
+        icon: 'img/icon.jpg',
         timeout: 8000,                  // Timeout before notification closes automatically.
         vibrate: [100, 100, 100],       // An array of vibration pulses for mobile devices.
         onClick: function() {
@@ -66,20 +89,15 @@ if ($aw != "") {
             console.log(this);
         }  
     });
-    <?php mysqli_query($connection, "update testingTbl set isSend = '1' where testID = '". $updateThis ."'");} ?>
+
 }
-
-
-
-setInterval(function(){ 
-    test();
-
-}, 5000);
-    
-    
 
 
 </script>
 
+
+
 <?php include('footer.php'); ?>
+
+
 
