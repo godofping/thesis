@@ -1,46 +1,4 @@
-
-<?php include('header.php');
-
-
- ?>
-
-
-
-<!--Main Layout-->
-<main class=" py-5 mt-5">
-
-  <div class="container">
-
-    <!-- Default form contact -->
-<form class="text-center border border-light p-5">
-
- 
-
-    <!-- Copy -->
-    <div class="custom-control custom-checkbox mb-4">
-        <input type="checkbox" class="custom-control-input" id="defaultContactFormCopy">
-        <label class="custom-control-label" for="defaultContactFormCopy">Send me a copy of this message</label>
-    </div>
-
-    <!-- Send button -->
-    <button id="demo-btn">Show notification</button>
-
-</form>
-<!-- Default form contact -->
-
-    <div class="row">
-      <div class="col-md-12">
-
-        
-      </div>
-    </div>
   
-  </div>
-  
-</main>
-<!--Main Layout-->
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js"></script>
 <script type="text/javascript">
     
@@ -69,17 +27,17 @@ if ($aw != "") {
     <?php mysqli_query($connection, "update testingTbl set isSend = '1' where testID = '". $updateThis ."'");} ?>
 }
 
-
-
-setInterval(function(){ 
-    test();
-
-}, 5000);
-    
-    
-
-
 </script>
 
-<?php include('footer.php'); ?>
 
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <script type="text/javascript" src="js/addons/datatables.min.js"></script>
+</body>
+
+</html>
