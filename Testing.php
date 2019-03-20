@@ -61,8 +61,9 @@ setInterval(function(){
 
                 var toWhom = obj.toWhom;
                 var message = obj.message;
+                var dateAnnounced = obj.dateAnnounced;
 
-                display(toWhom, message);
+                display(toWhom, message,dateAnnounced);
 
             }
 
@@ -76,11 +77,11 @@ setInterval(function(){
 }, 5000);
     
     
-function display(toWhom, message)
+function display(toWhom, message,dateAnnounced)
 {
     Push.create(toWhom, {
   
-        body: message,
+        body: dateAnnounced + " - " + message,
         icon: 'img/icon.jpg',
         timeout: 8000,                  // Timeout before notification closes automatically.
         vibrate: [100, 100, 100],       // An array of vibration pulses for mobile devices.

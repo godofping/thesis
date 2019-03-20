@@ -26,8 +26,13 @@ if (!isset($_SESSION['accID'])) {
 
         <div class="row">
       <div class="col-md-12">
+          <?php 
+        $qryposition = mysqli_query($connection, "select * from departmental_officersandmembers_view where stprofID = '" .$_SESSION['stprofID']. "' ");
 
-        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
+        if (mysqli_num_rows($qryposition)>0): ?>
+          <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
+        <?php endif ?>
+       
 
         <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">

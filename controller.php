@@ -234,5 +234,19 @@ if (isset($_POST['from']) and $_POST['from'] == 'dsa-announcement') {
 		 header("Location: creat-announcement.php");
 }
 
+if (isset($_POST['from']) and $_POST['from'] == 'csc-announcement') {
+	
+		mysqli_query($connection, "insert into csc_announcement_table (dateAnnounced, toWhom, message) values ('".$_POST['date']."', '".$_POST['to']."', '".$_POST['message']."')");
+
+		 header("Location: csc-announcement.php");
+}
+
+
+if (isset($_GET['from']) and $_GET['from'] == 'approve-csc-announcement') {
+	
+		mysqli_query($connection, "update csc_announcement_table set isApproved = 'Yes' where csc_announcementID = '" . $_GET['csc_announcementID'] . "'");
+
+		 header("Location: view-csc-announcement.php");
+}
 
  ?>

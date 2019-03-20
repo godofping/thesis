@@ -26,9 +26,13 @@ if (!isset($_SESSION['accID'])) {
 
         <div class="row">
       <div class="col-md-12">
+        <?php 
+        $qryposition = mysqli_query($connection, "select * from csc_mem_view where stprofID = '" .$_SESSION['stprofID']. "' ");
 
-        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
-
+        if (mysqli_num_rows($qryposition)>0): ?>
+                  <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
+        <?php endif ?>
+        
         <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -48,17 +52,10 @@ if (!isset($_SESSION['accID'])) {
                   <form>
                     <!-- Grid row -->
                     <div class="row">
-                      <!-- Grid column -->
-                      <div class="col">
-                        <!-- Default input -->
-                       <!-- <i class="fas fa-user prefix grey-text"></i> -->
-                        <input type="text" readonly="" class="form-control" >
-                      </div>
-                      <!-- Grid column -->
-                      <!-- Grid column -->
+
                       <div class="col">
                        
-                        <input name="date" type="date" class="form-control" >
+                        <input name="date" required="" type="date" class="form-control" >
                       </div>
                       <!-- Grid column -->
                     </div>
@@ -66,9 +63,14 @@ if (!isset($_SESSION['accID'])) {
                   </form>
                   <!-- Default form grid -->
 
+                  <div class="md-form mb-5">
+                     <input type="text" readonly="" class="form-control " required="">
+                     <label data-error="wrong" readonly="" data-success="right" for="form32">Central Student Council</label>
+                  </div>
+
                 <div class="md-form mb-5">
                   <i class="fas fa-tag prefix grey-text"></i>
-                  <input type="text" name="to" class="form-control ">
+                  <input type="text" name="to" class="form-control " required="">
                   <label data-error="wrong" data-success="right" for="form32">To: </label>
                 </div>
 
@@ -78,7 +80,7 @@ if (!isset($_SESSION['accID'])) {
                   <label data-error="wrong" data-success="right" for="form8">Your message</label>
                 </div>
 
-                  <input type="text" name="from" value="dsa-announcement" hidden>
+                  <input type="text" name="from" value="csc-announcement" hidden>
             
               <div class="modal-footer d-flex justify-content-center">
                   
@@ -111,7 +113,7 @@ if (!isset($_SESSION['accID'])) {
 
             <?php 
 
-              $qrycsc = mysqli_query($connection, "select * from dsa_announcement_table");
+              $qrycsc = mysqli_query($connection, "select * from csc_announcement_table where isApproved = 'Yes'  order by csc_announcementID desc");
               $rescsc = mysqli_fetch_assoc($qrycsc);
              ?>
 

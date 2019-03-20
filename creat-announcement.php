@@ -119,14 +119,14 @@ if (!isset($_SESSION['adminId'])) {
 
             <?php 
 
-              $qrycsc = mysqli_query($connection, "select * from dsa_announcement_table order by dsaAnnouncementID desc");
+              $qrycsc = mysqli_query($connection, "select * from dsa_announcement_table order by dsaAnnouncementID desc ");
               $rescsc = mysqli_fetch_assoc($qrycsc);
              ?>
 
               <!-- To Whom -->
             <div class="md-form mt-3">
                 <input align="middle" type="text" readonly="" class="form-control" value="<?php echo $rescsc['dateAnnounced']; ?>">
-                <label>Date Announced</label>
+                <label>Announcement Date</label>
             </div>
 
             <!-- To Whom -->

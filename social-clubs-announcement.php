@@ -24,85 +24,98 @@ if (!isset($_SESSION['accID'])) {
       </div>
     </div>
 
-        <div class="row">
-      <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <?php 
+          $qryposition = mysqli_query($connection, "select * from social_officerandmembers_view where stprofID = '" .$_SESSION['stprofID']. "' ");
 
-        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
+          if (mysqli_num_rows($qryposition)>0): ?>
+           <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
+          <?php endif ?>
+          
 
-        <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Write an Announcement</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
+          <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h4 class="modal-title w-100 font-weight-bold">Write an Announcement</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
 
-              <div class="modal-body mx-3">
-                <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
-                <div class="md-form mb-5">
-                  <?php 
+                <div class="modal-body mx-3">
+                  <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
+                  <div class="md-form mb-5">
+                    <?php 
 
-                     $qrystID1 = mysqli_query($connection, "select * from list_student_view where accID = ".$_SESSION['accID']." ");
-                     $resstID1 = mysqli_fetch_assoc($qrystID1 );
+                       $qrystID1 = mysqli_query($connection, "select * from list_student_view where accID = ".$_SESSION['accID']." ");
+                       $resstID1 = mysqli_fetch_assoc($qrystID1 );
 
-                    $qryname1 = mysqli_query($connection, "select * from student_social_club_view where stprofID = '".$resstID1['stprofID']."' ");
-                    $resname1 = mysqli_fetch_assoc($qryname1);
-                   ?>
-                <!-- Default form grid -->
-                  <form>
-                    <!-- Grid row -->
-                    <div class="row">
-                    
-                      <div class="col">
-                       
-                        <input name="date" type="date" class="form-control" >
-                      </div>
-                      <!-- Grid column -->
-                    </div>
-                    <!-- Grid row -->
-                  </form>
+                      $qryname1 = mysqli_query($connection, "select * from student_social_club_view where stprofID = '".$resstID1['stprofID']."' ");
+                      $resname1 = mysqli_fetch_assoc($qryname1);
+                     ?>
                   <!-- Default form grid -->
+                    <form>
+                      <!-- Grid row -->
+                      <div class="row">
+                      
+                        <div class="col">
+                         
+                          <input name="date" type="date" class="form-control" >
+                        </div>
+                        <!-- Grid column -->
+                      </div>
+                      <!-- Grid row -->
+                    </form>
+                    <!-- Default form grid -->
 
-                  <div class="md-form mb-5">
-                    <label data-error="wrong" data-success="right" for="form32">From </label>
-                  <input type="text" name="to" class="form-control "value="<?php echo $resname1['socialClubName'] ?>">
-                </div>
+                    <div class="md-form mb-5">
+                      <label data-error="wrong" data-success="right" for="form32">From </label>
+                    <input type="text" name="to" class="form-control "value="<?php echo $resname1['socialClubName'] ?>">
+                  </div>
 
-                  <div class="md-form mb-5">
-                  <i class="fas fa-tag prefix grey-text"></i>
-                  <input type="text" name="to" class="form-control ">
-                  <label data-error="wrong" data-success="right" for="form32">To: </label>
-                </div>
+                    <div class="md-form mb-5">
+                    <i class="fas fa-tag prefix grey-text"></i>
+                    <input type="text" name="to" class="form-control ">
+                    <label data-error="wrong" data-success="right" for="form32">To: </label>
+                  </div>
 
-                <div class="md-form">
-                  <i class="fas fa-pencil prefix grey-text"></i>
-                  <textarea type="text" name="message" class="md-textarea form-control" rows="4"></textarea>
-                  <label data-error="wrong" data-success="right" for="form8">Your message</label>
-                </div>
+                  <div class="md-form">
+                    <i class="fas fa-pencil prefix grey-text"></i>
+                    <textarea type="text" name="message" class="md-textarea form-control" rows="4"></textarea>
+                    <label data-error="wrong" data-success="right" for="form8">Your message</label>
+                  </div>
 
-                  <input type="text" name="from" value="social-announcement" hidden>
-            
-              <div class="modal-footer d-flex justify-content-center">
-                  
-                <button type="submit" class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
+                    <input type="text" name="from" value="social-announcement" hidden>
               
-              </div>
-            </form> 
+                <div class="modal-footer d-flex justify-content-center">
+                    
+                  <button type="submit" class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
+                
+                </div>
+              </form> 
+            </div>
+            </div>
           </div>
-          </div>
+        
         </div>
-      
-      </div>
       
         </div>
       </div>
 
   <!-- Material form contact -->
-  <div class="container">
-    <div class="card">
+
+    <div class="container">
+
+  <?php 
+
+    $qrysocialclub = mysqli_query($connection, "select * from student_social_club_view where stprofID = ".$_SESSION['stprofID']." ");
+    while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)) {?>
+      
+
+    <div class="card mt-3">
 
       <?php 
 
@@ -115,7 +128,7 @@ if (!isset($_SESSION['accID'])) {
        ?>
 
     <h5 class="card-header info-color white-text text-center py-4">
-        <strong><?php echo $resname2['socialClubName']; ?></strong>
+        <strong><?php echo $ressocialclub['socialClubName']; ?></strong>
     </h5>
 
     <!--Card content-->
@@ -152,7 +165,12 @@ if (!isset($_SESSION['accID'])) {
         <!-- Form -->
           </div>
       </div>
-    </div>
+  
+   <?php } ?>
+
+     </div>
+
+  
 <!-- Material form contact -->
 </main>
 <!--Main Layout-->

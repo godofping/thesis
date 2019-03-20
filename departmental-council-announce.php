@@ -26,8 +26,12 @@ if (!isset($_SESSION['accID'])) {
 
         <div class="row">
       <div class="col-md-12">
+        <?php 
+        $qryposition = mysqli_query($connection, "select * from council_view where stprofID = '" .$_SESSION['stprofID']. "' ");
 
-        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
+        if (mysqli_num_rows($qryposition)>0): ?>
+                  <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
+        <?php endif ?>
 
         <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
@@ -49,7 +53,7 @@ if (!isset($_SESSION['accID'])) {
                     $qrydpname = mysqli_query($connection, "select * from list_student_view where accID = ".$_SESSION['accID']." ");
                     $resdpname = mysqli_fetch_assoc($qrydpname);
                    ?>
-                  
+
                 <!-- Default form grid -->
                   <form>
                     <!-- Grid row -->
@@ -65,7 +69,7 @@ if (!isset($_SESSION['accID'])) {
 
                 <div class="md-form mb-5">
                     <label data-error="wrong" data-success="right" for="form32">From </label>
-                  <input type="text" name="to" class="form-control "value="<?php echo $resdpname['CounName'] ?>">
+                  <input type="text" name="to" readonly="" class="form-control "value="<?php echo $resdpname['CounName'] ?>">
                 </div>
 
                 <div class="md-form mb-5">
