@@ -54,10 +54,11 @@
             <i class="far fa-newspaper"></i> Announcement
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="stclubDropDown">
-            <a class="dropdown-item" href="manage-acc.php">DSA Announcement</a>
-            <a class="dropdown-item" href="#">CSC Announcement</a>
-            <a class="dropdown-item" href="#">Departmental Club Announcement</a>
-            <a class="dropdown-item" href="#">Social Club Announcement</a>
+            <a class="dropdown-item" href="dsa-announcement.php">DSA Announcement</a>
+            <a class="dropdown-item" href="csc-announcement.php">CSC Announcement</a>
+            <a class="dropdown-item" href="departmental-council-announce.php">Departmental Council Announcement</a>
+            <a class="dropdown-item" href="departmental-clubs-announcement.php">Departmental Club Announcement</a>
+            <a class="dropdown-item" href="social-clubs-announcement.php">Social Club Announcement</a>
           </div>
 
         </li>

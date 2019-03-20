@@ -51,7 +51,7 @@ setInterval(function(){
     $.get("check.php",
         function(data, status){
 
-            console.log(data);
+            
 
             var obj = JSON.parse(data);
             var toDisplay = obj.toDisplay;
@@ -64,9 +64,9 @@ setInterval(function(){
 
                 display(toWhom, message);
 
-                
-
             }
+
+            console.log(data);
         
         }
   );

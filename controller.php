@@ -229,9 +229,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'register-social-officer') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'dsa-announcement') {
 	
-		mysqli_query($connection, "insert into dsaannouncement_table (dateAnn, toRecever, message) values ('".$_POST['date']."', '".$_POST['to']."', '".$_POST['message']."')");
-
-		//echo "insert into dsaannouncement_table dateAnn, toRecever, message) values ('".$_POST['date']."', '".$_POST['to']."', '".$_POST['message']."')";
+		mysqli_query($connection, "insert into dsa_announcement_table (dateAnnounced, toWhom, message) values ('".$_POST['date']."', '".$_POST['to']."', '".$_POST['message']."')");
 
 		 header("Location: creat-announcement.php");
 }

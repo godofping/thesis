@@ -1,11 +1,11 @@
 
 <?php include('header.php');
-$currentpage = "adminannouncement";
-if (!isset($_SESSION['adminId'])) {
+$currentpage = "announcement";
+if (!isset($_SESSION['accID'])) {
   header("Location: index.php");
 }
 
- include("admin-header.php");
+ include("student-header.php");
  ?>
 
 
@@ -18,7 +18,7 @@ if (!isset($_SESSION['adminId'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2>Add Admin Announcement</h2>
+        <h2>Announcement</h2>
         <hr>
 
       </div>
@@ -29,7 +29,7 @@ if (!isset($_SESSION['adminId'])) {
 
         <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
 
-       <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -40,32 +40,21 @@ if (!isset($_SESSION['adminId'])) {
                 </button>
               </div>
 
-              <?php 
-
-                $qryadmin = mysqli_query($connection, "select * from admin_view where adminId = ".$_SESSION['adminId']." ");
-                $resadmin = mysqli_fetch_assoc($qryadmin);
-
-
-               ?>
-
               <div class="modal-body mx-3">
                 <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
                 <div class="md-form mb-5">
                   
+                   <?php 
+
+                    $qrydpname = mysqli_query($connection, "select * from list_student_view where accID = ".$_SESSION['accID']." ");
+                    $resdpname = mysqli_fetch_assoc($qrydpname);
+                   ?>
+                  
                 <!-- Default form grid -->
                   <form>
                     <!-- Grid row -->
-                    <div class="row">
-                      <!-- Grid column -->
-                      <div class="col">
-                        <!-- Default input -->
-                       <!-- <i class="fas fa-user prefix grey-text"></i> -->
-                        <input type="text" readonly="" class="form-control" value="<?php echo $resadmin['username'] ?>">
-                      </div>
-                      <!-- Grid column -->
-                      <!-- Grid column -->
-                      <div class="col">
-                       
+                    <div class="row">      
+                      <div class="col"> 
                         <input name="date" type="date" class="form-control" >
                       </div>
                       <!-- Grid column -->
@@ -73,6 +62,11 @@ if (!isset($_SESSION['adminId'])) {
                     <!-- Grid row -->
                   </form>
                   <!-- Default form grid -->
+
+                <div class="md-form mb-5">
+                    <label data-error="wrong" data-success="right" for="form32">From </label>
+                  <input type="text" name="to" class="form-control "value="<?php echo $resdpname['CounName'] ?>">
+                </div>
 
                 <div class="md-form mb-5">
                   <i class="fas fa-tag prefix grey-text"></i>
@@ -99,16 +93,23 @@ if (!isset($_SESSION['adminId'])) {
         </div>
       
       </div>
-    </div>
-     
+      
+        </div>
       </div>
 
-      <!-- Material form contact -->
+  <!-- Material form contact -->
   <div class="container">
     <div class="card">
 
-      <h5 class="card-header info-color white-text text-center py-4">
-        <strong>Director of Student Affairs</strong>
+      <?php 
+
+        $qryname = mysqli_query($connection, "select * from list_student_view where accID = ".$_SESSION['accID']." ");
+        $resname = mysqli_fetch_assoc($qryname);
+
+       ?>
+
+    <h5 class="card-header info-color white-text text-center py-4">
+        <strong><?php echo $resname['CounName']; ?></strong>
     </h5>
 
     <!--Card content-->
@@ -119,7 +120,7 @@ if (!isset($_SESSION['adminId'])) {
 
             <?php 
 
-              $qrycsc = mysqli_query($connection, "select * from dsa_announcement_table order by dsaAnnouncementID desc");
+              $qrycsc = mysqli_query($connection, "select * from dsa_announcement_table");
               $rescsc = mysqli_fetch_assoc($qrycsc);
              ?>
 
@@ -146,7 +147,7 @@ if (!isset($_SESSION['adminId'])) {
           </div>
       </div>
     </div>
-
+<!-- Material form contact -->
 </main>
 <!--Main Layout-->
 

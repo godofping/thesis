@@ -63,7 +63,7 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="stclubDropDown">
             <a class="dropdown-item" href="creat-announcement.php">Add Announcement</a>
-            <a class="dropdown-item" href="#">View Announcement</a>
+            <a class="dropdown-item" href="view-all-announcement.php">View Announcement</a>
             <a class="dropdown-item" href="#">History of Announcement</a>
           </div>
 
