@@ -52,6 +52,7 @@ if (!isset($_SESSION['accID'])) {
 
                     $qrydpname = mysqli_query($connection, "select * from list_student_view where accID = ".$_SESSION['accID']." ");
                     $resdpname = mysqli_fetch_assoc($qrydpname);
+
                    ?>
                 <!-- Default form grid -->
                   <form>
@@ -60,7 +61,7 @@ if (!isset($_SESSION['accID'])) {
                     
                       <div class="col">
                        
-                        <input name="date" type="date" class="form-control" >
+                        <input name="date" type="date" class="form-control" required="">
                       </div>
                       <!-- Grid column -->
                     </div>
@@ -74,18 +75,18 @@ if (!isset($_SESSION['accID'])) {
                 </div>
 
                   <div class="md-form mb-5">
-                  <i class="fas fa-tag prefix grey-text"></i>
-                  <input type="text" name="to" class="form-control ">
+                  <input type="text" name="to" class="form-control " required="">
                   <label data-error="wrong" data-success="right" for="form32">To: </label>
                 </div>
 
                 <div class="md-form">
                   <i class="fas fa-pencil prefix grey-text"></i>
-                  <textarea type="text" name="message" class="md-textarea form-control" rows="4"></textarea>
+                  <textarea type="text" name="message" required="" class="md-textarea form-control" rows="4"></textarea>
                   <label data-error="wrong" data-success="right" for="form8">Your message</label>
                 </div>
 
-                  <input type="text" name="from" value="dsa-announcement" hidden>
+                  <input type="text" name="departmentClubId" value="<?php echo $resdpname['departmentClubId'] ?>" hidden>
+                  <input type="text" name="from" value="dp-announcement" hidden>
             
               <div class="modal-footer d-flex justify-content-center">
                   
@@ -125,7 +126,7 @@ if (!isset($_SESSION['accID'])) {
 
             <?php 
 
-              $qrycsc = mysqli_query($connection, "select * from dsa_announcement_table");
+              $qrycsc = mysqli_query($connection, "select * from department_announcement_table where isApproved = 'Yes' and departmentClubId = '".$resdpname['departmentClubId']."' order by DannouncementID desc");
               $rescsc = mysqli_fetch_assoc($qrycsc);
              ?>
 

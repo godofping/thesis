@@ -63,6 +63,29 @@
         }
   );
 
+     $.get("check3.php",
+        function(data, status){
+
+            var obj = JSON.parse(data);
+            var toDisplay = obj.toDisplay;
+
+            if (toDisplay == 'Yes') {
+                var obj = JSON.parse(data);
+
+                var toWhom = obj.toWhom;
+                var message = obj.message;
+                var dateAnnounced = obj.dateAnnounced;
+
+                display(toWhom, message,dateAnnounced);
+
+            }
+
+            console.log(data);
+        
+        }
+  );
+
+
 
 
 }, 5000);

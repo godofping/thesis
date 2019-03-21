@@ -249,4 +249,19 @@ if (isset($_GET['from']) and $_GET['from'] == 'approve-csc-announcement') {
 		 header("Location: view-csc-announcement.php");
 }
 
+if (isset($_POST['from']) and $_POST['from'] == 'dp-announcement') {
+	
+		mysqli_query($connection, "insert into department_announcement_table (dateAnnounced, toWhom, message, departmentClubId) values ('".$_POST['date']."', '".$_POST['to']."', '".$_POST['message']."', '".$_POST['departmentClubId']."')");
+
+		 header("Location: departmental-clubs-announcement.php");
+}
+
+
+if (isset($_GET['from']) and $_GET['from'] == 'approve-dpclub-announcement') {
+	
+		mysqli_query($connection, "update department_announcement_table set isApproved = 'Yes' where DannouncementID = '" . $_GET['DannouncementID'] . "'");
+
+		 header("Location: view-departmental-club-announcement.php");
+}
+
  ?>

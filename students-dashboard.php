@@ -45,4 +45,4 @@ if (!isset($_SESSION['accID'])) {
 
 
 
-<?php include('Studentfooter.php'); ?>
+<?php include('footer.php'); ?>

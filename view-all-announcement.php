@@ -55,7 +55,7 @@ if (!isset($_SESSION['adminId'])) {
 
             <tr>
               <td scope="row">Departmental Clubs</td>
-              <td><a class="btn btn-secondary" href="cased.php">View</a>
+              <td><a class="btn btn-secondary" href="view-departmental-club-announcement.php">View</a>
             </tr>
 
              <tr>

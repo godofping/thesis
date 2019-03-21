@@ -8,7 +8,7 @@ $stprofID = $_SESSION['stprofID'];
 $connection = mysqli_connect("localhost", "root", "vertrigo", "project_db");
 
 //count how many push notifications deployed to the user.
-$qry = mysqli_query($connection, "select count(*) as total from csc_announcement_isread_table where stprofID = '" . $stprofID . "' ");
+$qry = mysqli_query($connection, "select count(*) as total from csc_announcement_isread_table where isApproved = 'Yes' and stprofID = '" . $stprofID . "' ");
 $res = mysqli_fetch_assoc($qry);
 $whereToStart = $res['total']; //4
 
@@ -30,7 +30,7 @@ if (mysqli_num_rows($qry) > 0) {
 	$myObj->isApproved = $res2['isApproved'];
 	$myObj->toDisplay = "Yes";
 
-	mysqli_query($connection, "insert into csc_announcement_isread_table (stprofID, csc_announcementID) values ('" . $stprofID . "', '" . $csc_announcementID . "')");
+	mysqli_query($connection, "insert into csc_announcement_isread_table (stprofID, csc_announcementID, isApproved) values ('" . $stprofID . "', '" . $csc_announcementID . "', 'Yes')");
 
 	$myJSON = json_encode($myObj);
 
