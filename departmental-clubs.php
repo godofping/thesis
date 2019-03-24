@@ -192,7 +192,7 @@ if (!isset($_SESSION['adminId'])) {
                       <div class="md-form">
                       <select class="form-control" name="stMayorIDdp" required="">
                         <option selected="" disabled="">Select Mayor</option>
-                        <?php $qryforRegister = mysqli_query($connection, "select * from list_student_view order by fname asc");
+                        <?php $qryforRegister = mysqli_query($connection, "select * from list_student_view where departmentClubId = '".$res['departmentClubId']."' order by fname asc");
                         while ($resforRegister = mysqli_fetch_assoc($qryforRegister)) { ?>
                           <option value="<?php echo $resforRegister['stprofID']; ?>"><?php echo $resforRegister['fname']; ?></option>
                         <?php } ?>
@@ -203,7 +203,7 @@ if (!isset($_SESSION['adminId'])) {
                        <div class="md-form">
                       <select class="form-control" name="stVMayorIDdp" required="">
                         <option selected="" disabled="">Select Vice Mayor</option>
-                        <?php $qryforRegister = mysqli_query($connection, "select * from list_student_view order by fname asc");
+                          <?php $qryforRegister = mysqli_query($connection, "select * from list_student_view where departmentClubId = '".$res['departmentClubId']."' order by fname asc");
                         while ($resforRegister = mysqli_fetch_assoc($qryforRegister)) { ?>
                           <option value="<?php echo $resforRegister['stprofID']; ?>"><?php echo $resforRegister['fname']; ?></option>
                         <?php } ?>
@@ -213,7 +213,7 @@ if (!isset($_SESSION['adminId'])) {
                        <div class="md-form">
                       <select class="form-control" name="stTreasurerIDdp" required="">
                         <option selected="" disabled="">Select Treasurer</option>
-                        <?php $qryforRegister = mysqli_query($connection, "select * from list_student_view order by fname asc");
+                        <?php $qryforRegister = mysqli_query($connection, "select * from list_student_view where departmentClubId = '".$res['departmentClubId']."' order by fname asc");
                         while ($resforRegister = mysqli_fetch_assoc($qryforRegister)) { ?>
                           <option value="<?php echo $resforRegister['stprofID']; ?>"><?php echo $resforRegister['fname']; ?></option>
                         <?php } ?>
@@ -223,7 +223,7 @@ if (!isset($_SESSION['adminId'])) {
                        <div class="md-form">
                       <select class="form-control" name="stSecrectaryIDdp" required="">
                         <option selected="" disabled="">Select Secrectary</option>
-                        <?php $qryforRegister = mysqli_query($connection, "select * from list_student_view order by fname asc");
+                        <?php $qryforRegister = mysqli_query($connection, "select * from list_student_view where departmentClubId = '".$res['departmentClubId']."' order by fname asc");
                         while ($resforRegister = mysqli_fetch_assoc($qryforRegister)) { ?>
                           <option value="<?php echo $resforRegister['stprofID']; ?>"><?php echo $resforRegister['fname']; ?></option>
                         <?php } ?>
@@ -271,8 +271,6 @@ if (!isset($_SESSION['adminId'])) {
               <div class="tab-content">
                 <!--Panel 7-->
                 <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
-                  
-                
                   
                   <!--Body-->
                   <div class="modal-body mb-1">

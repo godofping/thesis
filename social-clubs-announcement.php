@@ -24,17 +24,20 @@ if (!isset($_SESSION['accID'])) {
       </div>
     </div>
 
+         <?php 
+
+                       $qrystID1 = mysqli_query($connection, "select * from list_student_view where accID = ".$_SESSION['accID']." ");
+                       $resstID1 = mysqli_fetch_assoc($qrystID1 );
+
+                      $qryname1 = mysqli_query($connection, "select * from student_social_club_view where stprofID = '".$resstID1['stprofID']."' ");
+                      $resname1 = mysqli_fetch_assoc($qryname1);
+                     ?>
+
       <div class="row">
         <div class="col-md-12">
-          <?php 
-          $qryposition = mysqli_query($connection, "select * from social_officerandmembers_view where stprofID = '" .$_SESSION['stprofID']. "' ");
-
-          if (mysqli_num_rows($qryposition)>0): ?>
-           <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
-          <?php endif ?>
           
 
-          <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+          <div class="modal fade" id="modalContactForm<?php  echo $resname1['socialClubId'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -48,14 +51,7 @@ if (!isset($_SESSION['accID'])) {
                 <div class="modal-body mx-3">
                   <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
                   <div class="md-form mb-5">
-                    <?php 
-
-                       $qrystID1 = mysqli_query($connection, "select * from list_student_view where accID = ".$_SESSION['accID']." ");
-                       $resstID1 = mysqli_fetch_assoc($qrystID1 );
-
-                      $qryname1 = mysqli_query($connection, "select * from student_social_club_view where stprofID = '".$resstID1['stprofID']."' ");
-                      $resname1 = mysqli_fetch_assoc($qryname1);
-                     ?>
+                   
                   <!-- Default form grid -->
                     <form>
                       <!-- Grid row -->
@@ -63,7 +59,7 @@ if (!isset($_SESSION['accID'])) {
                       
                         <div class="col">
                          
-                          <input name="date" type="date" class="form-control" >
+                          <input name="date" type="date" class="form-control" required="">
                         </div>
                         <!-- Grid column -->
                       </div>
@@ -73,22 +69,22 @@ if (!isset($_SESSION['accID'])) {
 
                     <div class="md-form mb-5">
                       <label data-error="wrong" data-success="right" for="form32">From </label>
-                    <input type="text" name="to" class="form-control "value="<?php echo $resname1['socialClubName'] ?>">
+                    <input type="text" class="form-control "value="<?php echo $resname1['socialClubName'] ?>">
                   </div>
 
                     <div class="md-form mb-5">
                     <i class="fas fa-tag prefix grey-text"></i>
-                    <input type="text" name="to" class="form-control ">
+                    <input type="text" name="to" class="form-control " required="">
                     <label data-error="wrong" data-success="right" for="form32">To: </label>
                   </div>
 
                   <div class="md-form">
                     <i class="fas fa-pencil prefix grey-text"></i>
-                    <textarea type="text" name="message" class="md-textarea form-control" rows="4"></textarea>
+                    <textarea type="text" name="message" class="md-textarea form-control" rows="4" required=""></textarea>
                     <label data-error="wrong" data-success="right" for="form8">Your message</label>
                   </div>
-
-                    <input type="text" name="from" value="social-announcement" hidden>
+                    <input type="text" name="socialClubId" value="<?php echo $resname1['socialClubId'] ?>" hidden>
+                    <input type="text" name="from" value="social-clubs-announcement" hidden>
               
                 <div class="modal-footer d-flex justify-content-center">
                     
@@ -113,7 +109,13 @@ if (!isset($_SESSION['accID'])) {
 
     $qrysocialclub = mysqli_query($connection, "select * from student_social_club_view where stprofID = ".$_SESSION['stprofID']." ");
     while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)) {?>
-      
+    
+     <?php 
+          $qryposition = mysqli_query($connection, "select * from social_officerandmembers_view where stprofID = '" .$_SESSION['stprofID']. "'  ");
+
+          if (mysqli_num_rows($qryposition)>0): ?>
+           <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm<?php echo $resname1['socialClubId'] ?>"><i class="fas fa-plus"></i> Create Announcement</a>
+           <?php endif ?>
 
     <div class="card mt-3">
 
@@ -139,7 +141,7 @@ if (!isset($_SESSION['accID'])) {
 
             <?php 
 
-              $qrycsc = mysqli_query($connection, "select * from dsa_announcement_table");
+              $qrycsc = mysqli_query($connection, "select * from social_announcement_table where isApproved = 'Yes' and socialClubId = '".$resname1['socialClubId']."' ");
               $rescsc = mysqli_fetch_assoc($qrycsc);
              ?>
 

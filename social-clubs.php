@@ -117,7 +117,7 @@ if (!isset($_SESSION['adminId'])) {
                ?>
               <?php if ($res1['fname'] != "");?>    
               <div class="md-form">
-              <input type="text" id="inputDisabledEx" class="form-control" disabled value="">
+              <input type="text" id="inputDisabledEx" class="form-control" disabled value="<?php echo $res1['fname'] ?>">
               <label for="inputDisabledEx" class="disabled">Mayor</label>
               </div>
 
@@ -127,7 +127,7 @@ if (!isset($_SESSION['adminId'])) {
                ?>
               <?php if ($res1['fname'] != "");?> 
               <div class="md-form">
-              <input type="text" id="inputDisabledEx" class="form-control" disabled value="">
+              <input type="text" id="inputDisabledEx" class="form-control" disabled value="<?php echo $res1['fname'] ?>">
               <label for="inputDisabledEx" class="disabled">Vice Mayor</label>
               </div>
 
@@ -137,7 +137,7 @@ if (!isset($_SESSION['adminId'])) {
                ?>
               <?php if ($res1['fname'] != "");?> 
               <div class="md-form">
-              <input type="text" id="inputDisabledEx" class="form-control" disabled value="">
+              <input type="text" id="inputDisabledEx" class="form-control" disabled value="<?php echo $res1['fname'] ?>">
               <label for="inputDisabledEx" class="disabled">Treasurer</label>
               </div>
 
@@ -147,7 +147,7 @@ if (!isset($_SESSION['adminId'])) {
                ?>
               <?php if ($res1['fname'] != "");?> 
               <div class="md-form">
-              <input type="text" id="inputDisabledEx" class="form-control" disabled value="">
+              <input type="text" id="inputDisabledEx" class="form-control" disabled value="<?php echo $res1['fname'] ?>">
               <label for="inputDisabledEx" class="disabled">Secrectary</label>
               </div>
              
@@ -197,7 +197,7 @@ if (!isset($_SESSION['adminId'])) {
                       <div class="md-form">
                       <select class="form-control" name="stMayorIDsocial" required="">
                         <option selected="" disabled="">Select Mayor</option>
-                        <?php $qryforRegister = mysqli_query($connection, "select * from list_student_view order by fname asc");
+                        <?php $qryforRegister = mysqli_query($connection, "select * from list_social_club_view  where socialClubId = '".$res['socialClubId']."' order by fname asc");
                         while ($resforRegister = mysqli_fetch_assoc($qryforRegister)) { ?>
                           <option value="<?php echo $resforRegister['stprofID']; ?>"><?php echo $resforRegister['fname']; ?></option>
                         <?php } ?>
@@ -207,7 +207,7 @@ if (!isset($_SESSION['adminId'])) {
                        <div class="md-form">
                       <select class="form-control" name="stVMayorIDsocial" required="">
                         <option selected="" disabled="">Select Vice Mayor</option>
-                        <?php $qryforRegister = mysqli_query($connection, "select * from list_student_view order by fname asc");
+                        <?php $qryforRegister = mysqli_query($connection, "select * from list_social_club_view  where socialClubId = '".$res['socialClubId']."' order by fname asc");
                         while ($resforRegister = mysqli_fetch_assoc($qryforRegister)) { ?>
                           <option value="<?php echo $resforRegister['stprofID']; ?>"><?php echo $resforRegister['fname']; ?></option>
                         <?php } ?>
@@ -217,7 +217,7 @@ if (!isset($_SESSION['adminId'])) {
                        <div class="md-form">
                       <select class="form-control" name="stTreasurerIDsocial" required="">
                         <option selected="" disabled="">Select Treasurer</option>
-                        <?php $qryforRegister = mysqli_query($connection, "select * from list_student_view order by fname asc");
+                       <?php $qryforRegister = mysqli_query($connection, "select * from list_social_club_view  where socialClubId = '".$res['socialClubId']."' order by fname asc");
                         while ($resforRegister = mysqli_fetch_assoc($qryforRegister)) { ?>
                           <option value="<?php echo $resforRegister['stprofID']; ?>"><?php echo $resforRegister['fname']; ?></option>
                         <?php } ?>
@@ -227,7 +227,7 @@ if (!isset($_SESSION['adminId'])) {
                        <div class="md-form">
                       <select class="form-control" name="stSecrectaryIDsocial" required="">
                         <option selected="" disabled="">Select Secrectary</option>
-                        <?php $qryforRegister = mysqli_query($connection, "select * from list_student_view order by fname asc");
+                        <?php $qryforRegister = mysqli_query($connection, "select * from list_social_club_view  where socialClubId = '".$res['socialClubId']."' order by fname asc");
                         while ($resforRegister = mysqli_fetch_assoc($qryforRegister)) { ?>
                           <option value="<?php echo $resforRegister['stprofID']; ?>"><?php echo $resforRegister['fname']; ?></option>
                         <?php } ?>

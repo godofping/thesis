@@ -81,6 +81,12 @@
         <?php endif ?>">
           <a class="nav-link" href="activity-calendar.php"><i class="far fa-calendar"></i>  Calendar</a>
         </li>
+
+        <li class="nav-item dropdown <?php if ($currentpage == 'venue'): ?>
+          active
+        <?php endif ?>">
+          <a class="nav-link" href="venue.php"><i class="far fa-calendar"></i>  Venue</a>
+        </li>
         
       </ul>
     </div>

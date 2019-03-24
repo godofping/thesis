@@ -24,16 +24,23 @@ if (!isset($_SESSION['accID'])) {
       </div>
     </div>
 
+         <?php 
+
+                       $qrystID1 = mysqli_query($connection, "select * from list_student_view where accID = ".$_SESSION['accID']." ");
+                       $resstID1 = mysqli_fetch_assoc($qrystID1 );
+
+                     ?>
+
         <div class="row">
       <div class="col-md-12">
         <?php 
         $qryposition = mysqli_query($connection, "select * from council_view where stprofID = '" .$_SESSION['stprofID']. "' ");
 
         if (mysqli_num_rows($qryposition)>0): ?>
-                  <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
+                  <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm<?php echo $resstID1['CounID'] ?>"><i class="fas fa-plus"></i> Create Announcement</a>
         <?php endif ?>
 
-        <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        <div class="modal fade" id="modalContactForm<?php echo $resstID1['CounID'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -54,37 +61,53 @@ if (!isset($_SESSION['accID'])) {
                     $resdpname = mysqli_fetch_assoc($qrydpname);
                    ?>
 
-                <!-- Default form grid -->
-                  <form>
-                    <!-- Grid row -->
-                    <div class="row">      
-                      <div class="col"> 
-                        <input name="date" type="date" class="form-control" >
-                      </div>
-                      <!-- Grid column -->
-                    </div>
-                    <!-- Grid row -->
-                  </form>
-                  <!-- Default form grid -->
-
                 <div class="md-form mb-5">
                     <label data-error="wrong" data-success="right" for="form32">From </label>
-                  <input type="text" name="to" readonly="" class="form-control "value="<?php echo $resdpname['CounName'] ?>">
+                  <input type="text"readonly="" class="form-control "value="<?php echo $resdpname['CounName'] ?>">
                 </div>
 
                 <div class="md-form mb-5">
-                  <i class="fas fa-tag prefix grey-text"></i>
-                  <input type="text" name="to" class="form-control ">
+                  <input type="text" name="to" class="form-control "  required="">
                   <label data-error="wrong" data-success="right" for="form32">To: </label>
                 </div>
 
+                <div class="md-form mb-5">
+                  <input type="text" name="subject" class="form-control "  required="">
+                  <label data-error="wrong" data-success="right" for="form32">Subject: </label>
+                </div>
+
+                <div class="md-form mx-5 my-5">
+                    <input type="datetime-local" name="timestart" inputMDEx" class="form-control">
+                    <label for="inputMDEx">Choose your date and time Start</label>
+                  </div>
+
+                  <div class="md-form mx-5 my-5">
+                    <input type="datetime-local" name="timeend" inputMDEx" class="form-control">
+                    <label for="inputMDEx">Choose your date and time End</label>
+                  </div>
+
+                   <select class="form-control" name="venueID" required="" title="hi">
+                          <option selected="" readonly="" disabled="">Select Venue</option>    
+                          <?php 
+
+                            $qry1 = mysqli_query($connection, "select * from venue_table");
+
+                            while ($res2 = mysqli_fetch_assoc($qry1)) { ?>
+                              <option value="<?php echo $res2['venueID']; ?>"><?php echo $res2['venueName']; ?></option>
+                           <?php }
+
+                           ?>
+
+                        </select>
+
                 <div class="md-form">
                   <i class="fas fa-pencil prefix grey-text"></i>
-                  <textarea type="text" name="message" class="md-textarea form-control" rows="4"></textarea>
+                  <textarea type="text" name="message" class="md-textarea form-control" rows="4"  required=""></textarea>
                   <label data-error="wrong" data-success="right" for="form8">Your message</label>
                 </div>
 
-                  <input type="text" name="from" value="dsa-announcement" hidden>
+                  <input type="text" name="CounID" value="<?php echo $resstID1['CounID'] ?>" hidden>
+                  <input type="text" name="from" value="deparmental-council-announcement" hidden>
             
               <div class="modal-footer d-flex justify-content-center">
                   
@@ -124,7 +147,7 @@ if (!isset($_SESSION['accID'])) {
 
             <?php 
 
-              $qrycsc = mysqli_query($connection, "select * from dsa_announcement_table");
+              $qrycsc = mysqli_query($connection, "select * from council_announcement_table where isApproved = 'Yes' and CounID = '".$resstID1['CounID']."' ");
               $rescsc = mysqli_fetch_assoc($qrycsc);
              ?>
 

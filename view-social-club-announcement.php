@@ -18,7 +18,7 @@ if (!isset($_SESSION['adminId'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2>Departmental Clubs Announcement</h2>
+        <h2>Social Clubs Announcement</h2>
         <hr>
 
       </div>
@@ -36,7 +36,7 @@ if (!isset($_SESSION['adminId'])) {
         <table class="table" id="dtBasicExample">
           <thead>
             <tr>
-              <th scope="col">Departmental Club Name</th>
+              <th scope="col">Social Club Name</th>
               <th scope="col">Announcement Date</th>
               <th scope="col">to</th>
               <th scope="col">Approved</th>
@@ -46,18 +46,18 @@ if (!isset($_SESSION['adminId'])) {
           </thead>
           <tbody>
             <?php 
-            $qrycscann = mysqli_query($connection, "select * from departmental_club_announcement_view");
+            $qrycscann = mysqli_query($connection, "select * from social_club_announcement_view");
             while ($rescscann = mysqli_fetch_assoc($qrycscann)) { ?>
                <tr>
-              <td scope="row"><?php echo $rescscann['departmentClubName']; ?></td> 
+              <td scope="row"><?php echo $rescscann['socialClubName']; ?></td> 
               <td><?php echo $rescscann['dateAnnounced']; ?></td>
               <td><?php echo $rescscann['toWhom']; ?></td>
               <td><?php echo $rescscann['isApproved']; ?></td> 
-              <td><a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['DannouncementID']; ?>">View</a></td>
+              <td><a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['socialClubId']; ?>">View</a></td>
 
             </tr>
 
-            <div class="modal fade" id="modalContactForm<?php echo $rescscann['DannouncementID']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            <div class="modal fade" id="modalContactForm<?php echo $rescscann['socialClubId']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -102,7 +102,7 @@ if (!isset($_SESSION['adminId'])) {
             
               <div class="modal-footer d-flex justify-content-center">
                   
-                <a href="controller.php?from=approve-dpclub-announcement&DannouncementID=<?php echo $rescscann['DannouncementID']; ?>"><button type="button" class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button></a>
+                <a href="controller.php?from=approve-socialclub-announcement&socialClubId=<?php echo $rescscann['socialClubId']; ?>"><button type="button" class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button></a>
                 <button type="button" class="btn btn-unique">Reject <i class="fas fa-paper-plane-o ml-1"></i></button>
               </div>
             </form> 

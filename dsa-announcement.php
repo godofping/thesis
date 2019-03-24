@@ -48,7 +48,7 @@ if (!isset($_SESSION['accID'])) {
 
               <!-- To Whom -->
             <div class="md-form mt-3">
-                <input align="middle" type="text" readonly="" class="form-control" value="<?php echo $res['dateAnnounced']; ?>">
+                <input align="middle" type="text" readonly="" class="form-control" value="Time Start: <?php echo $res['dateAnnounced']; ?>">
                 <label>Date Announced</label>
             </div>
 

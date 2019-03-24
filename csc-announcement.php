@@ -47,32 +47,46 @@ if (!isset($_SESSION['accID'])) {
               <div class="modal-body mx-3">
                 <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
                 <div class="md-form mb-5">
-                  
-                <!-- Default form grid -->
-                  <form>
-                    <!-- Grid row -->
-                    <div class="row">
-
-                      <div class="col">
-                       
-                        <input name="date" required="" type="date" class="form-control" >
-                      </div>
-                      <!-- Grid column -->
-                    </div>
-                    <!-- Grid row -->
-                  </form>
-                  <!-- Default form grid -->
 
                   <div class="md-form mb-5">
                      <input type="text" readonly="" class="form-control " required="">
-                     <label data-error="wrong" readonly="" data-success="right" for="form32">Central Student Council</label>
+                     <label data-error="wrong" readonly="" data-success="right" for="form32">Central Stutdent Council</label>
                   </div>
 
-                <div class="md-form mb-5">
-                  <i class="fas fa-tag prefix grey-text"></i>
-                  <input type="text" name="to" class="form-control " required="">
+                 <div class="md-form mb-5">
+                  <input type="text" name="to" class="form-control " required="" title="Please fill up this first">
                   <label data-error="wrong" data-success="right" for="form32">To: </label>
                 </div>
+
+                <div class="md-form mb-5">
+                  <input type="text" name="subject" class="form-control " required="">
+                  <label data-error="wrong" data-success="right" for="form32">Subject: </label>
+                </div>
+
+                  <div class="md-form mx-5 my-5">
+                    <input type="datetime-local" name="timestart" inputMDEx" class="form-control">
+                    <label for="inputMDEx">Choose your date and time Start</label>
+                  </div>
+
+                  <div class="md-form mx-5 my-5">
+                    <input type="datetime-local" name="timeend" inputMDEx" class="form-control">
+                    <label for="inputMDEx">Choose your date and time End</label>
+                  </div>
+                    
+                    <select class="form-control" name="venueID" required="" title="hi">
+                          <option selected="" readonly="" disabled="">Select Venue</option>    
+                          <?php 
+
+                            $qry1 = mysqli_query($connection, "select * from venue_table");
+
+                            while ($res2 = mysqli_fetch_assoc($qry1)) { ?>
+                              <option value="<?php echo $res2['venueID']; ?>"><?php echo $res2['venueName']; ?></option>
+                           <?php }
+
+                           ?>
+
+                        </select>
+                
 
                 <div class="md-form">
                   <i class="fas fa-pencil prefix grey-text"></i>
@@ -117,19 +131,16 @@ if (!isset($_SESSION['accID'])) {
               $rescsc = mysqli_fetch_assoc($qrycsc);
              ?>
 
-              <!-- To Whom -->
             <div class="md-form mt-3">
                 <input align="middle" type="text" readonly="" class="form-control" value="<?php echo $rescsc['dateAnnounced']; ?>">
                 <label>Date Announced</label>
             </div>
 
-            <!-- To Whom -->
             <div class="md-form mt-3">
                 <input type="text" readonly="" class="form-control" value="<?php echo $rescsc['toWhom']; ?>">
                 <label>To:</label>
             </div>
 
-            <!--Message-->
             <div class="md-form">
                 <textarea  readonly="" class="form-control md-textarea" rows="3"><?php echo $rescsc['message']; ?></textarea>
                 <label>Message</label>

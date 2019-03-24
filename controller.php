@@ -236,7 +236,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'dsa-announcement') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'csc-announcement') {
 	
-		mysqli_query($connection, "insert into csc_announcement_table (dateAnnounced, toWhom, message) values ('".$_POST['date']."', '".$_POST['to']."', '".$_POST['message']."')");
+		mysqli_query($connection, "insert into csc_announcement_table (dateSubmit, toWhom, message, timeStart, timeEnd, subjectann, venueID) values ('".date('Y-m-d H:i:s')."' ,'".$_POST['to']."', '".$_POST['message']."' , '".$_POST['timestart']."', '".$_POST['timeend']."', '".$_POST['subject']."', '".$_POST['venueID']."')");
 
 		 header("Location: csc-announcement.php");
 }
@@ -264,4 +264,80 @@ if (isset($_GET['from']) and $_GET['from'] == 'approve-dpclub-announcement') {
 		 header("Location: view-departmental-club-announcement.php");
 }
 
+if (isset($_POST['from']) and $_POST['from'] == 'social-clubs-announcement') {
+	
+		mysqli_query($connection, "insert into social_announcement_table (dateAnnounced, toWhom, message, socialClubId) values ('".$_POST['date']."', '".$_POST['to']."', '".$_POST['message']."', '".$_POST['socialClubId']."')");
+
+		 header("Location: social-clubs-announcement.php");
+}
+
+if (isset($_GET['from']) and $_GET['from'] == 'approve-socialclub-announcement') {
+	
+		mysqli_query($connection, "update social_announcement_table set isApproved = 'Yes' where socialClubId = '" . $_GET['socialClubId'] . "'");
+
+		 header("Location: view-social-club-announcement.php");
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'deparmental-council-announcement') {
+	
+		// mysqli_query($connection, "insert into council_announcement_table (dateSubmit, toWhom, message, CounID, timeStart, timeEnd, subjectann, venueID) values ('".date('Y-m-d H:i:s')."' , '".$_POST['to']."', '".$_POST['message']."', '".$_POST['CounID']."', '".$_POST['timestart']."','".$_POST['timeend']."','".$_POST['subject']."','".$_POST['venueID']."')");
+
+		 // header("Location: departmental-council-announce.php");
+
+	$_SESSION['conflictIdsOnCSCAnnouncementView'] = array();
+
+	$timestart =  $_POST['timestart'];
+	$timeStartSubmitted = date('Y-m-d H:i:s', strtotime($timestart));
+
+	$isConflict = 0;
+
+	$qry = mysqli_query($connection, "select * from csc_announcement_view where isApproved = 'Yes'");
+	while ($res = mysqli_fetch_assoc($qry)) {
+		$timeStart = date('Y-m-d H:i:s', strtotime($res['timeStart']));
+		$timeEnd = date('Y-m-d H:i:s', strtotime($res['timeEnd']));
+
+		if (($timeStartSubmitted > $timeStart) && ($timeStartSubmitted < $timeEnd) && $res['venueID'] == $_POST['venueID']){
+			array_push($_SESSION['conflictIdsOnCSCAnnouncementView'], $res['csc_announcementID']);
+			$isConflict = 1;
+		}
+
+		
+	}
+
+	print_r($_SESSION['conflictIdsOnCSCAnnouncementView']);
+
+
+
+
+
+
+}
+
+if (isset($_GET['from']) and $_GET['from'] == 'approve-departmentalcouncil-announcement') {
+	
+		mysqli_query($connection, "update council_announcement_table set isApproved = 'Yes' where CounID = '" . $_GET['CounID'] . "'");
+
+		 header("Location: view-council-announcement.php");
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'add-venue') {
+	
+		mysqli_query($connection, "insert into venue_table (venueName) values ('".$_POST['venueName']."')");
+
+		header("Location: venue.php");
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'edit-venue-name') {
+	
+		mysqli_query($connection, "update venue_table set venueName ='".$_POST['venueName']."' ");
+
+		header("Location: venue.php");
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'delete-venue-name') {
+	
+		mysqli_query($connection, "delete from venue_table where venueID = '".$_POST['venueID']."' ");
+
+		 header("Location: venue.php");
+}
  ?>

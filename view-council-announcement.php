@@ -18,7 +18,7 @@ if (!isset($_SESSION['adminId'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2>Departmental Club Announcements</h2>
+        <h2>Departmental Councils Announcement</h2>
         <hr>
 
       </div>
@@ -36,22 +36,28 @@ if (!isset($_SESSION['adminId'])) {
         <table class="table" id="dtBasicExample">
           <thead>
             <tr>
-              <th scope="col">Departmental Council Name</th>
+              <th scope="col">Social Club Name</th>
+              <th scope="col">Date Submited</th>
+              <th scope="col">to</th>
+              <th scope="col">Subject</th>
               <th scope="col">Actions</th>
 
             </tr>
           </thead>
           <tbody>
             <?php 
-            $qry = mysqli_query($connection, "select * from list_student_view");
-            while ($res = mysqli_fetch_assoc($qry)) { ?>
+            $qrycscann = mysqli_query($connection, "select * from council_club_announcement_view");
+            while ($rescscann = mysqli_fetch_assoc($qrycscann)) { ?>
                <tr>
-              <td scope="row"><?php echo $res['StudentID']; ?></td> 
-              <td><a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> View</a></td>
+              <td scope="row"><?php echo $rescscann['CounName']; ?></td> 
+              <td><?php echo $rescscann['dateSubmit']; ?></td>
+              <td><?php echo $rescscann['toWhom']; ?></td>
+              <td><?php echo $rescscann['subjectann']; ?></td> 
+              <td><a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['CounID']; ?>">View</a></td>
 
             </tr>
 
-            <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            <div class="modal fade" id="modalContactForm<?php echo $rescscann['CounID']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -62,14 +68,6 @@ if (!isset($_SESSION['adminId'])) {
                 </button>
               </div>
 
-              <?php 
-
-                $qryadmin = mysqli_query($connection, "select * from admin_view where adminId = ".$_SESSION['adminId']." ");
-                $resadmin = mysqli_fetch_assoc($qryadmin);
-
-
-               ?>
-
               <div class="modal-body mx-3">
                 <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
                 <div class="md-form mb-5">
@@ -78,17 +76,9 @@ if (!isset($_SESSION['adminId'])) {
                   <form>
                     <!-- Grid row -->
                     <div class="row">
-                      <!-- Grid column -->
-                      <div class="col">
-                        <!-- Default input -->
-                       <!-- <i class="fas fa-user prefix grey-text"></i> -->
-                        <input type="text" readonly="" class="form-control" value="<?php echo $resadmin['username'] ?>">
-                      </div>
-                      <!-- Grid column -->
-                      <!-- Grid column -->
                       <div class="col">
                        
-                        <input name="date" type="date" class="form-control" >
+                        <input name="date" type="date" class="form-control" readonly="" value="<?php echo $rescscann['dateSubmit']; ?>">
                       </div>
                       <!-- Grid column -->
                     </div>
@@ -98,22 +88,22 @@ if (!isset($_SESSION['adminId'])) {
 
                 <div class="md-form mb-5">
                   <i class="fas fa-tag prefix grey-text"></i>
-                  <input type="text" name="to" class="form-control ">
+                  <input type="text" name="to" class="form-control " readonly="" value="<?php echo $rescscann['toWhom']; ?>">
                   <label data-error="wrong" data-success="right" for="form32">To: </label>
                 </div>
 
                 <div class="md-form">
                   <i class="fas fa-pencil prefix grey-text"></i>
-                  <textarea type="text" name="message" class="md-textarea form-control" rows="4"></textarea>
+                  <textarea type="text" name="message" class="md-textarea form-control" rows="4" readonly=""><?php echo $rescscann['message']; ?></textarea>
                   <label data-error="wrong" data-success="right" for="form8">Your message</label>
                 </div>
 
-                  <input type="text" name="from" value="dsa-announcement" hidden>
+                
             
               <div class="modal-footer d-flex justify-content-center">
                   
-                <button type="submit" class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
-                <button type="submit" class="btn btn-unique">Reject <i class="fas fa-paper-plane-o ml-1"></i></button>
+                <a href="controller.php?from=approve-departmentalcouncil-announcement&CounID=<?php echo $rescscann['CounID']; ?>"><button type="button" class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button></a>
+                <button type="button" class="btn btn-unique">Reject <i class="fas fa-paper-plane-o ml-1"></i></button>
               </div>
             </form> 
           </div>

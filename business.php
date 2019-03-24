@@ -30,6 +30,14 @@ if (!isset($_SESSION['adminId'])) {
 
         <button class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> ADD CBTV officer</button>
 
+        <?php 
+
+                    $qrys = mysqli_query($connection, "select * from council_table where CounID = '2' ");
+                    $res1 = mysqli_fetch_assoc($qrys);
+
+                    $councilID = $res1['CounID'];
+                   ?>
+
         <!-- Modal -->
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -49,7 +57,7 @@ if (!isset($_SESSION['adminId'])) {
               
                       <select class="form-control" name="stprofID" required="">
                         <option selected="" disabled="">Select Student Name</option>
-                        <?php $qry = mysqli_query($connection, "select * from list_student_view order by fname asc");
+                        <?php $qry = mysqli_query($connection, "select * from list_student_view where CounID = '".$councilID."' order by fname asc");
                         while ($res = mysqli_fetch_assoc($qry)) { ?>
                           <option value="<?php echo $res['stprofID']; ?>"><?php echo $res['fname']; ?></option>
                         <?php } ?>
@@ -77,7 +85,7 @@ if (!isset($_SESSION['adminId'])) {
 
                   <?php 
 
-                    $qrys = mysqli_query($connection, "select * from council_table where CounID = '1' ");
+                    $qrys = mysqli_query($connection, "select * from council_table where CounID = '2' ");
                     $res1 = mysqli_fetch_assoc($qrys);
 
                     $councilID = $res1['CounID'];
@@ -110,50 +118,7 @@ if (!isset($_SESSION['adminId'])) {
               <th scope="col">Actions</th>
             </tr>
           </thead>
-          <tbody>
-          
-        <!--   <?php 
-            $qry = mysqli_query($connection, "select * from csc_mem_view where position = 'Mayor'");
-           $res = mysqli_fetch_assoc($qry);
-            ?>
-            <?php if ($res['fname'] != ""): ?>
-            <tr>
-              <td scope="row"><?php echo $res['position'];?></td>
-              <td><?php echo $res['fname'];?></td>
-              <td><button class="btn btn-secondary" >Edit</button> <button class="btn btn-secondary">Delete</button></td> 
-
-            </tr>
-            <?php endif ?>
-
-            <?php 
-            $qry = mysqli_query($connection, "select * from csc_mem_view where position = 'Vice Mayor'");
-           $res = mysqli_fetch_assoc($qry);
-            ?>
-            <?php if ($res['fname'] != ""): ?>
-            <tr>
-              <td scope="row"><?php echo $res['position'];?></td>
-              <td><?php echo $res['fname'];?></td>
-              <td><button class="btn btn-secondary" >Edit</button> <button class="btn btn-secondary">Delete</button></td> 
-
-            </tr>
-
-            <?php endif ?>
-
-            <?php 
-            $qry = mysqli_query($connection, "select * from csc_mem_view where position = 'Treasurer'");
-           $res = mysqli_fetch_assoc($qry);
-            ?>
-
-            <?php if ($res['fname'] != ""): ?>
-               <tr>
-              <td scope="row"><?php echo $res['position'];?></td>
-              <td><?php echo $res['fname'];?></td>
-              <td><button class="btn btn-secondary" >Edit</button> <button class="btn btn-secondary">Delete</button></td> 
-
-            </tr>
-            <?php endif ?>-->
-
-           
+          <tbody>       
 
             <?php 
             $qry = mysqli_query($connection, "select * from council_view where CounID = '2'");

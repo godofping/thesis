@@ -163,7 +163,7 @@ if (!isset($_SESSION['adminId'])) {
                       <div class="col-12">
                         <div class="form-group">
                 
-                        <select class="form-control" name="CounID" required="" ="">
+                        <select class="form-control" name="CounID" required="">
                           <option selected="" readonly="" value="<?php echo $res['CounID'];?>"><?php echo $res['CounName']; ?></option>    
                           <?php 
 

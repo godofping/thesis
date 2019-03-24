@@ -18,4 +18,9 @@
   <link rel="stylesheet" type="text/css" href="css/addons/datatables.min.css">
 </head>
 
+<style type="text/css"> .md-form input.form-control[type="datetime-local"] ~ label {
+transform: translateY(-140%);
+font-size: .8rem;
+}</style>
+
 <body class="fixed-sn light-blue-skin">

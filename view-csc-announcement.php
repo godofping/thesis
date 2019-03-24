@@ -36,21 +36,21 @@ if (!isset($_SESSION['adminId'])) {
         <table class="table" id="dtBasicExample">
           <thead>
             <tr>
-              <th scope="col">Announcement Date</th>
+              <th scope="col">Date Submited</th>
               <th scope="col">to</th>
-              <th scope="col">Approved</th>
+              <th scope="col">Subject</th>
               <th scope="col">Actions</th>
 
             </tr>
           </thead>
           <tbody>
             <?php 
-            $qrycscann = mysqli_query($connection, "select * from csc_announcement_table");
+            $qrycscann = mysqli_query($connection, "select * from csc_announcement_view");
             while ($rescscann = mysqli_fetch_assoc($qrycscann)) { ?>
                <tr>
-              <td scope="row"><?php echo $rescscann['dateAnnounced']; ?></td> 
+              <td scope="row"><?php echo date('F d, Y h:i A', strtotime($rescscann['dateSubmit'])); ?></td> 
               <td><?php echo $rescscann['toWhom']; ?></td>
-              <td><?php echo $rescscann['isApproved']; ?></td> 
+              <td><?php echo $rescscann['subjectann']; ?></td>
               <td><a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['csc_announcementID']; ?>">View</a></td>
 
             </tr>
@@ -70,24 +70,29 @@ if (!isset($_SESSION['adminId'])) {
                 <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
                 <div class="md-form mb-5">
                   
-                <!-- Default form grid -->
-                  <form>
-                    <!-- Grid row -->
-                    <div class="row">
-                      <div class="col">
-                       
-                        <input name="date" type="date" class="form-control" readonly="" value="<?php echo $rescscann['dateAnnounced']; ?>">
-                      </div>
-                      <!-- Grid column -->
-                    </div>
-                    <!-- Grid row -->
-                  </form>
-                  <!-- Default form grid -->
-
                 <div class="md-form mb-5">
-                  <i class="fas fa-tag prefix grey-text"></i>
                   <input type="text" name="to" class="form-control " readonly="" value="<?php echo $rescscann['toWhom']; ?>">
                   <label data-error="wrong" data-success="right" for="form32">To: </label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type="text" name="subject" class="form-control " readonly="" value="<?php echo $rescscann['subjectann']; ?>">
+                  <label data-error="wrong" data-success="right" for="form32">Subject: </label>
+                </div>
+
+                 <div class="md-form mx-5 my-5">
+                    <input type="text" name="timestart" class="form-control" value="<?php echo date('F d, Y h:i A', strtotime($rescscann['timeStart'])); ?>">
+                    <label for="inputMDEx">Choose your date and time Start</label>
+                  </div>
+          
+                  <div class="md-form mx-5 my-5">
+                    <input type="text" name="timeend" class="form-control" value="<?php echo date('F d, Y h:i A', strtotime($rescscann['timeEnd'])); ?>">
+                    <label for="inputMDEx">Choose your date and time End</label>
+                  </div>
+
+                  <div class="md-form mb-5">
+                  <input type="text" name="subject" class="form-control " readonly="" value="<?php echo $rescscann['venueName']; ?>">
+                  <label data-error="wrong" data-success="right" for="form32">Venue: </label>
                 </div>
 
                 <div class="md-form">
@@ -100,7 +105,7 @@ if (!isset($_SESSION['adminId'])) {
             
               <div class="modal-footer d-flex justify-content-center">
                   
-                <a href="controller.php?from=approve-csc-announcement&csc_announcementID=<?php echo $rescscann['csc_announcementID']; ?>"><button type="button" class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button></a>
+                <a href="controller.php?from=approve-csc-announcement&csc_announcementID=<?php echo $rescscann['csc_announcementID']; ?>"><button type="button" class="btn btn-unique">Approved <i class="fas fa-paper-plane-o ml-1"></i></button></a>
                 <button type="button" class="btn btn-unique">Reject <i class="fas fa-paper-plane-o ml-1"></i></button>
               </div>
             </form> 
