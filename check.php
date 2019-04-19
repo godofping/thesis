@@ -5,7 +5,7 @@ date_default_timezone_set('Asia/Manila');
 
 $stprofID = $_SESSION['stprofID'];
 
-$connection = mysqli_connect("localhost", "root", "vertrigo", "project_db");
+$connection = mysqli_connect("localhost", "root", "", "project_db");
 
 //count how many push notifications deployed to the user.
 $qry = mysqli_query($connection, "select count(*) as total from dsa_announcement_isread_table where stprofID = '" . $stprofID . "' ");
