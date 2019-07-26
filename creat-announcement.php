@@ -51,38 +51,48 @@ if (!isset($_SESSION['adminId'])) {
               <div class="modal-body mx-3">
                 <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
                 <div class="md-form mb-5">
-                  
-                <!-- Default form grid -->
-                  <form>
-                    <!-- Grid row -->
-                    <div class="row">
-                      <!-- Grid column -->
-                      <div class="col">
-                        <!-- Default input -->
-                       <!-- <i class="fas fa-user prefix grey-text"></i> -->
-                        <input type="text" readonly="" class="form-control" value="<?php echo $resadmin['username'] ?>">
-                      </div>
-                      <!-- Grid column -->
-                      <!-- Grid column -->
-                      <div class="col">
-                       
-                        <input name="date" type="date" class="form-control" >
-                      </div>
-                      <!-- Grid column -->
-                    </div>
-                    <!-- Grid row -->
-                  </form>
-                  <!-- Default form grid -->
+                
 
                 <div class="md-form mb-5">
-                  <i class="fas fa-tag prefix grey-text"></i>
-                  <input type="text" name="to" class="form-control ">
+                  <input type="text" name="to" class="form-control " required="">
                   <label data-error="wrong" data-success="right" for="form32">To: </label>
                 </div>
 
+                <div class="md-form mb-5">
+                  <input type="text" name="subject" class="form-control " required="">
+                  <label data-error="wrong" data-success="right" for="form32">Subject: </label>
+                </div>
+
+                <div class="md-form mx-5 my-5">
+                    <input type="datetime-local" name="timestart" class="form-control" required="">
+                    <label for="inputMDEx">Choose your date and time Start</label>
+                  </div>
+
+                  <div class="md-form mx-5 my-5">
+                    <input type="datetime-local" name="timeend" class="form-control" required="">
+                    <label for="inputMDEx">Choose your date and time End</label>
+                  </div>
+
+                  <div class="md-form mb-5">  
+                   <p class="text-center">Select Venue</p>
+                  <select class="form-control" name="venueID" required="" title="hi">
+                          <option selected="" readonly="" disabled=""></option>    
+                          <?php 
+
+                            $qry1 = mysqli_query($connection, "select * from venue_table");
+
+                            while ($res2 = mysqli_fetch_assoc($qry1)) { ?>
+                              <option value="<?php echo $res2['venueID']; ?>"><?php echo $res2['venueName']; ?></option>
+                           <?php }
+
+                           ?>
+
+                        </select>
+                      </div>
+
                 <div class="md-form">
                   <i class="fas fa-pencil prefix grey-text"></i>
-                  <textarea type="text" name="message" class="md-textarea form-control" rows="4"></textarea>
+                  <textarea type="text" name="message" class="md-textarea form-control" rows="4" required=""></textarea>
                   <label data-error="wrong" data-success="right" for="form8">Your message</label>
                 </div>
 
@@ -103,7 +113,14 @@ if (!isset($_SESSION['adminId'])) {
      
       </div>
 
-      <!-- Material form contact -->
+      <?php 
+
+              $qrycsc = mysqli_query($connection, "select * from dsa_announcement_view order by dsaAnnouncementID desc ");
+              $rescsc = mysqli_fetch_assoc($qrycsc);
+
+              if (mysqli_num_rows($qrycsc)>0):?>
+                
+              <!-- Material form contact -->
   <div class="container">
     <div class="card">
 
@@ -117,15 +134,9 @@ if (!isset($_SESSION['adminId'])) {
         <!-- Form -->
         <form class="text-center" style="color: #757575;">
 
-            <?php 
-
-              $qrycsc = mysqli_query($connection, "select * from dsa_announcement_table order by dsaAnnouncementID desc ");
-              $rescsc = mysqli_fetch_assoc($qrycsc);
-             ?>
-
               <!-- To Whom -->
             <div class="md-form mt-3">
-                <input align="middle" type="text" readonly="" class="form-control" value="<?php echo $rescsc['dateAnnounced']; ?>">
+                <input align="middle" type="text" readonly="" class="form-control" value="<?php echo date('F d, Y h:i A', strtotime($rescsc['timeStart'])); ?>-<?php echo date('F d, Y h:i A', strtotime($rescsc['timeEnd'])); ?>">
                 <label>Announcement Date</label>
             </div>
 
@@ -133,6 +144,16 @@ if (!isset($_SESSION['adminId'])) {
             <div class="md-form mt-3">
                 <input type="text" readonly="" class="form-control" value="<?php echo $rescsc['toWhom']; ?>">
                 <label>To:</label>
+            </div>
+
+            <div class="md-form mt-3">
+                <input type="text" readonly="" class="form-control" value="<?php echo $rescsc['subjectann']; ?>">
+                <label>To:</label>
+            </div>
+
+            <div class="md-form mt-3">
+                <input type="text" readonly="" class="form-control" value="<?php echo $rescsc['venueName']; ?>">
+                <label>Venue:</label>
             </div>
 
             <!--Message-->
@@ -146,6 +167,10 @@ if (!isset($_SESSION['adminId'])) {
           </div>
       </div>
     </div>
+
+             <?php endif ?>
+
+      
 
 </main>
 <!--Main Layout-->

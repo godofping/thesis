@@ -17,14 +17,24 @@ if (!isset($_SESSION['adminId'])) {
     <div class="row">
       <div class="col-md-12">
 
-      <!--Mask with wave-->
-      <!-- <div class="view overlay">
-        <center><img src="img_forest.jpg" class="img-fluid" alt="Sample image with waves effect."></center>
-        <a  href="img_forest.jpg">
+      <!-- <h3 class="pb-3"><b>Calendar of Activity</b></h3> -->
+
+      <?php 
+
+          $qry = mysqli_query($connection, "select * from calendar_table");
+            $res = mysqli_fetch_assoc($qry);
+
+            $imgname = $res['calendarIMGname'];
+
+           ?>
+
+        <!--Mask with wave-->
+      <div class="view overlay">
+        <center><img src="<?php echo $imgname ?>" class="img-fluid" alt="Sample image with waves effect."></center>
+        <a>
           <div class="mask waves-effect waves-light rgba-white-slight"></div>
         </a>
-      </div> -->
-
+      </div>
 
       </div>
     </div>

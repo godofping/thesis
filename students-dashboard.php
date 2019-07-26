@@ -4,12 +4,15 @@ $currentpage = "students";
 if (!isset($_SESSION['accID'])) {
   header("Location: index.php");
 }
+if ((time() - $_SESSION['last_time']) > 300) {
+      header("Location: controller.php?from=logout");
+  
+}else{
+   $_SESSION['last_time'] = time(); 
+}
 
- include("student-header.php");
+include("student-header.php");
  ?>
-
-
-
 <!--Main Layout-->
 <main class="text-center py-5 mt-5">
 
@@ -17,7 +20,7 @@ if (!isset($_SESSION['accID'])) {
     <div class="row">
       <div class="col-md-12">
 
-      <h3 class="pb-3">Calendar of Activity</h3>
+      <!-- <h3 class="pb-3"><b>Calendar of Activity</b></h3> -->
 
       <?php 
 
@@ -42,7 +45,5 @@ if (!isset($_SESSION['accID'])) {
 
 </main>
 <!--Main Layout-->
-
-
 
 <?php include('footer.php'); ?>

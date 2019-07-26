@@ -1,6 +1,6 @@
  <header>
 
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark indigo">
+  <nav class="navbar fixed-top navbar-expand-lg navbar navbar-dark primary-color">
     <a class="navbar-brand" href="students-dashboard.php"><strong>Student Dashboard</strong></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,42 +23,37 @@
             aria-haspopup="true" aria-expanded="false">
             
 
-            <i class="fas fa-user-alt"></i><?php echo $reshey['fname']; ?>
+            <i class="fas fa-user-alt"></i><?php echo " ".$reshey['lname']." ". $reshey['fname']; ?>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="MyaccountDropDown">
-            <a class="dropdown-item" href="manage-acc.php"><i class="fas fa-user-cog"></i><?php echo $reshey['fname']; ?></a>
+            <a class="dropdown-item" href="manage-acc.php"><i class="fas fa-user-cog"></i><?php echo " ".$reshey['lname']." ". $reshey['fname']; ?></a>
             <a class="dropdown-item" href="controller.php?from=logout"><i class="fas fa-sign-out-alt"></i> Log out</a>
           </div>
 
         </li>
 
-         <li class="nav-item dropdown <?php if ($currentpage == 'club'): ?>
+        <li class="nav-item dropdown <?php if ($currentpage == 'club'): ?>
           active
         <?php endif ?>">
-        <a class="nav-link dropdown-toggle" href="#" id="stclubDropDown" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Clubs
+        <a class="nav-link"  href="my-clubs.php">
+            <i class="fas fa-theater-masks"></i> My Clubs
           </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="stclubDropDown">
-            <a class="dropdown-item" href="#">Renew Club</a>
-            <a class="dropdown-item" href="#">Join Social Club</a>
-          </div>
-
         </li>
+
 
         <li class="nav-item dropdown <?php if ($currentpage == 'announcement'): ?>
           active
         <?php endif ?>">
         <a class="nav-link dropdown-toggle" href="#" id="stclubDropDown" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            <i class="far fa-newspaper"></i> Announcement
+            <i class="far fa-newspaper"></i> Announcement <span class="badge badge-danger ml-1">9</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="stclubDropDown">
-            <a class="dropdown-item" href="dsa-announcement.php">DSA Announcement</a>
-            <a class="dropdown-item" href="csc-announcement.php">CSC Announcement</a>
-            <a class="dropdown-item" href="departmental-council-announce.php">Departmental Council Announcement</a>
-            <a class="dropdown-item" href="departmental-clubs-announcement.php">Departmental Club Announcement</a>
-            <a class="dropdown-item" href="social-clubs-announcement.php">Social Club Announcement</a>
+            <a class="dropdown-item" href="dsa-announcement.php">DSA Announcement<span class="badge badge-danger ml-1">2</span></a>
+            <a class="dropdown-item" href="csc-announcement.php">CSC Announcement<span class="badge badge-danger ml-1">2</span></a>
+            <a class="dropdown-item" href="departmental-council-announce.php">Departmental Council Announcement<span class="badge badge-danger ml-1">2</span></a>
+            <a class="dropdown-item" href="departmental-clubs-announcement.php">Departmental Club Announcement<span class="badge badge-danger ml-1">1</span></a>
+            <a class="dropdown-item" href="socialclub-announcement.php">Social Club Announcement<span class="badge badge-danger ml-1">1</span></a>
           </div>
 
         </li>
@@ -67,7 +62,7 @@
           active
         <?php endif ?>">
         <a class="nav-link"  href="#">
-            Student Portfolio
+            <i class="far fa-folder"></i> My Portfolio
           </a>
         </li>
 

@@ -1,6 +1,6 @@
 
 <?php include('header.php');
-$currentpage = "courses";
+$currentpage = "venue";
 if (!isset($_SESSION['adminId'])) {
   header("Location: index.php");
 }

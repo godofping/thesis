@@ -52,9 +52,12 @@
 
                 var toWhom = obj.toWhom;
                 var message = obj.message;
-                var dateAnnounced = obj.dateAnnounced;
+                var subjectann = obj.subjectann;
+                var timeStart = obj.timeStart;
+                var timeEnd = obj.timeEnd;
+                
 
-                display(toWhom, message,dateAnnounced);
+                display(toWhom, message, subjectann);
 
             }
 
@@ -74,9 +77,12 @@
 
                 var toWhom = obj.toWhom;
                 var message = obj.message;
-                var dateAnnounced = obj.dateAnnounced;
+                var subjectann = obj.subjectann;
+                var timeStart = obj.timeStart;
+                var timeEnd = obj.timeEnd;
+                
 
-                display(toWhom, message,dateAnnounced);
+                display(toWhom, message, subjectann);
 
             }
 
@@ -96,9 +102,12 @@
 
                 var toWhom = obj.toWhom;
                 var message = obj.message;
-                var dateAnnounced = obj.dateAnnounced;
+                var subjectann = obj.subjectann;
+                var timeStart = obj.timeStart;
+                var timeEnd = obj.timeEnd;
+                
 
-                display(toWhom, message,dateAnnounced);
+                display(toWhom, message, subjectann);
 
             }
 
@@ -118,9 +127,12 @@
 
                 var toWhom = obj.toWhom;
                 var message = obj.message;
-                var dateAnnounced = obj.dateAnnounced;
+                var subjectann = obj.subjectann;
+                var timeStart = obj.timeStart;
+                var timeEnd = obj.timeEnd;
+                
 
-                display(toWhom, message,dateAnnounced);
+                display(toWhom, message, subjectann);
 
             }
 
@@ -133,11 +145,12 @@
 }, 5000);
     
     
-function display(toWhom, message,dateAnnounced)
+function display(toWhom, message, subjectann)
 {
     Push.create(toWhom, {
   
-        body: dateAnnounced + " - " + message,
+        // body: dateAnnounced + " - " + message ,
+        body:  subjectann + " - " + message ,
         icon: 'img/icon.jpg',
         timeout: 8000,                  // Timeout before notification closes automatically.
         vibrate: [100, 100, 100],       // An array of vibration pulses for mobile devices.
@@ -155,6 +168,14 @@ function display(toWhom, message,dateAnnounced)
 
 
   <?php endif ?>
+  <script type="text/javascript">
+      // Tooltips Initialization
+$(function () {
+$('[data-toggle="tooltip"]').tooltip()
+})
+  </script>
+
+
 
 </body>
 

@@ -138,7 +138,7 @@ if (!isset($_SESSION['adminId'])) {
               <th scope="row"><?php echo $res['CourseName']; ?></th> 
               <th scope="row"><?php echo $res['CounName']; ?></th>
               <th scope="row"><?php echo $res['departmentClubName']; ?></th>
-              <td><button class="btn btn-secondary" data-toggle="modal" data-target="#editModal<?php echo $res['CourseID'] ?>">Edit</button> <button class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal">Delete</button></td>
+              <td><button class="btn btn-secondary" data-toggle="modal" data-target="#editModal<?php echo $res['CourseID'] ?>">Edit</button> <button class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal<?php echo $res['CourseID'] ?>">Delete</button></td>
 
             </tr>
 
@@ -213,7 +213,7 @@ if (!isset($_SESSION['adminId'])) {
             <!-- end modal -->
 
             <!-- Modal -->
-            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="deleteModal<?php echo $res['CourseID'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">

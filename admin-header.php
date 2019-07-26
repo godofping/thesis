@@ -1,6 +1,6 @@
 <header>
 
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark indigo">
+  <nav class="navbar fixed-top navbar-expand-lg navbar navbar-dark primary-color">
     <a class="navbar-brand" href="admin-dashboard.php"><strong>ADMIN Dashboard</strong></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,7 +17,7 @@
             <i class="far fa-user"></i> My Account
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="studentDropDown">
-            <a class="dropdown-item" href="add-student-account.php"><i class="fas fa-user-cog"></i> Manage Account</a>
+            <!-- <a class="dropdown-item" href="add-student-account.php"><i class="fas fa-user-cog"></i> Manage Account</a> -->
             <a class="dropdown-item" href="controller.php?from=logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
             <!-- <a class="dropdown-item" href="#"> Add Officers</a> -->
           </div>
@@ -32,7 +32,7 @@
             <i class="fas fa-user-graduate"></i> Students
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="studentDropDown">
-            <a class="dropdown-item" href="add-student-account.php"><i class="fas fa-user-plus"></i> Add Student Account</a>
+            <a class="dropdown-item" href="add-student-account.php"><i class="fas fa-user-plus"></i> Student Account</a>
             <a class="dropdown-item" href="list-student.php"><i class="fas fa-users"></i> List of Students</a>
             <!-- <a class="dropdown-item" href="#"> Add Officers</a> -->
           </div>
@@ -44,7 +44,7 @@
         <?php endif ?>">
           <a class="nav-link dropdown-toggle" href="#" id="clubsDropDown" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            Clubs
+            <i class="fas fa-theater-masks"></i> Clubs
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="clubsDropDown">
             <a class="dropdown-item" href="csc.php">Central Student Council</a>
@@ -59,11 +59,11 @@
         <?php endif ?>">
         <a class="nav-link dropdown-toggle" href="#" id="stclubDropDown" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            <i class="far fa-newspaper"></i> Announcement
+            <i class="far fa-newspaper"></i> Announcement <span class="badge badge-danger ml-1">3</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="stclubDropDown">
             <a class="dropdown-item" href="creat-announcement.php">Add Announcement</a>
-            <a class="dropdown-item" href="view-all-announcement.php">View Announcement</a>
+            <a class="dropdown-item" href="view-all-announcement.php">View Announcement<span class="badge badge-danger ml-1">3</span> </a>
             <a class="dropdown-item" href="#">History of Announcement</a>
           </div>
 
@@ -73,7 +73,7 @@
         <li class="nav-item dropdown <?php if ($currentpage == 'courses'): ?>
           active
         <?php endif ?>">
-          <a class="nav-link" href="add-course.php">Course</a>
+          <a class="nav-link" href="add-course.php"><i class="fas fa-graduation-cap"></i> Course</a>
         </li>
 
         <li class="nav-item dropdown <?php if ($currentpage == 'activitycalendar'): ?>

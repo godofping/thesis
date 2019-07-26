@@ -4,6 +4,13 @@ $currentpage = "announcement";
 if (!isset($_SESSION['accID'])) {
   header("Location: index.php");
 }
+// if ((time() - $_SESSION['last_time']) > 300) {
+//       header("Location: controller.php?from=logout");
+  
+// }else{
+//    $_SESSION['last_time'] = time(); 
+// }
+
 
  include("student-header.php");
  ?>
@@ -27,7 +34,14 @@ if (!isset($_SESSION['accID'])) {
         <div class="row">
       <div class="col-md-12">
 
-          <!-- Material form contact -->
+         <?php 
+
+              $qry = mysqli_query($connection, "select * from dsa_announcement_view");
+              $res = mysqli_fetch_assoc($qry);
+
+              if (mysqli_num_rows($qry)>0):?>
+               
+              <!-- Material form contact -->
     <div class="card">
 
     <h5 class="card-header info-color white-text text-center py-4">
@@ -40,15 +54,10 @@ if (!isset($_SESSION['accID'])) {
         <!-- Form -->
         <form class="text-center" style="color: #757575;">
 
-            <?php 
-
-              $qry = mysqli_query($connection, "select * from dsa_announcement_table");
-              $res = mysqli_fetch_assoc($qry);
-             ?>
-
+           
               <!-- To Whom -->
             <div class="md-form mt-3">
-                <input align="middle" type="text" readonly="" class="form-control" value="Time Start: <?php echo $res['dateAnnounced']; ?>">
+                <input align="middle" type="text" readonly="" class="form-control" value="<?php echo date('F d, Y h:i A', strtotime($res['timeStart'])); ?>-<?php echo date('F d, Y h:i A', strtotime($res['timeEnd'])); ?>">
                 <label>Date Announced</label>
             </div>
 
@@ -56,6 +65,16 @@ if (!isset($_SESSION['accID'])) {
             <div class="md-form mt-3">
                 <input type="text" readonly="" class="form-control" value="<?php echo $res['toWhom']; ?>">
                 <label>To:</label>
+            </div>
+
+            <div class="md-form mt-3">
+                <input type="text" readonly="" class="form-control" value="<?php echo $res['subjectann']; ?>">
+                <label>Subject:</label>
+            </div>
+
+            <div class="md-form mt-3">
+                <input type="text" readonly="" class="form-control" value="<?php echo $res['venueName']; ?>">
+                <label>Venue:</label>
             </div>
 
             <!--Message-->
@@ -71,6 +90,10 @@ if (!isset($_SESSION['accID'])) {
 
       </div>
 <!-- Material form contact -->
+
+              <?php endif ?>
+             
+   
 
         </div>
       </div>

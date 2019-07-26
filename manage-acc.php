@@ -4,6 +4,13 @@ $currentpage = "student";
 if (!isset($_SESSION['accID'])) {
   header("Location: index.php");
 }
+// if ((time() - $_SESSION['last_time']) > 300) {
+//       header("Location: controller.php?from=logout");
+  
+// }else{
+//    $_SESSION['last_time'] = time(); 
+// }
+
 
  include("student-header.php");
  ?>
@@ -32,7 +39,7 @@ if (!isset($_SESSION['accID'])) {
 
            ?>
 
-          <center class="pt-4"><img src="<?php echo $stdimg ?>" height = "250vh" calt="avatar" class="rounded-circle img-responsive z-depth-2"><br></center>
+          <center class="pt-4"><img src="<?php echo $stdimg ?>" height = "150vh" calt="avatar" class=" img-responsive z-depth-2"><br></center>
           <a>
             <div class="mask waves-effect waves-light rgba-white-slight"></div>
           </a>
@@ -52,7 +59,7 @@ if (!isset($_SESSION['accID'])) {
                 $username = $res['StudentID'];
               
              ?>
-
+         <small>School ID</small>
          <div class="row">
           <div class="col-12">
             <div class="form-group">
@@ -84,15 +91,19 @@ if (!isset($_SESSION['accID'])) {
                   $resname = mysqli_fetch_assoc($qyrname);
 
                   $fnameview = $resname['fname'];
-
+                  $mnameview = $resname['mname'];
+                  $lnameview = $resname['lname'];
                    ?>
-
-                  <h5 class="mt-1 mb-2"><?php echo "$fnameview"?></h5>
+                   
+                  <p class="mt-1 mb-2"><small><?php echo "$lnameview" ." ". "$fnameview" ." ". "$mnameview" ?></small></p>
                   <div class="md-form ml-0 mr-0">
-                    <input type="password" name="StudentPassword" required="" type="text" id="form29" class="form-control form-control-sm validate ml-0" >
-                    <label data-error="wrong" data-success="right" for="form29" class="ml-0">New password</label>
+                    <input type="password" name="StudentPassword"  onkeyup="check();" required="" type="text" id="StudentPassword" class="form-control form-control-sm validate ml-0" >
+                    <label for="StudentPassword" class="ml-0">New password</label>
                   </div>
-
+                <div class="md-form ml-0 mr-0"> 
+                    <input type="password" onkeyup="check();" name="confirmPassword" required="" type="text" id="confirmPassword" class="form-control form-control-sm validate ml-0" >
+                    <label data-error="wrong" data-success="right" for="confirmPassword" class="ml-0">Confirm password</label>
+                  </div>
 
                   <input type="text" name="accID" value="<?php echo $res['accID'] ?>" hidden>
                   <input type="text" name="from" value="change-pass" hidden>
@@ -131,26 +142,28 @@ if (!isset($_SESSION['accID'])) {
                 $res = mysqli_fetch_assoc($qry);
 
                 $flname = $res['fname'];
+                $mname = $res['mname'];
+                $lname = $res['lname'];
                 $addresses = $res['address'];
                 $emails = $res['email'];
+                $parandgar = $res['pandg'];
+                $religion = $res['religion'];
+                $tribe = $res['tribe'];
                 $numbers = $res['contactnum'];
                 $bday = $res['birthday'];
                 $sex = $res['gender'];
 
-             ?>
-               
+             ?>               
 
-
-      <!--     <input type="password" name="newpassword" class="form-control md-4" required="" placeholder="New Password"> -->
-
+        <small>Full Name</small>
          <div class="row">
           <div class="col-12">
             <div class="form-group">
-           <input type="text" name="fname" disabled="" class="form-control md-4" required="" value="<?php echo "$flname";?>">
+           <input type="text" name="fname" disabled="" class="form-control md-4" required="" value="<?php echo $flname ." ".$mname ." ". $lname;?>">
            </div>
           </div>
          </div>
-
+         <small>Address</small>
         <div class="row">
           <div class="col-12">
           <div class="form-group">
@@ -158,7 +171,7 @@ if (!isset($_SESSION['accID'])) {
           </div>
           </div>
          </div>
-
+         <small>Email Address</small>
          <div class="row">
           <div class="col-12">
           <div class="form-group">
@@ -166,7 +179,25 @@ if (!isset($_SESSION['accID'])) {
           </div>
           </div>
          </div>
-          
+          <small>Parents/Guardian Name</small>
+         <div class="row">
+          <div class="col-12">
+          <div class="form-group">
+          <input type="text" name="pandg" disabled="" class="form-control md-4" required="" value="<?php echo "$parandgar";?>">
+          </div>
+          </div>
+         </div>
+          <div class="form-row mb-2">
+          <div class="col">
+            <small>Religion</small>
+            <input type="text" name="religion" class="form-control md-4" disabled="" required="" value="<?php echo "$religion";?>">
+          </div>
+          <div class="Tribe">
+             <small>Tribe</small>
+            <input type="text" name="tribe" class="form-control md-4" disabled="" required="" value="<?php echo "$tribe";?>"> 
+          </div>
+            </div>
+          <small>Contact Number</small>
           <div class="row">
           <div class="col-12">
           <div class="form-group">
@@ -175,7 +206,7 @@ if (!isset($_SESSION['accID'])) {
           </div>
          </div>
           
-          <label>Your Date of Birth</label>
+          <small>Your Date of Birth</small>
           
             <div class="row">
           
@@ -187,7 +218,7 @@ if (!isset($_SESSION['accID'])) {
               </div>
             
             </div>
-            <label>Gender</label>
+            <small>Gender</small>
             <div class="row">
               <div class="col-12">
                 <div class="form-group">
@@ -212,18 +243,30 @@ if (!isset($_SESSION['accID'])) {
               <div class="modal-body">
                 <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
 
-
-                  <div class="row">
-                  <div class="col-12">
-                  <div class="form-group">
+                  <div class="form-row mb-2">
+                  <div class="col">
+                  <small>Middle Name</small>
+                  <input type="text" name="mname" class="form-control md-4" required="" value="<?php echo "$mname";?>">   
+                  </div>
+                  <div class="Tribe">                  
+                  <small>First Name</small>
                   <input type="text" name="fname" class="form-control md-4" required="" value="<?php echo "$flname";?>">
                   </div>
                   </div>
+
+                  <div class="row">
+                  <div class="col-12">
+                  <div class="form-group">
+                  <small>Last Name</small>
+                  <input type="text" name="lname" class="form-control md-4" required="" value="<?php echo "$lname";?>">
+                  </div>
+                  </div>
                   </div>
 
                   <div class="row">
                   <div class="col-12">
                   <div class="form-group">
+                  <small>Address</small>
                   <input type="text" name="address" class="form-control md-4" required="" value="<?php echo "$addresses";?>">
                   </div>
                   </div>
@@ -232,6 +275,7 @@ if (!isset($_SESSION['accID'])) {
                   <div class="row">
                   <div class="col-12">
                   <div class="form-group">
+                  <small>Email Address</small>
                   <input type="email" name="email" class="form-control md-4" required="" value="<?php echo "$emails";?>">
                   </div>
                   </div>
@@ -240,13 +284,33 @@ if (!isset($_SESSION['accID'])) {
                   <div class="row">
                   <div class="col-12">
                   <div class="form-group">
+                  <small>Parents/Guardian Name</small>
+                  <input type="text" name="pandg" class="form-control md-4" required="" value="<?php echo "$parandgar";?>">
+                  </div>
+                  </div>
+                  </div>
+
+                  <div class="form-row mb-2">
+                  <div class="col">
+                  <small>Religion</small>
+                  <input type="text" name="religion" class="form-control md-4" required="" value="<?php echo "$religion";?>">
+                  </div>
+                  <div class="Tribe">
+                  <small>Tribe</small>
+                  <input type="text" name="tribe" class="form-control md-4" required="" value="<?php echo "$tribe";?>"> 
+                  </div>
+                  </div>
+
+                  <div class="row">
+                  <div class="col-12">
+                  <div class="form-group">
+                  <small>Contact Number</small>
                   <input type="text" name="contractnum" class="form-control md-4" required="" value="<?php echo "$numbers";?>">
                   </div>
                   </div>
                   </div>
                   
-                  <label>Your Date of Birth</label>
-          
+                  <small>Your Birthdate</small>
                   <div class="row">
                 
                     <div class="col-12">
@@ -257,12 +321,13 @@ if (!isset($_SESSION['accID'])) {
                     </div>
                   
                   </div>
+                  <small>Select you Sex</small>
                   <div class="row">
                     <div class="col-12">
                       <div class="form-group">
-              
+                      <!-- <input type="text" name="gender" disabled="" class="form-control md-4" required="" value="<?php echo "$sex";?>"> -->
                       <select class="form-control" name="gender" required="">
-                        <option selected="">Select Sex</option>
+                        <option selected="" ><?php  echo "$sex" ?></option>
                         <option>Male</option>
                         <option>Female</option>
                       </select>
@@ -350,5 +415,24 @@ if (!isset($_SESSION['accID'])) {
 
 
 <?php include('footer.php'); ?>
+
+<script type="text/javascript">
+  
+var password = document.getElementById("StudentPassword")
+  , confirm_password = document.getElementById("confirmPassword");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+
+
+</script>
 
  

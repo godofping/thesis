@@ -83,7 +83,7 @@ if (!isset($_SESSION['adminId'])) {
           </thead>
           <tbody>
             <?php 
-            $qry = mysqli_query($connection, "select * from social_club_view");
+            $qry = mysqli_query($connection, "select * from social_club_view order by socialClubName asc");
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
               <td scope="row"><?php echo $res['socialClubName']; ?></td>

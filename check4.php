@@ -30,9 +30,11 @@ if (mysqli_num_rows($qry) > 0) {
 	$res2 = mysqli_fetch_assoc($qry);
 	$social_announcementID = $res2['social_announcementID'];
 
-	$myObj->dateAnnounced = $res2['dateAnnounced'];
+	$myObj->timeStart = $res2['timeStart'];
+	$myObj->timeEnd = $res2['timeEnd'];
 	$myObj->toWhom = $res2['toWhom'];
 	$myObj->message = $res2['message'];
+	$myObj->subjectann = $res2['subjectann'];
 	$myObj->isApproved = $res2['isApproved'];
 	$myObj->toDisplay = "Yes";
 

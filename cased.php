@@ -127,7 +127,18 @@ if (!isset($_SESSION['adminId'])) {
             </tr>
           <?php endif ?> 
 
-           
+           <?php 
+            $qry = mysqli_query($connection, "select * from council_view where CounID = '1' and position = 'Vice Mayor' ");
+           $res = mysqli_fetch_assoc($qry);
+            ?>
+             <?php if ($res['fname'] != ""): ?>
+            <tr>
+              <td scope="row"><?php echo $res['position'];?></td>
+              <td><?php echo $res['fname'];?></td>
+              <td><button class="btn btn-secondary" >Edit</button> <button class="btn btn-secondary">Delete</button></td> 
+
+            </tr>
+          <?php endif ?>            
           </tbody>
         </table>
 

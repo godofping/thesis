@@ -1,12 +1,5 @@
+<?php include('header.php');
 
-<?php include('header.php'); 
-$qry = mysqli_query($connection,  "select * ");
-
-
-/*if (isset($_SESSION['adminId'])) {
-  header("Location: admin-dashboard.php");
-}
-*/
 ?>
 
 <div class="container-fluid">
@@ -18,9 +11,9 @@ $qry = mysqli_query($connection,  "select * ");
     <div class="mt-5">
       
       <!-- Default form login -->
-      <form class=" border border-light p-3" method="POST" action="controller.php" autocomplete="false" enctype="multipart/form-data">
+      <form class=" border border-light p-3"  method="POST" action="controller.php" autocomplete="false" enctype="multipart/form-data">
 
-          <p class="h4 mb-4 text-center">Register your Information</p>
+           <p class="h4 mb-4 text-center">Register your Information</p>
         
         <div class="row">
           <div class="col-12">
@@ -30,17 +23,32 @@ $qry = mysqli_query($connection,  "select * ");
             </div>
 
           </div>
-        </div>
+        </div> 
 
         <div class="row">
           <div class="col-12">
             <div class="form-group">
-           <input type="password" name="newpassword" class="form-control md-4" required="" placeholder="New Password">
+         <!--     <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupPrepend">@</span>
+            </div> -->
+           <input type="password" name="newpassword" onkeyup="check();" aria-describedby="inputGroupPrepend" id="newpassword" class="form-control md-4" required placeholder="New Password">
+           <!-- <div class="invalid-feedback">
+          Please choose a username.
+          </div> -->
            </div>
           </div>
          </div>
 
-   		   <div class="row">
+         <div class="row">
+         <div class="col-12">
+           <div class="form-group">
+             
+             <input type="password" onkeyup="check();" placeholder="Confirm Password"  data-success="right" name="confirmPassword"  id="confirmPassword" class="form-control form-control md-4" >
+           </div>
+         </div>  
+        </div>
+
+   		  <div class="row">
           <div class="col-12">
             <div class="form-group">
            <input type="text" name="fname" class="form-control md-4" required="" placeholder="Full Name">
@@ -122,4 +130,42 @@ $qry = mysqli_query($connection,  "select * ");
 
 <?php include('footer.php'); ?>
 
- 
+ <script type="text/javascript">
+  
+var password = document.getElementById("newpassword")
+  , confirm_password = document.getElementById("confirmPassword");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+
+
+</script>
+
+<script type="text/javascript">
+
+(function() {
+'use strict';
+window.addEventListener('load', function() {
+// Fetch all the forms we want to apply custom Bootstrap validation styles to
+var forms = document.getElementsByClassName('needs-validation');
+// Loop over them and prevent submission
+var validation = Array.prototype.filter.call(forms, function(form) {
+form.addEventListener('submit', function(event) {
+if (form.checkValidity() === false) {
+event.preventDefault();
+event.stopPropagation();
+}
+form.classList.add('was-validated');
+}, false);
+});
+}, false);
+})();
+</script>
