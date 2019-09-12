@@ -1,7 +1,7 @@
 
 <?php include('header.php');
 $currentpage = "courses";
-if (!isset($_SESSION['adminId'])) {
+if (!isset($_SESSION['adminID'])) {
   header("Location: index.php");
 }
 
@@ -28,7 +28,7 @@ if (!isset($_SESSION['adminId'])) {
     <div class="row">
       <div class="col-md-12">
 
-        <button class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> ADD COURSE</button>
+        <button class="btn blue-gradient" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> ADD COURSE</button>
 
         <!-- Modal -->
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -104,7 +104,7 @@ if (!isset($_SESSION['adminId'])) {
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn blue-gradient"><i class="fas fa-plus"></i> Add</button>
                 </form>
               </div>
             </div>
@@ -117,7 +117,7 @@ if (!isset($_SESSION['adminId'])) {
 
 
     <div class="row mt-5">
-      <div class="col-md-12">
+      <div class="col-md-12 z-depth-2">
 
         <div class="table-responsive text-nowrap">
 
@@ -138,7 +138,7 @@ if (!isset($_SESSION['adminId'])) {
               <th scope="row"><?php echo $res['CourseName']; ?></th> 
               <th scope="row"><?php echo $res['CounName']; ?></th>
               <th scope="row"><?php echo $res['departmentClubName']; ?></th>
-              <td><button class="btn btn-secondary" data-toggle="modal" data-target="#editModal<?php echo $res['CourseID'] ?>">Edit</button> <button class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal<?php echo $res['CourseID'] ?>">Delete</button></td>
+              <td><button class="btn aqua-gradient" data-toggle="modal" data-target="#editModal<?php echo $res['CourseID'] ?>"><i class="far fa-edit"></i></button> <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?php echo $res['CourseID'] ?>"><i class="far fa-trash-alt"></i></button></td>
 
             </tr>
 
@@ -204,7 +204,7 @@ if (!isset($_SESSION['adminId'])) {
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn aqua-gradient"><i class="fas fa-check"></i> Update</button>
                     </form>
                   </div>
                 </div>
@@ -225,16 +225,19 @@ if (!isset($_SESSION['adminId'])) {
                   <div class="modal-body">
                     <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
 
-                    <label>Course Name</label>
-                      <input type="text" name="courseName" class="form-control mb-4" required="" value="<?php echo $res['CourseName'] ?>">
+                      <div class="row">
+                      <div class="col-12">
+                        <h5 style="text-align: center;">Are you sure to delete <br><?php echo $res['CourseName']; ?> ?</h5>
+                      </div>
+                    </div>
 
-                  <input type="text" name="courseID" value="<?php echo $res['CourseID'] ?>" hidden>
+                  <input type="text" name="CourseID" value="<?php echo $res['CourseID'] ?>" hidden>
                   <input type="text" name="from" value="delete-course-name" hidden>
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-danger">Yes</button>
                     </form>
                   </div>
                 </div>

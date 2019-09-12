@@ -1,7 +1,7 @@
 
 <?php include('header.php');
 $currentpage = "activitycalendar";
-if (!isset($_SESSION['adminId'])) {
+if (!isset($_SESSION['adminID'])) {
   header("Location: index.php");
 }
 

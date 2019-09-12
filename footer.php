@@ -30,9 +30,9 @@
 
                 var toWhom = obj.toWhom;
                 var message = obj.message;
-                var dateAnnounced = obj.dateAnnounced;
+               var subjectann = obj.subjectann;
 
-                display(toWhom, message,dateAnnounced);
+                display(toWhom,message,subjectann);
 
             }
 
@@ -141,6 +141,106 @@
         }
   );
 
+    $.get("checkcscreject.php",
+        function(data, status){
+
+            var obj = JSON.parse(data);
+            var toDisplay = obj.toDisplay;
+
+            if (toDisplay == 'Yes') {
+                var obj = JSON.parse(data);
+
+                var toWhom = obj.toWhom;
+                var message = obj.message;
+                var subjectann = obj.subjectann;
+                var timeStart = obj.timeStart;
+                var timeEnd = obj.timeEnd;
+                
+
+                display(toWhom, message, subjectann);
+
+            }
+
+            console.log(data);
+        
+        }
+  );
+
+     $.get("checkcouncilreject.php",
+        function(data, status){
+
+            var obj = JSON.parse(data);
+            var toDisplay = obj.toDisplay;
+
+            if (toDisplay == 'Yes') {
+                var obj = JSON.parse(data);
+
+                var toWhom = obj.toWhom;
+                var message = obj.message;
+                var subjectann = obj.subjectann;
+                var timeStart = obj.timeStart;
+                var timeEnd = obj.timeEnd;
+                
+
+                display(toWhom, message, subjectann);
+
+            }
+
+            console.log(data);
+        
+        }
+  );
+
+      $.get("checkdepartmentreject.php",
+        function(data, status){
+
+            var obj = JSON.parse(data);
+            var toDisplay = obj.toDisplay;
+
+            if (toDisplay == 'Yes') {
+                var obj = JSON.parse(data);
+
+                var toWhom = obj.toWhom;
+                var message = obj.message;
+                var subjectann = obj.subjectann;
+                var timeStart = obj.timeStart;
+                var timeEnd = obj.timeEnd;
+                
+
+                display(toWhom, message, subjectann);
+
+            }
+
+            console.log(data);
+        
+        }
+  );
+
+      $.get("checksocialreject.php",
+        function(data, status){
+
+            var obj = JSON.parse(data);
+            var toDisplay = obj.toDisplay;
+
+            if (toDisplay == 'Yes') {
+                var obj = JSON.parse(data);
+
+                var toWhom = obj.toWhom;
+                var message = obj.message;
+                var subjectann = obj.subjectann;
+                var timeStart = obj.timeStart;
+                var timeEnd = obj.timeEnd;
+                
+
+                display(toWhom, message, subjectann);
+
+            }
+
+            console.log(data);
+        
+        }
+  );
+
 
 }, 5000);
     
@@ -151,11 +251,11 @@ function display(toWhom, message, subjectann)
   
         // body: dateAnnounced + " - " + message ,
         body:  subjectann + " - " + message ,
-        icon: 'img/icon.jpg',
+        icon: 'logo/download.png',
         timeout: 8000,                  // Timeout before notification closes automatically.
         vibrate: [100, 100, 100],       // An array of vibration pulses for mobile devices.
         onClick: function() {
-            // Callback for when the notification is clicked. 
+           http://localhost:8080/thesis/students-dashboard.php
             console.log(this);
         }  
     });
@@ -168,6 +268,139 @@ function display(toWhom, message, subjectann)
 
 
   <?php endif ?>
+ 
+  <?php if (isset($_SESSION['adminID'])): ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js"></script>
+    <script type="text/javascript">
+    
+    Push.Permission.request();
+
+  setInterval(function(){ 
+    
+    $.get("adminchechcouncil.php",
+        function(data, status){
+
+            
+
+            var obj = JSON.parse(data);
+            var toDisplay = obj.toDisplay;
+
+            if (toDisplay == 'Yes') {
+                var obj = JSON.parse(data);
+
+                var toWhom = obj.toWhom;
+                var message = obj.message;
+               var subjectann = obj.subjectann;
+
+                display(toWhom,message,subjectann);
+
+            }
+
+            console.log(data);
+        
+        }
+  );
+
+  $.get("admincheckcsc.php",
+        function(data, status){
+
+            
+
+            var obj = JSON.parse(data);
+            var toDisplay = obj.toDisplay;
+
+            if (toDisplay == 'Yes') {
+                var obj = JSON.parse(data);
+
+                var toWhom = obj.toWhom;
+                var message = obj.message;
+               var subjectann = obj.subjectann;
+
+                display(toWhom,message,subjectann);
+
+            }
+
+            console.log(data);
+        
+        }
+  );
+
+  $.get("admincheckdepartment.php",
+        function(data, status){
+
+            
+
+            var obj = JSON.parse(data);
+            var toDisplay = obj.toDisplay;
+
+            if (toDisplay == 'Yes') {
+                var obj = JSON.parse(data);
+
+                var toWhom = obj.toWhom;
+                var message = obj.message;
+               var subjectann = obj.subjectann;
+
+                display(toWhom,message,subjectann);
+
+            }
+
+            console.log(data);
+        
+        }
+  );
+
+   $.get("adminchechsocial.php",
+        function(data, status){
+
+            
+
+            var obj = JSON.parse(data);
+            var toDisplay = obj.toDisplay;
+
+            if (toDisplay == 'Yes') {
+                var obj = JSON.parse(data);
+
+                var toWhom = obj.toWhom;
+                var message = obj.message;
+               var subjectann = obj.subjectann;
+
+                display(toWhom,message,subjectann);
+
+            }
+
+            console.log(data);
+        
+        }
+  );
+
+
+}, 5000);
+    
+    
+function display(toWhom, message, subjectann)
+{
+    Push.create(toWhom, {
+  
+        // body: dateAnnounced + " - " + message ,
+        body:  subjectann + " - " + message ,
+        icon: 'logo/download.png',
+        timeout: 8000,                  // Timeout before notification closes automatically.
+        vibrate: [100, 100, 100],       // An array of vibration pulses for mobile devices.
+        onClick: function() {
+           http://localhost:8080/thesis/admin-dashboard.php
+            console.log(this);
+        }  
+    });
+
+}
+
+
+  </script>
+
+
+
+  <?php endif ?> 
+
   <script type="text/javascript">
       // Tooltips Initialization
 $(function () {

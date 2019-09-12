@@ -4,12 +4,12 @@ $currentpage = "announcement";
 if (!isset($_SESSION['accID'])) {
   header("Location: index.php");
 }
-// if ((time() - $_SESSION['last_time']) > 300) {
-//       header("Location: controller.php?from=logout");
+if ((time() - $_SESSION['last_time']) > 300) {
+      header("Location: controller.php?from=logout");
   
-// }else{
-//    $_SESSION['last_time'] = time(); 
-// }
+}else{
+   $_SESSION['last_time'] = time(); 
+}
 
 
  include("student-header.php");
@@ -36,7 +36,7 @@ if (!isset($_SESSION['accID'])) {
 
          <?php 
 
-              $qry = mysqli_query($connection, "select * from dsa_announcement_view");
+              $qry = mysqli_query($connection, "select * from dsa_announcement_view order by dsaAnnouncementID desc");
               $res = mysqli_fetch_assoc($qry);
 
               if (mysqli_num_rows($qry)>0):?>
@@ -44,8 +44,10 @@ if (!isset($_SESSION['accID'])) {
               <!-- Material form contact -->
     <div class="card">
 
-    <h5 class="card-header info-color white-text text-center py-4">
-        <strong>Director of Student Affairs</strong>
+     <h5 class="card-header blue lighten-1 white-text text-center py-4"><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
+        <strong>Office of The Director Student Affairs</strong><br>
+        <small style="font-size: ">Notre Dame of Tacurong College</small><br>
+        <small>City of Tacurong</small>
     </h5>
 
     <!--Card content-->
@@ -56,31 +58,26 @@ if (!isset($_SESSION['accID'])) {
 
            
               <!-- To Whom -->
-            <div class="md-form mt-3">
-                <input align="middle" type="text" readonly="" class="form-control" value="<?php echo date('F d, Y h:i A', strtotime($res['timeStart'])); ?>-<?php echo date('F d, Y h:i A', strtotime($res['timeEnd'])); ?>">
-                <label>Date Announced</label>
+             <div class="md-form mt-5" style="text-align: center;">
+              <p style="color: black"><?php echo $res['toWhom']; ?></p>
             </div>
 
             <!-- To Whom -->
-            <div class="md-form mt-3">
-                <input type="text" readonly="" class="form-control" value="<?php echo $res['toWhom']; ?>">
-                <label>To:</label>
+            <div class="md-form mt-3" style="text-align: center;">
+              <p style="color: black"><?php echo $res['subjectann']; ?></p>
+            </div> 
+
+            <div class="md-form mt-3" style="text-align: left;">
+               <p style="color: black"> Date: <?php echo date('F d, Y h:i A', strtotime($res['timeStart'])); ?>, until <?php echo date('F d, Y h:i A', strtotime($res['timeEnd'])); ?></p>
             </div>
 
-            <div class="md-form mt-3">
-                <input type="text" readonly="" class="form-control" value="<?php echo $res['subjectann']; ?>">
-                <label>Subject:</label>
-            </div>
-
-            <div class="md-form mt-3">
-                <input type="text" readonly="" class="form-control" value="<?php echo $res['venueName']; ?>">
-                <label>Venue:</label>
+            <div class="md-form mt-3" style="text-align: left;">
+              <p style="color: black">Venue: <?php echo $res['venueName']; ?></p>
             </div>
 
             <!--Message-->
-            <div class="md-form">
-                <textarea  readonly="" class="form-control md-textarea" rows="3"><?php echo $res['message']; ?></textarea>
-                <label>Message</label>
+            <div class="md-form mt-3" style="text-align: center;">
+              <p style="color: black">Message: <br><br><?php echo $res['message']; ?></p>
             </div>
 
         </form>

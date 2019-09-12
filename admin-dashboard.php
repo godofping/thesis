@@ -1,7 +1,7 @@
 
 <?php include('header.php');
 $currentpage = "adminhomepage";
-if (!isset($_SESSION['adminId'])) {
+if (!isset($_SESSION['adminID'])) {
   header("Location: index.php");
 }
 

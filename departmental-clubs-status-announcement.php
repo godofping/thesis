@@ -4,12 +4,12 @@ $currentpage = "announcement";
 if (!isset($_SESSION['stprofID'])) {
   header("Location: index.php");
 }
-// if ((time() - $_SESSION['last_time']) > 300) {
-//       header("Location: controller.php?from=logout");
+if ((time() - $_SESSION['last_time']) > 300) {
+      header("Location: controller.php?from=logout");
   
-// }else{
-//    $_SESSION['last_time'] = time(); 
-// }
+}else{
+   $_SESSION['last_time'] = time(); 
+}
 
  include("student-header.php");
  ?>

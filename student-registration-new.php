@@ -6,7 +6,7 @@ if (!isset($_SESSION['accID'])) {
 
 
 <div class="container-fluid">
- <form class=" yellow accent-2 border border-light p-3 needs-validation" novalidate method="POST" action="controller.php" autocomplete="false" enctype="multipart/form-data">
+ <form class="grey lighten-5 border border-light p-3 needs-validation" novalidate method="POST" action="controller.php" autocomplete="false" enctype="multipart/form-data">
   <div class="row">
      
   <div class="col-md-4">
@@ -50,7 +50,7 @@ if (!isset($_SESSION['accID'])) {
               <div class="col-12">
                 <div class="form-group">
                 <div class="d-flex justify-content-center">
-                <div class="btn success-color-dark btn-rounded float-left">
+                <div class="btn aqua-gradient btn-rounded float-left">
                   <span>Choose Picture</span>
                   <input type="file" name="IMG" required="">
                   <div class="invalid-feedback">Please select a picture</div>
@@ -243,7 +243,7 @@ if (!isset($_SESSION['accID'])) {
 
     </div>
 
-    <button class="btn btn-dark-green" id="testingbutton" type="submit" disabled="true">submit</button>
+    <button class="btn aqua-gradient" id="testingbutton" type="submit" disabled="true">submit</button>
 
       <input type="text" name="from" value="register_student_information" hidden>
 

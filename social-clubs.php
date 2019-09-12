@@ -1,7 +1,7 @@
 
 <?php include('header.php');
 $currentpage = "clubs";
-if (!isset($_SESSION['adminId'])) {
+if (!isset($_SESSION['adminID'])) {
   header("Location: index.php");
 }
 
@@ -28,7 +28,7 @@ if (!isset($_SESSION['adminId'])) {
     <div class="row">
       <div class="col-md-12">
 
-        <button class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> ADD SOCIAL CLUB</button>
+        <button class="btn blue-gradient" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus "></i> ADD SOCIAL CLUB</button>
 
         <!-- Modal -->
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -56,8 +56,8 @@ if (!isset($_SESSION['adminId'])) {
 
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn aqua-gradient">Add</button>
                 </form>
               </div>
             </div>
@@ -69,7 +69,7 @@ if (!isset($_SESSION['adminId'])) {
   
 
 
-    <div class="row mt-5">
+    <div class="row mt-5 grey lighten-5 z-depth-2">
       <div class="col-md-12">
 
         <div class="table-responsive text-nowrap">
@@ -87,179 +87,10 @@ if (!isset($_SESSION['adminId'])) {
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
               <td scope="row"><?php echo $res['socialClubName']; ?></td>
-              <td><a href="" class="btn btn-default btn-rounded my-3" data-toggle="modal" data-target="#lisoofficer<?php echo $res['socialClubId'] ?>">List of Officers</a> <a href="" class="btn btn-default btn-rounded my-3" data-toggle="modal" data-target="#registernewofficer<?php echo $res['socialClubId'] ?>">Register Officers</a> <a href="" class="btn btn-default btn-rounded my-3" data-toggle="modal" data-target="#registernewofficer<?php echo $res['socialClubId'] ?>">List of Members</a></td>
+              <td><a href="list-of-officers-social.php?from=checkIDforsocialofficer&socialClubId=<?php echo $res['socialClubId']; ?>"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a><a href="list-of-members-social.php?from=checkIDforsocialmember&socialClubId=<?php echo $res['socialClubId']; ?>"><button type="button" class="btn peach-gradient"><i class="fas fa-users"></i> Members</button></a></td>
 
             </tr>
 
-            <div class="modal fade" id="lisoofficer<?php echo $res['socialClubId'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog cascading-modal" role="document">          
-          <div class="modal-content">
-            <div class="modal-c-tabs">
-              <ul class="nav nav-tabs md-tabs tabs-2 white" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab"><i class="fas fa-user mr-1"></i>
-                    List of Officers</a>
-                </li>
-              </ul>
-
-        <!-- Tab panels -->
-        <div class="tab-content">
-          <!--Panel 7-->
-          <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
-            
-            <!--Body-->
-            <div class="modal-body mb-1">
-              <h10><?php echo $res['socialClubName'] ?></h10>
-
-              <?php 
-               $qry1 = mysqli_query($connection, "select * from social_officerandmembers_view where socialClubId = '". $res['socialClubId'] ."' and position = 'Mayor'");
-               $res1 = mysqli_fetch_assoc($qry1);
-               ?>
-              <?php if ($res1['fname'] != "");?>    
-              <div class="md-form">
-              <input type="text" id="inputDisabledEx" class="form-control" disabled value="<?php echo $res1['fname'] ?>">
-              <label for="inputDisabledEx" class="disabled">Mayor</label>
-              </div>
-
-              <?php 
-               $qry1 = mysqli_query($connection, "select * from social_officerandmembers_view where socialClubId = '". $res['socialClubId'] ."' and position = 'Vice Mayor'");
-               $res1 = mysqli_fetch_assoc($qry1);
-               ?>
-              <?php if ($res1['fname'] != "");?> 
-              <div class="md-form">
-              <input type="text" id="inputDisabledEx" class="form-control" disabled value="<?php echo $res1['fname'] ?>">
-              <label for="inputDisabledEx" class="disabled">Vice Mayor</label>
-              </div>
-
-              <?php 
-               $qry1 = mysqli_query($connection, "select * from social_officerandmembers_view where socialClubId = '". $res['socialClubId'] ."' and position = 'Treasurer'");
-               $res1 = mysqli_fetch_assoc($qry1);
-               ?>
-              <?php if ($res1['fname'] != "");?> 
-              <div class="md-form">
-              <input type="text" id="inputDisabledEx" class="form-control" disabled value="<?php echo $res1['fname'] ?>">
-              <label for="inputDisabledEx" class="disabled">Treasurer</label>
-              </div>
-
-              <?php 
-               $qry1 = mysqli_query($connection, "select * from social_officerandmembers_view where socialClubId = '". $res['socialClubId'] ."' and position = 'Secrectary'");
-               $res1 = mysqli_fetch_assoc($qry1);
-               ?>
-              <?php if ($res1['fname'] != "");?> 
-              <div class="md-form">
-              <input type="text" id="inputDisabledEx" class="form-control" disabled value="<?php echo $res1['fname'] ?>">
-              <label for="inputDisabledEx" class="disabled">Secrectary</label>
-              </div>
-             
-            </div>
-            <!--Footer-->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
-            </div>
-
-          </div>
-          <!--/.Panel 7-->
-
-          
-              </div>
-
-              </div>
-          </div>
-    <!--/.Content-->
-          </div>
-          </div>
-
-           <div class="modal fade" id="registernewofficer<?php echo $res['socialClubId'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog cascading-modal" role="document">          
-          <div class="modal-content">
-            <div class="modal-c-tabs">
-              <ul class="nav nav-tabs md-tabs tabs-2 white" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab"><i class="fas fa-user-plus mr-1"></i>
-                    Register Officers</a>
-                </li>
-              </ul>
-
-        <!-- Tab panels -->
-          <div class="tab-content">
-          <!--Panel 7-->
-          <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
-            <!--Body-->
-            <div class="modal-body mb-1">
-            <label><?php echo $res['socialClubName'] ?></label>
-             
-              
-              <div class="row">
-                <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
-                  <div class="col-12">
-                      <div class="form-group">
-
-                      <div class="md-form">
-                      <select class="form-control" name="stMayorIDsocial" required="">
-                        <option selected="" disabled="">Select Mayor</option>
-                        <?php $qryforRegister = mysqli_query($connection, "select * from list_social_club_view  where socialClubId = '".$res['socialClubId']."' order by fname asc");
-                        while ($resforRegister = mysqli_fetch_assoc($qryforRegister)) { ?>
-                          <option value="<?php echo $resforRegister['stprofID']; ?>"><?php echo $resforRegister['fname']; ?></option>
-                        <?php } ?>
-                      </select>
-                      </div>
-
-                       <div class="md-form">
-                      <select class="form-control" name="stVMayorIDsocial" required="">
-                        <option selected="" disabled="">Select Vice Mayor</option>
-                        <?php $qryforRegister = mysqli_query($connection, "select * from list_social_club_view  where socialClubId = '".$res['socialClubId']."' order by fname asc");
-                        while ($resforRegister = mysqli_fetch_assoc($qryforRegister)) { ?>
-                          <option value="<?php echo $resforRegister['stprofID']; ?>"><?php echo $resforRegister['fname']; ?></option>
-                        <?php } ?>
-                      </select>
-                      </div>
-
-                       <div class="md-form">
-                      <select class="form-control" name="stTreasurerIDsocial" required="">
-                        <option selected="" disabled="">Select Treasurer</option>
-                       <?php $qryforRegister = mysqli_query($connection, "select * from list_social_club_view  where socialClubId = '".$res['socialClubId']."' order by fname asc");
-                        while ($resforRegister = mysqli_fetch_assoc($qryforRegister)) { ?>
-                          <option value="<?php echo $resforRegister['stprofID']; ?>"><?php echo $resforRegister['fname']; ?></option>
-                        <?php } ?>
-                      </select>
-                      </div>
-
-                       <div class="md-form">
-                      <select class="form-control" name="stSecrectaryIDsocial" required="">
-                        <option selected="" disabled="">Select Secrectary</option>
-                        <?php $qryforRegister = mysqli_query($connection, "select * from list_social_club_view  where socialClubId = '".$res['socialClubId']."' order by fname asc");
-                        while ($resforRegister = mysqli_fetch_assoc($qryforRegister)) { ?>
-                          <option value="<?php echo $resforRegister['stprofID']; ?>"><?php echo $resforRegister['fname']; ?></option>
-                        <?php } ?>
-                      </select>
-                      </div>
-             
-                </div>
-                </div>
-
-                  <input type="text" name="socialClubId" value="<?php echo $res['socialClubId'] ?>" hidden>
-                  <input type="text" name="from" value="register-social-officer" hidden>
-
-             
-            </div>
-            <!--Footer-->
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-outline-info">Register</button>
-              <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
-            </div>
-
-          </div>
-          </form>
-          <!--/.Panel 7-->
-
-          
-             </div>
-            </div>
-          </div>
-    <!--/.Content-->
-          </div>
-          </div>
-          </div>
 
 
             <?php } ?>

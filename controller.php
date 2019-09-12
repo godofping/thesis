@@ -4,12 +4,12 @@ include('connection.php');
 
 if (isset($_POST['from']) and $_POST['from'] == 'login') {
 	
-	$qry = mysqli_query($connection, "select * from admin_view where username = '" . $_POST['username'] . "' and password = '" . $_POST['password'] . "'");
+	$qry = mysqli_query($connection, "select * from admin_account_table where username = '" . $_POST['username'] . "' and password = '" . $_POST['password'] . "'");
 
 	if (mysqli_num_rows($qry) > 0) {
 		$res = mysqli_fetch_assoc($qry);
 
-		$_SESSION['adminId'] = $res['adminId'];
+		$_SESSION['adminID'] = $res['adminID'];
 		header("Location: admin-dashboard.php");
 	}
 	else
@@ -79,6 +79,18 @@ if (isset($_POST['from']) and $_POST['from'] == 'add-department-club') {
 	header("Location: departmental-clubs.php");
 }
 
+if (isset($_POST['from']) and $_POST['from'] == 'add-admin-account') {
+
+	$qryaccount =  mysqli_query($connection, "select * from admin_account_table where username = '".$_POST['username']."' ");
+
+	if (mysqli_num_rows($qryaccount) > 0) {
+		header("Location: manage-admin.php?status=register-admin-failed");
+	}else{
+		mysqli_query($connection, "insert into admin_account_table (username, password) values ('". $_POST['username'] ."' , '". $_POST['password'] ."')");
+		header("Location: manage-admin.php");
+	}
+	
+}
 
 if (isset($_POST['from']) and $_POST['from'] == 'add-student-account') {
 
@@ -92,10 +104,6 @@ if (isset($_POST['from']) and $_POST['from'] == 'add-student-account') {
 		mysqli_query($connection, "insert into student_account_table (StudentID, StudentPassword) values ('". $_POST['StudentID'] ."' , '123')");
 		header("Location: add-student-account.php");
 	}
-
-	  
-
-
 	
 }
 
@@ -104,6 +112,20 @@ if (isset($_POST['from']) and $_POST['from'] == 'edit-course-name') {
 	mysqli_query($connection, "update course_table set CourseName = '".$_POST['courseName']."' , CounID = '".$_POST['CounID']."' , departmentClubId = '".$_POST['departmentId']."'  where CourseID = '".$_POST['courseID']."'");
 
 	header("Location: add-course.php");
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'edit-admin-account') {
+	
+	mysqli_query($connection, "update admin_account_table set username = '" . $_POST['username'] . "', password = '" . $_POST['password'] . "' where adminID = '" . $_POST['adminID'] . "'");
+
+	header("Location: manage-admin.php");
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'delete-admin-account') {
+	
+	mysqli_query($connection, "delete from admin_account_table where adminID = '".$_POST['adminID']."' ");
+
+	header("Location: manage-admin.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-student-account') {
@@ -132,9 +154,6 @@ if (isset($_POST['from']) and $_POST['from'] == 'change-pass') {
 	// }else{
 	// 	header("Location: manage-acc.php?status=Incorrect-Password");
 	// }
-
-	
-
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'delete-student-account') {
@@ -144,16 +163,17 @@ if (isset($_POST['from']) and $_POST['from'] == 'delete-student-account') {
 	header("Location: add-student-account.php");
 }
 
-// if (isset($_POST['from']) and $_POST['from'] == 'delete-course-name') {
+if (isset($_POST['from']) and $_POST['from'] == 'delete-course-name') {
 	
-// 	mysqli_query($connection, "")
+	mysqli_query($connection, "delete from course_table where CourseID = '".$_POST['CourseID']."' ");
 
-// }
+	header("Location: add-course.php");
+}
 
 if (isset($_POST['from']) and $_POST['from'] == 'register_student_info') {
 	
 	$target_dir = "img/";
-		$IMG = $target_dir . md5(date("Y-m-d H:i:s")) .basename($_FILES["IMG"]["name"]);
+		$IMG = $target_dir . md5(date("Y-m-d h:i:s")) .basename($_FILES["IMG"]["name"]);
 		$imageFileType = strtolower(pathinfo($IMG,PATHINFO_EXTENSION));
    		move_uploaded_file($_FILES["IMG"]["tmp_name"], $IMG);
 
@@ -199,7 +219,7 @@ if (isset($_POST['from']) and $_POST['from'] =='choose-social-club') {
 if (isset($_POST['from']) and $_POST['from'] =='add-calendar') {
 	
 	$target_dir = "img/";
-		$calendarIMGname = $target_dir . md5(date("Y-m-d H:i:s")) .basename($_FILES["calendarIMGname"]["name"]);
+		$calendarIMGname = $target_dir . md5(date("Y-m-d h:i:s")) .basename($_FILES["calendarIMGname"]["name"]);
 		$imageFileType = strtolower(pathinfo($calendarIMGname,PATHINFO_EXTENSION));
    		move_uploaded_file($_FILES["calendarIMGname"]["tmp_name"], $calendarIMGname);
 
@@ -210,56 +230,63 @@ if (isset($_POST['from']) and $_POST['from'] =='add-calendar') {
 
 if (isset($_POST['from']) and $_POST['from'] =='add-csc-member') {
 	
-   		mysqli_query($connection, "insert into csc_members_table (stprofID, position) values ('".$_POST['stprofID']."', '".$_POST['cscposition']."')");
-
+   		mysqli_query($connection, "insert into csc_members_table (stprofID, positionID,perpost) values ('".$_POST['stprofID']."', '".$_POST['positionID']."', '".$_POST['perpost']."')");
+   		// echo "insert into csc_members_table (stprofID, positionID) values ('".$_POST['stprofID']."', '".$_POST['positionID']."')";
 	header("Location: csc.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] =='add-cased-member') {
 	
-   		mysqli_query($connection, "insert into council_officers_table (CounID, position, stprofID) values ('".$_POST['CounID']."','".$_POST['nursingposition']."', '".$_POST['stprofID']."')");
+   		mysqli_query($connection, "insert into council_officers_table (CounID, stprofID, positionID,perpost) values ('".$_POST['CounID']."', '".$_POST['stprofID']."','".$_POST['positionID']."','".$_POST['perpost']."')");
+
+	header("Location: cased.php");
+}
+
+if (isset($_POST['from']) and $_POST['from'] =='add-cbtv-member') {
+	
+   		mysqli_query($connection, "insert into council_officers_table (CounID, stprofID, positionID,perpost) values ('".$_POST['CounID']."','".$_POST['stprofID']."', '".$_POST['positionID']."', '".$_POST['perpost']."')");
+
+	header("Location: business.php");
+}
+
+if (isset($_POST['from']) and $_POST['from'] =='add-nursing-member') {
+	
+   		mysqli_query($connection, "insert into council_officers_table (CounID, stprofID, positionID,perpost) values ('".$_POST['CounID']."','".$_POST['stprofID']."', '".$_POST['positionID']."', '".$_POST['perpost']."')");
 
 	header("Location: nursing.php");
 }
 
 //Regiser Officers from Departmental Club
-if (isset($_POST['from']) and $_POST['from'] == 'register-DP-officer') {
-	
-		mysqli_query($connection, "insert into departmental_officersandmembers_table (departmentClubId, position, stprofID) values ('".$_POST['departmentClubId']."', 'Mayor', '".$_POST['stMayorIDdp']."')");
+if (isset($_GET['from']) and $_GET['from'] == 'add-departmental-officer') {
+		
+		
+		$dpID = $_GET['departmentClubId'];
 
-		mysqli_query($connection, "insert into departmental_officersandmembers_table (departmentClubId, position, stprofID) values ('".$_POST['departmentClubId']."', 'Vice Mayor', '".$_POST['stVMayorIDdp']."')");
+		mysqli_query($connection, "insert into departmental_officersandmembers_table (departmentClubId, positionID, stprofID,perpost) values ('".$_GET['departmentClubId']."', '".$_GET['positionID']."', '".$_GET['stprofID']."','".$_GET['perpost']."')");
 
-		mysqli_query($connection, "insert into departmental_officersandmembers_table (departmentClubId, position, stprofID) values ('".$_POST['departmentClubId']."', 'Treasurer', '".$_POST['stTreasurerIDdp']."')");
-
-		mysqli_query($connection, "insert into departmental_officersandmembers_table (departmentClubId, position, stprofID) values ('".$_POST['departmentClubId']."', 'Secrectary', '".$_POST['stSecrectaryIDdp']."')");
-
-		header("Location: departmental-clubs.php");
+		header("Location: list-of-officers-departmental.php?from=checkIDfordepartmentofficer&departmentClubId=".$dpID);
 }
 
 //Regiser Officers from Social Club
-if (isset($_POST['from']) and $_POST['from'] == 'register-social-officer') {
-	
-		mysqli_query($connection, "insert into social_officerandmembers_table (socialClubId, position, stprofID) values ('".$_POST['socialClubId']."', 'Mayor', '".$_POST['stMayorIDsocial']."')");
+if (isset($_GET['from']) and $_GET['from'] == 'add-social-officer') {
+		
+		$socID = $_GET['socialClubId'];
 
-		mysqli_query($connection, "insert into social_officerandmembers_table (socialClubId, position, stprofID) values ('".$_POST['socialClubId']."', 'Vice Mayor', '".$_POST['stVMayorIDsocial']."')");
+		mysqli_query($connection, "insert into social_officerandmembers_table (socialClubId, positionID, stprofID,perpost) values ('".$_GET['socialClubId']."', '".$_GET['positionID']."', '".$_GET['stprofID']."','".$_GET['perpost']."')");
 
-		mysqli_query($connection, "insert into social_officerandmembers_table (socialClubId, position, stprofID) values ('".$_POST['socialClubId']."', 'Treasurer', '".$_POST['stTreasurerIDsocial']."')");
-
-		mysqli_query($connection, "insert into social_officerandmembers_table (socialClubId, position, stprofID) values ('".$_POST['socialClubId']."', 'Secrectary', '".$_POST['stSecrectaryIDsocial']."')");
-
-		header("Location: social-clubs.php");
+		header("Location: list-of-officers-social.php?from=checkIDforsocialofficer&socialClubId=".$socID);
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'dsa-announcement') {
 	
-		mysqli_query($connection, "insert into dsa_announcement_table (dateSubmit, toWhom, message, timeStart, timeEnd, subjectann, venueID) values ('".date('Y-m-d H:i:s')."', '".$_POST['to']."', '".$_POST['message']."', '".$_POST['timestart']."', '".$_POST['timeend']."', '".$_POST['subject']."','".$_POST['venueID']."' )");
+		mysqli_query($connection, "insert into dsa_announcement_table (dateSubmit, toWhom, message, timeStart, timeEnd, subjectann, venueID) values ('".date('Y-m-d h:i:s')."', '".$_POST['to']."', '".$_POST['message']."', '".$_POST['timestart']."', '".$_POST['timeend']."', '".$_POST['subject']."','".$_POST['venueID']."' )");
 
 		 header("Location: creat-announcement.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'csc-announcement') {
 	
-		mysqli_query($connection, "insert into csc_announcement_table (dateSubmit, toWhom, message, timeStart, timeEnd, subjectann, venueID) values ('".date('Y-m-d H:i:s')."' ,'".$_POST['to']."', '".$_POST['message']."' , '".$_POST['timestart']."', '".$_POST['timeend']."', '".$_POST['subject']."', '".$_POST['venueID']."')");
+		mysqli_query($connection, "insert into csc_announcement_table (dateSubmit, toWhom, message, timeStart, timeEnd, subjectann, venueID) values ('".date('Y-m-d h:i:s')."' ,'".$_POST['to']."', '".$_POST['message']."' , '".$_POST['timestart']."', '".$_POST['timeend']."', '".$_POST['subject']."', '".$_POST['venueID']."')");
 
 		 header("Location: csc-announcement.php");
 }
@@ -272,9 +299,23 @@ if (isset($_GET['from']) and $_GET['from'] == 'approve-csc-announcement') {
 		 header("Location: view-csc-announcement.php");
 }
 
+if (isset($_GET['from']) and $_GET['from'] == 'reject-csc-announcement') {
+	
+		mysqli_query($connection, "update csc_announcement_table set isApproved = 'Reject', annreason = '".$_GET['annreason']."' where csc_announcementID = '" . $_GET['csc_announcementID'] . "'");
+
+		 header("Location: view-csc-announcement.php");
+}
+
+if (isset($_GET['from']) and $_GET['from'] == 'resend-csc-announcement') {
+	
+		mysqli_query($connection, "update csc_announcement_table set toWhom = '".$_GET['to']."', subjectann = '".$_GET['subject']."', isApproved = 'No', message = '".$_GET['message']."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."' where csc_announcementID = '" . $_GET['csc_announcementID'] . "'");
+
+		 header("Location: csc-announcement.php");
+}
+
 if (isset($_POST['from']) and $_POST['from'] == 'dp-announcement') {
 	
-		mysqli_query($connection, "insert into department_announcement_table (dateSubmit, toWhom, message, departmentClubId, timeStart, timeEnd, subjectann,venueID) values ('".date('Y-m-d H:i:s')."', '".$_POST['to']."', '".$_POST['message']."', '".$_POST['departmentClubId']."','".$_POST['timestart']."','".$_POST['timeend']."','".$_POST['subject']."','".$_POST['venueID']."' )");
+		mysqli_query($connection, "insert into department_announcement_table (dateSubmit, toWhom, message, departmentClubId, timeStart, timeEnd, subjectann,venueID) values ('".date('Y-m-d h:i:s')."', '".$_POST['to']."', '".$_POST['message']."', '".$_POST['departmentClubId']."','".$_POST['timestart']."','".$_POST['timeend']."','".$_POST['subject']."','".$_POST['venueID']."' )");
 
 		 header("Location: departmental-clubs-announcement.php");
 }
@@ -289,20 +330,23 @@ if (isset($_GET['from']) and $_GET['from'] == 'approve-dpclub-announcement') {
 
 if (isset($_GET['from']) and $_GET['from'] == 'reject-dpclub-announcement') {
 
-
-
 		mysqli_query($connection, "update department_announcement_table set isApproved = 'Reject', annreason = '".$_GET['annreason']."' where DannouncementID = '" . $_GET['DannouncementID'] . "'");
 
-		echo "update department_announcement_table set isApproved = 'Reject', annreason = '".$_GET['annreason']."' where DannouncementID = '" . $_GET['DannouncementID'] . "'";
+		 header("Location: view-departmental-club-announcement.php");
+}
 
-		 // header("Location: view-departmental-club-announcement.php");
+if (isset($_GET['from']) and $_GET['from'] == 'resend-department-announcement') {
+
+		mysqli_query($connection, "update department_announcement_table set toWhom = '".$_GET['to']."', subjectann = '".$_GET['subject']."', isApproved = 'No', message = '".$_GET['message']."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."' where DannouncementID = '" . $_GET['DannouncementID'] . "'");
+
+		  header("Location: departmental-clubs-reject-announcement.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'social-clubs-announcement') {
 	
-		mysqli_query($connection, "insert into social_announcement_table (dateSubmit, toWhom, message, socialClubId, timeStart, timeEnd, venueID, subjectann) values ('".date('Y-m-d H:i:s')."', '".$_POST['to']."', '".$_POST['message']."', '".$_POST['socialClubId']."', '".$_POST['timestart']."', '".$_POST['timeend']."', '".$_POST['venueID']."', '".$_POST['subject']."' )");
-
-		 header("Location: socialclub-announcement.php");
+		mysqli_query($connection, "insert into social_announcement_table (dateSubmit, toWhom, message, socialClubId, timeStart, timeEnd, venueID, subjectann) values ('".date('Y-m-d h:i:s')."', '".$_POST['to']."', '".$_POST['message']."', '".$_POST['socialClubId']."', '".$_POST['timestart']."', '".$_POST['timeend']."', '".$_POST['venueID']."', '".$_POST['subject']."' )");
+		
+		 header("Location: social-clubs-announcement-new.php");
 }
 
 if (isset($_GET['from']) and $_GET['from'] == 'approve-socialclub-announcement') {
@@ -312,16 +356,44 @@ if (isset($_GET['from']) and $_GET['from'] == 'approve-socialclub-announcement')
 		 header("Location: view-social-club-announcement.php");
 }
 
+if (isset($_GET['from']) and $_GET['from'] == 'reject-socialclub-announcement') {
+	
+		mysqli_query($connection, "update social_announcement_table set isApproved = 'Reject', annreason = '".$_GET['annreason']."' where socialClubId = '" . $_GET['socialClubId'] . "'");
+
+		 header("Location: view-social-club-announcement.php");
+}
+
+if (isset($_GET['from']) and $_GET['from'] == 'resend-socialclub-announcement') {
+	
+		mysqli_query($connection, "update council_announcement_table set toWhom = '".$_GET['to']."', subjectann = '".$_GET['subject']."', isApproved = 'No', message = '".$_GET['message']."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."'  where CounID = '" . $_GET['CounID'] . "'");
+
+		 header("Location: view-council-announcement.php");
+}
+
 if (isset($_POST['from']) and $_POST['from'] == 'deparmental-council-announcement') {
 	
-		mysqli_query($connection, "insert into council_announcement_table (dateSubmit, toWhom, message, CounID, timeStart, timeEnd, subjectann, venueID) values ('".date('Y-m-d H:i:s')."' , '".$_POST['to']."', '".$_POST['message']."', '".$_POST['CounID']."', '".$_POST['timestart']."','".$_POST['timeend']."','".$_POST['subject']."','".$_POST['venueID']."')");
+		mysqli_query($connection, "insert into council_announcement_table (dateSubmit, toWhom, message, CounID, timeStart, timeEnd, subjectann, venueID) values ('".date('Y-m-d h:i:s')."' , '".$_POST['to']."', '".$_POST['message']."', '".$_POST['CounID']."', '".$_POST['timestart']."','".$_POST['timeend']."','".$_POST['subject']."','".$_POST['venueID']."')");
 
 		 header("Location: departmental-council-announce.php");
 }
 
 if (isset($_GET['from']) and $_GET['from'] == 'approve-departmentalcouncil-announcement') {
 	
-		mysqli_query($connection, "update council_announcement_table set isApproved = 'Yes' where CounID = '" . $_GET['CounID'] . "'");
+		mysqli_query($connection, "update council_announcement_table set isApproved = 'Yes' where council_announcementID = '" . $_GET['council_announcementID'] . "'");
+
+		  header("Location: view-council-announcement.php");
+}
+
+if (isset($_GET['from']) and $_GET['from'] == 'reject-council-announcement') {
+	
+		mysqli_query($connection, "update council_announcement_table set isApproved = 'Reject', annreason = '".$_GET['annreason']."' where council_announcementID = '" . $_GET['council_announcementID'] . "'");
+
+		 header("Location: view-council-announcement.php");
+}
+
+if (isset($_GET['from']) and $_GET['from'] == 'resend-council-announcement') {
+	
+		mysqli_query($connection, "update council_announcement_table set toWhom = '".$_GET['to']."', subjectann = '".$_GET['subject']."', isApproved = 'No', message = '".$_GET['message']."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."'  where CounID = '" . $_GET['CounID'] . "'");
 
 		 header("Location: view-council-announcement.php");
 }
@@ -354,7 +426,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'register_student_information') 
    		mysqli_query($connection,"update student_account_table set StudentPassword = '".$_POST['newpassword']."' where accID = '" . $_SESSION['accID'] . "'");
 
    		$target_dir = "img/";
-		$IMG = $target_dir . md5(date("Y-m-d H:i:s")) .basename($_FILES["IMG"]["name"]);
+		$IMG = $target_dir . md5(date("Y-m-d h:i:s")) .basename($_FILES["IMG"]["name"]);
 		$imageFileType = strtolower(pathinfo($IMG,PATHINFO_EXTENSION));
    		move_uploaded_file($_FILES["IMG"]["tmp_name"], $IMG);
    		
@@ -387,6 +459,107 @@ if (isset($_POST['from']) and $_POST['from'] == 'edit-studnet-admin') {
 
 }
 
+if (isset($_POST['from']) and $_POST['from'] == 'delete-csc-position') {
+	mysqli_query($connection, "delete from csc_members_table where cscmemID = '".$_POST['cscmemID']."' ");
 
+		header("Location: csc.php");
 
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'edit-csc-position') {
+	mysqli_query($connection, "update csc_members_table set stprofID = '".$_POST['stprofID']."', positionID = '".$_POST['positionID']."', perpost = '".$_POST['perpost']."' where cscmemID = '".$_POST['cscmemID']."' ");
+		
+		header("Location: csc.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'delete-cased-position') {
+	mysqli_query($connection, "delete from council_officers_table where stprofID = '".$_POST['stprofID']."' ");
+
+		header("Location: cased.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'edit-cased-position') {
+	mysqli_query($connection, "update council_officers_table set stprofID = '".$_POST['stprofID']."', positionID = '".$_POST['positionID']."', perpost = '".$_POST['perpost']."' where councilID = '".$_POST['councilID']."' ");
+		
+		header("Location: cased.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'delete-cbtv-position') {
+	mysqli_query($connection, "delete from council_officers_table where stprofID = '".$_POST['stprofID']."' ");
+
+		header("Location: business.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'edit-cbtv-position') {
+	mysqli_query($connection, "update council_officers_table set stprofID = '".$_POST['stprofID']."', positionID = '".$_POST['positionID']."', perpost = '".$_POST['perpost']."' where councilID = '".$_POST['councilID']."' ");
+		
+		header("Location: business.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'delete-nursing-position') {
+	mysqli_query($connection, "delete from council_officers_table where stprofID = '".$_POST['stprofID']."' ");
+
+		header("Location: nursing.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'edit-nursing-position') {
+	mysqli_query($connection, "update council_officers_table set stprofID = '".$_POST['stprofID']."', positionID = '".$_POST['positionID']."', perpost = '".$_POST['perpost']."' where councilID = '".$_POST['councilID']."' ");
+		
+		header("Location: nursing.php");
+
+}
+
+if (isset($_GET['from']) and $_GET['from'] == 'delete-department-position') {
+
+	$dpID = $_GET['departmentClubId'];
+
+	mysqli_query($connection, "delete from departmental_officersandmembers_table where stprofID = '".$_GET['stprofID']."' ");
+
+		header("Location: list-of-officers-departmental.php?from=checkIDfordepartmentofficer&departmentClubId=".$dpID);
+
+}
+
+if (isset($_GET['from']) and $_GET['from'] == 'edit-department-position') {
+
+	$dpIDedit = $_GET['departmentClubId'];
+
+	mysqli_query($connection, "update departmental_officersandmembers_table set stprofID = '".$_GET['stprofID']."', positionID = '".$_GET['positionID']."', perpost = '".$_GET['perpost']."' where departmentmemID = '".$_GET['departmentmemID']."' ");
+		
+		header("Location: list-of-officers-departmental.php?from=checkIDfordepartmentofficer&departmentClubId=".$dpIDedit);
+
+}
+
+if (isset($_GET['from']) and $_GET['from'] == 'delete-social-position') {
+
+	$scID = $_GET['socialClubId'];
+
+	mysqli_query($connection, "delete from social_officerandmembers_table where stprofID = '".$_GET['stprofID']."' ");
+	
+		header("Location: list-of-officers-social.php?from=checkIDforsocialofficer&socialClubId=".$scID);
+
+}
+
+if (isset($_GET['from']) and $_GET['from'] == 'edit-social-position') {
+
+	$scIDedit = $_GET['socialClubId'];
+
+	mysqli_query($connection, "update social_officerandmembers_table set stprofID = '".$_GET['stprofID']."', positionID = '".$_GET['positionID']."', perpost = '".$_GET['perpost']."' where socialoffID = '".$_GET['socialoffID']."' ");
+		
+		header("Location: list-of-officers-social.php?from=checkIDforsocialofficer&socialClubId=".$scIDedit);
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'register_student_portfolio') {
+
+	mysqli_query($connection, "insert student_portfolio_table (stprofID, styear, sem, schoolyr, act1, rank1, act2, rank2, act3, rank3, act4, rank4, comm1, comm2, comm3, comm4, seminar1, seminar2, seminar3, seminar4) values ('".$_POST['stprofID']."', '".$_POST['styear']."','".$_POST['sem']."','".$_POST['schoolyr']."','".$_POST['act1']."','".$_POST['rank1']."','".$_POST['act2']."','".$_POST['rank2']."','".$_POST['act3']."','".$_POST['rank3']."','".$_POST['act4']."','".$_POST['rank4']."','".$_POST['comm1']."','".$_POST['comm2']."','".$_POST['comm3']."','".$_POST['comm4']."','".$_POST['seminar1']."','".$_POST['seminar2']."','".$_POST['seminar3']."','".$_POST['seminar4']."') ");
+		
+		header("Location: student-portfolio.php");
+
+}
  ?>

@@ -1,7 +1,7 @@
 
 <?php include('header.php');
 $currentpage = "students";
-if (!isset($_SESSION['adminId'])) {
+if (!isset($_SESSION['adminID'])) {
   header("Location: index.php");
 }
 
@@ -18,51 +18,51 @@ if (!isset($_SESSION['adminId'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2><i class="fas fa-user-plus"></i> Student Account</h2>
+        <h2><i class="fas fa-user-graduate"></i> Student Account</h2>
         <hr>
 
       </div>
     </div>
 
     
-    <div class="container-fluid">
-<div class="row">
-  <div class="col-md-4">
-    <div class="mt-2">
+<div class="container-fluid ">
+  <div class="row">
+    <div class="col-md-4"></div>
+      <div class="col-md-4">
+    <div class="mt-2 z-depth-5">
       
       <!-- Default form login -->
       <form class="text-center border border-light p-3" method="POST" action="controller.php" autocomplete="false">
 
           <div class="row">
             <div class="col-12">
-              <h2> Add Student Account</h2>
+              <h2><i class="fas fa-user-plus"></i> Student Account</h2>
               <hr>
               <?php if (isset($_GET['status']) and $_GET['status'] == 'register-failed'): ?>
                     <div class="alert alert-danger" role="alert">
                     Account already Exist!
                   </div>
                   <?php endif ?>
-              <small>Student ID</small>
-              <input type="text" name="StudentID" class="form-control mb-4" required="" placeholder="Student ID">
+              <div class="md-form">
+            <input type="text" name="StudentID" id="inputMDEx" class="form-control md-4" required="">
+            <label for="inputMDEx">Student ID</label>
+            </div>
             </div> 
 
           </div>
-
-          <button type="submit" class="btn btn-primary">Add</button>
+           
+          <button type="submit" class="btn aqua-gradient"><i class="fas fa-plus"></i> Add</button>
 
           <input type="text" name="from" value="add-student-account" hidden>   
       </form>
       <!-- Default form login -->
 
     </div>
+    </div>
   </div>
+<div class="col-md-4"></div>
 
-
-
-
-
-    
-      <div class="col-md-8">
+      <div class="col-md-12">
         <div class="mt-2">
         <div class="table-responsive text-nowrap">
 
@@ -81,17 +81,16 @@ if (!isset($_SESSION['adminId'])) {
                <tr>
               <td scope="row"><?php echo $res['StudentID']; ?></td>
               <td><?php echo $res['StudentPassword']; ?></td>
-              <td><button class="btn btn-info" data-toggle="modal" data-target="#editModal<?php echo $res['accID'] ?>">Edit</button> <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?php echo $res['accID'] ?>">Delete</button></td>
+              <td><button class="btn blue-gradient" data-toggle="modal" data-target="#editModal<?php echo $res['accID'] ?>"><i class="far fa-edit"></i></button> <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?php echo $res['accID'] ?>"><i class="far fa-trash-alt"></i></button></td>
 
             </tr>
-
 
             <!-- Modal -->
             <div class="modal fade" id="editModal<?php echo $res['accID'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><ELEMENT></ELEMENT>Edit Modal</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><ELEMENT></ELEMENT>Edit Account</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -114,7 +113,7 @@ if (!isset($_SESSION['adminId'])) {
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn aqua-gradient"><i class="far fa-edit"></i> Update</button>
                     </form>
                   </div>
                 </div>
@@ -128,7 +127,7 @@ if (!isset($_SESSION['adminId'])) {
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Modal</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Student Account</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -138,7 +137,7 @@ if (!isset($_SESSION['adminId'])) {
 
                     <div class="row">
                       <div class="col-12">
-                        <h5>Are you sure to delete student ID <?php echo $res['StudentID']; ?>?</h5>
+                        <h5>Are you sure to delete student ID <?php echo $res['StudentID']; ?> ?</h5>
                       </div>
                     </div>
 
@@ -147,8 +146,8 @@ if (!isset($_SESSION['adminId'])) {
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-danger">Yes</button>
                     </form>
                   </div>
                 </div>
@@ -173,6 +172,7 @@ if (!isset($_SESSION['adminId'])) {
     <!-- div container fluid last div -->
   </div>
 </div>
+
 </main>
 <!--Main Layout-->
 

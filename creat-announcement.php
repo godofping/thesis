@@ -1,7 +1,7 @@
 
 <?php include('header.php');
 $currentpage = "adminannouncement";
-if (!isset($_SESSION['adminId'])) {
+if (!isset($_SESSION['adminID'])) {
   header("Location: index.php");
 }
 
@@ -18,7 +18,7 @@ if (!isset($_SESSION['adminId'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2>Add Admin Announcement</h2>
+        <h2>Add Announcement</h2>
         <hr>
 
       </div>
@@ -27,7 +27,7 @@ if (!isset($_SESSION['adminId'])) {
         <div class="row">
       <div class="col-md-12">
 
-        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
+        <a href="" class="btn blue-gradient btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
 
        <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
@@ -40,13 +40,6 @@ if (!isset($_SESSION['adminId'])) {
                 </button>
               </div>
 
-              <?php 
-
-                $qryadmin = mysqli_query($connection, "select * from admin_view where adminId = ".$_SESSION['adminId']." ");
-                $resadmin = mysqli_fetch_assoc($qryadmin);
-
-
-               ?>
 
               <div class="modal-body mx-3">
                 <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
@@ -113,7 +106,7 @@ if (!isset($_SESSION['adminId'])) {
      
       </div>
 
-      <?php 
+     <?php 
 
               $qrycsc = mysqli_query($connection, "select * from dsa_announcement_view order by dsaAnnouncementID desc ");
               $rescsc = mysqli_fetch_assoc($qrycsc);
@@ -124,10 +117,11 @@ if (!isset($_SESSION['adminId'])) {
   <div class="container">
     <div class="card">
 
-      <h5 class="card-header info-color white-text text-center py-4">
-        <strong>Director of Student Affairs</strong>
+      <h5 class="card-header blue lighten-1 white-text text-center py-4"><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
+        <strong>Office of The Director Student Affairs</strong><br>
+        <small style="font-size: ">Notre Dame of Tacurong College</small><br>
+        <small>City of Tacurong</small>
     </h5>
-
     <!--Card content-->
     <div class="card-body px-lg-5 pt-0">
 
@@ -135,31 +129,25 @@ if (!isset($_SESSION['adminId'])) {
         <form class="text-center" style="color: #757575;">
 
               <!-- To Whom -->
-            <div class="md-form mt-3">
-                <input align="middle" type="text" readonly="" class="form-control" value="<?php echo date('F d, Y h:i A', strtotime($rescsc['timeStart'])); ?>-<?php echo date('F d, Y h:i A', strtotime($rescsc['timeEnd'])); ?>">
-                <label>Announcement Date</label>
+            <div class="md-form mt-5" style="text-align: center;">
+              <p style="color: black"><?php echo $rescsc['toWhom']; ?></p>
             </div>
 
             <!-- To Whom -->
-            <div class="md-form mt-3">
-                <input type="text" readonly="" class="form-control" value="<?php echo $rescsc['toWhom']; ?>">
-                <label>To:</label>
+           <div class="md-form mt-3" style="text-align: center;">
+              <p style="color: black"><?php echo $rescsc['subjectann']; ?></p>
+            </div> 
+
+            <div class="md-form mt-3" style="text-align: left;">
+               <p style="color: black"> Date: <?php echo date('F d, Y h:i A', strtotime($rescsc['timeStart'])); ?>, until <?php echo date('F d, Y h:i A', strtotime($rescsc['timeEnd'])); ?></p>
             </div>
 
-            <div class="md-form mt-3">
-                <input type="text" readonly="" class="form-control" value="<?php echo $rescsc['subjectann']; ?>">
-                <label>To:</label>
+            <div class="md-form mt-3" style="text-align: left;">
+              <p style="color: black">Venue: <?php echo $rescsc['venueName']; ?></p>
             </div>
 
-            <div class="md-form mt-3">
-                <input type="text" readonly="" class="form-control" value="<?php echo $rescsc['venueName']; ?>">
-                <label>Venue:</label>
-            </div>
-
-            <!--Message-->
-            <div class="md-form">
-                <textarea  readonly="" class="form-control md-textarea" rows="3"><?php echo $rescsc['message']; ?></textarea>
-                <label>Message</label>
+             <div class="md-form mt-3" style="text-align: center;">
+              <p style="color: black">Message: <br><br><?php echo $rescsc['message']; ?></p>
             </div>
 
         </form>
@@ -168,8 +156,8 @@ if (!isset($_SESSION['adminId'])) {
       </div>
     </div>
 
-             <?php endif ?>
-
+             
+  <?php endif ?> 
       
 
 </main>

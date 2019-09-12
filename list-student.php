@@ -1,7 +1,7 @@
 
 <?php include('header.php');
 $currentpage = "students";
-if (!isset($_SESSION['adminId'])) {
+if (!isset($_SESSION['adminID'])) {
   header("Location: index.php");
 }
 
@@ -17,15 +17,15 @@ if (!isset($_SESSION['adminId'])) {
 
   <div class="row">
       <div class="col-md-12">
-        <h2>List of Students</h2>
+        <h2><i class="fas fa-users"></i> List of Students</h2>
         <hr>
       </div>
     </div>
 
-    <div class="row">
+  <!--   <div class="row">
       <div class="col-md-12">
         
-      <!-- Default checked -->
+     
       <div class="custom-control custom-switch">
         <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
         <label class="custom-control-label" for="customSwitch1">Students Clubs Renewal</label>
@@ -33,7 +33,7 @@ if (!isset($_SESSION['adminId'])) {
 
       </div>
       </div>
-
+ -->
     <div class="row">
       <div class="col-md-12">
 

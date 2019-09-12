@@ -5,12 +5,12 @@ if (!isset($_SESSION['accID'])) {
   header("Location: index.php");
 }
 
-// if ((time() - $_SESSION['last_time']) > 300) {
-//       header("Location: controller.php?from=logout");
+if ((time() - $_SESSION['last_time']) > 300) {
+      header("Location: controller.php?from=logout");
   
-// }else{
-//    $_SESSION['last_time'] = time(); 
-// }
+}else{
+   $_SESSION['last_time'] = time(); 
+}
 
 
  include("student-header.php");
@@ -52,7 +52,12 @@ if (!isset($_SESSION['accID'])) {
           </thead>
           <tbody>
             <?php 
-            $qrycscann = mysqli_query($connection, "select * from social_club_announcement_view where isApproved = 'No'");
+
+            $qrysocial = mysqli_query($connection, "select * from list_social_club_view where stprofID = '".$_SESSION['stprofID']."' ");
+            $resultsocial = mysqli_fetch_assoc($qrysocial);
+
+            $qrycscann = mysqli_query($connection, "select * from social_club_announcement_view where isApproved = 'No' and socialClubId = '".$resultsocial['socialClubId']."'");
+
             while ($rescscann = mysqli_fetch_assoc($qrycscann)) { ?>
                <tr>
               <td scope="row"><?php echo $rescscann['socialClubName']; ?></td> 

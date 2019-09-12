@@ -79,13 +79,17 @@ if ((time() - $_SESSION['last_time']) > 300) {
               </div>
 
               <div class="modal-body mx-3">
-                <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
+                <form class=" p-2" method="GET" action="controller.php" autocomplete="false">
                 <div class="md-form mb-5">
 
                 <?php 
 
                         $qrydpannname = mysqli_query($connection, " select * from department_announcement_table where DannouncementID = '".$rescscann['DannouncementID']."' ");
-                        $resultann = mysqli_fetch_assoc($qrydpannname);
+                        $resultann = mysqli_fetch_assoc($qrydpannname);    
+
+                        $qryvenue = mysqli_query($connection, "select * from departmental_club_announcement_view where departmentClubId = '".$resdpname['departmentClubId']."' ");
+                        $resvenue = mysqli_fetch_assoc($qryvenue);
+
                      ?>  
 
                 <div class="md-form mb-5">
@@ -99,19 +103,19 @@ if ((time() - $_SESSION['last_time']) > 300) {
                 </div>
 
                 <div class="md-form mx-5 my-5">
-                    <input type="datetime-local" name="timestart" class="form-control" required="" value="<?php echo date('Y-m-d\TH:i:s', strtotime($resultann['timeEnd'])) ?>">
+                    <input type="datetime-local" name="timestart" class="form-control" required="" value="<?php echo date('Y-m-d\TH:i:s', strtotime($resultann['timeStart'])) ?>">
                     <label for="inputMDEx">Choose your date and time Start</label>
                   </div>
 
                   <div class="md-form mx-5 my-5">
-                    <input type="datetime-local" name="timeend" class="form-control" required="" value="<?php echo date('F d, Y h:i A', strtotime($resultann['timeEnd'])); ?>">
+                    <input type="datetime-local" name="timeend" class="form-control" required="" value="<?php echo date('Y-m-d\TH:i:s', strtotime($resultann['timeEnd'])); ?>">
                     <label for="inputMDEx">Choose your date and time End</label>
                   </div>
 
                   <div class="md-form mb-5">  
                    <p class="text-center">Select Venue</p>
                   <select class="form-control" name="venueID" required="" title="hi">
-                          <option selected="" readonly="" disabled="" value="<?php echo $resultann['venueID']; ?>"><?php $resultann['venueID'] ?></option>    
+                          <option selected="" value="<?php echo $resultann['venueID']; ?>"><?php echo $resvenue['venueName'] ?></option>    
                           <?php 
 
                             $qry1 = mysqli_query($connection, "select * from venue_table");
@@ -119,7 +123,6 @@ if ((time() - $_SESSION['last_time']) > 300) {
                             while ($res2 = mysqli_fetch_assoc($qry1)) { ?>
                               <option value="<?php echo $res2['venueID']; ?>"><?php echo $res2['venueName']; ?></option>
                            <?php }
-
                            ?>
                         </select>
                       </div>
@@ -135,8 +138,10 @@ if ((time() - $_SESSION['last_time']) > 300) {
                 </ul>
             
               <div class="modal-footer d-flex justify-content-center">
+                <input type="text" name="DannouncementID" value="<?php echo $rescscann['DannouncementID']; ?>" hidden>
+              <input type="text" name="from" value="resend-department-announcement" hidden>
 
-                <button type="button" class="btn btn-unique" data-toggle="modal" data-target="#exampleModalCenter<?php echo $rescscann['DannouncementID']; ?>">Resend <i class="fas fa-paper-plane-o ml-1"></i></button>
+                <button type="submit" class="btn btn-unique">Resend</button></a>
                 <button type="button" class="btn btn-unique" data-dismiss="modal">Cancel</button>
               </div>
             </form> 

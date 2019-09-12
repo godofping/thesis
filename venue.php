@@ -1,7 +1,7 @@
 
 <?php include('header.php');
 $currentpage = "venue";
-if (!isset($_SESSION['adminId'])) {
+if (!isset($_SESSION['adminID'])) {
   header("Location: index.php");
 }
 
@@ -28,7 +28,7 @@ if (!isset($_SESSION['adminId'])) {
     <div class="row">
       <div class="col-md-12">
 
-        <button class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> ADD Venue</button>
+        <button class="btn blue-gradient" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> ADD Venue</button>
 
         <!-- Modal -->
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -43,7 +43,7 @@ if (!isset($_SESSION['adminId'])) {
               <div class="modal-body">
                 <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
 
-                  <label>Venue Name</label>
+                  <small>Venue Name</small>
                   <input type="text" name="venueName" class="form-control mb-4" required="">
                     
                   <input type="text" name="from" value="add-venue" hidden>              
@@ -51,7 +51,7 @@ if (!isset($_SESSION['adminId'])) {
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn blue-gradient"><i class="fas fa-plus"></i> Add</button>
                 </form>
               </div>
             </div>
@@ -64,14 +64,14 @@ if (!isset($_SESSION['adminId'])) {
 
 
     <div class="row mt-5">
-      <div class="col-md-12">
+      <div class="col-md-12 z-depth-5">
 
         <div class="table-responsive text-nowrap">
 
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Venue Name</th>
+              <th scope="col">Venue</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -81,7 +81,7 @@ if (!isset($_SESSION['adminId'])) {
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
               <th scope="row"><?php echo $res['venueName']; ?></th> 
-              <td><button class="btn btn-secondary" data-toggle="modal" data-target="#editModal<?php echo $res['venueID'] ?>">Edit</button> <button class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal">Delete</button></td>
+              <td><button class="btn aqua-gradient" data-toggle="modal" data-target="#editModal<?php echo $res['venueID'] ?>"><i class="far fa-edit"></i></button> <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?php echo $res['venueID'] ?>"><i class="far fa-trash-alt"></i></button></td>
 
             </tr>
 
@@ -99,16 +99,16 @@ if (!isset($_SESSION['adminId'])) {
                     <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
 
                
-                      <label>Venue Name</label>
+                      <small>Venue Name</small>
                       <input type="text" name="venueName" class="form-control mb-4" required="" value="<?php echo $res['venueName'] ?>">
 
-                  <input type="text" name="venueID" value="<?php echo $res['venueID'] ?>" hidden>
-                  <input type="text" name="from" value="edit-venue-name" hidden>
+                    <input type="text" name="venueID" value="<?php echo $res['venueID'] ?>" hidden>
+                    <input type="text" name="from" value="edit-venue-name" hidden>
 
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn aqua-gradient"><i class="fas fa-check"></i> Update</button>
                     </form>
                   </div>
                 </div>
@@ -117,7 +117,7 @@ if (!isset($_SESSION['adminId'])) {
             <!-- end modal -->
 
             <!-- Modal -->
-            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="deleteModal<?php echo $res['venueID'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -129,16 +129,19 @@ if (!isset($_SESSION['adminId'])) {
                   <div class="modal-body">
                     <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
 
-                    <label>Venue Name</label>
-                      <input type="text" name="courseName" class="form-control mb-4" required="" value="<?php echo $res['venueName'] ?>">
+                    <div class="row">
+                      <div class="col-12">
+                        <h5>Are you sure to delete <?php echo $res['venueName']; ?> ?</h5>
+                      </div>
+                    </div>
 
                   <input type="text" name="venueID" value="<?php echo $res['venueID'] ?>" hidden>
                   <input type="text" name="from" value="delete-venue-name" hidden>
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-danger">Yes</button>
                     </form>
                   </div>
                 </div>

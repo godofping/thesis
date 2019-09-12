@@ -4,12 +4,12 @@ $currentpage = "announcement";
 if (!isset($_SESSION['stprofID'])) {
   header("Location: index.php");
 }
-// if ((time() - $_SESSION['last_time']) > 300) {
-//       header("Location: controller.php?from=logout");
+if ((time() - $_SESSION['last_time']) > 300) {
+      header("Location: controller.php?from=logout");
   
-// }else{
-//    $_SESSION['last_time'] = time(); 
-// }
+}else{
+   $_SESSION['last_time'] = time(); 
+}
 
 
  include("student-header.php");
@@ -44,23 +44,34 @@ if (!isset($_SESSION['stprofID'])) {
           
   <?php 
 
-
     $qrysocialclub = mysqli_query($connection, "select * from student_social_club_view where stprofID = ".$_SESSION['stprofID']." ");
     while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)){
 
         $qryposition = mysqli_query($connection, "select * from social_officerandmembers_view where stprofID = '" .$_SESSION['stprofID']. "' and position = 'Mayor' ");
         $resultsocial = mysqli_fetch_assoc($qryposition);
+
+        $qryssocial = mysqli_query($connection, "select * from student_social_table where stprofID = ".$_SESSION['accID']." ");
+        $ressocial = mysqli_fetch_assoc($qryssocial);
+
+        $qryrejctbadge = mysqli_query($connection,"select count(*) as cnt from social_announcement_table where isApproved = 'Reject' and socialClubId = '".$ressocial['socialClubId']."'");
+        $resultreject = mysqli_fetch_assoc($qryrejctbadge);
+
         if (mysqli_num_rows($qryposition)>0): ?>
                   <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm<?php echo $ressocialclub['socialClubId']; ?>"><i class="fas fa-plus"></i> Create Announcement</a>
                   <a href="social-clubs-status-announcement.php" class="btn btn-default btn-rounded mb-4">Pending Announcement</a>
+                  <a href="social-clubs-reject-announcement.php" class="btn btn-default btn-rounded mb-4">Rejected Announcement <?php if ( $resultreject['cnt'] != 0): ?><span class="badge badge-danger ml-1"><?php echo $resultreject['cnt']; ?></span>
+          <?php endif ?> </a>
         <?php endif ?>
 
         <?php 
+
         $qryposition = mysqli_query($connection, "select * from social_officerandmembers_view where stprofID = '" .$_SESSION['stprofID']. "' and position = 'Secretary' ");
         $resultsocial = mysqli_fetch_assoc($qryposition);
         if (mysqli_num_rows($qryposition)>0): ?>
                   <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
                   <a href="social-clubs-status-announcement.php" class="btn btn-default btn-rounded mb-4">Pending Announcement</a>
+                  <a href="social-clubs-reject-announcement.php" class="btn btn-default btn-rounded mb-4">Rejected Announcement <?php if ( $resultreject['cnt'] != 0): ?><span class="badge badge-danger ml-1"><?php echo $resultreject['cnt']; ?></span>
+          <?php endif ?> </a>
         <?php endif ?>
 
 
@@ -117,7 +128,7 @@ if (!isset($_SESSION['stprofID'])) {
 
 
 
-<!-- <div class="modal fade" id="modalContactForm<?php echo $ressocialclub['socialClubId']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="modalContactForm<?php echo $ressocialclub['socialClubId']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -129,7 +140,7 @@ if (!isset($_SESSION['stprofID'])) {
               </div>
 
               <div class="modal-body mx-3">
-                <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
+                <form class=" p-2" id="formdforsend" method="POST" action="controller.php" autocomplete="false">
                 <div class="md-form mb-5">
                   
                    <?php 
@@ -154,18 +165,18 @@ if (!isset($_SESSION['stprofID'])) {
                 </div>
 
                 <div class="md-form mx-5 my-5">
-                    <input type="datetime-local" name="timestart" class="form-control" required="">
+                    <input type="datetime-local" id="timestart" name="timestart" class="form-control" required="">
                     <label for="inputMDEx">Choose your date and time Start</label>
                   </div>
 
                   <div class="md-form mx-5 my-5">
-                    <input type="datetime-local"  name="timeend" class="form-control" required="">
+                    <input type="datetime-local" id="timeend" name="timeend" class="form-control" required="">
                     <label for="inputMDEx">Choose your date and time End</label>
                   </div>
 
                   <div class="md-form mb-5">  
                    <p class="text-center">Select Venue</p>
-                   <select class="form-control" name="venueID" required="" title="hi">
+                   <select class="form-control" id="venue" name="venueID" required="" title="hi">
                           <option selected="" required=""  readonly="" disabled=""></option>    
                           <?php 
 
@@ -185,19 +196,21 @@ if (!isset($_SESSION['stprofID'])) {
                   <label data-error="wrong" data-success="right" for="form8">Your message</label>
                 </div>
 
+                  <p id="errors" class="text-danger"></p>
+
                   <input type="text" name="socialClubId" value="<?php echo $resdpname['socialClubId'] ?>" hidden>
                   <input type="text" name="from" value="social-clubs-announcement" hidden>
             
               <div class="modal-footer d-flex justify-content-center">
                   
-                <button type="submit" class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
+                <button id="sendButton" type="button" class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
               
               </div>
             </form> 
           </div>
           </div>
         </div>
-      </div> -->
+      </div>
          <?php } ?>        
 
   
@@ -208,4 +221,48 @@ if (!isset($_SESSION['stprofID'])) {
 
 <?php include('footer.php'); ?>
 
+<script type="text/javascript">
+  $("#sendButton").click(function(){
 
+    to = $("input[name=to]").val();
+    subject =  $("input[name=subject]").val();
+    timestart =  $("#timestart").val();
+    timeend =  $("#timeend").val();
+    venue = $("#venue").val();
+
+
+
+
+  $.post("check-social-club-announcement.php",
+  {
+    to: to,
+    subject: subject,
+    timestart: timestart,
+    timeend: timeend,
+    venue: venue,
+ 
+  },
+
+  function(data){
+    
+ 
+  //  var obj = data;
+
+  // $.each( obj, function( key, value ) {
+  //     alert( key + ": " + value );
+  // });
+
+if (data == "") {
+  $( "#formdforsend" ).submit();
+}
+else
+{
+  $("#errors").html(data);
+}
+
+
+  });
+
+
+});
+</script>

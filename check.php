@@ -5,7 +5,7 @@ date_default_timezone_set('Asia/Manila');
 
 $stprofID = $_SESSION['stprofID'];
 
-$connection = mysqli_connect("localhost", "root", "", "project_db");
+$connection = mysqli_connect("localhost", "root", "vertrigo", "project_db");
 
 //count how many push notifications deployed to the user.
 $qry = mysqli_query($connection, "select count(*) as total from dsa_announcement_isread_table where stprofID = '" . $stprofID . "' ");
@@ -24,8 +24,8 @@ if (mysqli_num_rows($qry) > 0) {
 	$res2 = mysqli_fetch_assoc($qry);
 	$dsaAnnouncementID = $res2['dsaAnnouncementID'];
 
-	$myObj->dateAnnounced = $res2['dateAnnounced'];
 	$myObj->toWhom = $res2['toWhom'];
+	$myObj->subjectann = $res2['subjectann'];
 	$myObj->message = $res2['message'];
 	$myObj->toDisplay = "Yes";
 

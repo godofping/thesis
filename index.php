@@ -3,7 +3,7 @@
 
 
 
-if (isset($_SESSION['adminId'])) {
+if (isset($_SESSION['adminID'])) {
   header("Location: admin-dashboard.php");
 }
 
@@ -18,7 +18,7 @@ if (isset($_SESSION['accID'])) {
   <div class="col-md-4"></div>
 
   <div class="col-md-4">
-    <div class="mt-5 yellow accent-2">
+    <div class="mt-5 peach-gradient z-depth-2">
       
       <!-- Default form login -->
       <form class="text-center border border-light p-3" method="POST" action="controller.php" autocomplete="false">
@@ -43,7 +43,7 @@ if (isset($_SESSION['accID'])) {
           </div>
           </div>
   
-          <button class="btn btn-info btn-block my-4 green darken-4" type="submit">Sign in</button>
+          <button class="btn btn-info btn-block my-4 aqua-gradient" type="submit">Sign in</button>
 
           <input type="text" name="from" value="login" hidden>
 

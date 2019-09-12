@@ -1,7 +1,7 @@
 
 <?php include('header.php');
 $currentpage = "clubs";
-if (!isset($_SESSION['adminId'])) {
+if (!isset($_SESSION['adminID'])) {
   header("Location: index.php");
 }
 
@@ -28,7 +28,7 @@ if (!isset($_SESSION['adminId'])) {
 
     
   
-    <div class="row mt-5">
+    <div class="row mt-5 grey lighten-5 z-depth-2">
       <div class="col-md-12">
 
         <div class="table-responsive text-nowrap">
@@ -50,7 +50,7 @@ if (!isset($_SESSION['adminId'])) {
             <?php if ($res['CounName'] != ""): ?>
             <tr>
               <td scope="row"><?php echo $res['CounName'];?></td>
-              <td><a class="btn btn-secondary" href="cased.php">Officers</a>
+              <td><a href="cased.php"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a><a href="cased-members.php"><button type="button" class="btn peach-gradient"><i class="fas fa-users"></i> Members</button></a></td>
 
             </tr>
             <?php endif ?>
@@ -62,7 +62,7 @@ if (!isset($_SESSION['adminId'])) {
             <?php if ($res['CounName'] != ""): ?>
             <tr>
               <td scope="row"><?php echo $res['CounName'];?></td>
-              <td><a class="btn btn-secondary" href="business.php">Officers</a></td> 
+              <td><a href="business.php"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a><a href="business-members.php"><button type="button" class="btn peach-gradient"><i class="fas fa-users"></i> Members</button></a></td> 
 
             </tr>
             <?php endif ?>
@@ -74,7 +74,7 @@ if (!isset($_SESSION['adminId'])) {
             <?php if ($res['CounName'] != ""): ?>
             <tr>
               <td scope="row"><?php echo $res['CounName'];?></td>
-              <td><a class="btn btn-secondary" href="nursing.php">Officers</a></td> 
+              <td><a href="nursing.php"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a><a href="nursing-members.php"><button type="button" class="btn peach-gradient"><i class="fas fa-users"></i> Members</button></a></td> 
 
             </tr>
             <?php endif ?>

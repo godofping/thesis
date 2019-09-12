@@ -4,12 +4,12 @@ $currentpage = "student";
 if (!isset($_SESSION['accID'])) {
   header("Location: index.php");
 }
-// if ((time() - $_SESSION['last_time']) > 300) {
-//       header("Location: controller.php?from=logout");
+if ((time() - $_SESSION['last_time']) > 300) {
+      header("Location: controller.php?from=logout");
   
-// }else{
-//    $_SESSION['last_time'] = time(); 
-// }
+}else{
+   $_SESSION['last_time'] = time(); 
+}
 
 
  include("student-header.php");
@@ -72,17 +72,16 @@ if (!isset($_SESSION['accID'])) {
           <div class="modal fade" id="changepassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
             <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+              <div class="modal-content blue lighten-3">
 <form class="border border-light p-3" method="POST" action="controller.php" autocomplete="false">
-              <div class="modal-content">
-
                 <!--Header-->
                 <div class="modal-header">
-                  <img src="<?php echo $stdimg ?>" alt="avatar" class="rounded-circle img-responsive">
+                  <img src="<?php echo $stdimg ?>" alt="avatar" class="img-responsive">
                 </div>
 
                 <!--Body-->
-                <div class="modal-body text-center mb-1">
-
+                <div class="modal-body text-center mb-1 indigo lighten-5">
+                  
                   <h7 class="mt-1 mb-2">Student ID: <?php echo "$username"?></h7>
 
                   <?php 
@@ -109,9 +108,10 @@ if (!isset($_SESSION['accID'])) {
                   <input type="text" name="from" value="change-pass" hidden>
 
                   <div class="">
-                    <button class="btn btn-cyan mt-1"><i class="fas fa-check"></i></button>
-                    <button class="btn btn-cyan mt-1" data-dismiss="modal"><i class="fas fa-times"></i></button>
+                    <button class="btn blue-gradient mt-1"><i class="fas fa-check"></i></button>
+                    <button class="btn btn-danger mt-1" data-dismiss="modal"><i class="fas fa-times"></i></button>
                   </div>
+                  
                 </div>
                 </form>
               </div>
@@ -121,7 +121,7 @@ if (!isset($_SESSION['accID'])) {
           <!--Modal: Login with Avatar Form-->
           
           <div class="text-center">
-            <a href="" class="btn btn-info btn-block my-4" data-toggle="modal" data-target="#changepassModal">Change Password</a>
+            <a href="" class="btn aqua-gradient" data-toggle="modal" data-target="#changepassModal">Change Password</a>
           </div>
 
       <!-- Default form login -->
@@ -187,6 +187,17 @@ if (!isset($_SESSION['accID'])) {
           </div>
           </div>
          </div>
+          
+
+
+    </div>
+  </div>
+
+<div class="col-md-4">
+          <div class="mt-5">
+
+            <p class="h4 mb-4 text-center pt-5"></p>
+
           <div class="form-row mb-2">
           <div class="col">
             <small>Religion</small>
@@ -225,11 +236,8 @@ if (!isset($_SESSION['accID'])) {
                   <input type="text" name="gender" disabled="" class="form-control md-4" required="" value="<?php echo "$sex";?>">
                 </div>
               </div>
-            </div>   
-         
-
-          <button class="btn btn-info btn-block my-4" data-toggle="modal" data-target="#editModal"><i class="far fa-edit"></i>Edit</button>
-
+            </div>
+      
           <!-- Modal -->
         <div class="modal fade" id="editModal" tabindex="-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -243,14 +251,21 @@ if (!isset($_SESSION['accID'])) {
               <div class="modal-body">
                 <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
 
-                  <div class="form-row mb-2">
-                  <div class="col">
-                  <small>Middle Name</small>
-                  <input type="text" name="mname" class="form-control md-4" required="" value="<?php echo "$mname";?>">   
-                  </div>
-                  <div class="Tribe">                  
+                  <div class="row">
+                  <div class="col-12">
+                  <div class="form-group">
                   <small>First Name</small>
                   <input type="text" name="fname" class="form-control md-4" required="" value="<?php echo "$flname";?>">
+                  </div>
+                  </div>
+                  </div>
+
+                  <div class="row">
+                  <div class="col-12">
+                  <div class="form-group">
+                  <small>Middle Name</small>
+                  <input type="text" name="mname" class="form-control md-4" required="" value="<?php echo "$mname";?>">
+                  </div>
                   </div>
                   </div>
 
@@ -341,75 +356,17 @@ if (!isset($_SESSION['accID'])) {
 
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-ban"></i> Close</button>
-                <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Update</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban"></i> Close</button>
+                <button type="submit" class="btn blue-gradient"><i class="fas fa-check"></i> Update</button>
                 </form>
               </div>
             </div>
           </div>
+        </div>  
+
+          <button class="btn aqua-gradient btn-block my-4" data-toggle="modal" data-target="#editModal"><i class="far fa-edit"></i>Edit</button> 
+          </div>
         </div>
-
-
-    </div>
-  </div>
-
-<div class="col-md-4">
-
-    <div class="mt-5">
-     
-          <p class="h4 mb-4 text-center pt-4">Department Council</p>
-          
-          <?php 
-
-            $qry = mysqli_query($connection, "select * from list_student_view where accID = '".$_SESSION['accID']."'");
-
-            $res = mysqli_fetch_assoc($qry);
-
-            $dpname = $res['departmentClubName'];
-            $ccname = $res['CounName'];
-           ?>
-
-
-         <div class="row">
-          <div class="col-12">
-            <div class="form-group">
-           <input type="text" readonly="" class="form-control md-4" value="<?php echo $ccname;?>">
-           </div>
-          </div>
-         </div>
-
-         <p class="h4 mb-4 text-center pt-4">Departmental Club</p>
-
-        <div class="row">
-          <div class="col-12">
-          <div class="form-group">
-          <input type="text" readonly="" class="form-control md-4" value="<?php echo $dpname;?>">
-          </div>
-          </div>
-         </div>
-
-          <p class="h4 mb-4 text-center pt-4">Social Club/s</p>
-          
-
-            <?php 
-
-              $qry1 = mysqli_query($connection, "select * from student_social_club_view where stprofID = '".$res['stprofID']."'");
-              while($res1 = mysqli_fetch_assoc($qry1)){ ?>
-              
-         
-                <div class="form-group">
-               <input type="text" name="fname" disabled="" class="form-control md-4" readonly="" value="<?php echo $res1['socialClubName']; ?>">
-               </div>
-         
-        
-             <?php }
-
-             ?>
-
-          
-  </div>
-  </div>
-
 
 </div>
 
