@@ -562,4 +562,40 @@ if (isset($_POST['from']) and $_POST['from'] == 'register_student_portfolio') {
 		header("Location: student-portfolio.php");
 
 }
+
+if (isset($_GET['from']) and $_GET['from'] == 'show-button') {
+
+
+	mysqli_query($connection, "update buttontoggle_table set toggleonoroff = 'SHOW' where showID = '".$_GET['showID']."' ");
+
+
+		header("Location: admin-dashboard.php");
+
+}
+
+if (isset($_GET['from']) and $_GET['from'] == 'hide-button') {
+
+
+	mysqli_query($connection, "update buttontoggle_table set toggleonoroff = 'HIDE' where showID = '".$_GET['showID']."' ");
+	
+
+		header("Location: admin-dashboard.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'edit-social-club') {
+		mysqli_query($connection, "update student_social_table set socialClubId = '".$_POST['socialClubId']."' where stdsocialID = '". $_GET['stdsocialID'] ."' ");
+
+		header("Location: edit-socialclub.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'delete-social-club') {
+		mysqli_query($connection, "delete from student_social_table where  stdsocialID = '". $_GET['stdsocialID'] ."' ");
+
+		header("Location: edit-socialclub.php");
+
+}	
+
+
  ?>

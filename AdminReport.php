@@ -18,7 +18,7 @@ if (!isset($_SESSION['adminID'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2>Reports</h2>
+        <h2>Official Reports</h2>
         <hr>
 
       </div>
@@ -49,20 +49,25 @@ if (!isset($_SESSION['adminID'])) {
               <td scope="row">Student's Profile Data</td>
               <td><a href="studentdata.php"><button type="button" class="btn aqua-gradient"><i class="fas fa-file-export"></i> Report</button></a></td>
             </tr>
+
+            <tr>
+              <td scope="row">List of Members of Departmental Councils</td>
+              <td><a href="councilReport.php"><button type="button" class="btn aqua-gradient"><i class="fas fa-file-export"></i> Report</button></a></td>
+            </tr>
+
+            <tr>
+              <td scope="row">List of Members of Departmental Clubs</td>
+              <td><a href="departmentReport.php"><button type="button" class="btn aqua-gradient"><i class="fas fa-file-export"></i> Report</button></a></td>
+            </tr>
            
            <tr>
-              <td scope="row">Student's Profile Data</td>
-              <td><a href="cased.php"><button type="button" class="btn aqua-gradient"><i class="fas fa-file-export"></i> Report</button></a></td>
+              <td scope="row">List of Members of Social Clubs</td>
+              <td><a href="socialmemReport.php"><button type="button" class="btn aqua-gradient"><i class="fas fa-file-export"></i> Report</button></a></td>
             </tr>
 
             <tr>
-              <td scope="row">Student's Profile Data</td>
-              <td><a href="cased.php"><button type="button" class="btn aqua-gradient"><i class="fas fa-file-export"></i> Report</button></a></td>
-            </tr>
-
-            <tr>
-              <td scope="row">Student's Profile Data</td>
-              <td><a href="cased.php"><button type="button" class="btn aqua-gradient"><i class="fas fa-file-export"></i> Report</button></a></td>
+              <td scope="row">Posted Announcement</td>
+              <td><a href="approveannouncement.php"><button type="button" class="btn aqua-gradient"><i class="fas fa-file-export"></i> Report</button></a></td>
             </tr>
           
           </tbody>

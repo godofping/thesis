@@ -21,19 +21,7 @@ if (!isset($_SESSION['adminID'])) {
         <hr>
       </div>
     </div>
-
-  <!--   <div class="row">
-      <div class="col-md-12">
-        
-     
-      <div class="custom-control custom-switch">
-        <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-        <label class="custom-control-label" for="customSwitch1">Students Clubs Renewal</label>
-      </div>
-
-      </div>
-      </div>
- -->
+    
     <div class="row">
       <div class="col-md-12">
 
@@ -54,7 +42,7 @@ if (!isset($_SESSION['adminID'])) {
               <th scope="col">Gender</th>
               <th scope="col">Course</th>
               <th scope="col">Council</th>
-              <th scope="col">Department Club</th>
+              <th scope="col">Departmental Club</th>
               <th scope="col">Social Club</th>
               <!-- <th scope="col">Actions</th> -->
 
@@ -66,7 +54,7 @@ if (!isset($_SESSION['adminID'])) {
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
               <td scope="row"><?php echo $res['StudentID']; ?></td> 
-              <td scope="row"><?php echo $res['lname'] ." ". $res['fname']; ?></td>
+              <td scope="row"><?php echo $res['lname'] ." ". $res['fname'] ." ". $res['mname']; ?></td>
               <td scope="row"><?php echo $res['address']; ?></td>
               <td scope="row"><?php echo $res['email']; ?></td>
               <td scope="row"><?php echo $res['contactnum']; ?></td>

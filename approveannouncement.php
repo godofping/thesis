@@ -1,6 +1,6 @@
 
 <?php include('header.php');
-$currentpage = "adminannouncement";
+$currentpage = "reports";
 if (!isset($_SESSION['adminID'])) {
   header("Location: index.php");
 }
@@ -14,7 +14,7 @@ if (!isset($_SESSION['adminID'])) {
 
   <div class="row">
       <div class="col-md-12">
-        <h2>Reject Announcements</h2>
+        <h2>Approve Announcements</h2>
         <hr>
       </div>
     </div>
@@ -36,23 +36,28 @@ if (!isset($_SESSION['adminID'])) {
           <tbody>
 
             <tr>
+              <td scope="row">Office of The Director Student Affairs</td>
+              <td><a href="osaannouncementReport.php"><button class="btn blue-gradient">View</button></a>
+            </tr>
+
+            <tr>
               <td scope="row">Central Student Council</td>
-              <td><a href="view-csc-announcement-reject.php"><button class="btn blue-gradient">View</button></a>
+              <td><a href="cscannouncementReport.php"><button class="btn blue-gradient">View</button></a>
             </tr>
 
              <tr>
               <td scope="row">Departmental Council</td>
-              <td><a href="view-council-announcement-reject.php"><button class="btn blue-gradient">View</button></a>
+              <td><a href="councilannouncementReport.php"><button class="btn blue-gradient">View</button></a>
             </tr>
 
             <tr>
               <td scope="row">Departmental Clubs</td>
-              <td><a href="view-departmental-club-announcement-reject.php"><button class="btn blue-gradient">View</button></a>
+              <td><a href="departmentannouncementReport.php"><button class="btn blue-gradient">View</button></a>
             </tr>
 
              <tr>
               <td scope="row">Social Clubs</td>
-              <td><a href="view-social-club-announcement-reject.php"><button class="btn blue-gradient">View</button></a>
+              <td><a href="socialannouncementReport.php"><button class="btn blue-gradient">View</button></a>
             </tr>
                   
           </tbody>

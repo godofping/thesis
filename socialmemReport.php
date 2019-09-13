@@ -17,7 +17,7 @@ if (!isset($_SESSION['adminID'])) {
 
   <div class="row">
       <div class="col-md-12">
-        <h2><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive"> Student's Profile Data</h2>
+        <h2><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive"> List of Members of Social Clubs</h2>
         <hr>
       </div>
     </div>
@@ -35,12 +35,8 @@ if (!isset($_SESSION['adminID'])) {
             <tr>
               <th scope="col">Student ID</th>
               <th scope="col">Student Name</th>
-              <th scope="col">Address</th>
-              <th scope="col">Email</th>
-              <th scope="col">Contact Number</th>
-              <th scope="col">Birthday</th>
-              <th scope="col">Gender</th>
-              <th scope="col">Course</th>
+              <th scope="col">Social Club</th>
+              <th scope="col">Position</th>
 
             </tr>
           </thead>
@@ -50,14 +46,49 @@ if (!isset($_SESSION['adminID'])) {
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
               <td scope="row"><?php echo $res['StudentID']; ?></td> 
-              <td scope="row"><?php echo $res['lname'] ." ". $res['fname']; ?></td>
-              <td scope="row"><?php echo $res['address']; ?></td>
-              <td scope="row"><?php echo $res['email']; ?></td>
-              <td scope="row"><?php echo $res['contactnum']; ?></td>
-              <td scope="row"><?php echo $res['birthday']; ?></td>
-              <td scope="row"><?php echo $res['gender']; ?></td>
-              <td scope="row"><?php echo $res['CourseName']; ?></td>
-           
+              <td scope="row"><?php echo $res['lname'] ." ". $res['fname'] ." ". $res['mname']; ?></td>
+              <td scope="row">
+                <ul>
+                <?php 
+
+                  $qry1 = mysqli_query($connection, "select * from student_social_club_view where stprofID = '".$res['stprofID']."'");
+                  while($res1 = mysqli_fetch_assoc($qry1)){ ?>
+                   <li>
+                    <?php echo $res1['socialClubName']; ?>
+                  </li>
+
+                 <?php }
+
+                 ?>
+                </ul>
+              </td>
+              <td scope="row">
+                <ul>
+                <?php 
+                  $qry1 = mysqli_query($connection, "select * from student_social_club_view where stprofID = '".$res['stprofID']."'");
+                  while($res1 = mysqli_fetch_assoc($qry1)){ ?>
+                   <li>
+                    <?php 
+
+                            $qrysocialpos = mysqli_query($connection, "select * from social_officerandmembers_view where stprofID = ".$res1['stprofID']." ");
+                            $resultID = mysqli_fetch_assoc($qrysocialpos);
+
+                            $socID = $resultID['socialClubId'];
+                            $socpos = $resultID['positionName'];
+                           ?>
+                      <?php if ($res1['socialClubId'] == $socID){
+                              echo $socpos;
+                              }else{
+                                echo "Member";
+                              } ?>
+                  </li>
+
+                 <?php }
+
+                 ?>
+                </ul>
+              </td>
+
             </tr>
 
             <?php } ?>
@@ -95,19 +126,19 @@ if (!isset($_SESSION['adminID'])) {
                 extend: 'csv',
                 className: 'btn btn-outline btn-sm',
                 text: 'Save to CSV',
-                title:"STUDENT PROFILE DATA"
+                title:"LIST OF MEMBERS OF SOCIAL CLUBS"
             },
             {
                 extend: 'excel',
                 className: 'btn btn-outline btn-sm',
                 text: 'Save to Excel',
-                title:"STUDENT PROFILE DATA"
+                title:"LIST OF MEMBERS OF SOCIAL CLUBS"
             },
             {
                 extend: 'print',
                 className: 'btn btn-outline btn-sm',
                 text: 'Print Table',
-                title:"STUDENT PROFILE DATA"
+                title:"LIST OF MEMBERS OF SOCIAL CLUBS"
             },
             {
                 extend: 'pdf',
@@ -115,13 +146,13 @@ if (!isset($_SESSION['adminID'])) {
                 text: 'Save to PDF',
                 orientation: 'landscape',
                 pageSize: 'A4',
-                title:"STUDENT PROFILE DATA"
+                title:"LIST OF MEMBERS OF SOCIAL CLUBS"
             },
             {
                 extend: 'copy',
                 className: 'btn btn-outline btn-sm',
                 text: 'Copy to clipboard',
-                title:"STUDENT PROFILE DATA"
+                title:"LIST OF MEMBERS OF SOCIAL CLUBS"
             }
         ]
     });

@@ -80,15 +80,21 @@
           </div>
 
         </li>
+<?php 
 
+              $qry = mysqli_query($connection, "select * from buttontoggle_table where toggleonoroff = 'SHOW'");
+              $res = mysqli_fetch_assoc($qry);
+
+              if (mysqli_num_rows($qry)>0):?>
         <li class="nav-item dropdown <?php if ($currentpage == 'stportfolio'): ?>
           active
         <?php endif ?>">
+
         <a class="nav-link"  href="student-portfolio.php">
             <i class="far fa-folder"></i> My Portfolio
           </a>
         </li>
-
+ <?php endif ?>
       </ul>
     </div>
 

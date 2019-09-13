@@ -1,4 +1,4 @@
-
+  
 <?php include('header.php');
 $currentpage = "reports";
 if (!isset($_SESSION['adminID'])) {
@@ -17,10 +17,14 @@ if (!isset($_SESSION['adminID'])) {
 
   <div class="row">
       <div class="col-md-12">
-        <h2><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive"> Student's Profile Data</h2>
+
+        <h2>Central Student Council</h2>
+        <h5>Announcement</h5>
         <hr>
+
       </div>
     </div>
+
 
     <div class="row">
       <div class="col-md-12">
@@ -33,31 +37,27 @@ if (!isset($_SESSION['adminID'])) {
         <table class="table" id="dtBasicExample">
           <thead>
             <tr>
-              <th scope="col">Student ID</th>
-              <th scope="col">Student Name</th>
-              <th scope="col">Address</th>
-              <th scope="col">Email</th>
-              <th scope="col">Contact Number</th>
-              <th scope="col">Birthday</th>
-              <th scope="col">Gender</th>
-              <th scope="col">Course</th>
+              <th scope="col">Date Submited</th>
+              <th scope="col">Time Start</th>
+              <th scope="col">Time End</th>
+              <th scope="col">Venue</th>
+              <th scope="col">to</th>
+              <th scope="col">Subject</th>
 
             </tr>
           </thead>
           <tbody>
             <?php 
-            $qry = mysqli_query($connection, "select * from list_student_view");
-            while ($res = mysqli_fetch_assoc($qry)) { ?>
+            $qrycscann = mysqli_query($connection, "select * from csc_announcement_view where isApproved = 'Yes' ");
+            while ($rescscann = mysqli_fetch_assoc($qrycscann)) { ?>
                <tr>
-              <td scope="row"><?php echo $res['StudentID']; ?></td> 
-              <td scope="row"><?php echo $res['lname'] ." ". $res['fname']; ?></td>
-              <td scope="row"><?php echo $res['address']; ?></td>
-              <td scope="row"><?php echo $res['email']; ?></td>
-              <td scope="row"><?php echo $res['contactnum']; ?></td>
-              <td scope="row"><?php echo $res['birthday']; ?></td>
-              <td scope="row"><?php echo $res['gender']; ?></td>
-              <td scope="row"><?php echo $res['CourseName']; ?></td>
-           
+              <td scope="row"><?php echo date('F d, Y h:i A', strtotime($rescscann['dateSubmit'])); ?></td>
+              <td><?php echo $rescscann['timeStart']; ?></td>
+              <td><?php echo $rescscann['timeEnd']; ?></td>
+              <td><?php echo $rescscann['venueName']; ?></td>
+              <td><?php echo $rescscann['toWhom']; ?></td>
+              <td><?php echo $rescscann['subjectann']; ?></td>
+
             </tr>
 
             <?php } ?>
@@ -95,19 +95,19 @@ if (!isset($_SESSION['adminID'])) {
                 extend: 'csv',
                 className: 'btn btn-outline btn-sm',
                 text: 'Save to CSV',
-                title:"STUDENT PROFILE DATA"
+                title:"Central Student Council posted Announcement"
             },
             {
                 extend: 'excel',
                 className: 'btn btn-outline btn-sm',
                 text: 'Save to Excel',
-                title:"STUDENT PROFILE DATA"
+                ttitle:"Central Student Council posted Announcement"
             },
             {
                 extend: 'print',
                 className: 'btn btn-outline btn-sm',
                 text: 'Print Table',
-                title:"STUDENT PROFILE DATA"
+                title:"Central Student Council posted Announcement"
             },
             {
                 extend: 'pdf',
@@ -115,13 +115,13 @@ if (!isset($_SESSION['adminID'])) {
                 text: 'Save to PDF',
                 orientation: 'landscape',
                 pageSize: 'A4',
-                title:"STUDENT PROFILE DATA"
+                title:"Central Student Council posted Announcement"
             },
             {
                 extend: 'copy',
                 className: 'btn btn-outline btn-sm',
                 text: 'Copy to clipboard',
-                title:"STUDENT PROFILE DATA"
+                title:"Central Student Council posted Announcement"
             }
         ]
     });

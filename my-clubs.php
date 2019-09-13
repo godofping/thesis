@@ -29,7 +29,10 @@ if ((time() - $_SESSION['last_time']) > 300) {
       </div>
     </div>
 
-    <?php 
+    <div class="row">
+      <div class="col-md-12">
+
+         <?php 
 
             $qry = mysqli_query($connection, "select * from student_account_table where accID = '".$_SESSION['accID']."'");
               
@@ -39,8 +42,22 @@ if ((time() - $_SESSION['last_time']) > 300) {
               
              ?>
 
+
+        <?php 
+
+              $qry = mysqli_query($connection, "select * from buttontoggle_table where toggleonoroff = 'SHOW'");
+              $res = mysqli_fetch_assoc($qry);
+
+              if (mysqli_num_rows($qry)>0):?>
+              <a href="edit-socialclub.php"><button class="btn blue-gradient"><i class="fas fa-edit"></i> Edit Social Club</button><p>You can now Edit your Social Club</p></a>
+        <?php endif ?>
+       
+
+      </div>
+    </div>
+
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 mt-3">
 
         <div class="card">
 
