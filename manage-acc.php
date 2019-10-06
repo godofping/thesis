@@ -356,7 +356,6 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban"></i> Close</button>
                 <button type="submit" class="btn blue-gradient"><i class="fas fa-check"></i> Update</button>
                 </form>
               </div>

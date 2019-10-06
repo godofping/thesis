@@ -121,7 +121,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
       </div>
     </div>
 
-         <?php 
+    <?php 
     $qrysocialclub = mysqli_query($connection, "select * from student_social_club_view where stprofID = ".$_SESSION['stprofID']." ");
     while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)) {?>
     
@@ -141,7 +141,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
     </h5>
 
     <div class="card-body px-lg-5 pt-0">
-        <form class="text-center" style="color: #757575;">
+        <div class="text-center" style="color: #757575;">
 
             <div class="md-form mt-5" style="text-align: center;">
               <p style="color: black"><?php echo $rescsc['toWhom']; ?></p>
@@ -160,9 +160,9 @@ if ((time() - $_SESSION['last_time']) > 300) {
             </div>
 
             <div class="md-form mt-3" style="text-align: center;">
-              <p style="color: black">Message: <br><br><?php echo $rescsc['message']; ?></p>
+              <p style="color: black"><?php echo $rescsc['message']; ?></p>
             </div>
-        </form>
+        </div>
           </div>
        </div>
     <?php endif ?>

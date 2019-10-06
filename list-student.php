@@ -17,8 +17,46 @@ if (!isset($_SESSION['adminID'])) {
 
   <div class="row">
       <div class="col-md-12">
-        <h2><i class="fas fa-users"></i> List of Students</h2>
+        <h2><i class="fas fa-users"></i> Master List</h2>
         <hr>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        <label style="font-family: Times New Roman">Membership</label>
+        <button class="btn blue-gradient itogglebutton" data-toggle="modal" data-target="#addModal">Toggle</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Toggle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+                  <?php 
+
+                    $qrytoggle = mysqli_query($connection,"select * from buttontoggle_table where showID = '1' ");
+                    $resulttoggle = mysqli_fetch_assoc($qrytoggle);
+                   ?>
+
+                  <p style="text-align: center;">Toggle for Club renewal</p>
+                  <small style="text-align: center;">Status: <?php echo $resulttoggle['toggleonoroff']; ?></small>             
+
+              </div>
+              <div class="modal-footer">
+                <a href="controller.php?from=show-button&showID=<?php echo $resulttoggle['showID']; ?>"><button type="submit" class="btn blue-gradient"><i class="fas fa-eye"></i> Show</button></a> 
+                <a href="controller.php?from=hide-button&showID=<?php echo $resulttoggle['showID']; ?>"><button type="submit" class="btn blue-gradient"><i class="fas fa-eye-slash"></i> Hide</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
     

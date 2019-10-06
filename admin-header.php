@@ -1,114 +1,71 @@
 <header>
 
-  <nav class="navbar fixed-top navbar-expand-lg navbar navbar-dark primary-color">
-    <a class="navbar-brand" href="admin-dashboard.php"><img src="http://localhost:8080/thesis/logo/download.png" height="30" alt="mdb logo"><small> Admin Dashboard</small></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <nav class="navbar fixed-top navbar-expand-lg navbar navbar-dark">
+  <a class="navbar-brand" href="admin-dashboard.php"><img src="http://localhost:8080/thesis/logo/download.png" height="30" alt="mdb logo"><b style="color: black; font-family: Times New Roman ">| Samis</b></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fas fa-bars" style="color: black"></i>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown">
+         <?php 
 
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown <?php if ($currentpage == 'dsa'): ?>
+            $qryhey = mysqli_query($connection, "select * from admin_account_view where adminID = ".$_SESSION['adminID']." ");
+            $reshey = mysqli_fetch_assoc($qryhey);
+             ?>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black; font-family: Times New Roman">
+          <i class="far fa-user"></i><?php echo " ".ucfirst($reshey['username'])?>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li><a class="dropdown-item" href="manage-admin.php"><i class="fas fa-user-cog"></i> Manage Account</a></li>
+          <!-- <li><a class="dropdown-item" href="#"><i class="fas fa-user-graduate"></i> Students</a></li> -->
+          <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"><i class="fas fa-user-graduate"></i> Students</a></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="add-student-account.php"><i class="fas fa-users-cog"></i> Account</a></li>
+              <li><a class="dropdown-item" href="student-portfolio-admin.php"><i class="fas fa-folder-open"></i> Portfolio</a></li>
+              <!-- <li><a class="dropdown-item" href="student-club-membership.php"><i class="fas fa-user-friends"></i>  Membership</a></li> -->
+              <li><a class="dropdown-item" href="list-student.php"><i class="far fa-id-card"></i> Masters List</a></li>
+            </ul>
+          </li>
+          <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"><i class="fas fa-users"></i> Organizations</a></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="officers-clubs.php"><i class="fas fa-users-cog"></i> Club Officers</a></li>
+              <li><a class="dropdown-item" href="manage-clubs.php"><i class="fas fa-cog"></i> Manage Clubs</a></li>
+            </ul>
+          </li>
+          <a class="dropdown-item" href="add-course.php"><i class="fas fa-graduation-cap"></i> Course</a>
+          <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"><i class="far fa-newspaper"></i> Announcement</a></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="venue.php"><i class="fas fa-map-marker-alt"></i> Add Venue</a></li>
+              <li><a class="dropdown-item" href="creat-announcement.php"><i class="fas fa-file-import"></i> Add Announcement</a></li>
+              <li><a class="dropdown-item" href="view-all-announcement.php"><i class="fas fa-file"></i> View Announcement</a></li>
+              <li><a class="dropdown-item" href="history-of-announcement.php"><i class="fas fa-file-alt"></i>  History of Announcement</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </li>
+
+
+
+       <li class="nav-item dropdown <?php if ($currentpage == 'reports'): ?>
           active
         <?php endif ?>">
-        <a class="nav-link dropdown-toggle" href="#" id="studentDropDown" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="far fa-user"></i> ADMIN
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="studentDropDown">
-            <a class="dropdown-item" href="manage-admin.php"><i class="fas fa-user-cog"></i> Manage Account</a>
-            <a class="dropdown-item" href="controller.php?from=logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            <!-- <a class="dropdown-item" href="#"> Add Officers</a> -->
+          <a class="nav-link" href="AdminReport.php" style="color: black; font-family: Times New Roman"><i class="far fa-file-alt"></i>  Reports</a>
+        </li>
+
+    </ul>
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      
+      <li class="nav-item dropdown ">
+          <div  class="dropdown-menu-right">
+          <a class="nav-link" href="controller.php?from=logout" style="color: black"><i class="fas fa-sign-out-alt"></i> Logout</a>
           </div>
-
         </li>
 
-        <li class="nav-item dropdown <?php if ($currentpage == 'students'): ?>
-          active
-        <?php endif ?>">
-        <a class="nav-link dropdown-toggle" href="#" id="studentDropDown" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-graduate"></i> Students
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="studentDropDown">
-            <a class="dropdown-item" href="add-student-account.php"><i class="fas fa-user-graduate"></i> Student Account</a>
-            <a class="dropdown-item" href="list-student.php"><i class="fas fa-users"></i> List of Students</a>
-            <!-- <a class="dropdown-item" href="#"> Add Officers</a> -->
-          </div>
-
-        </li>
-  
-        <li class="nav-item dropdown <?php if ($currentpage == 'clubs'): ?>
-          active
-        <?php endif ?>">
-          <a class="nav-link dropdown-toggle" href="#" id="clubsDropDown" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-theater-masks"></i> Clubs
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="clubsDropDown">
-            <a class="dropdown-item" href="csc.php">Central Student Council</a>
-            <a class="dropdown-item" href="council.php">Councils</a>
-            <a class="dropdown-item" href="departmental-clubs.php">Departmental Clubs</a>
-            <a class="dropdown-item" href="social-clubs.php">Social Clubs</a> 
-          </div>
-        </li>
-
-         <li class="nav-item dropdown <?php if ($currentpage == 'adminannouncement'): ?>
-          active
-        <?php endif ?>">
-        <?php 
-          $qryrejctbadge1 = mysqli_query($connection,"select count(*) as cnt1 from csc_announcement_table where isApproved = 'No'");
-          $resultreject1 = mysqli_fetch_assoc($qryrejctbadge1);
-          $qryrejctbadge2 = mysqli_query($connection,"select count(*) as cnt2 from council_announcement_table where isApproved = 'No'");
-          $resultreject2 = mysqli_fetch_assoc($qryrejctbadge2);
-          $qryrejctbadge3 = mysqli_query($connection,"select count(*) as cnt3 from department_announcement_table where isApproved = 'No'");
-          $resultreject3 = mysqli_fetch_assoc($qryrejctbadge3);
-          $qryrejctbadge4 = mysqli_query($connection,"select count(*) as cnt4 from social_announcement_table where isApproved = 'No'");
-          $resultreject4 = mysqli_fetch_assoc($qryrejctbadge4);
-
-        $a=array($resultreject1['cnt1'],$resultreject2['cnt2'],$resultreject3['cnt3'],$resultreject4['cnt4']);
-         ?>
-        <a class="nav-link dropdown-toggle" href="#" id="stclubDropDown" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="far fa-newspaper"></i> Announcement<?php if ( $resultreject1['cnt1'] != 0 || $resultreject2['cnt2'] != 0 || $resultreject3['cnt3'] != 0 || $resultreject4['cnt4'] != 0) : ?><span class="badge badge-danger ml-1"><?php echo array_sum($a) ?></span><?php endif ?>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="stclubDropDown">
-            <a class="dropdown-item" href="creat-announcement.php">Add Announcement</a>
-            <a class="dropdown-item" href="view-all-announcement.php">View Announcement<?php if ( $resultreject1['cnt1'] != 0 || $resultreject2['cnt2'] != 0 || $resultreject3['cnt3'] != 0 || $resultreject4['cnt4'] != 0) : ?><span class="badge badge-danger ml-1"><?php echo array_sum($a) ?></span><?php endif ?></a>
-            <a class="dropdown-item" href="history-of-announcement.php">History of Announcement</a>
-          </div>
-
-        </li>
-
-
-        <li class="nav-item dropdown <?php if ($currentpage == 'courses'): ?>
-          active
-        <?php endif ?>">
-          <a class="nav-link" href="add-course.php"><i class="fas fa-graduation-cap"></i> Course</a>
-        </li>
-
-        <li class="nav-item dropdown <?php if ($currentpage == 'activitycalendar'): ?>
-          active
-        <?php endif ?>">
-          <a class="nav-link" href="activity-calendar.php"><i class="far fa-calendar"></i>  Calendar</a>
-        </li>
-
-        <li class="nav-item dropdown <?php if ($currentpage == 'venue'): ?>
-          active
-        <?php endif ?>">
-          <a class="nav-link" href="venue.php"><i class="fas fa-map-marker-alt"></i>  Venue</a>
-        </li>
-        
-        <li class="nav-item dropdown <?php if ($currentpage == 'reports'): ?>
-          active
-        <?php endif ?>">
-          <a class="nav-link" href="AdminReport.php"><i class="fas fa-file-contract"></i>  Reports</a>
-        </li>
-
-      </ul>
-    </div>
-  </nav>
+    </ul>
+  </div>
+</nav>
 
   <div class="view intro-2">
     <div class="full-bg-img">
@@ -128,3 +85,26 @@
 
 </header>
 <!--Main Navigation-->
+<style type="text/css">
+  
+  .navbar-nav li:hover > ul.dropdown-menu {
+    display: block;
+}
+.dropdown-submenu {
+    position:relative;
+}
+.dropdown-submenu>.dropdown-menu {
+    top:0;
+    left:100%;
+    margin-top:-6px;
+}
+
+/* rotate caret on hover */
+.dropdown-menu > li > a:hover:after {
+    text-decoration: underline;
+    transform: rotate(-90deg);
+} 
+
+  .navbar { background-color: #fafafa ; } 
+
+</style>

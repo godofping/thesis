@@ -50,7 +50,7 @@ if (!isset($_SESSION['adminID'])) {
             <?php if ($res['CounName'] != ""): ?>
             <tr>
               <td scope="row"><?php echo $res['CounName'];?></td>
-              <td><!-- <a href="cased.php"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a> --><a href="cased-members.php"><button type="button" class="btn peach-gradient"><i class="fas fa-users"></i> Members</button></a></td>
+              <td><a href="cased.php"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a></td>
 
             </tr>
             <?php endif ?>
@@ -62,7 +62,7 @@ if (!isset($_SESSION['adminID'])) {
             <?php if ($res['CounName'] != ""): ?>
             <tr>
               <td scope="row"><?php echo $res['CounName'];?></td>
-              <td><!-- <a href="business.php"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a> --><a href="business-members.php"><button type="button" class="btn peach-gradient"><i class="fas fa-users"></i> Members</button></a></td> 
+              <td><a href="business.php"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a></td> 
 
             </tr>
             <?php endif ?>
@@ -74,7 +74,7 @@ if (!isset($_SESSION['adminID'])) {
             <?php if ($res['CounName'] != ""): ?>
             <tr>
               <td scope="row"><?php echo $res['CounName'];?></td>
-              <td><!-- <a href="nursing.php"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a> --><a href="nursing-members.php"><button type="button" class="btn peach-gradient"><i class="fas fa-users"></i> Members</button></a></td> 
+              <td><a href="nursing.php"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a> </td> 
 
             </tr>
             <?php endif ?>

@@ -1,11 +1,10 @@
  <header>
 
-  <nav class="navbar fixed-top navbar-expand-lg navbar navbar-dark primary-color">
-    <a class="navbar-brand" href="students-dashboard.php">
-    <img src="http://localhost:8080/thesis/logo/download.png" height="30" alt="mdb logo"><small> Student Dashboard</small></a>
+  <nav class="navbar fixed-top navbar-expand-lg navbar navbar-dark">
+    <a class="navbar-brand" href="students-dashboard.php"><img src="http://localhost:8080/thesis/logo/download.png" height="30" alt="mdb logo"><b style="color: black; font-family: Times New Roman ">| Samis</b></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+      <i class="fas fa-bars" style="color: black"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
        <ul class="navbar-nav mr-auto">
@@ -21,12 +20,12 @@
              ?>
 
         <a class="nav-link dropdown-toggle" href="#" id="MyaccountDropDown" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-alt"></i><?php echo " ".$reshey['lname']." ". $reshey['fname']; ?>
+            aria-haspopup="true" aria-expanded="false" style="color: black; font-family: Times New Roman">
+            <i class="fas fa-user-alt"></i><?php echo " ".ucfirst($reshey['lname'])." ". ucfirst($reshey['fname']) ?>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="MyaccountDropDown">
-            <a class="dropdown-item" href="manage-acc.php"><i class="fas fa-user-cog"></i><?php echo " ".$reshey['lname']." ". $reshey['fname']; ?></a>
-            <a class="dropdown-item" href="controller.php?from=logout"><i class="fas fa-sign-out-alt"></i> Log out</a>
+            <a class="dropdown-item" href="manage-acc.php"><i class="fas fa-user-cog"></i><?php echo " ".ucfirst($reshey['lname'])." ". ucfirst($reshey['fname']) ?></a>
+            <a class="nav-link" href="controller.php?from=logout" style="color: black"><i class="fas fa-sign-out-alt"></i> Logout</a>
           </div>
 
         </li>
@@ -34,13 +33,43 @@
         <li class="nav-item dropdown <?php if ($currentpage == 'club'): ?>
           active
         <?php endif ?>">
-        <a class="nav-link"  href="my-clubs.php">
+        <a class="nav-link"  href="my-clubs.php" style="color: black; font-family: Times New Roman">
             <i class="fas fa-theater-masks"></i> My Clubs
           </a>
         </li>
 
+        <?php 
 
-        <li class="nav-item dropdown <?php if ($currentpage == 'announcement'): ?>
+            $qryhey = mysqli_query($connection, "select * from std_prof_view where accID = ".$_SESSION['accID']." ");
+            $reshey = mysqli_fetch_assoc($qryhey);
+
+            $qrycscpos = mysqli_query($connection, "select * from csc_members_table where stprofID = '".$_SESSION['stprofID']."' ");
+            $rescscpo = mysqli_fetch_assoc($qrycscpos);
+
+            $qrcouncilpos = mysqli_query($connection,"select * from council_officers_table where stprofID = '".$_SESSION['stprofID']."' ");
+            $rescouncilpos = mysqli_fetch_assoc($qrcouncilpos);
+
+            if (mysqli_num_rows($qrycscpos)>0 || mysqli_num_rows($qrcouncilpos)>0):?>
+
+        <li class="nav-item dropdown <?php if ($currentpage == 'creatclub'): ?>
+          active
+        <?php endif ?>">
+
+        <a class="nav-link dropdown-toggle" href="#" id="MyaccountDropDown" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" style="color: black; font-family: Times New Roman">
+            <i class="fas fa-user-alt"></i>Create Announcement
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="MyaccountDropDown">
+            <a class="dropdown-item" href="csc-announcement.php">CSC Announcement</a>
+            <a class="dropdown-item" href="manage-acc.php">Departmental Council Announcement</a>
+            <a class="dropdown-item" href="manage-acc.php">Departmental Announcement</a>
+            <a class="dropdown-item" href="manage-acc.php">Social Announcement</a>
+          </div>
+
+        </li>
+
+        <?php endif ?>
+       <!--  <li class="nav-item dropdown <?php if ($currentpage == 'announcement'): ?>
           active
         <?php endif ?>">
         <?php
@@ -68,7 +97,7 @@
 
          ?>
         <a class="nav-link dropdown-toggle" href="#" id="stclubDropDown" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
+            aria-haspopup="true" aria-expanded="false" style="color: black; font-family: Times New Roman">
             <i class="far fa-newspaper"></i> Announcement <?php if ( $resultreject['cnt'] != 0 || $resultreject1['cnt1'] != 0 || $resultreject2['cnt2'] != 0 || $resultreject3['cnt3'] != 0 || $resultreject4['cnt4'] != 0) : ?><span class="badge badge-danger ml-1"><?php echo array_sum($a) ?></span><?php endif ?>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="stclubDropDown">
@@ -79,23 +108,32 @@
             <a class="dropdown-item" href="social-clubs-announcement-new.php">Social Club Announcement<?php if ( $resultreject4['cnt4'] != 0): ?><span class="badge badge-danger ml-1"><?php echo $resultreject4['cnt4']; ?><?php endif ?></a>
           </div>
 
-        </li>
-<?php 
+        </li> -->
+<!-- <?php 
 
               $qry = mysqli_query($connection, "select * from buttontoggle_table where toggleonoroff = 'SHOW'");
               $res = mysqli_fetch_assoc($qry);
 
-              if (mysqli_num_rows($qry)>0):?>
+              if (mysqli_num_rows($qry)>0):?> -->
         <li class="nav-item dropdown <?php if ($currentpage == 'stportfolio'): ?>
           active
         <?php endif ?>">
 
-        <a class="nav-link"  href="student-portfolio.php">
+        <a class="nav-link"  href="student-portfolio.php" style="color: black; font-family: Times New Roman">
             <i class="far fa-folder"></i> My Portfolio
           </a>
         </li>
- <?php endif ?>
+ <!-- <?php endif ?> -->
       </ul>
+      <!-- <ul class="navbar-nav ml-auto nav-flex-icons">
+      
+      <li class="nav-item dropdown ">
+          <div  class="dropdown-menu-right">
+          <a class="nav-link" href="controller.php?from=logout" style="color: black"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </div>
+        </li>
+      
+    </ul> -->
     </div>
 
 
@@ -121,3 +159,10 @@
 
 </header>
 <!--Main Navigation-->
+<style type="text/css">
+  
+  .navbar { background-color: #fafafa ; } 
+
+  
+
+</style>

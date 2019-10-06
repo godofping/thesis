@@ -23,7 +23,6 @@ if (!isset($_SESSION['adminID'])) {
 
       </div>
     </div>
-
     
 <div class="container-fluid ">
   <div class="row">
@@ -44,7 +43,7 @@ if (!isset($_SESSION['adminID'])) {
                   </div>
                   <?php endif ?>
               <div class="md-form">
-            <input type="text" name="StudentID" id="inputMDEx" class="form-control md-4" required="">
+            <input type="number" name="StudentID" id="inputMDEx" class="form-control md-4" required="">
             <label for="inputMDEx">Student ID</label>
             </div>
             </div> 
@@ -70,7 +69,6 @@ if (!isset($_SESSION['adminID'])) {
           <thead>
             <tr>
               <th scope="col">Student ID</th>
-              <th scope="col">Student Password</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -80,7 +78,6 @@ if (!isset($_SESSION['adminID'])) {
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
               <td scope="row"><?php echo $res['StudentID']; ?></td>
-              <td><?php echo $res['StudentPassword']; ?></td>
               <td><button class="btn blue-gradient" data-toggle="modal" data-target="#editModal<?php echo $res['accID'] ?>"><i class="far fa-edit"></i></button> <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?php echo $res['accID'] ?>"><i class="far fa-trash-alt"></i></button></td>
 
             </tr>
@@ -103,7 +100,7 @@ if (!isset($_SESSION['adminID'])) {
                       <input type="text" name="StudentID" class="form-control mb-4" required="" value="<?php echo $res['StudentID'] ?>">
 
                       <label>Student Password</label>
-                      <input type="text" name="StudentPassword" class="form-control mb-4" required="" value="<?php echo $res['StudentPassword'] ?>">
+                      <input type="Password" name="StudentPassword" class="form-control mb-4" required="" >
             
 
                       <input type="text" name="accID" value="<?php echo $res['accID'] ?>" hidden>
@@ -112,7 +109,6 @@ if (!isset($_SESSION['adminID'])) {
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn aqua-gradient"><i class="far fa-edit"></i> Update</button>
                     </form>
                   </div>
@@ -146,7 +142,6 @@ if (!isset($_SESSION['adminID'])) {
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     <button type="submit" class="btn btn-danger">Yes</button>
                     </form>
                   </div>

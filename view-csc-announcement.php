@@ -175,13 +175,13 @@ if (!isset($_SESSION['adminID'])) {
             
               <div class="modal-footer d-flex justify-content-center">
                   
-                 <?php if (strtotime(date('Y-m-d h:i:s'))>strtotime($timeStartSubmitted)): ?>
+                 <?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeStartSubmitted)): ?>
                 <button type="button" class="btn aqua-gradient" data-toggle="modal" data-target="#exampleModalCenter<?php echo $rescscann['csc_announcementID']; ?>">Approve <i class="fas fa-paper-plane-o ml-1"></i></button>  
                 <?php endif ?>
 
 
 
-                <?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeStartSubmitted)): ?>
+                <?php if (strtotime(date('Y-m-d h:i:s'))>strtotime($timeStartSubmitted)): ?>
                 <button type="button" class="btn aqua-gradient" data-toggle="tooltip" data-placement="top" title="Date is expired" disabled="">Date Expired<i class="fas fa-paper-plane-o ml-1"></i></button>  
                 <?php endif ?>
                 <!-- <button type="button" class="btn btn-unique" data-toggle="modal" data-target="#exampleModalCenter<?php echo $rescscann['csc_announcementID']; ?>">Approve <i class="fas fa-paper-plane-o ml-1"></i></button> -->

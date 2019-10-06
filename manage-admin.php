@@ -18,7 +18,7 @@ if (!isset($_SESSION['adminID'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2><i class="fas fa-user-tie"></i> ADMIN Account</h2>
+        <h2 style="font-family: Times New Roman"><i class="fas fa-user-tie"></i> ADMIN ACCOUNT</h2>
         <hr>
 
       </div>
@@ -28,6 +28,7 @@ if (!isset($_SESSION['adminID'])) {
   <div class="row">
     <div class="col-md-4"></div>
       <div class="col-md-4">
+
     <div class="mt-2 z-depth-5">
       
       <!-- Default form login -->
@@ -35,7 +36,7 @@ if (!isset($_SESSION['adminID'])) {
 
           <div class="row">
             <div class="col-12">
-              <h2><i class="fas fa-user-plus"></i> Admin Account</h2>
+              <h2><i class="fas fa-user-plus"></i> ADMIN ACCOUNT</h2>
               <hr>
               <?php if (isset($_GET['status']) and $_GET['status'] == 'register-admin-failed'): ?>
                     <div class="alert alert-danger" role="alert">
@@ -73,7 +74,6 @@ if (!isset($_SESSION['adminID'])) {
           <thead>
             <tr>
               <th scope="col">Admin Username</th>
-              <th scope="col">Admin Password</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -83,7 +83,6 @@ if (!isset($_SESSION['adminID'])) {
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
               <td scope="row"><?php echo $res['username']; ?></td>
-              <td><?php echo $res['password']; ?></td>
               <td><button class="btn blue-gradient" data-toggle="modal" data-target="#editModal<?php echo $res['adminID'] ?>"><i class="far fa-edit"></i></button> <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?php echo $res['adminID'] ?>"><i class="far fa-trash-alt"></i></button></td>
 
             </tr>
@@ -115,7 +114,6 @@ if (!isset($_SESSION['adminID'])) {
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn aqua-gradient"><i class="far fa-edit"></i> Update</button>
                     </form>
                   </div>
@@ -158,7 +156,6 @@ if (!isset($_SESSION['adminID'])) {
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     <?php 
                        if ($adminid == $res['adminID']): ?>
                         <button type="submit" class="btn btn-danger" disabled="">Yes</button>

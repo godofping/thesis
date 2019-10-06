@@ -103,7 +103,6 @@ if (!isset($_SESSION['adminID'])) {
 
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn blue-gradient"><i class="fas fa-plus"></i> Add</button>
                 </form>
               </div>
@@ -121,7 +120,7 @@ if (!isset($_SESSION['adminID'])) {
 
         <div class="table-responsive text-nowrap">
 
-        <table class="table">
+        <table class="table" id="dtBasicExample">
           <thead>
             <tr>
               <th scope="col">Course Name</th>
@@ -203,7 +202,6 @@ if (!isset($_SESSION['adminID'])) {
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn aqua-gradient"><i class="fas fa-check"></i> Update</button>
                     </form>
                   </div>
@@ -236,7 +234,6 @@ if (!isset($_SESSION['adminID'])) {
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     <button type="submit" class="btn btn-danger">Yes</button>
                     </form>
                   </div>
@@ -264,12 +261,13 @@ if (!isset($_SESSION['adminID'])) {
 
 
 <?php include('footer.php'); ?>
-<!-- id="dtBasicExample" -->
-<!-- <script type="text/javascript">
+
+
+<script type="text/javascript">
   
   $(document).ready(function () {
 $('#dtBasicExample').DataTable();
 $('.dataTables_length').addClass('bs-select');
 });
 
-</script> -->
+</script>

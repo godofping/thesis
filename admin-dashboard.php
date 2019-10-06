@@ -8,84 +8,86 @@ if (!isset($_SESSION['adminID'])) {
  include("admin-header.php");
  ?>
 
-<main class=" py-5 mt-5">
+ <body>
 
-  <div class="container">
+    <div class=" py-4 mt-1"></div>
 
- <div class="row">
-      <div class="col-md-12">
-
-        <button class="btn blue-gradient" data-toggle="modal" data-target="#addModal">Show Renew and Portfolio</button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">TOGGLE</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                
-
-                  <?php 
-
-                    $qrytoggle = mysqli_query($connection,"select * from buttontoggle_table where showID = '1' ");
-                    $resulttoggle = mysqli_fetch_assoc($qrytoggle);
-                   ?>
-
-                  <div class="modal-body">
-                    <p style="text-align: center;">Currently its <?php echo $resulttoggle['toggleonoroff']; ?></p>
-                  <p style="text-align: center;">Show the Edit Social Club and Portfolio ?</p>
-                  </div>         
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
-                <a href="controller.php?from=show-button&showID=<?php echo $resulttoggle['showID']; ?>"><button type="submit" class="btn blue-gradient"><i class="fas fa-eye"></i> Show</button></a> 
-                <a href="controller.php?from=hide-button&showID=<?php echo $resulttoggle['showID']; ?>"><button type="submit" class="btn blue-gradient"><i class="fas fa-eye-slash"></i> Hide</button></a>
-                
-              </div>
-            </div>
-          </div>
-        </div>
-
+    <!--Carousel Wrapper-->
+<div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
+  <!--Indicators-->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-2" data-slide-to="1" class="active"></li>
+    <li data-target="#carousel-example-2" data-slide-to="2"></li>
+  </ol>
+  <!--/.Indicators-->
+  <!--Slides-->
+  <div class="carousel-inner" role="listbox">
+   
+    <div class="carousel-item active">
+      <!--Mask color-->
+      <div class="view">
+        <img class="d-block w-100" src="http://localhost:8080/thesis/logo/bnn.jpg"
+          alt="Second slide">
+        <div class="mask rgba-black-slight"></div>
+      </div>
+      <div class="carousel-caption">
       </div>
     </div>
-
-
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-md-12">
-
-      <!-- <h3 class="pb-3"><b>Calendar of Activity</b></h3> -->
-
-      <?php 
-
-          $qry = mysqli_query($connection, "select * from calendar_table");
-            $res = mysqli_fetch_assoc($qry);
-
-            $imgname = $res['calendarIMGname'];
-
-           ?>
-
-        <!--Mask with wave-->
-      <div class="view overlay">
-        <center><img src="<?php echo $imgname ?>" class="img-fluid" alt="Sample image with waves effect."></center>
-        <a>
-          <div class="mask waves-effect waves-light rgba-white-slight"></div>
-        </a>
+    <div class="carousel-item">
+      <!--Mask color-->
+      <div class="view">
+        <img class="d-block w-100" src="http://localhost:8080/thesis/logo/NNDTC.png"
+          alt="Third slide">
+        <div class="mask rgba-black-slight"></div>
       </div>
-
+      <div class="carousel-caption">
       </div>
     </div>
   </div>
+  <!--/.Slides-->
+  <!--Controls-->
+  <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+  <!--/.Controls-->
 </div>
-</main>
+<!--/.Carousel Wrapper-->
+
+
+</body>
+
+
 <!--Main Layout-->
 
 
 
 <?php include('footer.php'); ?>
+
+<style type="text/css">
+ 
+ body {
+  background-color: #4fc3f7   ; 
+}
+
+ body, html {
+  height: 100%;
+}
+.bg {
+  /* The image used */
+  background-image: url("http://localhost:8080/thesis/logo/student.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-size: 75%;
+}
+
+</style>

@@ -54,7 +54,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
     <div class="card-body px-lg-5 pt-0">
 
         <!-- Form -->
-        <form class="text-center" style="color: #757575;">
+        <div class="text-center" style="color: #757575;">
 
            
               <!-- To Whom -->
@@ -80,7 +80,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
               <p style="color: black">Message: <br><br><?php echo $res['message']; ?></p>
             </div>
 
-        </form>
+        </div>
         <!-- Form -->
 
     </div>

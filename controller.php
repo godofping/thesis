@@ -229,10 +229,21 @@ if (isset($_POST['from']) and $_POST['from'] =='add-calendar') {
 }
 
 if (isset($_POST['from']) and $_POST['from'] =='add-csc-member') {
-	
-   		mysqli_query($connection, "insert into csc_members_table (stprofID, positionID,perpost) values ('".$_POST['stprofID']."', '".$_POST['positionID']."', '".$_POST['perpost']."')");
-   		// echo "insert into csc_members_table (stprofID, positionID) values ('".$_POST['stprofID']."', '".$_POST['positionID']."')";
-	header("Location: csc.php");
+		
+   		
+   		
+   		$qry = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_POST['stprofID'] . "'");
+		$res = mysqli_fetch_assoc($qry);
+   		$_POST['stprofID'] =  $res['stprofID'];
+
+   		$qry2 = mysqli_query($connection, "select * from csc_position_table where positionNamecsc = '".$_POST['positionIDcsc']."'");
+   		$res2 = mysqli_fetch_assoc($qry2);
+   		$_POST['positionIDcsc'] = $res2['positionIDcsc'];
+
+   		mysqli_query($connection, "insert into csc_members_table (stprofID, positionIDcsc,perpost) values ('".$_POST['stprofID']."', '".$_POST['positionIDcsc']."', '".$_POST['perpost']."')");
+
+   			echo "insert into csc_members_table (stprofID, positionIDcsc,perpost) values ('".$_POST['stprofID']."', '".$_POST['positionIDcsc']."', '".$_POST['perpost']."')";
+	// header("Location: csc.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] =='add-cased-member') {
@@ -568,8 +579,7 @@ if (isset($_GET['from']) and $_GET['from'] == 'show-button') {
 
 	mysqli_query($connection, "update buttontoggle_table set toggleonoroff = 'SHOW' where showID = '".$_GET['showID']."' ");
 
-
-		header("Location: admin-dashboard.php");
+		header("Location: student-portfolio-admin.php");
 
 }
 
@@ -579,7 +589,7 @@ if (isset($_GET['from']) and $_GET['from'] == 'hide-button') {
 	mysqli_query($connection, "update buttontoggle_table set toggleonoroff = 'HIDE' where showID = '".$_GET['showID']."' ");
 	
 
-		header("Location: admin-dashboard.php");
+		header("Location: student-portfolio-admin.php");
 
 }
 

@@ -12,19 +12,20 @@ if (isset($_SESSION['accID'])) {
 }
 
 ?>
+<body>
 
 <div class="container-fluid">
 <div class="row">
   <div class="col-md-4"></div>
 
   <div class="col-md-4">
-    <div class="mt-5 peach-gradient z-depth-2">
+    <div class="mt-5 z-depth-3 form-border">
       
       <!-- Default form login -->
-      <form class="text-center border border-light p-3" method="POST" action="controller.php" autocomplete="false">
+      <form class="text-center border form-border border-light p-3" method="POST" action="controller.php" autocomplete="false">
 
           <img src="http://localhost:8080/thesis/logo/download.png" alt="avatar" class="rounded-circle img-responsive">
-          <p class="h6 mb-3">NDTC Student Activity Management Information System</p>
+          <p class="h6 mb-3" style="font-family: Times New Roman ">NDTC Student Activity Management Information System</p>
 
           <?php if (isset($_GET['status']) and $_GET['status'] == 'login-failed'): ?>
             <div class="alert alert-danger" role="alert">
@@ -34,21 +35,18 @@ if (isset($_SESSION['accID'])) {
 
           <div class="row">
             <div class="col-12">
-               <input type="text" name="username" class="form-control mb-4" required="" placeholder="Username">
+               <input type="text" name="username" class="form-control mb-4 input-fieldtest" required="" placeholder="Username">
             </div>           
           </div>
           <div class="row">
           <div class="col-12">
-              <input type="password" name="password" class="form-control mb-4" required="" placeholder="Password">
+              <input type="password" name="password" class="form-control mb-4 input-fieldtest" required="" placeholder="Password">
           </div>
           </div>
   
           <button class="btn btn-info btn-block my-4 aqua-gradient" type="submit">Sign in</button>
 
           <input type="text" name="from" value="login" hidden>
-
-
-
 
       </form>
       <!-- Default form login -->
@@ -59,7 +57,33 @@ if (isset($_SESSION['accID'])) {
 
 <div class="col-md-4"></div>
 
-
 </div>
+</body>
 
 <?php include('footer.php'); ?>
+
+<style type="text/css">
+  
+body {
+  background-color: #b3e5fc; 
+}
+
+form{
+  background-color: #FFFFFF;
+}
+
+.btn-block{
+  border-radius: 12px;
+}
+
+.form-border{
+  border-radius: 12px;
+}
+
+.input-fieldtest{
+  border-radius: 12px;
+}
+
+
+</style>
+

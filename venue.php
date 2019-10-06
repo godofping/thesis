@@ -68,7 +68,7 @@ if (!isset($_SESSION['adminID'])) {
 
         <div class="table-responsive text-nowrap">
 
-        <table class="table">
+        <table class="table" id="dtBasicExample" >
           <thead>
             <tr>
               <th scope="col">Venue</th>
@@ -168,12 +168,12 @@ if (!isset($_SESSION['adminID'])) {
 
 
 <?php include('footer.php'); ?>
-<!-- id="dtBasicExample" -->
-<!-- <script type="text/javascript">
+
+<script type="text/javascript">
   
   $(document).ready(function () {
 $('#dtBasicExample').DataTable();
 $('.dataTables_length').addClass('bs-select');
 });
 
-</script> -->
+</script>

@@ -74,7 +74,7 @@ if (!isset($_SESSION['adminID'])) {
 
         <div class="table-responsive text-nowrap">
 
-        <table class="table">
+        <table class="table" id="dtBasicExample">
           <thead>
             <tr>
               <th scope="col">Club Name</th>
@@ -87,7 +87,7 @@ if (!isset($_SESSION['adminID'])) {
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
               <td scope="row"><?php echo $res['socialClubName']; ?></td>
-              <td><a href="list-of-officers-social.php?from=checkIDforsocialofficer&socialClubId=<?php echo $res['socialClubId']; ?>"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a><a href="list-of-members-social.php?from=checkIDforsocialmember&socialClubId=<?php echo $res['socialClubId']; ?>"><button type="button" class="btn peach-gradient"><i class="fas fa-users"></i> Members</button></a></td>
+              <td><!-- <a href="list-of-officers-social.php?from=checkIDforsocialofficer&socialClubId=<?php echo $res['socialClubId']; ?>"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a> --><a href="list-of-members-social.php?from=checkIDforsocialmember&socialClubId=<?php echo $res['socialClubId']; ?>"><button type="button" class="btn peach-gradient"><i class="fas fa-users"></i> Members</button></a></td>
 
             </tr>
 
@@ -110,3 +110,12 @@ if (!isset($_SESSION['adminID'])) {
 
 
 <?php include('footer.php'); ?>
+
+<script type="text/javascript">
+  
+  $(document).ready(function () {
+$('#dtBasicExample').DataTable();
+$('.dataTables_length').addClass('bs-select');
+});
+
+</script>

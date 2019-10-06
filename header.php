@@ -16,6 +16,9 @@
   <!-- Your custom styles (optional) -->
   <link href="css/style.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/addons/datatables.min.css">
+  
+  <!-- <link href="https://cdn.jsdelivr.net/npm/jquery-editable-select@2.2.5/dist/jquery-editable-select.css" rel="stylesheet"> -->
+<link href="https://rawgit.com/indrimuska/jquery-editable-select/master/dist/jquery-editable-select.min.css" rel="stylesheet">
 </head>
 
 <style type="text/css"> .md-form input.form-control[type="datetime-local"] ~ label {

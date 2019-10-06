@@ -83,7 +83,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
             <!-- To Whom -->
             <div class="md-form mt-3">
               <p style="color: black; text-align: left;">Name: <?php echo "$lnameview" ." ". "$fnameview" ." ". "$mnameview" ?></p>
-               <p style="color: black; text-align: left;">Course & Year: <?php echo "$coursename" .", ". $result['styear'] ?></p>
+              <p style="color: black; text-align: left;">Course & Year: <?php echo "$coursename" .", ". $result['styear'] ?></p>
             </div> 
 
             <div class="md-form mt-3" style="text-align: left;">
