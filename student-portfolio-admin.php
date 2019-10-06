@@ -48,12 +48,12 @@ if (!isset($_SESSION['adminID'])) {
                    ?>
 
                   <p style="text-align: center;">Toggle for Portfolio to show or hide</p>
-                  <small style="text-align: center;">Status: <?php echo $resulttoggle['toggleonoroff']; ?></small>             
+                  <p style="text-align: center;">Status: <?php echo $resulttoggle['toggleonoroff']; ?></p>             
 
               </div>
               <div class="modal-footer">
-                <a href="controller.php?from=show-button&showID=<?php echo $resulttoggle['showID']; ?>"><button type="submit" class="btn blue-gradient"><i class="fas fa-eye"></i> Show</button></a> 
-                <a href="controller.php?from=hide-button&showID=<?php echo $resulttoggle['showID']; ?>"><button type="submit" class="btn blue-gradient"><i class="fas fa-eye-slash"></i> Hide</button></a>
+                <a href="controller.php?from=show-button&showID=<?php echo $resulttoggle['showID']; ?>"><button type="submit" class="btn btn-success itogglebutton"><i class="fas fa-eye"></i> ON</button></a> 
+                <a href="controller.php?from=hide-button&showID=<?php echo $resulttoggle['showID']; ?>"><button type="submit" class="btn btn-danger itogglebutton"><i class="fas fa-eye-slash"></i> OFF</button></a>
               </div>
             </div>
           </div>

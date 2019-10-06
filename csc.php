@@ -151,6 +151,7 @@ if (!isset($_SESSION['adminID'])) {
                           <div class="form-group">
                           <small>Student Name</small>
                           <select class="form-control" id="allstudentedit" name="stprofID" required="">
+                            <option selected="" style="background-color: green; color: white" readonly="" value="<?php echo $res['stprofID']; ?>"><?php echo $res['lname'] ." ". $res['mname'] ." ". $res['fname']; ?></option>
                             <?php $qry1 = mysqli_query($connection, "select * from list_student_view order by (lname +0) asc, lname asc");
                             while ($res1 = mysqli_fetch_assoc($qry1)) { ?>
                               <option value="<?php echo $res1['stprofID']; ?>"><?php echo $res1['lname'] ." ". $res1['mname'] ." ". $res1['fname'];  ?></option>
@@ -166,6 +167,7 @@ if (!isset($_SESSION['adminID'])) {
                           <div class="form-group">
                           <small>Position</small>
                           <select class="form-control" name="positionIDcsc" id="cscpositionedit" required="">
+                            <option selected="" readonly="" style="background-color: green; color: white" value="<?php echo $res['positionIDcsc']; ?>"><?php echo $res['positionNamecsc']; ?></option>
                             <?php
                           $qryedi = mysqli_query($connection, "select * from csc_position_table order by (positionNamecsc +0) asc, positionNamecsc asc");
                           while ($resedi = mysqli_fetch_assoc($qryedi)) { ?>
@@ -181,7 +183,7 @@ if (!isset($_SESSION['adminID'])) {
                         <div class="col-12">
                           <div class="form-group">
                           <select class="form-control" name="perpost" required="">
-                            <option selected="" disabled=""></option>
+                            <option selected="" style="background-color: green; color: white"><?php echo $res['perpost']; ?></option>
                             <option>Yes</option>
                             <option>No</option>
                           </select>
@@ -190,11 +192,11 @@ if (!isset($_SESSION['adminID'])) {
                         </div>
                       </div>
 
-                      <input type="text" name="from" value="add-csc-member" hidden>
-                      <p id="errors" class="text-danger"></p>
-                  <div class="modal-footer">
-                    <button type="submit" class="btn aqua-gradient">Add</button>
-               
+                    <input type="text" name="cscmemID" value="<?php echo $res['cscmemID'] ?>" hidden>
+                    <input type="text" name="from" value="edit-csc-position" hidden>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn aqua-gradient"><i class="far fa-edit"></i> Update</button>
+                    </div>
                     </form>
                   </div>
                 </div>

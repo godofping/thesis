@@ -76,7 +76,7 @@ if (!isset($_SESSION['adminID'])) {
                         <option selected="" disabled="">Select Position</option>
                        <?php 
 
-                          $qry = mysqli_query($connection, "select * from club_position_table order by (positionName +0) asc, positionName asc");
+                          $qry = mysqli_query($connection, "select * from council_position_table order by (positionName +0) asc, positionName asc");
 
                           while ($res = mysqli_fetch_assoc($qry)) { ?>
                             <option value="<?php echo $res['positionID']; ?>"><?php echo $res['positionName']; ?></option>

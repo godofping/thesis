@@ -242,15 +242,22 @@ if (isset($_POST['from']) and $_POST['from'] =='add-csc-member') {
 
    		mysqli_query($connection, "insert into csc_members_table (stprofID, positionIDcsc,perpost) values ('".$_POST['stprofID']."', '".$_POST['positionIDcsc']."', '".$_POST['perpost']."')");
 
-   			echo "insert into csc_members_table (stprofID, positionIDcsc,perpost) values ('".$_POST['stprofID']."', '".$_POST['positionIDcsc']."', '".$_POST['perpost']."')";
-	// header("Location: csc.php");
+		header("Location: csc.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] =='add-cased-member') {
-	
-   		mysqli_query($connection, "insert into council_officers_table (CounID, stprofID, positionID,perpost) values ('".$_POST['CounID']."', '".$_POST['stprofID']."','".$_POST['positionID']."','".$_POST['perpost']."')");
+		
+		$qry = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_POST['stprofID'] . "'");
+		$res = mysqli_fetch_assoc($qry);
+   		$_POST['stprofID'] =  $res['stprofID'];
 
-	header("Location: cased.php");
+   		$qry2 = mysqli_query($connection, "select * from council_position_table where positionNamecouncil = '".$_POST['positionIDcouncil']."'");
+   		$res2 = mysqli_fetch_assoc($qry2);
+   		$_POST['positionIDcouncil'] = $res2['positionIDcouncil'];
+
+   		mysqli_query($connection, "insert into council_officers_table (CounID, stprofID, positionIDcouncil,perpost) values ('".$_POST['CounID']."', '".$_POST['stprofID']."','".$_POST['positionIDcouncil']."','".$_POST['perpost']."')");
+   		echo "insert into council_officers_table (CounID, stprofID, positionIDcouncil,perpost) values ('".$_POST['CounID']."', '".$_POST['stprofID']."','".$_POST['positionIDcouncil']."','".$_POST['perpost']."')";
+	// header("Location: cased.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] =='add-cbtv-member') {
@@ -478,9 +485,19 @@ if (isset($_POST['from']) and $_POST['from'] == 'delete-csc-position') {
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-csc-position') {
-	mysqli_query($connection, "update csc_members_table set stprofID = '".$_POST['stprofID']."', positionID = '".$_POST['positionID']."', perpost = '".$_POST['perpost']."' where cscmemID = '".$_POST['cscmemID']."' ");
-		
-		header("Location: csc.php");
+
+		$qry = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_POST['stprofID'] . "'");
+		$res = mysqli_fetch_assoc($qry);
+   		$_POST['stprofID'] =  $res['stprofID'];
+
+   		$qry2 = mysqli_query($connection, "select * from csc_position_table where positionNamecsc = '".$_POST['positionIDcsc']."'");
+   		$res2 = mysqli_fetch_assoc($qry2);
+   		$_POST['positionIDcsc'] = $res2['positionIDcsc'];
+
+		mysqli_query($connection, "update csc_members_table set stprofID = '".$_POST['stprofID']."', positionIDcsc = '".$_POST['positionIDcsc']."', perpost = '".$_POST['perpost']."' where cscmemID = '".$_POST['cscmemID']."' ");
+
+		echo "update csc_members_table set stprofID = '".$_POST['stprofID']."', positionIDcsc = '".$_POST['positionIDcsc']."', perpost = '".$_POST['perpost']."' where cscmemID = '".$_POST['cscmemID']."'";
+		// header("Location: csc.php");
 
 }
 
@@ -577,7 +594,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'register_student_portfolio') {
 if (isset($_GET['from']) and $_GET['from'] == 'show-button') {
 
 
-	mysqli_query($connection, "update buttontoggle_table set toggleonoroff = 'SHOW' where showID = '".$_GET['showID']."' ");
+	mysqli_query($connection, "update buttontoggle_table set toggleonoroff = 'ON' where showID = '".$_GET['showID']."' ");
 
 		header("Location: student-portfolio-admin.php");
 
@@ -586,10 +603,29 @@ if (isset($_GET['from']) and $_GET['from'] == 'show-button') {
 if (isset($_GET['from']) and $_GET['from'] == 'hide-button') {
 
 
-	mysqli_query($connection, "update buttontoggle_table set toggleonoroff = 'HIDE' where showID = '".$_GET['showID']."' ");
+	mysqli_query($connection, "update buttontoggle_table set toggleonoroff = 'OFF' where showID = '".$_GET['showID']."' ");
 	
 
 		header("Location: student-portfolio-admin.php");
+
+}
+
+if (isset($_GET['from']) and $_GET['from'] == 'show-buttonmember') {
+
+
+	mysqli_query($connection, "update membershiptoggle_table set toggleonoroff = 'ON' where membershipID = '".$_GET['membershipID']."' ");
+
+		header("Location: list-student.php");
+
+}
+
+if (isset($_GET['from']) and $_GET['from'] == 'hide-buttonmember') {
+
+
+	mysqli_query($connection, "update membershiptoggle_table set toggleonoroff = 'OFF' where membershipID = '".$_GET['membershipID']."' ");
+	
+
+		header("Location: list-student.php");
 
 }
 
