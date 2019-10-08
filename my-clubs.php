@@ -45,7 +45,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
         <?php 
 
-              $qry = mysqli_query($connection, "select * from buttontoggle_table where toggleonoroff = 'SHOW'");
+              $qry = mysqli_query($connection, "select * from membershiptoggle_table where toggleonoroff = 'ON'");
               $res = mysqli_fetch_assoc($qry);
 
               if (mysqli_num_rows($qry)>0):?>

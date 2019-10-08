@@ -52,6 +52,9 @@ if (!isset($_SESSION['adminID'])) {
                   <label>Social Club Name</label>
                   <input type="text" name="socialClubName" class="form-control mb-4" required="">
 
+                  <label>Social Club Code</label>
+                  <input type="text" name="socialClubcode" class="form-control mb-4" required="">
+
                   <input type="text" name="from" value="add-social-club" hidden>              
 
               </div>
@@ -77,7 +80,8 @@ if (!isset($_SESSION['adminID'])) {
         <table class="table" id="dtBasicExample">
           <thead>
             <tr>
-              <th scope="col">Club Name</th>
+              <th scope="col">Social Club Code</th>
+              <th scope="col">Social Club Name</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -86,6 +90,7 @@ if (!isset($_SESSION['adminID'])) {
             $qry = mysqli_query($connection, "select * from social_club_view order by socialClubName asc");
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
+              <td scope="row"><?php echo $res['socialClubcode']; ?></td>
               <td scope="row"><?php echo $res['socialClubName']; ?></td>
               <td><!-- <a href="list-of-officers-social.php?from=checkIDforsocialofficer&socialClubId=<?php echo $res['socialClubId']; ?>"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a> --><a href="list-of-members-social.php?from=checkIDforsocialmember&socialClubId=<?php echo $res['socialClubId']; ?>"><button type="button" class="btn peach-gradient"><i class="fas fa-users"></i> Members</button></a></td>
 

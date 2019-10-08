@@ -46,10 +46,16 @@
             $qrycscpos = mysqli_query($connection, "select * from csc_members_table where stprofID = '".$_SESSION['stprofID']."' ");
             $rescscpo = mysqli_fetch_assoc($qrycscpos);
 
-            $qrcouncilpos = mysqli_query($connection,"select * from council_officers_table where stprofID = '".$_SESSION['stprofID']."' ");
-            $rescouncilpos = mysqli_fetch_assoc($qrcouncilpos);
+            $qyrcouncilpos = mysqli_query($connection,"select * from council_officers_table where stprofID = '".$_SESSION['stprofID']."' ");
+            $rescouncilpos = mysqli_fetch_assoc($qyrcouncilpos);
 
-            if (mysqli_num_rows($qrycscpos)>0 || mysqli_num_rows($qrcouncilpos)>0):?>
+            $qyrdepartpos = mysqli_query($connection,"select * from departmental_officersandmembers_table where stprofID = '".$_SESSION['stprofID']."' ");
+            $resdepartpos = mysqli_fetch_assoc($qyrdepartpos);
+
+            $qyrsocialpos = mysqli_query($connection,"select * from social_officerandmembers_table where stprofID = '".$_SESSION['stprofID']."' ");
+            $ressocialpos = mysqli_fetch_assoc($qyrsocialpos);
+
+            if (mysqli_num_rows($qrycscpos)>0 || mysqli_num_rows($qyrcouncilpos)>0 || mysqli_num_rows($qyrdepartpos)>0 || mysqli_num_rows($qyrsocialpos)>0 ):?>
 
         <li class="nav-item dropdown <?php if ($currentpage == 'creatclub'): ?>
           active
@@ -59,11 +65,21 @@
             aria-haspopup="true" aria-expanded="false" style="color: black; font-family: Times New Roman">
             <i class="fas fa-user-alt"></i>Create Announcement
           </a>
+
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="MyaccountDropDown">
-            <a class="dropdown-item" href="csc-announcement.php">CSC Announcement</a>
-            <a class="dropdown-item" href="manage-acc.php">Departmental Council Announcement</a>
-            <a class="dropdown-item" href="manage-acc.php">Departmental Announcement</a>
-            <a class="dropdown-item" href="manage-acc.php">Social Announcement</a>
+            <?php if (mysqli_num_rows($qrycscpos)>0 ): ?>
+            <a class="dropdown-item" href="csc-announcement.php">
+              CSC Announcement
+            <?php endif ?></a>
+            <?php if (mysqli_num_rows($qyrcouncilpos)>0): ?>
+            <a class="dropdown-item" href="departmental-council-announce.php">Departmental Council Announcement</a>
+            <?php endif ?>
+            <?php if (mysqli_num_rows($qyrdepartpos)>0): ?>
+            <a class="dropdown-item" href="departmental-clubs-announcement.php">Departmental Announcement</a>
+            <?php endif ?>
+            <?php if (mysqli_num_rows($qyrsocialpos)>0): ?>
+            <a class="dropdown-item" href="social-clubs-announcement-new.php">Social Announcement</a>
+            <?php endif ?>
           </div>
 
         </li>
@@ -111,7 +127,7 @@
         </li> -->
 <!-- <?php 
 
-              $qry = mysqli_query($connection, "select * from buttontoggle_table where toggleonoroff = 'SHOW'");
+              $qry = mysqli_query($connection, "select * from buttontoggle_table where toggleonoroff = 'ON'");
               $res = mysqli_fetch_assoc($qry);
 
               if (mysqli_num_rows($qry)>0):?> -->

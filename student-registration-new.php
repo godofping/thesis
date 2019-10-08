@@ -18,6 +18,7 @@ if (!isset($_SESSION['accID'])) {
             <div class="row">
             <div class="col-12">
             <div class="form-group">
+              <small>New password</small>
            <input type="password" name="newpassword" onkeyup="check();" id="newpassword" class="form-control md-4" required placeholder="New Password">
            <div class="invalid-feedback">
           Please enter a new password.
@@ -29,6 +30,7 @@ if (!isset($_SESSION['accID'])) {
            <div class="row">
            <div class="col-12">
              <div class="form-group">
+              <small>Confirm password</small>
              <input type="password" onkeyup="check();" placeholder="Confirm Password" name="confirmPassword"  id="confirmPassword" required=""  class="form-control md-4" >
               <div class="invalid-feedback">
               Please confirm your password.
@@ -63,6 +65,7 @@ if (!isset($_SESSION['accID'])) {
             <div class="row">
             <div class="col-12">
               <div class="form-group">
+              <small>First Name</small>
              <input type="text" name="fname" class="form-control md-4" id="fname" required="" placeholder="First Name">
               <div class="invalid-feedback">
               Please enter your First name.
@@ -74,6 +77,7 @@ if (!isset($_SESSION['accID'])) {
             <div class="row">
             <div class="col-12">
               <div class="form-group">
+                <small>Middle Name</small>
              <input type="text" name="mname" class="form-control md-4" id="mname" required="" placeholder="MIddle Name">
               <div class="invalid-feedback">
               Please enter your Middle name.
@@ -85,6 +89,7 @@ if (!isset($_SESSION['accID'])) {
             <div class="row">
             <div class="col-12">
               <div class="form-group">
+                <small>Last Name</small>
              <input type="text" name="lname" class="form-control md-4" id="lname" required="" placeholder="Last Name">
               <div class="invalid-feedback">
               Please enter your Last name.
@@ -96,6 +101,7 @@ if (!isset($_SESSION['accID'])) {
             <div class="row">
             <div class="col-12">
             <div class="form-group">
+              <small>Address</small>
             <input type="text" name="address" id="address" class="form-control md-4" required="" placeholder="Address">
              <div class="invalid-feedback">
               Please provide a valid Permament Address.
@@ -107,6 +113,7 @@ if (!isset($_SESSION['accID'])) {
            <div class="row">
           <div class="col-12">
           <div class="form-group">
+            <small>Email</small>
           <input type="email" name="email" class="form-control md-4" id="email" required="" placeholder="Email">
           <div class="invalid-feedback">
           Please provide a valid Email Address.
@@ -118,6 +125,7 @@ if (!isset($_SESSION['accID'])) {
          <div class="row">
           <div class="col-12">
           <div class="form-group">
+            <small>Parents/Guardian Name</small>
           <input type="text" name="pandg" class="form-control md-4" id="email" required="" placeholder="Parents/Guardian Name">
           <div class="invalid-feedback">
           Please provide a Parents/Guardian Name.
@@ -129,6 +137,7 @@ if (!isset($_SESSION['accID'])) {
            <div class="form-row mb-2">
           <div class="col">
               <div class="form-group">
+                <small>Religion</small>
             <input type="text" name="religion" class="form-control md-4" id="religion" required="" placeholder="Religion">
             <div class="invalid-feedback">
             Please provide a Religion.
@@ -137,6 +146,7 @@ if (!isset($_SESSION['accID'])) {
           </div>
           <div class="col">
               <div class="form-group">
+                <small>Tribe</small>
             <input type="text" name="tribe" class="form-control md-4" id="tribe" required="" placeholder="Tribe">
             <div class="invalid-feedback">
             Please provide a Tribe.
@@ -148,6 +158,7 @@ if (!isset($_SESSION['accID'])) {
          <div class="row">
           <div class="col-12">
           <div class="form-group">
+            <small>Contact Number</small>
             <input type="text" name="contractnum" class="form-control md-4" required="" placeholder="Contact Number">
             <div class="invalid-feedback">
           Please provide a Contact Number.
@@ -156,7 +167,7 @@ if (!isset($_SESSION['accID'])) {
           </div>
          </div>
 
-         <label>Your Date of Birth</label>
+         <small>Birthdate</small>
             <div class="row">
           
               <div class="col-12">
@@ -170,7 +181,7 @@ if (!isset($_SESSION['accID'])) {
               </div>
             </div>
 
-            <label>Select Sex</label>
+            <small>Select Sex</small>
              <div class="row">
               <div class="col-12">
                 <div class="form-group">
@@ -199,7 +210,7 @@ if (!isset($_SESSION['accID'])) {
           <div class="row">
             <div class="col-12">
                 <div class="form-group">
-                 <label>Select Course</label>
+                 <small>Select Course</small>
                 <select class="form-control" name="CourseID" required="">
                   <option selected="" disabled=""></option>
                   <?php $qry = mysqli_query($connection, "select * from course_table");

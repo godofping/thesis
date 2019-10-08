@@ -45,6 +45,9 @@ if (!isset($_SESSION['adminID'])) {
                   <label>Department Club Name</label>
                   <input type="text" name="departmentClubName" class="form-control mb-4" required="">
 
+                  <label>Department Club Code</label>
+                  <input type="text" name="departmentcode" class="form-control mb-4" required="">
+
                   <input type="text" name="from" value="add-department-club" hidden>
 
 
@@ -70,7 +73,8 @@ if (!isset($_SESSION['adminID'])) {
         <table class="table" id="dtBasicExample">
           <thead>
             <tr>
-              <th scope="col">Club Name</th>
+              <th scope="col">Department Club Code</th>
+              <th scope="col">Department Club Name</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -79,6 +83,7 @@ if (!isset($_SESSION['adminID'])) {
             $qry = mysqli_query($connection, "select * from departmental_club_view");
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
+              <td scope="row"><?php echo $res['departmentcode']; ?></td>
               <td scope="row"><?php echo $res['departmentClubName']; ?></td>
               <td><!-- <a href="list-of-officers-departmental.php?from=checkIDfordepartmentofficer&departmentClubId=<?php echo $res['departmentClubId']; ?>"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a> --><a href="list-of-members-departmental.php?from=checkIDfordepartmentmember&departmentClubId=<?php echo $res['departmentClubId']; ?>"><button type="button" class="btn peach-gradient"><i class="fas fa-users"></i> Members</button></a></td> 
             </tr>   

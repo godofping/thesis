@@ -12,9 +12,21 @@
 
             $qryhey = mysqli_query($connection, "select * from admin_account_view where adminID = ".$_SESSION['adminID']." ");
             $reshey = mysqli_fetch_assoc($qryhey);
+
+            $qryrejctbadge1 = mysqli_query($connection,"select count(*) as cnt1 from csc_announcement_table where isApproved = 'No'");
+            $resultreject1 = mysqli_fetch_assoc($qryrejctbadge1);
+            $qryrejctbadge2 = mysqli_query($connection,"select count(*) as cnt2 from council_announcement_table where isApproved = 'No'");
+            $resultreject2 = mysqli_fetch_assoc($qryrejctbadge2);
+            $qryrejctbadge3 = mysqli_query($connection,"select count(*) as cnt3 from department_announcement_table where isApproved = 'No'");
+            $resultreject3 = mysqli_fetch_assoc($qryrejctbadge3);
+            $qryrejctbadge4 = mysqli_query($connection,"select count(*) as cnt4 from social_announcement_table where isApproved = 'No'");
+            $resultreject4 = mysqli_fetch_assoc($qryrejctbadge4);
+
+            $a=array($resultreject1['cnt1'],$resultreject2['cnt2'],$resultreject3['cnt3'],$resultreject4['cnt4']);
+
              ?>
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black; font-family: Times New Roman">
-          <i class="far fa-user"></i><?php echo " ".ucfirst($reshey['username'])?>
+          <i class="far fa-user"></i><?php echo " ".ucfirst($reshey['username'])?><?php if ( $resultreject1['cnt1'] != 0 || $resultreject2['cnt2'] != 0 || $resultreject3['cnt3'] != 0 || $resultreject4['cnt4'] != 0) : ?><span class="badge badge-danger ml-1"><?php echo array_sum($a) ?></span><?php endif ?>
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <li><a class="dropdown-item" href="manage-admin.php"><i class="fas fa-user-cog"></i> Manage Account</a></li>
@@ -34,11 +46,11 @@
             </ul>
           </li>
           <a class="dropdown-item" href="add-course.php"><i class="fas fa-graduation-cap"></i> Course</a>
-          <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"><i class="far fa-newspaper"></i> Announcement</a></a>
+          <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"><i class="far fa-newspaper"></i> Announcement<?php if ( $resultreject1['cnt1'] != 0 || $resultreject2['cnt2'] != 0 || $resultreject3['cnt3'] != 0 || $resultreject4['cnt4'] != 0) : ?><span class="badge badge-danger ml-1"><?php echo array_sum($a) ?></span><?php endif ?></a></a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="venue.php"><i class="fas fa-map-marker-alt"></i> Add Venue</a></li>
               <li><a class="dropdown-item" href="creat-announcement.php"><i class="fas fa-file-import"></i> Add Announcement</a></li>
-              <li><a class="dropdown-item" href="view-all-announcement.php"><i class="fas fa-file"></i> View Announcement</a></li>
+              <li><a class="dropdown-item" href="view-all-announcement.php"><i class="fas fa-file"></i> View Announcement<?php if ( $resultreject1['cnt1'] != 0 || $resultreject2['cnt2'] != 0 || $resultreject3['cnt3'] != 0 || $resultreject4['cnt4'] != 0) : ?><span class="badge badge-danger ml-1"><?php echo array_sum($a) ?></span><?php endif ?></a></li>
               <li><a class="dropdown-item" href="history-of-announcement.php"><i class="fas fa-file-alt"></i>  History of Announcement</a></li>
             </ul>
           </li>

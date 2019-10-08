@@ -6,6 +6,9 @@ if (!isset($_SESSION['adminID'])) {
 }
 
  include("admin-header.php");
+
+//insert query
+
  ?>
 
 

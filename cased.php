@@ -59,7 +59,7 @@ if (!isset($_SESSION['adminID'])) {
                       <select class="form-control" name="stprofID" id="allstudent" required="">
                         <?php $qry = mysqli_query($connection, "select * from list_student_view where CounID = '".$councilID."' order by lname asc");
                         while ($res = mysqli_fetch_assoc($qry)) { ?>
-                          <option value="<?php echo $res['stprofID']; ?>"><?php echo $res['lname'] ." ". $res['mname'] ." ". $res['fname']; ?></option>
+                          <?php echo '<option value="'.$res['stprofID'].'">'.$res['lname'] ." ". $res['fname'] ." ". $res['mname'].'</option>'; ?>
                         <?php } ?>
                       </select>
 
@@ -158,12 +158,11 @@ if (!isset($_SESSION['adminID'])) {
                         <div class="row">
                       <div class="col-12">
                           <div class="form-group">
-                  
-                          <select class="form-control" name="stprofID" required="">
-                            <option selected="" readonly="" value="<?php echo $res['stprofID']; ?>"><?php echo $res['lname'] ." ". $res['mname'] ." ". $res['fname']; ?></option>
+                          <small>Student Name</small>
+                          <select class="form-control" name="stprofID" id="allstudentedit<?php echo $res['councilID'] ?>" required="">
                             <?php $qry1 = mysqli_query($connection, "select * from list_student_view where CounID = '".$councilID."' order by lname asc");
                             while ($res1 = mysqli_fetch_assoc($qry1)) { ?>
-                              <option value="<?php echo $res1['stprofID']; ?>"><?php echo $res1['lname'] ." ". $res1['mname'] ." ". $res1['fname'];  ?></option>
+                             <?php echo '<option value="'.$res1['stprofID'].'">'.$res1['lname'] ." ". $res1['fname'] ." ". $res1['mname'].'</option>'; ?>
                             <?php } ?>
                           </select>
 
@@ -174,9 +173,8 @@ if (!isset($_SESSION['adminID'])) {
                     <div class="row">
                   <div class="col-12">
                       <div class="form-group">
-              
-                      <select class="form-control" name="positionID" required="">
-                        <option selected="" readonly="" value="<?php echo $res['positionIDcouncil']; ?>"><?php echo $res['positionNamecouncil']; ?></option>
+                      <small>Position</small>
+                      <select class="form-control" name="positionID" id="cscpositionedit<?php echo $res['councilID'] ?>" required="">
                         <?php 
 
                           $qry2 = mysqli_query($connection, "select * from council_position_table order by (positionNamecouncil +0) asc, positionNamecouncil asc");
@@ -196,7 +194,7 @@ if (!isset($_SESSION['adminID'])) {
                     <div class="col-12">
                       <div class="form-group">
                       <select class="form-control" name="perpost" required="">
-                        <option selected=""><?php echo $res['perpost']; ?></option>
+                        <option selected="" disabled=""></option>
                         <option>Yes</option>
                         <option>No</option>
                       </select>
@@ -208,8 +206,7 @@ if (!isset($_SESSION['adminID'])) {
                     <input type="text" name="from" value="edit-cased-position" hidden>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn aqua-gradient"><i class="far fa-edit"></i> Update</button>
                     </form>
                   </div>
                 </div>
@@ -229,19 +226,18 @@ if (!isset($_SESSION['adminID'])) {
                   </div>
                   <div class="modal-body">
                     <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
-<!-- 
-                    <div class="row">
+
+                      <div class="row">
                       <div class="col-12">
-                        <h5 align="Center">Are you sure to Remove <?php echo "<br>". $res['lname'] ." ". $res['mname'] ." ". $res['fname'];  ?><br> from being a<br> <?php echo $res['positionName'] ?> ?</h5>
+                        <h5 align="Center">Do you want to remove <?php echo "<br>". $res['lname'] ." ". $res['fname'] ." ". $res['mname'];  ?><br> from being <?php echo $res['positionNamecouncil'] ?> ?</h5>
                       </div>
-                    </div> -->
+                    </div>
 
                     <input type="text" name="stprofID" value="<?php echo $res['stprofID'] ?>" hidden>
                     <input type="text" name="from" value="delete-cased-position" hidden>
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     <button type="submit" class="btn btn-danger">Yes</button>
                     </form>
                   </div>
@@ -272,9 +268,15 @@ $('#allstudent').editableSelect();
 
 $('#cscposition').editableSelect();
 
-$('#allstudentedit').editableSelect();
+<?php 
+  $qry = mysqli_query($connection, "select * from council_view where CounID = '1' ");
+  while ($res = mysqli_fetch_assoc($qry)) { ?>
+    $('#allstudentedit<?php echo $res['councilID'] ?>').editableSelect();
 
-$('#cscpositionedit').editableSelect();
+    $('#cscpositionedit<?php echo $res['councilID'] ?>').editableSelect();
+
+
+<?php } ?>
 
 </script>
 

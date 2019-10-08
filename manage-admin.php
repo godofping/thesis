@@ -48,7 +48,7 @@ if (!isset($_SESSION['adminID'])) {
               <label for="inputMDEx">Admin Username</label>
               </div>
                <div class="md-form">
-              <input type="text" name="password" id="inputMDEx2" class="form-control md-4" required="">
+              <input type="password" name="password" id="inputMDEx2" class="form-control md-4" required="">
               <label for="inputMDEx2">Admin Password</label>
               </div>
             </div> 

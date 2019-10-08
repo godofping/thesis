@@ -150,12 +150,11 @@ if (!isset($_SESSION['adminID'])) {
                       <div class="col-12">
                           <div class="form-group">
                           <small>Student Name</small>
-                          <select class="form-control" id="allstudentedit" name="stprofID" required="">
-                            <option selected="" style="background-color: green; color: white" readonly="" value="<?php echo $res['stprofID']; ?>"><?php echo $res['lname'] ." ". $res['mname'] ." ". $res['fname']; ?></option>
+                          <select class="form-control" id="allstudentedit<?php echo $res['cscmemID'] ?>" name="stprofID" required="">
                             <?php $qry1 = mysqli_query($connection, "select * from list_student_view order by (lname +0) asc, lname asc");
                             while ($res1 = mysqli_fetch_assoc($qry1)) { ?>
-                              <option value="<?php echo $res1['stprofID']; ?>"><?php echo $res1['lname'] ." ". $res1['mname'] ." ". $res1['fname'];  ?></option>
-                            <?php } ?>
+                              <?php echo '<option value="'.$res1['stprofID'].'">'.$res1['lname'] ." ". $res1['fname'] ." ". $res1['mname'].'</option>'; ?>
+                        <?php } ?>
                           </select>
 
                           </div>
@@ -166,8 +165,7 @@ if (!isset($_SESSION['adminID'])) {
                       <div class="col-12">
                           <div class="form-group">
                           <small>Position</small>
-                          <select class="form-control" name="positionIDcsc" id="cscpositionedit" required="">
-                            <option selected="" readonly="" style="background-color: green; color: white" value="<?php echo $res['positionIDcsc']; ?>"><?php echo $res['positionNamecsc']; ?></option>
+                          <select class="form-control" name="positionIDcsc" id="cscpositionedit<?php echo $res['cscmemID'] ?>" required="">
                             <?php
                           $qryedi = mysqli_query($connection, "select * from csc_position_table order by (positionNamecsc +0) asc, positionNamecsc asc");
                           while ($resedi = mysqli_fetch_assoc($qryedi)) { ?>
@@ -178,12 +176,12 @@ if (!isset($_SESSION['adminID'])) {
                           </div>
                     </div>
                     </div>
-                    <small>Can Creat Announcement</small>
+                    <small>Can Create Announcement</small>
                     <div class="row">
                         <div class="col-12">
                           <div class="form-group">
                           <select class="form-control" name="perpost" required="">
-                            <option selected="" style="background-color: green; color: white"><?php echo $res['perpost']; ?></option>
+                            <option selected="" disabled=""></option>
                             <option>Yes</option>
                             <option>No</option>
                           </select>
@@ -217,11 +215,11 @@ if (!isset($_SESSION['adminID'])) {
                   <div class="modal-body">
                     <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
 
-                   <!--  <div class="row">
+                    <div class="row">
                       <div class="col-12">
-                        <h5 align="Center">Are you sure to Remove <?php echo "<br>". $res['lname'] ." ". $res['mname'] ." ". $res['fname'];  ?><br> from being a <?php echo $res['positionName'] ?> ?</h5>
+                        <h5 align="Center">Do you want to remove <?php echo "<br>". $res['lname'] ." ". $res['fname'] ." ". $res['mname'];  ?><br> from being <?php echo $res['positionNamecsc'] ?> ?</h5>
                       </div>
-                    </div> -->
+                    </div>
 
                     <input type="text" name="cscmemID" value="<?php echo $res['cscmemID'] ?>" hidden>
                     <input type="text" name="from" value="delete-csc-position" hidden>
@@ -264,8 +262,15 @@ $('#allstudent').editableSelect();
 
 $('#cscposition').editableSelect();
 
-$('#allstudentedit').editableSelect();
+<?php 
+  $qry = mysqli_query($connection, "select * from csc_mem_view");
+  while ($res = mysqli_fetch_assoc($qry)) { ?>
+    $('#allstudentedit<?php echo $res['cscmemID'] ?>').editableSelect();
 
-$('#cscpositionedit').editableSelect();
+    $('#cscpositionedit<?php echo $res['cscmemID'] ?>').editableSelect();
+
+
+<?php } ?>
+
 
 </script>

@@ -182,7 +182,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
                         $qrydppos = mysqli_query($connection, "select * from departmental_officersandmembers_view where stprofID = ".$_SESSION['stprofID']." ");
                         $resultdp = mysqli_fetch_assoc($qrydppos);
-                        $posname = $resultdp['positionName'];
+                        $posname = $resultdp['positionNameDP'];
                        ?>
 
                       <div class="col">      
@@ -223,7 +223,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
                             $resultID = mysqli_fetch_assoc($qrysocialpos);
 
                             $socID = $resultID['socialClubId'];
-                            $socpos = $resultID['positionName'];
+                            $socpos = $resultID['positionNameSocial'];
                            ?>
 
                           <label>Position:</label>

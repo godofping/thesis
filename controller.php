@@ -56,16 +56,14 @@ if (isset($_GET['from']) and $_GET['from'] == 'logout') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'add-course') {
 	
-	mysqli_query($connection, "insert into course_table (CourseName,CounID , departmentClubId) values ('".$_POST['courseName']."', '".$_POST['CounID']."', '".$_POST['departmentId']."')");
+	mysqli_query($connection, "insert into course_table (CourseName,CounID , departmentClubId,coursecode) values ('".$_POST['courseName']."', '".$_POST['CounID']."', '".$_POST['departmentId']."', '".$_POST['coursecode']."' )");
 
-
-
-	header("Location: add-course.php");
+	 header("Location: add-course.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'add-social-club') {
 	
-	mysqli_query($connection, "insert into social_club_table (socialClubName) values ('" . $_POST['socialClubName'] . "')");
+	mysqli_query($connection, "insert into social_club_table (socialClubName,socialClubcode) values ('" . $_POST['socialClubName'] . "','" . $_POST['socialClubcode'] . "' )");
 	
 	header("Location: social-clubs.php");
 
@@ -74,9 +72,9 @@ if (isset($_POST['from']) and $_POST['from'] == 'add-social-club') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'add-department-club') {
 	
-	mysqli_query($connection, "insert into departmental_club_table (departmentClubName) values (' " . $_POST['departmentClubName'] . " ')");
-
-	header("Location: departmental-clubs.php");
+	mysqli_query($connection, "insert into departmental_club_table (departmentClubName,departmentcode) values (' " . $_POST['departmentClubName'] . " ', ' " . $_POST['departmentcode'] . " ' )");
+	echo "insert into departmental_club_table (departmentClubName,departmentcode) values (' " . $_POST['departmentClubName'] . " ', ' " . $_POST['departmentcode'] . " ' )";
+	//header("Location: departmental-clubs.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'add-admin-account') {
@@ -86,7 +84,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'add-admin-account') {
 	if (mysqli_num_rows($qryaccount) > 0) {
 		header("Location: manage-admin.php?status=register-admin-failed");
 	}else{
-		mysqli_query($connection, "insert into admin_account_table (username, password) values ('". $_POST['username'] ."' , '". $_POST['password'] ."')");
+		mysqli_query($connection, "insert into admin_account_table (username, password) values ('". mysqli_real_escape_string($connection,$_POST['username']) ."' , '". $_POST['password'] ."')");
 		header("Location: manage-admin.php");
 	}
 	
@@ -230,11 +228,9 @@ if (isset($_POST['from']) and $_POST['from'] =='add-calendar') {
 
 if (isset($_POST['from']) and $_POST['from'] =='add-csc-member') {
 		
-   		
-   		
-   		$qry = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_POST['stprofID'] . "'");
-		$res = mysqli_fetch_assoc($qry);
-   		$_POST['stprofID'] =  $res['stprofID'];
+   		$qrycsc = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_POST['stprofID'] . "'");
+		$rescsc = mysqli_fetch_assoc($qrycsc);
+   		$_POST['stprofID'] =  $rescsc['stprofID'];
 
    		$qry2 = mysqli_query($connection, "select * from csc_position_table where positionNamecsc = '".$_POST['positionIDcsc']."'");
    		$res2 = mysqli_fetch_assoc($qry2);
@@ -247,29 +243,46 @@ if (isset($_POST['from']) and $_POST['from'] =='add-csc-member') {
 
 if (isset($_POST['from']) and $_POST['from'] =='add-cased-member') {
 		
-		$qry = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_POST['stprofID'] . "'");
-		$res = mysqli_fetch_assoc($qry);
-   		$_POST['stprofID'] =  $res['stprofID'];
+		$qrycouncil = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_POST['stprofID'] . "'");
+		$rescouncil = mysqli_fetch_assoc($qrycouncil);
+   		$_POST['stprofID'] =  $rescouncil['stprofID'];
 
-   		$qry2 = mysqli_query($connection, "select * from council_position_table where positionNamecouncil = '".$_POST['positionIDcouncil']."'");
-   		$res2 = mysqli_fetch_assoc($qry2);
-   		$_POST['positionIDcouncil'] = $res2['positionIDcouncil'];
+   		$qrycouncil2 = mysqli_query($connection, "select * from council_position_table where positionNamecouncil = '".$_POST['positionIDcouncil']."'");
+   		$rescouncil2 = mysqli_fetch_assoc($qrycouncil2);
+   		$_POST['positionIDcouncil'] = $rescouncil2['positionIDcouncil'];
 
    		mysqli_query($connection, "insert into council_officers_table (CounID, stprofID, positionIDcouncil,perpost) values ('".$_POST['CounID']."', '".$_POST['stprofID']."','".$_POST['positionIDcouncil']."','".$_POST['perpost']."')");
-   		echo "insert into council_officers_table (CounID, stprofID, positionIDcouncil,perpost) values ('".$_POST['CounID']."', '".$_POST['stprofID']."','".$_POST['positionIDcouncil']."','".$_POST['perpost']."')";
-	// header("Location: cased.php");
+   		
+	 header("Location: cased.php");
+
 }
 
 if (isset($_POST['from']) and $_POST['from'] =='add-cbtv-member') {
-	
-   		mysqli_query($connection, "insert into council_officers_table (CounID, stprofID, positionID,perpost) values ('".$_POST['CounID']."','".$_POST['stprofID']."', '".$_POST['positionID']."', '".$_POST['perpost']."')");
+		
+		$qrycouncil2 = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_POST['stprofID'] . "'");
+		$rescouncil2 = mysqli_fetch_assoc($qrycouncil2);
+   		$_POST['stprofID'] =  $rescouncil2['stprofID'];
 
-	header("Location: business.php");
+   		$qrycouncil3 = mysqli_query($connection, "select * from council_position_table where positionNamecouncil = '".$_POST['positionIDcouncil']."'");
+   		$rescouncil3 = mysqli_fetch_assoc($qrycouncil3);
+   		$_POST['positionIDcouncil'] = $rescouncil3['positionIDcouncil'];
+
+   		mysqli_query($connection, "insert into council_officers_table (CounID, stprofID, positionIDcouncil,perpost) values ('".$_POST['CounID']."','".$_POST['stprofID']."', '".$_POST['positionIDcouncil']."', '".$_POST['perpost']."')");
+
+	 header("Location: business.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] =='add-nursing-member') {
-	
-   		mysqli_query($connection, "insert into council_officers_table (CounID, stprofID, positionID,perpost) values ('".$_POST['CounID']."','".$_POST['stprofID']."', '".$_POST['positionID']."', '".$_POST['perpost']."')");
+		
+		$qrycouncil3 = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_POST['stprofID'] . "'");
+		$rescouncil3 = mysqli_fetch_assoc($qrycouncil3);
+   		$_POST['stprofID'] =  $rescouncil3['stprofID'];
+
+   		$qrycouncil4 = mysqli_query($connection, "select * from council_position_table where positionNamecouncil = '".$_POST['positionIDcouncil']."'");
+   		$rescouncil4 = mysqli_fetch_assoc($qrycouncil4);
+   		$_POST['positionIDcouncil'] = $rescouncil4['positionIDcouncil'];
+
+   		mysqli_query($connection, "insert into council_officers_table (CounID, stprofID, positionIDcouncil,perpost) values ('".$_POST['CounID']."','".$_POST['stprofID']."', '".$_POST['positionIDcouncil']."', '".$_POST['perpost']."')");
 
 	header("Location: nursing.php");
 }
@@ -277,10 +290,17 @@ if (isset($_POST['from']) and $_POST['from'] =='add-nursing-member') {
 //Regiser Officers from Departmental Club
 if (isset($_GET['from']) and $_GET['from'] == 'add-departmental-officer') {
 		
+		$qrydp = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_GET['stprofID'] . "'");
+		$resdp= mysqli_fetch_assoc($qrydp);
+   		$_GET['stprofID'] =  $resdp['stprofID'];
+
+   		$qrydp1 = mysqli_query($connection, "select * from departmental_position_table where positionNameDP = '".$_GET['positionIDdepartmental']."'");
+   		$resdp1 = mysqli_fetch_assoc($qrydp1);
+   		$_GET['positionIDdepartmental'] = $resdp1['positionIDdepartmental'];
 		
 		$dpID = $_GET['departmentClubId'];
 
-		mysqli_query($connection, "insert into departmental_officersandmembers_table (departmentClubId, positionID, stprofID,perpost) values ('".$_GET['departmentClubId']."', '".$_GET['positionID']."', '".$_GET['stprofID']."','".$_GET['perpost']."')");
+		mysqli_query($connection, "insert into departmental_officersandmembers_table (departmentClubId, positionIDdepartmental, stprofID,perpost) values ('".$_GET['departmentClubId']."', '".$_GET['positionIDdepartmental']."', '".$_GET['stprofID']."','".$_GET['perpost']."')");
 
 		header("Location: list-of-officers-departmental.php?from=checkIDfordepartmentofficer&departmentClubId=".$dpID);
 }
@@ -288,11 +308,19 @@ if (isset($_GET['from']) and $_GET['from'] == 'add-departmental-officer') {
 //Regiser Officers from Social Club
 if (isset($_GET['from']) and $_GET['from'] == 'add-social-officer') {
 		
+		$qrysc = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_GET['stprofID'] . "'");
+		$ressc = mysqli_fetch_assoc($qrysc);
+   		$_GET['stprofID'] =  $ressc['stprofID'];
+
+   		$qrysc1 = mysqli_query($connection, "select * from social_position_table where positionNameSocial = '".$_GET['positionIDsocial']."'");
+   		$ressc1 = mysqli_fetch_assoc($qrysc1);
+   		$_GET['positionIDsocial'] = $ressc1['positionIDsocial'];
+
 		$socID = $_GET['socialClubId'];
 
-		mysqli_query($connection, "insert into social_officerandmembers_table (socialClubId, positionID, stprofID,perpost) values ('".$_GET['socialClubId']."', '".$_GET['positionID']."', '".$_GET['stprofID']."','".$_GET['perpost']."')");
-
-		header("Location: list-of-officers-social.php?from=checkIDforsocialofficer&socialClubId=".$socID);
+		mysqli_query($connection, "insert into social_officerandmembers_table (socialClubId, positionIDsocial, stprofID,perpost) values ('".$_GET['socialClubId']."', '".$_GET['positionIDsocial']."', '".$_GET['stprofID']."','".$_GET['perpost']."')");
+		
+		 header("Location: list-of-officers-social.php?from=checkIDforsocialofficer&socialClubId=".$socID);
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'dsa-announcement') {
@@ -486,13 +514,13 @@ if (isset($_POST['from']) and $_POST['from'] == 'delete-csc-position') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-csc-position') {
 
-		$qry = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_POST['stprofID'] . "'");
-		$res = mysqli_fetch_assoc($qry);
-   		$_POST['stprofID'] =  $res['stprofID'];
+		$qryeditcsc = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_POST['stprofID'] . "'");
+		$reseditcsc = mysqli_fetch_assoc($qryeditcsc);
+   		$_POST['stprofID'] =  $reseditcsc['stprofID'];
 
-   		$qry2 = mysqli_query($connection, "select * from csc_position_table where positionNamecsc = '".$_POST['positionIDcsc']."'");
-   		$res2 = mysqli_fetch_assoc($qry2);
-   		$_POST['positionIDcsc'] = $res2['positionIDcsc'];
+   		$qry2editcsc = mysqli_query($connection, "select * from csc_position_table where positionNamecsc = '".$_POST['positionIDcsc']."'");
+   		$res2editcsc = mysqli_fetch_assoc($qry2editcsc);
+   		$_POST['positionIDcsc'] = $res2editcsc['positionIDcsc'];
 
 		mysqli_query($connection, "update csc_members_table set stprofID = '".$_POST['stprofID']."', positionIDcsc = '".$_POST['positionIDcsc']."', perpost = '".$_POST['perpost']."' where cscmemID = '".$_POST['cscmemID']."' ");
 

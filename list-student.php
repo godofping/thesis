@@ -45,13 +45,24 @@ if (!isset($_SESSION['adminID'])) {
                     $resulttoggle = mysqli_fetch_assoc($qrytoggle);
                    ?>
 
-                  <p style="text-align: center;">Toggle for Club renewal</p>
-                  <p style="text-align: center;">Status: <?php echo $resulttoggle['toggleonoroff']; ?></p>             
+                  <p style="text-align: center;">Show Club renewal for students</p>
+                  <?php if ($resulttoggle['toggleonoroff'] == 'ON' ): ?>
+                  <p style="text-align: center;">Status: <b style=" color: green;"><?php echo $resulttoggle['toggleonoroff']; ?></b></p>   
+                  <?php endif ?>
+                  <?php if ($resulttoggle['toggleonoroff'] == 'OFF' ): ?>
+                  <p style="text-align: center; ">Status: <b style="color: red;"><?php echo $resulttoggle['toggleonoroff']; ?></b></p>   
+                  <?php endif ?>             
 
               </div>
               <div class="modal-footer">
-                <a href="controller.php?from=show-buttonmember&membershipID=<?php echo $resulttoggle['membershipID']; ?>"><button type="submit" class="btn btn-success itogglebutton"><i class="fas fa-eye"></i> ON</button></a> 
+                <?php if ($resulttoggle['toggleonoroff'] == 'ON' ): ?>
                 <a href="controller.php?from=hide-buttonmember&membershipID=<?php echo $resulttoggle['membershipID']; ?>"><button type="submit" class="btn btn-danger itogglebutton"><i class="fas fa-eye-slash"></i> OFF</button></a>
+                <?php endif ?>
+                <?php if ($resulttoggle['toggleonoroff'] == 'OFF'): ?>
+                <a href="controller.php?from=show-buttonmember&membershipID=<?php echo $resulttoggle['membershipID']; ?>"><button type="submit" class="btn btn-success itogglebutton"><i class="fas fa-eye"></i> ON</button></a> 
+                <?php endif ?> 
+                
+                
               </div>
             </div>
           </div>

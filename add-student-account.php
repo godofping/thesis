@@ -31,7 +31,8 @@ if (!isset($_SESSION['adminID'])) {
     <div class="mt-2 z-depth-5">
       
       <!-- Default form login -->
-      <form class="text-center border border-light p-3" method="POST" action="controller.php" autocomplete="false">
+      <div class="text-center border border-light p-3">
+      <form  method="POST" action="controller.php" autocomplete="false">
 
           <div class="row">
             <div class="col-12">
@@ -49,12 +50,37 @@ if (!isset($_SESSION['adminID'])) {
             </div> 
 
           </div>
-           
-          <button type="submit" class="btn aqua-gradient"><i class="fas fa-plus"></i> Add</button>
+           <a href="" data-toggle="modal" data-target="#changepassModal"><button class="btn aqua-gradient">Add</button></a>
 
           <input type="text" name="from" value="add-student-account" hidden>   
-      </form>
+    </div>
       <!-- Default form login -->
+
+      <!--Modal: Login with Avatar Form-->
+          <div class="modal fade" id="changepassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+              <div class="modal-content">
+                <div class="border border-light p-3">
+             
+                <!--Body-->
+                <div class="modal-body text-center mb-1 indigo lighten-5">
+                            
+                 <p style="text-align: center;">Would you like to add this account ?</p>
+
+                  <div class="">
+                    <button class="btn btn-danger mt-1" data-dismiss="modal"><i class="fas fa-times"></i></button>
+                    <button type="submit" class="btn aqua-gradient"><i class="fas fa-plus"></i></button>
+                  </div>
+                  
+                </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </form>
+          <!--Modal: Login with Avatar Form-->
 
     </div>
     </div>

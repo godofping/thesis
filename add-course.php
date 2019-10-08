@@ -49,15 +49,17 @@ if (!isset($_SESSION['adminID'])) {
                   </div>
                   <?php endif ?>
            
-                  <label>Course Name</label>
+                  <small>Course Name</small>
                   <input type="text" name="courseName" class="form-control mb-4" required="">
 
+                  <small>Course Code</small>
+                  <input type="text" name="coursecode" class="form-control mb-4" required="">
                   <div class="row">
                     <div class="col-12">
                       <div class="form-group">
-              
+                      <small>Select Council</small>
                       <select class="form-control" name="CounID" required="">
-                        <option selected="" disabled="">Select Council</option>
+                        <option selected="" disabled=""></option>
                         
                         <?php 
 
@@ -79,9 +81,9 @@ if (!isset($_SESSION['adminID'])) {
                   <div class="row">
                     <div class="col-12">
                       <div class="form-group">
-              
+                      <small>Select Department</small>
                       <select class="form-control" name="departmentId" required="">
-                        <option selected="" disabled="">Select Department</option>
+                        <option selected="" disabled=""></option>
                         
                         <?php 
 
@@ -124,6 +126,7 @@ if (!isset($_SESSION['adminID'])) {
           <thead>
             <tr>
               <th scope="col">Course Name</th>
+              <th scope="col">Course Code</th>
               <th scope="col">Council</th>
               <th scope="col">Department Name</th>
               <th scope="col">Actions</th>
@@ -134,7 +137,8 @@ if (!isset($_SESSION['adminID'])) {
             $qry = mysqli_query($connection, "select * from course_view");
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
-              <th scope="row"><?php echo $res['CourseName']; ?></th> 
+              <th scope="row"><?php echo $res['coursecode']; ?></th> 
+              <th scope="row"><?php echo $res['CourseName']; ?></th>
               <th scope="row"><?php echo $res['CounName']; ?></th>
               <th scope="row"><?php echo $res['departmentClubName']; ?></th>
               <td><button class="btn aqua-gradient" data-toggle="modal" data-target="#editModal<?php echo $res['CourseID'] ?>"><i class="far fa-edit"></i></button> <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?php echo $res['CourseID'] ?>"><i class="far fa-trash-alt"></i></button></td>

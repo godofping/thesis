@@ -34,7 +34,15 @@ include("student-header.php");
 
   <div class="container">
 
-    
+    <?php 
+
+      $qrycode = mysqli_query($connection, "select * from list_student_view where stprofID = '".$_SESSION['stprofID']."'");
+      $rescode = mysqli_fetch_assoc($qrycode);
+
+      $councilName = $rescode['CounName'];
+      $dpclubcode = $rescode['departmentcode'];
+
+     ?>
 
     <div class="row">
       <div class="col-md-12">
@@ -42,7 +50,7 @@ include("student-header.php");
   <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="osa-tab" data-toggle="tab" href="#osa" role="tab" aria-controls="osa"
-      aria-selected="true" style="color: black; font-family: Alfa Slab One">OSA</a>
+      aria-selected="true" style="color: black; font-family: Times New Roman">OSA</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="csc-tab" data-toggle="tab" href="#csc" role="tab" aria-controls="csc"
@@ -50,15 +58,23 @@ include("student-header.php");
   </li>
   <li class="nav-item">
     <a class="nav-link" id="council-tab" data-toggle="tab" href="#council" role="tab" aria-controls="council"
-      aria-selected="false" style="color: black; font-family: Times New Roman">DEPARTMENTAL COUNCIL</a>
+      aria-selected="false" style="color: black; font-family: Times New Roman"><?php echo $councilName; ?></a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="departmental-tab" data-toggle="tab" href="#departmental" role="tab" aria-controls="departmental"
-      aria-selected="false" style="color: black; font-family: Times New Roman">DEPARTMENTAL CLUB</a>
+      aria-selected="false" style="color: black; font-family: Times New Roman"><?php echo $dpclubcode; ?> CLUB</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="social"
-      aria-selected="false" style="color: black; font-family: Times New Roman">SOCIAL CLUB</a>
+  
+      <a class="nav-link" id="social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="social"
+      aria-selected="false" style="color: black; font-family: Times New Roman"><?php 
+
+      $qrysocialcode = mysqli_query($connection, "select * from student_social_club_view where stprofID = '".$_SESSION['stprofID']."' ");
+       while ($ressocailcode = mysqli_fetch_assoc($qrysocialcode)) {?>
+        <?php echo $ressocailcode['socialClubcode'] ." Club " ?>
+      <?php } ?>
+       </a>
+    
   </li>
 </ul>
 <div class="tab-content" id="myTabContent">
@@ -120,7 +136,7 @@ include("student-header.php");
       </div>
 <!-- Material form contact -->
               <?php else: ?> 
-              <h3 class="mt-5" style="text-align: center;">No Announcement</h3>
+              <h3 class="mt-5" style="text-align: center;color: black; font-family: Times New Roman">No Announcement</h3>
               <?php endif ?>
         </div>
       </div>
@@ -174,7 +190,7 @@ include("student-header.php");
           </div>
       </div>
     <?php else: ?> 
-      <h3 class="mt-5" style="text-align: center;">No Announcement</h3>
+      <h3 class="mt-5" style="text-align: center;color: black; font-family: Times New Roman">No Announcement</h3>
     <?php endif ?>
 
       </div>
@@ -231,7 +247,7 @@ include("student-header.php");
       </div>
 <!-- Material form contact -->
               <?php else: ?> 
-              <h3 class="mt-5" style="text-align: center;">No Announcement</h3>  
+              <h3 class="mt-5" style="text-align: center;color: black; font-family: Times New Roman">No Announcement</h3>  
               <?php endif ?>
 
   </div>
@@ -293,7 +309,7 @@ include("student-header.php");
       </div>
 <!-- Material form contact -->
               <?php else: ?> 
-              <h3 class="mt-5" style="text-align: center;">No Announcement</h3>
+              <h3 class="mt-5" style="text-align: center;color: black; font-family: Times New Roman">No Announcement</h3>
              <?php endif ?>
 
     </div>
@@ -343,7 +359,7 @@ include("student-header.php");
           </div>
        </div>
       <?php else: ?> 
-       <h3 class="mt-5" style="text-align: center;">No Announcement</h3>   
+       <h3 class="mt-5" style="text-align: center;color: black; font-family: Times New Roman">No Announcement</h3>   
       <?php endif ?>
 <!-- Material form contact --> 
 
