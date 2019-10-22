@@ -56,7 +56,7 @@ if (!isset($_SESSION['adminID'])) {
                   <div class="col-12">
                       <div class="form-group">
                       <small>Student Name</small>
-                      <select class="form-control" name="stprofID" id="allstudent" required="">
+                      <select class="form-control" name="stprofID" id="allstudent" required="" onselect="rex();" onkeypress="rex();" onkeyup="rex();" onchange="rex();" >
                         <?php $qry = mysqli_query($connection, "select * from list_student_view where CounID = '".$councilID."' order by lname asc");
                         while ($res = mysqli_fetch_assoc($qry)) { ?>
                          <?php echo '<option value="'.$res['stprofID'].'">'.$res['lname'] ." ". $res['fname'] ." ". $res['mname'].'</option>'; ?>
@@ -71,7 +71,7 @@ if (!isset($_SESSION['adminID'])) {
                   <div class="col-12">
                       <div class="form-group">
                       <small>Position</small>
-                      <select class="form-control" name="positionIDcouncil" id="cscposition" required="">
+                      <select class="form-control" name="positionIDcouncil" id="cscposition" required="" onselect="rex();" onkeypress="rex();" onkeyup="rex();" onchange="rex();">
                        <?php 
 
                           $qry = mysqli_query($connection, "select * from council_position_table order by (positionNamecouncil +0) asc, positionNamecouncil asc");
@@ -273,20 +273,52 @@ if (!isset($_SESSION['adminID'])) {
 <?php include('footer.php'); ?>
 
 <script type="text/javascript">
+
+  //gets all the options of the select tags
+  var allstudents = $.map($('#allstudent option'), function(e) { return e.text; });
+  var cscpositions = $.map($('#cscposition option'), function(e) { return e.text; });
+
+//call rex function
+rex();
+
+
+  function rex()
+{
+
+  //create a variable for the elements
+  var allstudent = document.getElementById("allstudent");
+  var cscposition = document.getElementById("cscposition");
+
+  //gets the value of the elements
+  var allstudentval = $('#allstudent').val();
+  var cscpositionval = $('#cscposition').val();
+
+
+  //condition if the value on the editable is not existing or it is empty
+  if (allstudents.indexOf(allstudentval) < 0 || !allstudentval.trim()) {
+    //sets the error
+    allstudent.setCustomValidity('Please select a registered student.');
+  }
+  else
+  {
+    //removes the error
+    allstudent.setCustomValidity('');
+  }
+
+  //same as through on the above
+  if (cscpositions.indexOf(cscpositionval) < 0 || !cscpositionval.trim()) {
+    cscposition.setCustomValidity('Please select a valid position.');
+  }
+  else
+  {
+    cscposition.setCustomValidity('');
+  }
+
+}
   
 $('#allstudent').editableSelect();
 
 $('#cscposition').editableSelect();
-
-<?php 
-  $qry = mysqli_query($connection, "select * from council_view where CounID = '3' ");
-  while ($res = mysqli_fetch_assoc($qry)) { ?>
-    $('#allstudentedit<?php echo $res['councilID'] ?>').editableSelect();
-
-    $('#cscpositionedit<?php echo $res['councilID'] ?>').editableSelect();
-
-
-<?php } ?>
 
 </script>
 

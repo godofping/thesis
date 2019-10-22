@@ -62,7 +62,7 @@ include("student-header.php");
   </li>
   <li class="nav-item">
     <a class="nav-link" id="departmental-tab" data-toggle="tab" href="#departmental" role="tab" aria-controls="departmental"
-      aria-selected="false" style="color: black; font-family: Times New Roman"><?php echo $dpclubcode; ?> CLUB</a>
+      aria-selected="false" style="color: black; font-family: Times New Roman"><?php echo $dpclubcode; ?> Club</a>
   </li>
   <li class="nav-item">
   

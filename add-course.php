@@ -159,13 +159,16 @@ if (!isset($_SESSION['adminID'])) {
                     <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
 
                
-                      <label>Course Name</label>
+                      <small>Course Name</small>
                       <input type="text" name="courseName" class="form-control mb-4" required="" value="<?php echo $res['CourseName'] ?>">
+
+                      <small>Course Code</small>
+                      <input type="text" name="coursecode" class="form-control mb-4" required="" value="<?php echo $res['coursecode'] ?>">
 
                       <div class="row">
                       <div class="col-12">
                         <div class="form-group">
-                
+                        <small>Council</small>
                         <select class="form-control" name="CounID" required="">
                           <option selected="" readonly="" value="<?php echo $res['CounID'];?>"><?php echo $res['CounName']; ?></option>    
                           <?php 
@@ -183,7 +186,7 @@ if (!isset($_SESSION['adminID'])) {
                         </div>
                       </div>
                     </div>
-
+                    <small>Departmental Club</small>
                     <select class="form-control" name="departmentId" required="">
                         <option selected="" value="<?php echo $res['departmentClubId']; ?>"><?php echo $res['departmentClubName']; ?></option>
                         
@@ -229,7 +232,7 @@ if (!isset($_SESSION['adminID'])) {
 
                       <div class="row">
                       <div class="col-12">
-                        <h5 style="text-align: center;">Are you sure to delete <br><?php echo $res['CourseName']; ?> ?</h5>
+                        <h5 style="text-align: center;">Do you want to remove<br><?php echo $res['CourseName']; ?> ?</h5>
                       </div>
                     </div>
 

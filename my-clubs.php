@@ -49,7 +49,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
               $res = mysqli_fetch_assoc($qry);
 
               if (mysqli_num_rows($qry)>0):?>
-              <a href="edit-socialclub.php"><button class="btn blue-gradient"><i class="fas fa-edit"></i> Edit Social Club</button><p>You can now Edit your Social Club</p></a>
+              <a href="edit-socialclub.php"><button class="btn blue-gradient itogglebutton"><i class="fas fa-edit"></i> Edit Social Club</button><p>You can now Edit your Social Club</p></a>
         <?php endif ?>
        
 
@@ -82,24 +82,30 @@ if ((time() - $_SESSION['last_time']) > 300) {
               $ccname = $res['CounName'];
              ?>
 
+             <!-- To Whom -->
+             <div class="md-form mt-3" style="text-align: left;">
+              <p class="h4 mb-4" style="color: black">Course</p>
+              <h5 style="color: black"><?php echo $res['CourseName'] ; ?></h5>
+            </div>
+
               <!-- To Whom -->
-             <div class="md-form mt-5" style="text-align: left;">
+             <div class="md-form mt-2" style="text-align: left;">
               <p class="h4 mb-4" style="color: black">Departmental Council Club</p>
-              <h4 style="color: black"><?php echo $ccname ; ?></h3>
+              <h5 style="color: black"><?php echo $ccname ; ?></h5>
             </div>
 
-            <div class="md-form mt-5" style="text-align: left;">
+            <div class="md-form mt-2" style="text-align: left;">
               <p class="h4 mb-4" style="color: black">Departmental Club</p>
-              <h4 style="color: black"><?php echo $dpname ; ?></h3>
+              <h5 style="color: black"><?php echo $dpname ; ?></h5>
             </div>
 
-            <p class="h4 mt-5" style="color: black; text-align: left;">Social Clubs</p>
+            <p class="h4 mt-2" style="color: black; text-align: left;">Social Clubs</p>
             <?php 
             $qrysocialclub = mysqli_query($connection, "select * from student_social_club_view where stprofID = ".$_SESSION['stprofID']." ");
             while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)) {?>
               <div class="md-form" style="text-align: left;">
               
-              <h4 style="color: black"><?php echo $ressocialclub['socialClubName'] ?></h3>
+              <h5 style="color: black"><?php echo $ressocialclub['socialClubName'] ?></h5>
             </div>
             <?php } ?>
         </form>
@@ -116,6 +122,12 @@ if ((time() - $_SESSION['last_time']) > 300) {
 </main>
 <!--Main Layout-->
 
-
-
 <?php include('footer.php'); ?>
+
+<style type="text/css">
+
+.itogglebutton{
+  border-radius: 12px;
+}
+
+</style>

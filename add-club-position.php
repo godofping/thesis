@@ -14,7 +14,7 @@ if (!isset($_SESSION['adminID'])) {
 
   <div class="row">
       <div class="col-md-12">
-        <h2> Club Officers</h2>
+        <h2> Add Club Position</h2>
         <hr>
       </div>
     </div>
@@ -37,22 +37,22 @@ if (!isset($_SESSION['adminID'])) {
 
             <tr>
               <td scope="row">Central Student Council</td>
-              <td><a href="csc-new.php"><button class="btn blue-gradient">View</button></a>
+              <td><a href="cscposition.php"><button class="btn blue-gradient">View</button></a>
             </tr>
 
             <tr>
               <td scope="row">Departmental Council Clubs</td>
-              <td><a href="council-officers.php"><button class="btn blue-gradient">View</button></a>
+              <td><a href="council-add-position.php"><button class="btn blue-gradient">View</button></a>
             </tr>
 
              <tr>
               <td scope="row">Departmental Clubs</td>
-              <td><a href="departmental-clubs-officers.php"><button class="btn blue-gradient">View</button></a>
+              <td><a href="departmental-add-position.php"><button class="btn blue-gradient">View</button></a>
             </tr>
 
             <tr>
               <td scope="row">Social Clubs</td>
-              <td><a href="social-club-officers.php"><button class="btn blue-gradient">View</button></a>
+              <td><a href="social-add-position.php"><button class="btn blue-gradient">View</button></a>
             </tr>
                   
           </tbody>

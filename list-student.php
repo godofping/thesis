@@ -45,11 +45,13 @@ if (!isset($_SESSION['adminID'])) {
                     $resulttoggle = mysqli_fetch_assoc($qrytoggle);
                    ?>
 
-                  <p style="text-align: center;">Show Club renewal for students</p>
+                  
                   <?php if ($resulttoggle['toggleonoroff'] == 'ON' ): ?>
+                    <p style="text-align: center;">Hide Club renewal for students</p>
                   <p style="text-align: center;">Status: <b style=" color: green;"><?php echo $resulttoggle['toggleonoroff']; ?></b></p>   
                   <?php endif ?>
                   <?php if ($resulttoggle['toggleonoroff'] == 'OFF' ): ?>
+                    <p style="text-align: center;">Show Club renewal for students</p>
                   <p style="text-align: center; ">Status: <b style="color: red;"><?php echo $resulttoggle['toggleonoroff']; ?></b></p>   
                   <?php endif ?>             
 

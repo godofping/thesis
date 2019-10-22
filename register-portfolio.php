@@ -11,6 +11,12 @@ if ((time() - $_SESSION['last_time']) > 300) {
    $_SESSION['last_time'] = time(); 
 }
 
+  $qrydisable = mysqli_query($connection, "select * from  buttontoggle_table ");
+  $resdisable = mysqli_fetch_assoc($qrydisable);
+  if ($resdisable['toggleonoroff'] == 'OFF') {
+   header("Location: index.php");
+  }
+
 
  include("student-header.php");
  ?>

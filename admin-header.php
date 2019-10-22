@@ -41,6 +41,7 @@
           </li>
           <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"><i class="fas fa-users"></i> Organizations</a></a>
             <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="add-club-position.php"><i class="fas fa-male"></i> Add Club Positions</a></li>
               <li><a class="dropdown-item" href="officers-clubs.php"><i class="fas fa-users-cog"></i> Club Officers</a></li>
               <li><a class="dropdown-item" href="manage-clubs.php"><i class="fas fa-cog"></i> Manage Clubs</a></li>
             </ul>

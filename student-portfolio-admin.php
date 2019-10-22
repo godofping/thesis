@@ -47,12 +47,14 @@ if (!isset($_SESSION['adminID'])) {
                     $resulttoggle = mysqli_fetch_assoc($qrytoggle);
                    ?>
 
-                  <p style="text-align: center;">Show students portfolio</p>
+                  
 
                   <?php if ($resulttoggle['toggleonoroff'] == 'ON' ): ?>
+                    <p style="text-align: center;">Hide students portfolio</p>
                     <p style="text-align: center;">Status: <b style=" color: green;"><?php echo $resulttoggle['toggleonoroff']; ?></b></p>   
                   <?php endif ?>
                   <?php if ($resulttoggle['toggleonoroff'] == 'OFF' ): ?>
+                    <p style="text-align: center;">Show students portfolio</p>
                     <p style="text-align: center; ">Status: <b style="color: red;"><?php echo $resulttoggle['toggleonoroff']; ?></b></p>   
                   <?php endif ?>
 
@@ -61,7 +63,7 @@ if (!isset($_SESSION['adminID'])) {
               </div>
               <div class="modal-footer">
               <?php if ($resulttoggle['toggleonoroff'] == 'ON' ): ?>
-               <a href="controller.php?from=hide-button&showID=<?php echo $resulttoggle['showID']; ?>"><button type="submit" class="btn btn-danger itogglebutton" disabled=""><i class="fas fa-eye-slash"></i> OFF</button></a>
+               <a href="controller.php?from=hide-button&showID=<?php echo $resulttoggle['showID']; ?>"><button type="submit" class="btn btn-danger itogglebutton"><i class="fas fa-eye-slash"></i> OFF</button></a>
               <?php endif ?>
               <?php if ($resulttoggle['toggleonoroff'] == 'OFF'): ?>
               <a href="controller.php?from=show-button&showID=<?php echo $resulttoggle['showID']; ?>"><button type="submit" class="btn btn-success itogglebutton"><i class="fas fa-eye"></i> ON</button></a>

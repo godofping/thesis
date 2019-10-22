@@ -87,12 +87,12 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
                 <div class="md-form mx-5 my-5">
                     <input id="timestart" type="datetime-local" name="timestart" class="form-control" required="">
-                    <label for="inputMDEx">Choose your date and time Start</label>
+                    <label for="inputMDEx">Date and time Start</label>
                   </div>
 
                   <div class="md-form mx-5 my-5">
                     <input id="timeend" type="datetime-local" name="timeend" class="form-control" required="">
-                    <label for="inputMDEx">Choose your date and time End</label>
+                    <label for="inputMDEx">Date and time End</label>
                   </div>
 
                   <div class="md-form mb-5">  

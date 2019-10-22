@@ -205,13 +205,13 @@ if (!isset($_SESSION['adminID'])) {
 
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Are you Sure</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Confirm</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <p>Do you want to Approve the Announcement ?</p>
+                <p>please confirm!</p>
               </div>
               <div class="modal-footer">
                 <a href="controller.php?from=approve-dpclub-announcement&DannouncementID=<?php echo $rescscann['DannouncementID']; ?>"><button type="button" class="btn aqua-gradient">Yes</button></a>

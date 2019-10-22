@@ -17,6 +17,13 @@
 
             $qryhey = mysqli_query($connection, "select * from std_prof_view where accID = ".$_SESSION['accID']." ");
             $reshey = mysqli_fetch_assoc($qryhey);
+
+            $qryhey1 = mysqli_query($connection, "select * from list_student_view where accID = ".$_SESSION['accID']." ");
+            $reshey1 = mysqli_fetch_assoc($qryhey1);
+
+            $qrysocialcode = mysqli_query($connection, "select * from student_social_club_view where stprofID = '".$_SESSION['stprofID']."' ");
+            $ressocailcode = mysqli_fetch_assoc($qrysocialcode);
+
              ?>
 
         <a class="nav-link dropdown-toggle" href="#" id="MyaccountDropDown" data-toggle="dropdown"
@@ -72,13 +79,13 @@
               CSC Announcement
             <?php endif ?></a>
             <?php if (mysqli_num_rows($qyrcouncilpos)>0): ?>
-            <a class="dropdown-item" href="departmental-council-announce.php">Departmental Council Announcement</a>
+            <a class="dropdown-item" href="departmental-council-announce.php"><?php echo $reshey1['CounName']; ?> Announcement</a>
             <?php endif ?>
             <?php if (mysqli_num_rows($qyrdepartpos)>0): ?>
-            <a class="dropdown-item" href="departmental-clubs-announcement.php">Departmental Announcement</a>
+            <a class="dropdown-item" href="departmental-clubs-announcement.php"><?php echo $reshey1['departmentcode']; ?> Announcement</a>
             <?php endif ?>
             <?php if (mysqli_num_rows($qyrsocialpos)>0): ?>
-            <a class="dropdown-item" href="social-clubs-announcement-new.php">Social Announcement</a>
+            <a class="dropdown-item" href="social-clubs-announcement-new.php"><?php echo $ressocailcode['socialClubcode']; ?> Announcement</a>
             <?php endif ?>
           </div>
 

@@ -66,11 +66,11 @@ if (!isset($_SESSION['adminID'])) {
                 <!--Body-->
                 <div class="modal-body text-center mb-1 indigo lighten-5">
                             
-                 <p style="text-align: center;">Would you like to add this account ?</p>
+                 <p style="text-align: center;">Are you sure to add this account?</p>
 
                   <div class="">
                     <button class="btn btn-danger mt-1" data-dismiss="modal"><i class="fas fa-times"></i></button>
-                    <button type="submit" class="btn aqua-gradient"><i class="fas fa-plus"></i></button>
+                    <button type="submit" class="btn aqua-gradient"><i class="fas fa-check"></i></button>
                   </div>
                   
                 </div>

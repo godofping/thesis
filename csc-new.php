@@ -48,7 +48,7 @@ if (!isset($_SESSION['adminID'])) {
                   <div class="col-12">
                       <div class="form-group">
                       <small>Student Name</small>
-                      <select class="form-control" id="allstudent" name="stprofID" required="">
+                      <select class="form-control" id="allstudent" name="stprofID" required="" onselect="rex();" onkeypress="rex();" onkeyup="rex();" onchange="rex();" >
                         <?php $qry = mysqli_query($connection, "select * from studentprofile_table order by (lname +0) asc, lname asc");
                         while ($res = mysqli_fetch_assoc($qry)) { ?>
                           <!-- <option value="<?php echo $res['stprofID']; ?>"><?php  echo $res['stprofID'] ?><?php echo $res['lname'] ." ". $res['mname'] ." ". $res['fname'];  ?></option> -->
@@ -64,7 +64,7 @@ if (!isset($_SESSION['adminID'])) {
                   <div class="col-12">
                       <div class="form-group">
                       <small>Position</small>
-                      <select class="form-control" name="positionIDcsc" id="cscposition" required="">
+                      <select class="form-control" name="positionIDcsc" id="cscposition" required="" onselect="rex();" onkeypress="rex();" onkeyup="rex();" onchange="rex();">
                         <?php 
 
                           $qry = mysqli_query($connection, "select * from csc_position_table order by (positionNamecsc +0) asc, positionNamecsc asc");
@@ -79,7 +79,7 @@ if (!isset($_SESSION['adminID'])) {
                       </div>
                 </div>
                 </div>
-                <small>Can Creat Announcement</small>
+                <small>Can Create Announcement</small>
                 <div class="row">
                     <div class="col-12">
                       <div class="form-group">
@@ -106,8 +106,7 @@ if (!isset($_SESSION['adminID'])) {
 
       </div>
     </div>
-
-
+  
     <div class="row mt-5 indigo lighten-5 z-depth-2">
       <div class="col-md-12">
 
@@ -151,7 +150,8 @@ if (!isset($_SESSION['adminID'])) {
                       <div class="col-12">
                           <div class="form-group">
                           <small>Student Name</small>
-                          <select class="form-control" id="allstudentedit<?php echo $res['cscmemID'] ?>" name="stprofID" required="">
+                          <select class="form-control" id="allstudentedit<?php echo $res['cscmemID'] ?>" name="stprofID" required="" >
+                            <option selected=""><?php echo $res['lname'] ." ". $res['mname'] ." ". $res['fname']; ?></option>
                             <?php $qry1 = mysqli_query($connection, "select * from list_student_view order by (lname +0) asc, lname asc");
                             while ($res1 = mysqli_fetch_assoc($qry1)) { ?>
                               <?php echo '<option value="'.$res1['stprofID'].'">'.$res1['lname'] ." ". $res1['fname'] ." ". $res1['mname'].'</option>'; ?>
@@ -166,7 +166,8 @@ if (!isset($_SESSION['adminID'])) {
                       <div class="col-12">
                           <div class="form-group">
                           <small>Position</small>
-                          <select class="form-control" name="positionIDcsc" id="cscpositionedit<?php echo $res['cscmemID'] ?>" required="">
+                          <select class="form-control" name="positionIDcsc" id="cscpositionedit<?php echo $res['cscmemID'] ?>" required="" >
+                            <option selected=""><?php echo $res['positionNamecsc']; ?></option>
                             <?php
                           $qryedi = mysqli_query($connection, "select * from csc_position_table order by (positionNamecsc +0) asc, positionNamecsc asc");
                           while ($resedi = mysqli_fetch_assoc($qryedi)) { ?>
@@ -182,7 +183,7 @@ if (!isset($_SESSION['adminID'])) {
                         <div class="col-12">
                           <div class="form-group">
                           <select class="form-control" name="perpost" required="">
-                            <option selected="" disabled=""></option>
+                            <option selected=""><?php echo $res['perpost']; ?></option>
                             <option>Yes</option>
                             <option>No</option>
                           </select>
@@ -258,20 +259,51 @@ if (!isset($_SESSION['adminID'])) {
 
 
 <script type="text/javascript">
+
+  //gets all the options of the select tags
+  var allstudents = $.map($('#allstudent option'), function(e) { return e.text; });
+  var cscpositions = $.map($('#cscposition option'), function(e) { return e.text; });
+
+//call rex function
+rex();
+
+
+  function rex()
+{
+
+  //create a variable for the elements
+  var allstudent = document.getElementById("allstudent");
+  var cscposition = document.getElementById("cscposition");
+
+  //gets the value of the elements
+  var allstudentval = $('#allstudent').val();
+  var cscpositionval = $('#cscposition').val();
+
+
+  //condition if the value on the editable is not existing or it is empty
+  if (allstudents.indexOf(allstudentval) < 0 || !allstudentval.trim()) {
+    //sets the error
+    allstudent.setCustomValidity('Please select a registered student.');
+  }
+  else
+  {
+    //removes the error
+    allstudent.setCustomValidity('');
+  }
+
+  //same as through on the above
+  if (cscpositions.indexOf(cscpositionval) < 0 || !cscpositionval.trim()) {
+    cscposition.setCustomValidity('Please select a valid position.');
+  }
+  else
+  {
+    cscposition.setCustomValidity('');
+  }
+
+}
   
 $('#allstudent').editableSelect();
 
 $('#cscposition').editableSelect();
-
-<?php 
-  $qry = mysqli_query($connection, "select * from csc_mem_view");
-  while ($res = mysqli_fetch_assoc($qry)) { ?>
-    $('#allstudentedit<?php echo $res['cscmemID'] ?>').editableSelect();
-
-    $('#cscpositionedit<?php echo $res['cscmemID'] ?>').editableSelect();
-
-
-<?php } ?>
-
 
 </script>

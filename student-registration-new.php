@@ -329,7 +329,13 @@ $('.form-check-input').on('change', function(evt) {
 <script type="text/javascript">
   
   $("input:checkbox").change(function () {
-      $("#testingbutton").attr("disabled",false);
+      var st = this.checked;
+      if (st) {
+        $("#testingbutton").attr("disabled",false);
+      }
+      else {
+        $("#testingbutton").attr("disabled",true);
+      }
   });
 
 

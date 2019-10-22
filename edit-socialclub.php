@@ -10,9 +10,14 @@ if ((time() - $_SESSION['last_time']) > 300) {
 }else{
    $_SESSION['last_time'] = time(); 
 }
+  
+  $qrydisable = mysqli_query($connection, "select * from  membershiptoggle_table ");
+  $resdisable = mysqli_fetch_assoc($qrydisable);
+  if ($resdisable['toggleonoroff'] == 'OFF') {
+   header("Location: index.php");
+  }
 
-
- include("student-header.php");
+  include("student-header.php");
  ?>
 
 <!--Main Layout-->
@@ -34,12 +39,8 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
          <?php 
 
-            $qry = mysqli_query($connection, "select * from student_account_table where accID = '".$_SESSION['accID']."'");
-              
-                $res = mysqli_fetch_assoc($qry);
-
-                $username = $res['StudentID'];
-              
+            $qry = mysqli_query($connection, "select * from list_student_view where accID = '".$_SESSION['accID']."'");    
+                $res = mysqli_fetch_assoc($qry);           
              ?>
 
       </div>
@@ -60,16 +61,17 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
          
           <div class="text-center" style="color: #757575;">
-
-              <p class="h4 mt-5" style="color: black; text-align: left;">Social Clubs</p>
+              <p class="h4 mt-3" style="color: black; text-align: left;">Course </p>
+              <h4 style="color: black; text-align: left;"><?php echo $res['CourseName'] ?> <button class="btn blue-gradient itogglebutton" data-toggle="modal" data-target="#courseModal">Change</button></h4>
+              <p class="h4 mt-3" style="color: black; text-align: left;">Social Clubs <button class="btn blue-gradient itogglebutton" data-toggle="modal" data-target="#addModal">Add</button></p>
               <?php 
               $qrysocialclub = mysqli_query($connection, "select * from student_social_club_view where stprofID = ".$_SESSION['stprofID']." ");
               while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)) {?>
 
               <div class="md-form" style="text-align: left;">
                 <h4 style="color: black"><?php echo $ressocialclub['socialClubName'] ?></h4></<br>
-                <button class="btn blue-gradient" data-toggle="modal" data-target="#editModal<?php echo $ressocialclub['socialClubId'] ?>"><i class="far fa-edit"></i> Edit Club</button>   
-                <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?php echo $ressocialclub['socialClubId'] ?>">Delete Club</button>
+                <button class="btn blue-gradient itogglebutton" data-toggle="modal" data-target="#editModal<?php echo $ressocialclub['socialClubId'] ?>"><i class="far fa-edit"></i> Edit Club</button>   
+                <button class="btn btn-danger itogglebutton" data-toggle="modal" data-target="#deleteModal<?php echo $ressocialclub['socialClubId'] ?>">Delete Club</button>
               
              
               </div> 
@@ -92,6 +94,72 @@ if ((time() - $_SESSION['last_time']) > 300) {
 $qrysocialclub = mysqli_query($connection, "select * from student_social_club_view where stprofID = ".$_SESSION['stprofID']." ");
 while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)) {
 ?>
+
+<!-- Modal -->
+        <div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Membership</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
+                  <small>Select Course</small>
+                  <select class="form-control" name="CourseID" required="">
+                    <option selected="" value="<?php echo $res['CourseID']?>"><?php echo $res['CourseName']?></option>
+                      <?php $qry1 = mysqli_query($connection, "select * from course_table order by CourseName asc");
+                      while ($res1 = mysqli_fetch_assoc($qry1)) { ?>
+                        <option value="<?php echo $res1['CourseID']?>"><?php echo $res1['CourseName']?></option>
+                      <?php } ?>
+                    </select>          
+                    <small>Reminder: when you change your course will requerd you to log off and log in again!</small>
+                    <input type="text" name="from" value="change-course" hidden>
+                
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn blue-gradient itogglebutton">Change</button> 
+               </form> 
+              </div>
+            </div>
+          </div>
+        </div>
+
+<!-- Modal -->
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Membership</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
+                  <small>Select social Club</small>
+                  <select class="form-control" name="socialClubId" required="">
+                    <option selected="" ></option>
+                      <?php $qry1 = mysqli_query($connection, "select * from social_club_view order by socialClubName asc");
+                      while ($res1 = mysqli_fetch_assoc($qry1)) { ?>
+                        <option value="<?php echo $res1['socialClubId']?>"><?php echo $res1['socialClubName']?></option>
+                      <?php } ?>
+                    </select>          
+
+                    <input type="text" name="from" value="addnew-social-club" hidden>
+                
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success itogglebutton">add</button> 
+               </form> 
+              </div>
+            </div>
+          </div>
+        </div>
 
 
 <!-- Modal -->
@@ -129,7 +197,6 @@ while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)) {
        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn blue-gradient"><i class="fas fa-check"></i> Update</button>
         </form>
       </div>
@@ -167,8 +234,7 @@ while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)) {
        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-        <button type="submit" class="btn blue-gradient">Yes</button>
+        <button type="submit" class="btn btn-danger">Yes</button>
         </form>
       </div>
     </div>
@@ -178,3 +244,11 @@ while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)) {
 <?php } ?>
 
 <?php include('footer.php'); ?>
+
+<style type="text/css">
+
+.itogglebutton{
+  border-radius: 12px;
+}
+
+</style>

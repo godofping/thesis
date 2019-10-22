@@ -73,8 +73,8 @@ if (isset($_POST['from']) and $_POST['from'] == 'add-social-club') {
 if (isset($_POST['from']) and $_POST['from'] == 'add-department-club') {
 	
 	mysqli_query($connection, "insert into departmental_club_table (departmentClubName,departmentcode) values (' " . $_POST['departmentClubName'] . " ', ' " . $_POST['departmentcode'] . " ' )");
-	echo "insert into departmental_club_table (departmentClubName,departmentcode) values (' " . $_POST['departmentClubName'] . " ', ' " . $_POST['departmentcode'] . " ' )";
-	//header("Location: departmental-clubs.php");
+
+	header("Location: departmental-clubs.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'add-admin-account') {
@@ -107,7 +107,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'add-student-account') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-course-name') {
 	
-	mysqli_query($connection, "update course_table set CourseName = '".$_POST['courseName']."' , CounID = '".$_POST['CounID']."' , departmentClubId = '".$_POST['departmentId']."'  where CourseID = '".$_POST['courseID']."'");
+	mysqli_query($connection, "update course_table set CourseName = '".$_POST['courseName']."' , coursecode = '".$_POST['coursecode']."', CounID = '".$_POST['CounID']."' , departmentClubId = '".$_POST['departmentId']."'  where CourseID = '".$_POST['courseID']."'");
 
 	header("Location: add-course.php");
 }
@@ -671,5 +671,136 @@ if (isset($_POST['from']) and $_POST['from'] == 'delete-social-club') {
 
 }	
 
+if (isset($_POST['from']) and $_POST['from'] == 'edit-social-name') {
+		mysqli_query($connection, "update social_club_table set socialClubName = '".$_POST['socialClubName']."', socialClubcode = '".$_POST['socialClubcode']."' where socialClubId = '".$_POST['socialClubId']."' ");
+
+		header("Location: social-clubs.php");
+
+}
+if (isset($_POST['from']) and $_POST['from'] == 'delete-social-name') {
+		mysqli_query($connection, "delete from social_club_table where socialClubId = '".$_POST['socialClubId']."' ");
+
+		header("Location: social-clubs.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'edit-dp-name') {
+		mysqli_query($connection, "update departmental_club_table set departmentClubName = '".$_POST['departmentClubName']."', departmentcode = '".$_POST['departmentcode']."' where departmentClubId = '".$_POST['departmentClubId']."' ");
+
+		header("Location: departmental-clubs.php");
+
+}
+if (isset($_POST['from']) and $_POST['from'] == 'delete-dp-name') {
+		mysqli_query($connection, "delete from departmental_club_table where departmentClubId = '".$_POST['departmentClubId']."' ");
+		
+		 header("Location: departmental-clubs.php");
+
+}
+if (isset($_POST['from']) and $_POST['from'] == 'addnew-social-club') {
+
+		mysqli_query($connection,"insert into student_social_table (stprofID, socialClubid) values ('".$_SESSION['stprofID']."', '".$_POST['socialClubId']."')");
+
+		header("Location: edit-socialclub.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'add-csc-position') {
+
+		mysqli_query($connection,"insert into csc_position_table (positionNamecsc) values ('".$_POST['positionNamecsc']."')");
+
+		header("Location: cscposition.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'edit-csc-position-name') {
+
+		mysqli_query($connection,"update csc_position_table set positionNamecsc = '".$_POST['positionNamecsc']."' where positionIDcsc = '".$_POST['positionIDcsc']."' ");
+
+		 header("Location: cscposition.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'delete-csc-position') {
+		mysqli_query($connection, "delete from csc_position_table where positionIDcsc = '".$_POST['positionIDcsc']."' ");
+		
+		 header("Location: cscposition.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'add-council-position') {
+
+		mysqli_query($connection,"insert into council_position_table (positionNamecouncil) values ('".$_POST['positionNamecouncil']."')");
+
+		header("Location: council-add-position.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'edit-council-position-name') {
+
+		mysqli_query($connection,"update council_position_table set positionNamecouncil = '".$_POST['positionNamecouncil']."' where positionIDcouncil = '".$_POST['positionIDcouncil']."' ");
+
+		 header("Location: council-add-position.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'delete-council-position') {
+		mysqli_query($connection, "delete from council_position_table where positionIDcouncil = '".$_POST['positionIDcouncil']."' ");
+		
+		 header("Location: council-add-position.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'add-deparmental-position') {
+
+		mysqli_query($connection,"insert into departmental_position_table (positionNameDP) values ('".$_POST['positionNameDP']."')");
+		
+		 header("Location: departmental-add-position.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'edit-deparmental-position-name') {
+
+		mysqli_query($connection,"update departmental_position_table set positionNameDP = '".$_POST['positionNameDP']."' where positionIDdepartmental = '".$_POST['positionIDdepartmental']."' ");
+
+		 header("Location: departmental-add-position.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'delete-deparmental-position') {
+		mysqli_query($connection, "delete from departmental_position_table where positionIDdepartmental = '".$_POST['positionIDdepartmental']."' ");
+		
+		 header("Location: departmental-add-position.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'add-social-position') {
+
+		mysqli_query($connection,"insert into social_position_table (positionNameSocial) values ('".$_POST['positionNameSocial']."')");
+		
+		 header("Location: social-add-position.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'edit-social-position-name') {
+
+		mysqli_query($connection,"update social_position_table set positionNameSocial = '".$_POST['positionNameSocial']."' where positionIDsocial = '".$_POST['positionIDsocial']."' ");
+
+		 header("Location: social-add-position.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'delete-social-position') {
+		mysqli_query($connection, "delete from social_position_table where positionIDsocial = '".$_POST['positionIDsocial']."' ");
+		
+		 header("Location: social-add-position.php");
+
+}
+
+if (isset($_POST['from']) and $_POST['from'] == 'change-course') {
+		mysqli_query($connection, "update studentprofile_table set CourseID = '".$_POST['CourseID']."' where stprofID = '".$_SESSION['stprofID']."' ");
+		
+		  header("Location: social-add-position.php");
+
+}
 
  ?>
