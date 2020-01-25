@@ -10,53 +10,89 @@ if (!isset($_SESSION['adminID'])) {
 
  <body>
 
-    <div class=" py-4 mt-1"></div>
+   <div class="db">
+      
+      <div class="container">
+        <!-- Section heading -->
+          <main class="text-center py-5 mt-4">
+          
+          <h2 class="font-weight-bold text-left text-color-test" style="color: black; ">Welcome to</h2>
+          <h3 class="font-weight-bold text-left text-color-test" style="color: black; padding-bottom: 20px; ">Student Activity Management Information System</h3>
 
-    <!--Carousel Wrapper-->
-<div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
-  <!--Indicators-->
-  <ol class="carousel-indicators">
-    <li data-target="#carousel-example-2" data-slide-to="1" class="active"></li>
-    <li data-target="#carousel-example-2" data-slide-to="2"></li>
-  </ol>
-  <!--/.Indicators-->
-  <!--Slides-->
-  <div class="carousel-inner" role="listbox">
-   
-    <div class="carousel-item active">
-      <!--Mask color-->
-      <div class="view">
-        <img class="d-block w-100" src="http://localhost:8080/thesis/logo/bnn.jpg"
-          alt="Second slide">
-        <div class="mask rgba-black-slight"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+
+        <strong style="color: black;"><b>Announcements</b></strong>
+         <div class="row mt-5">
+
+      <div class="col-md-12 z-depth-2 table-radius">
+
+        <div class="table-responsive text-nowrap">
+
+        <table class="table">
+
+          <thead>
+            <tr>
+              <th scope="col"><b>Name</b></th>
+              <th scope="col"><b>Actions</b></th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <?php
+          $qryrejctbadge = mysqli_query($connection,"select count(*) as cnt from council_announcement_table where isApproved = 'No'");
+          $resultreject = mysqli_fetch_assoc($qryrejctbadge);
+          $qryrejctbadge1 = mysqli_query($connection,"select count(*) as cnt1 from csc_announcement_table where isApproved = 'No'");
+          $resultreject1 = mysqli_fetch_assoc($qryrejctbadge1);
+          $qryrejctbadge2 = mysqli_query($connection,"select count(*) as cnt2 from council_announcement_table where isApproved = 'No'");
+          $resultreject2 = mysqli_fetch_assoc($qryrejctbadge2);
+          $qryrejctbadge3 = mysqli_query($connection,"select count(*) as cnt3 from department_announcement_table where isApproved = 'No'");
+          $resultreject3 = mysqli_fetch_assoc($qryrejctbadge3);
+          $qryrejctbadge4 = mysqli_query($connection,"select count(*) as cnt4 from social_announcement_table where isApproved = 'No'");
+          $resultreject4 = mysqli_fetch_assoc($qryrejctbadge4);
+            ?>
+
+            <tr>
+              <td scope="row"><b>Central Student Council</b></td>
+              <td><a href="view-csc-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a><?php if ($resultreject1['cnt1'] != 0 ):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject1) ?></span><?php endif ?>
+            </tr>
+            
+            <tr>
+              <td scope="row"><b>Departmental Council</b></td>
+              <td><a href="view-council-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a><?php if ( $resultreject['cnt'] != 0 ):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject) ?></span><?php endif ?>
+            </tr>
+
+            <tr>
+              <td scope="row"><b>Departmental Clubs</b></td>
+              <td><a href="view-departmental-club-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a><?php if ($resultreject3['cnt3'] != 0 ):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject3) ?></span><?php endif ?>
+            </tr>
+
+             <tr>
+              <td scope="row"><b>Social Clubs</b></td>
+              <td><a href="view-social-club-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a><?php if ($resultreject4['cnt4'] != 0):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject4) ?></span><?php endif ?>
+            </tr>
+           
+          
+          </tbody>
+        </table>
+
       </div>
-      <div class="carousel-caption">
+
       </div>
     </div>
-    <div class="carousel-item">
-      <!--Mask color-->
-      <div class="view">
-        <img class="d-block w-100" src="http://localhost:8080/thesis/logo/NNDTC.png"
-          alt="Third slide">
-        <div class="mask rgba-black-slight"></div>
-      </div>
-      <div class="carousel-caption">
+
       </div>
     </div>
   </div>
-  <!--/.Slides-->
-  <!--Controls-->
-  <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-  <!--/.Controls-->
-</div>
-<!--/.Carousel Wrapper-->
+
+</main>
+<!--Main Layout-->
+
+          </div>
+
+    </div>
 
 
 </body>
@@ -71,13 +107,14 @@ if (!isset($_SESSION['adminID'])) {
 <style type="text/css">
  
  body {
-  background-color: #4fc3f7   ; 
+  background-color: #f5f5f5; 
 }
 
  body, html {
   height: 100%;
 }
-.bg {
+
+.db {
   /* The image used */
   background-image: url("http://localhost:8080/thesis/logo/student.png");
 
@@ -89,5 +126,19 @@ if (!isset($_SESSION['adminID'])) {
   background-repeat: no-repeat;
   background-size: 75%;
 }
+
+/*.text-color-test{
+  text-shadow: 3px 3px #000000;
+}*/
+
+
+  .btn-rad{
+  border-radius: 12px;
+  width: 120px;
+  }
+
+ .table-radius{
+  border-radius: 12px;
+ }
 
 </style>

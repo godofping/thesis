@@ -27,7 +27,7 @@ if (!isset($_SESSION['adminID'])) {
         <div class="row">
       <div class="col-md-12">
 
-        <a href="" class="btn blue-gradient btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
+        <a href="" class="btn blue-gradient btn-rounded mb-4 itogglebutton" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
 
        <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
@@ -93,7 +93,7 @@ if (!isset($_SESSION['adminID'])) {
             
               <div class="modal-footer d-flex justify-content-center">
                   
-                <button type="submit" class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
+                <button type="submit" class="btn btn-success itogglebutton"><i class="far fa-paper-plane"></i> Send</button>
               
               </div>
             </form> 
@@ -118,7 +118,7 @@ if (!isset($_SESSION['adminID'])) {
     <div class="card">
 
       <h5 class="card-header blue lighten-1 white-text text-center py-4"><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
-        <strong>Office of The Director Student Affairs</strong><br>
+        <strong>Office of Student Affairs</strong><br>
         <small style="font-size: ">Notre Dame of Tacurong College</small><br>
         <small>City of Tacurong</small>
     </h5>
@@ -167,4 +167,8 @@ if (!isset($_SESSION['adminID'])) {
 
 <?php include('footer.php'); ?>
 
-
+<style type="text/css">
+  .itogglebutton{
+  border-radius: 12px;
+}
+</style>

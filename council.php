@@ -8,7 +8,8 @@ if (!isset($_SESSION['adminID'])) {
  include("admin-header.php");
  ?>
 
-
+ <body>
+    <div class="db">
 <!--Main Layout-->
 <main class=" py-5 mt-5">
 
@@ -17,7 +18,8 @@ if (!isset($_SESSION['adminID'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2>Departmental Council</h2>
+        <h2><b>Departmental Council</b></h2>
+        <h5>Clubs</h5>
         <hr>
 
       </div>
@@ -26,10 +28,8 @@ if (!isset($_SESSION['adminID'])) {
     <div class="row">
       <div class="col-md-12">
 
-    
-  
-    <div class="row mt-5 grey lighten-5 z-depth-2">
-      <div class="col-md-12">
+    <div class="row mt-5">
+      <div class="col-md-12 z-depth-2 table-radius">
 
         <div class="table-responsive text-nowrap">
 
@@ -50,7 +50,7 @@ if (!isset($_SESSION['adminID'])) {
             <?php if ($res['CounName'] != ""): ?>
             <tr>
               <td scope="row"><?php echo $res['CounName'];?></td>
-              <td><!-- <a href="cased.php"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a> --><a href="cased-members.php"><button type="button" class="btn peach-gradient"><i class="fas fa-users"></i> Members</button></a></td>
+              <td><!-- <a href="cased.php"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a> --><a href="cased-members.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-users"></i> Members</button></a></td>
 
             </tr>
             <?php endif ?>
@@ -62,7 +62,7 @@ if (!isset($_SESSION['adminID'])) {
             <?php if ($res['CounName'] != ""): ?>
             <tr>
               <td scope="row"><?php echo $res['CounName'];?></td>
-              <td><!-- <a href="business.php"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a> --><a href="business-members.php"><button type="button" class="btn peach-gradient"><i class="fas fa-users"></i> Members</button></a></td> 
+              <td><!-- <a href="business.php"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a> --><a href="business-members.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-users"></i> Members</button></a></td> 
 
             </tr>
             <?php endif ?>
@@ -74,7 +74,7 @@ if (!isset($_SESSION['adminID'])) {
             <?php if ($res['CounName'] != ""): ?>
             <tr>
               <td scope="row"><?php echo $res['CounName'];?></td>
-              <td><!-- <a href="nursing.php"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a> --><a href="nursing-members.php"><button type="button" class="btn peach-gradient"><i class="fas fa-users"></i> Members</button></a></td> 
+              <td><!-- <a href="nursing.php"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a> --><a href="nursing-members.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-users"></i> Members</button></a></td> 
 
             </tr>
             <?php endif ?>
@@ -90,9 +90,47 @@ if (!isset($_SESSION['adminID'])) {
 
 </main>
 <!--Main Layout-->
-
-
+    </div>
+ </body>
+    
 
 <?php include('footer.php'); ?>
 
+<style type="text/css">
+ 
+ body {
+  background-color: #f5f5f5; 
+}
 
+ body, html {
+  height: 100%;
+}
+
+.db {
+  /* The image used */
+  background-image: url("http://localhost:8080/thesis/logo/student.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-size: 75%;
+}
+
+/*.text-color-test{
+  text-shadow: 3px 3px #000000;
+}*/
+
+
+  .btn-rad{
+  border-radius: 12px;
+  width: 150px;
+  }
+
+ .table-radius{
+  border-radius: 12px;
+ }
+
+</style>

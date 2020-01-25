@@ -18,7 +18,7 @@ if (!isset($_SESSION['adminID'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2><b>Central Student Council</b></h2>
+        <h2>Central Student Council</h2>
         <h5>Officers</h5>
         <hr>
 
@@ -144,44 +144,46 @@ if (!isset($_SESSION['adminID'])) {
                     </button>
                   </div>
                   <div class="modal-body">
-                    <form class=" p-2" id="formsend<?php echo $res['cscmemID'] ?>" method="POST"action="controller.php" autocomplete="false">  
-
+                    <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
+               
                       <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                            <small>Student Name</small>
-                            <input class="form-control" type="text" required="" id="editstudent" name="stprofID" required="" list="studentnames" value="<?php echo $res['lname'] ." ". $res['fname'] ." ". $res['mname']; ?>" />
-                            <datalist id="studentnames">
-                                   <?php $qry1 = mysqli_query($connection, "select * from list_student_view order by (lname +0) asc, lname asc");
-                                  while ($res1 = mysqli_fetch_assoc($qry1)) { ?>
-                                    <?php echo '<option value="'.$res1['lname'] ." ". $res1['fname'] ." ". $res1['mname'].'">'; ?>
-                              <?php } ?>
-                            </datalist>
-                            </div>
-                        </div>
-                      </div>
+                      <div class="col-12">
+                          <div class="form-group">
+                          <small>Student Name</small>
+                          <select class="form-control" id="allstudentedit<?php echo $res['cscmemID'] ?>" name="stprofID" required="" onselect="rex();" onkeypress="rex();" onkeyup="rex();" onchange="rex();">
+                            <!-- <option selected=""><?php echo $res['lname'] ." ". $res['mname'] ." ". $res['fname']; ?></option> -->
+                            <?php $qry1 = mysqli_query($connection, "select * from list_student_view order by (lname +0) asc, lname asc");
+                            while ($res1 = mysqli_fetch_assoc($qry1)) { ?>
+                              <?php echo '<option value="'.$res1['stprofID'].'">'.$res1['lname'] ." ". $res1['fname'] ." ". $res1['mname'].'</option>'; ?>
+                        <?php } ?>
+                          </select>
+
+                          </div>
+                    </div>
+                    </div>
 
                     <div class="row">
                       <div class="col-12">
                           <div class="form-group">
                           <small>Position</small>
-                          <input class="form-control" required="" type="text" name="positionIDcsc" list="studentpositions" value="<?php echo $res['positionNamecsc']; ?>" />
-                          <datalist id="studentpositions">
-                             <?php $qryedi = mysqli_query($connection, "select * from csc_position_table order by (positionNamecsc +0) asc, positionNamecsc asc");
+                          <select class="form-control" name="positionIDcsc" id="cscpositionedit<?php echo $res['cscmemID'] ?>" required="" onselect="rex();" onkeypress="rex();" onkeyup="rex();" onchange="rex();">
+                            <option selected=""><?php echo $res['positionNamecsc']; ?></option>
+                            <?php
+                          $qryedi = mysqli_query($connection, "select * from csc_position_table order by (positionNamecsc +0) asc, positionNamecsc asc");
                           while ($resedi = mysqli_fetch_assoc($qryedi)) { ?>
-                              <?php echo '<option value="'.$resedi['positionNamecsc'] .'">'; ?>
-                        <?php } ?>
-                          </datalist>
+                            <option value="<?php echo $resedi['positionIDcsc']; ?>"><?php echo $resedi['positionNamecsc']; ?></option>
+                         <?php } ?>
+                          </select>
 
                           </div>
-                      </div>
                     </div>
-
+                    </div>
                     <small>Can Create Announcement</small>
                     <div class="row">
                         <div class="col-12">
                           <div class="form-group">
                           <select class="form-control" name="perpost" required="">
+                            <option selected=""><?php echo $res['perpost']; ?></option>
                             <option>Yes</option>
                             <option>No</option>
                           </select>
@@ -190,12 +192,10 @@ if (!isset($_SESSION['adminID'])) {
                         </div>
                       </div>
 
-                      <b><p id="test" class="text-danger"></p></b>
-
                     <input type="text" name="cscmemID" value="<?php echo $res['cscmemID'] ?>" hidden>
                     <input type="text" name="from" value="edit-csc-position" hidden>
                     <div class="modal-footer">
-                      <button id="buttonsendawawawa" type="button" class="btn aqua-gradient" ><i class="far fa-edit"></i> Update</button>
+                      <button type="submit" class="btn aqua-gradient"><i class="far fa-edit"></i> Update</button>
                     </div>
                     </form>
                   </div>
@@ -224,7 +224,7 @@ if (!isset($_SESSION['adminID'])) {
                     </div>
 
                     <input type="text" name="cscmemID" value="<?php echo $res['cscmemID'] ?>" hidden>
-                    <input type="text" name="from" value="delete-csc-position-members" hidden>
+                    <input type="text" name="from" value="delete-csc-position" hidden>
 
                   </div>
                   <div class="modal-footer">
@@ -249,6 +249,8 @@ if (!isset($_SESSION['adminID'])) {
     </div>
   </div>
 
+  <p id="tae"></p>
+
 </main>
 <!--Main Layout-->
 
@@ -264,6 +266,20 @@ if (!isset($_SESSION['adminID'])) {
   var allstudents = $.map($('#allstudent option'), function(e) { return e.text; });
   var cscpositions = $.map($('#cscposition option'), function(e) { return e.text; });
 
+
+  //loop through
+<?php 
+  $qry = mysqli_query($connection, "select * from csc_mem_view");
+  while ($res = mysqli_fetch_assoc($qry)) { ?>
+
+  var allstudentedits<?php echo $res['cscmemID'] ?> = $.map($('#allstudentedit<?php echo $res['cscmemID'] ?> option'), function(e) { return e.text; });
+  var cscpositionedits<?php echo $res['cscmemID'] ?> = $.map($('#cscpositionedit<?php echo $res['cscmemID'] ?> option'), function(e) { return e.text; });
+
+
+<?php } ?>
+
+
+
 //call rex function
 rex();
 
@@ -275,9 +291,33 @@ rex();
   var allstudent = document.getElementById("allstudent");
   var cscposition = document.getElementById("cscposition");
 
+
+  //loop through
+  <?php 
+  $qry = mysqli_query($connection, "select * from csc_mem_view");
+  while ($res = mysqli_fetch_assoc($qry)) { ?>
+
+  var allstudentedit<?php echo $res['cscmemID'] ?> = document.getElementById("allstudentedit<?php echo $res['cscmemID'] ?>");
+  var cscpositionedit<?php echo $res['cscmemID'] ?> = document.getElementById("cscpositionedit<?php echo $res['cscmemID'] ?>");
+
+  <?php } ?>
+
+
   //gets the value of the elements
   var allstudentval = $('#allstudent').val();
   var cscpositionval = $('#cscposition').val();
+
+
+  //loop through
+  <?php 
+  $qry = mysqli_query($connection, "select * from csc_mem_view");
+  while ($res = mysqli_fetch_assoc($qry)) { ?>
+
+  var allstudenteditval<?php echo $res['cscmemID'] ?> = $('#allstudentedit<?php echo $res['cscmemID'] ?>').val();
+  var cscpositioneditval<?php echo $res['cscmemID'] ?> = $('#cscpositionedit<?php echo $res['cscmemID'] ?>').val();
+
+  <?php } ?>
+
 
 
   //condition if the value on the editable is not existing or it is empty
@@ -300,37 +340,59 @@ rex();
     cscposition.setCustomValidity('');
   }
 
+
+  <?php 
+  $qry = mysqli_query($connection, "select * from csc_mem_view");
+  while ($res = mysqli_fetch_assoc($qry)) { ?>
+
+
+    //condition if the value on the editable is not existing or it is empty
+    if (allstudentedits<?php echo $res['cscmemID'] ?>.indexOf(allstudenteditval<?php echo $res['cscmemID'] ?>) < 0 || !allstudenteditval<?php echo $res['cscmemID'] ?>.trim()) {
+      //sets the error
+      allstudentedit<?php echo $res['cscmemID'] ?>.setCustomValidity('Please select a registered student.');
+    }
+    else
+    {
+      //removes the error
+      allstudentedit<?php echo $res['cscmemID'] ?>.setCustomValidity('');
+    }
+
+    //same as through on the above
+    if (cscpositionedits<?php echo $res['cscmemID'] ?>.indexOf(cscpositioneditval<?php echo $res['cscmemID'] ?>) < 0 || !cscpositioneditval<?php echo $res['cscmemID'] ?>.trim()) {
+      cscpositionedit<?php echo $res['cscmemID'] ?>.setCustomValidity('Please select a valid position.');
+    }
+    else
+    {
+      cscpositionedit<?php echo $res['cscmemID'] ?>.setCustomValidity('');
+    }
+
+
+  <?php } ?>
+
+
+
+
+
+
 }
   
 $('#allstudent').editableSelect();
 
 $('#cscposition').editableSelect();
 
-</script>
+<?php 
+  $qry = mysqli_query($connection, "select * from csc_mem_view");
+  while ($res = mysqli_fetch_assoc($qry)) { ?>
+    $('#allstudentedit<?php echo $res['cscmemID'] ?>').editableSelect();
 
-<script type="text/javascript">
-  
-      
-  $("#buttonsendawawawa").click(function(){
+    $('#cscpositionedit<?php echo $res['cscmemID'] ?>').editableSelect();
 
-    studentname = $("#editstudent").val();
 
-    $.post("check-student-name.php",
-    {
-      studentname: studentname,
-    },
+<?php } ?>
 
-    function(data){
 
-      if (data == "") {
-        $("#test").html(data);
-      }
-      else{
-        $("#test").html(data);
-      }
 
-    });
 
-});
+
 
 </script>

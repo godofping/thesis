@@ -18,7 +18,7 @@ if (!isset($_SESSION['adminID'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2 style="font-family: Times New Roman"><i class="fas fa-user-tie"></i> ADMIN ACCOUNT</h2>
+        <h2><i class="fas fa-user-tie"></i> <b>ADMIN ACCOUNT</b></h2>
         <hr>
 
       </div>
@@ -26,17 +26,17 @@ if (!isset($_SESSION['adminID'])) {
     
 <div class="container-fluid ">
   <div class="row">
-    <div class="col-md-4"></div>
-      <div class="col-md-4">
+    <div class="col-md-4 "></div>
+      <div class="col-md-4 ">
 
-    <div class="mt-2 z-depth-5">
+    <div class="mt-2 z-depth-5 form-border">
       
       <!-- Default form login -->
-      <form class="text-center border border-light p-3" method="POST" action="controller.php" autocomplete="false">
+      <form class="text-center border form-border border-light p-3" method="POST" action="controller.php" autocomplete="false">
 
           <div class="row">
-            <div class="col-12">
-              <h2><i class="fas fa-user-plus"></i> ADMIN ACCOUNT</h2>
+            <div class="col-12 ">
+              <h2><i class="fas fa-user-plus"></i> ADD ACCOUNT</h2>
               <hr>
               <?php if (isset($_GET['status']) and $_GET['status'] == 'register-admin-failed'): ?>
                     <div class="alert alert-danger" role="alert">
@@ -55,7 +55,7 @@ if (!isset($_SESSION['adminID'])) {
 
           </div>
            
-          <button type="submit" class="btn aqua-gradient"><i class="fas fa-plus"></i> Add</button>
+          <button type="submit" class="btn aqua-gradient btn-rad"><i class="fas fa-plus"></i> Add</button>
 
           <input type="text" name="from" value="add-admin-account" hidden>   
       </form>
@@ -83,7 +83,7 @@ if (!isset($_SESSION['adminID'])) {
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
               <td scope="row"><?php echo $res['username']; ?></td>
-              <td><button class="btn blue-gradient" data-toggle="modal" data-target="#editModal<?php echo $res['adminID'] ?>"><i class="far fa-edit"></i></button> <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?php echo $res['adminID'] ?>"><i class="far fa-trash-alt"></i></button></td>
+              <td><button class="btn blue-gradient btn-edit" data-toggle="modal" data-target="#editModal<?php echo $res['adminID'] ?>"><i class="far fa-edit"></i></button> <button class="btn btn-danger btn-edit" data-toggle="modal" data-target="#deleteModal<?php echo $res['adminID'] ?>"><i class="far fa-trash-alt"></i></button></td>
 
             </tr>
 
@@ -114,7 +114,7 @@ if (!isset($_SESSION['adminID'])) {
 
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" class="btn aqua-gradient"><i class="far fa-edit"></i> Update</button>
+                    <button type="submit" class="btn aqua-gradient btn-rad"><i class="far fa-edit"></i> Update</button>
                     </form>
                   </div>
                 </div>
@@ -158,11 +158,11 @@ if (!isset($_SESSION['adminID'])) {
                   <div class="modal-footer">
                     <?php 
                        if ($adminid == $res['adminID']): ?>
-                        <button type="submit" class="btn btn-danger" disabled="">Yes</button>
+                        <button type="submit" class="btn btn-danger btn-delete" disabled="">Yes</button>
                       <?php endif ?>
                     <?php 
                        if ($adminid != $res['adminID']): ?>
-                        <button type="submit" class="btn btn-danger">Yes</button>
+                        <button type="submit" class="btn btn-danger btn-delete">Yes</button>
                       <?php endif ?>
                     </form>
                   </div>
@@ -199,3 +199,23 @@ $('.dataTables_length').addClass('bs-select');
 });
 
 </script>
+
+<style type="text/css">
+  
+  .form-border{
+  border-radius: 12px;
+}
+
+.btn-rad{
+  border-radius: 12px;
+  width: 140px;
+  }
+.btn-edit{
+  border-radius: 12px;
+  width: 90px;
+}
+.btn-delete{
+  border-radius: 12px;
+  width: 100px;
+}
+</style>

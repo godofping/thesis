@@ -10,10 +10,10 @@
       
       <form class="text-center border border-light p-3" method="POST" action="controller.php" autocomplete="false">
         
-           <p class="h4 mb-4 text-center">Your account has been successfully created</p>
-         <img src="http://localhost:8080/thesis/icon/check.png" alt="avatar" class=" img-responsive">   
-           	<p><b>Please Click the button to Login your Account.</b></p>
-          <button class="btn btn-info btn-block my-4 green darken-4" type="submit">ok</button>
+          <strong class="h2">Awesome!</strong>
+           <p class="h5 mb-4 text-center p-3">Your account has been successfully created</p>
+           	<small>Please Click the button to Login your Account.</small>
+          <button class="btn btn-info btn-block my-4 green darken-2" type="submit">ok</button>
 
           <input type="text" name="from" value="success-created" hidden>
 
@@ -35,3 +35,11 @@
 </div>
 
 <?php include('footer.php'); ?>
+
+<style type="text/css">
+  
+  .btn-block{
+  border-radius: 12px;
+}
+  
+</style>

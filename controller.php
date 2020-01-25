@@ -136,7 +136,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'edit-student-account') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-student-profile') {
 
-	mysqli_query($connection, "update studentprofile_table set fname = '".$_POST['fname']."', mname = '".$_POST['mname']."' , lname = '".$_POST['lname']."' , address = '".$_POST['address']."', email = '".$_POST['email']."', pandg = '".$_POST['pandg']."', religion = '".$_POST['religion']."', tribe = '".$_POST['tribe']."', contactnum = '".$_POST['contractnum']."', birthday = '".$_POST['birthday']."', gender = '".$_POST['gender']."' where accID = '".$_POST['accID']."'");
+	mysqli_query($connection, "update studentprofile_table set fname = '".mysqli_real_escape_string($connection,$_POST['fname'])."', mname = '".mysqli_real_escape_string($connection,$_POST['mname'])."' , lname = '".mysqli_real_escape_string($connection,$_POST['lname'])."' , address = '".mysqli_real_escape_string($connection,$_POST['address'])."', email = '".mysqli_real_escape_string($connection,$_POST['email'])."', pandg = '".mysqli_real_escape_string($connection,$_POST['pandg'])."', religion = '".mysqli_real_escape_string($connection,$_POST['religion'])."', tribe = '".mysqli_real_escape_string($connection,$_POST['tribe'])."', contactnum = '".mysqli_real_escape_string($connection,$_POST['contractnum'])."', birthday = '".$_POST['birthday']."', gender = '".$_POST['gender']."' where accID = '".$_POST['accID']."'");
 
 	header("Location: manage-acc.php");
 
@@ -238,7 +238,7 @@ if (isset($_POST['from']) and $_POST['from'] =='add-csc-member') {
 
    		mysqli_query($connection, "insert into csc_members_table (stprofID, positionIDcsc,perpost) values ('".$_POST['stprofID']."', '".$_POST['positionIDcsc']."', '".$_POST['perpost']."')");
 
-		header("Location: csc.php");
+		header("Location: csc-new.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] =='add-cased-member') {
@@ -475,8 +475,8 @@ if (isset($_POST['from']) and $_POST['from'] == 'register_student_information') 
 		$IMG = $target_dir . md5(date("Y-m-d h:i:s")) .basename($_FILES["IMG"]["name"]);
 		$imageFileType = strtolower(pathinfo($IMG,PATHINFO_EXTENSION));
    		move_uploaded_file($_FILES["IMG"]["tmp_name"], $IMG);
-   		
-   		mysqli_query($connection,"insert into studentprofile_table (fname,mname,lname,address,email,pandg,religion,tribe,contactnum,birthday,gender, accID, IMG, CourseID) values('".$_POST['fname']."' , '".$_POST['mname']."' , '".$_POST['lname']."' , '".$_POST['address']."' , '".$_POST['email']."' , '".$_POST['pandg']."', '".$_POST['religion']."', '".$_POST['tribe']."', '".$_POST['contractnum']."','".$_POST['birthday']."','".$_POST['gender']."', '" . $_SESSION['accID'] . "', '".$IMG."', '".$_POST['CourseID']."')");
+   		  
+   		mysqli_query($connection,"insert into studentprofile_table (fname,mname,lname,address,email,pandg,religion,tribe,contactnum,birthday,gender, accID, IMG, CourseID) values('".mysqli_real_escape_string($connection,$_POST['fname'])."' , '".mysqli_real_escape_string($connection,$_POST['mname'])."' , '".mysqli_real_escape_string($connection,$_POST['lname'])."' , '".mysqli_real_escape_string($connection,$_POST['address'])."' , '".mysqli_real_escape_string($connection,$_POST['email'])."' , '".mysqli_real_escape_string($connection,$_POST['pandg'])."', '".mysqli_real_escape_string($connection,$_POST['religion'])."', '".mysqli_real_escape_string($connection,$_POST['tribe'])."', '".mysqli_real_escape_string($connection,$_POST['contractnum'])."','".$_POST['birthday']."','".$_POST['gender']."', '" . $_SESSION['accID'] . "', '".$IMG."', '".$_POST['CourseID']."')");
 
 
    		$qry = mysqli_query($connection, "select * from studentprofile_table where accID = '".$_SESSION['accID']."'");
@@ -505,10 +505,10 @@ if (isset($_POST['from']) and $_POST['from'] == 'edit-studnet-admin') {
 
 }
 
-if (isset($_POST['from']) and $_POST['from'] == 'delete-csc-position') {
+if (isset($_POST['from']) and $_POST['from'] == 'delete-csc-position-members') {
 	mysqli_query($connection, "delete from csc_members_table where cscmemID = '".$_POST['cscmemID']."' ");
 
-		header("Location: csc.php");
+		header("Location: csc-new.php");
 
 }
 
@@ -524,48 +524,78 @@ if (isset($_POST['from']) and $_POST['from'] == 'edit-csc-position') {
 
 		mysqli_query($connection, "update csc_members_table set stprofID = '".$_POST['stprofID']."', positionIDcsc = '".$_POST['positionIDcsc']."', perpost = '".$_POST['perpost']."' where cscmemID = '".$_POST['cscmemID']."' ");
 
-		echo "update csc_members_table set stprofID = '".$_POST['stprofID']."', positionIDcsc = '".$_POST['positionIDcsc']."', perpost = '".$_POST['perpost']."' where cscmemID = '".$_POST['cscmemID']."'";
-		// header("Location: csc.php");
+		  // echo "update csc_members_table set stprofID = '".$_POST['stprofID']."', positionIDcsc = '".$_POST['positionIDcsc']."', perpost = '".$_POST['perpost']."' where cscmemID = '".$_POST['cscmemID']."'";
+		  header("Location: csc-new.php");
 
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'delete-cased-position') {
-	mysqli_query($connection, "delete from council_officers_table where stprofID = '".$_POST['stprofID']."' ");
+	mysqli_query($connection, "delete from council_officers_table where councilID = '".$_POST['councilID']."' ");
 
 		header("Location: cased.php");
 
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-cased-position') {
-	mysqli_query($connection, "update council_officers_table set stprofID = '".$_POST['stprofID']."', positionID = '".$_POST['positionID']."', perpost = '".$_POST['perpost']."' where councilID = '".$_POST['councilID']."' ");
+
+	$qryeditcased = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_POST['stprofID'] . "' ");
+	$reseditcased = mysqli_fetch_assoc($qryeditcased);
+	$_POST['stprofID'] = $reseditcased['stprofID'];
+
+	$qry2editcased = mysqli_query($connection," select * from council_position_table where positionNamecouncil = '".$_POST['positionIDcouncil']."' ");
+	$res2editcased = mysqli_fetch_assoc($qry2editcased);
+	$_POST['positionIDcouncil'] = $res2editcased['positionIDcouncil'];
+
+	mysqli_query($connection, "update council_officers_table set stprofID = '".$_POST['stprofID']."', positionIDcouncil = '".$_POST['positionIDcouncil']."', perpost = '".$_POST['perpost']."' where councilID = '".$_POST['councilID']."' ");
 		
-		header("Location: cased.php");
+		// echo "update council_officers_table set stprofID = '".$_POST['stprofID']."', positionIDcouncil = '".$_POST['positionIDcouncil']."', perpost = '".$_POST['perpost']."' where councilID = '".$_POST['councilID']."'";
+
+	header("Location: cased.php");
 
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'delete-cbtv-position') {
-	mysqli_query($connection, "delete from council_officers_table where stprofID = '".$_POST['stprofID']."' ");
+	mysqli_query($connection, "delete from council_officers_table where councilID = '".$_POST['councilID']."' ");
 
 		header("Location: business.php");
 
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-cbtv-position') {
-	mysqli_query($connection, "update council_officers_table set stprofID = '".$_POST['stprofID']."', positionID = '".$_POST['positionID']."', perpost = '".$_POST['perpost']."' where councilID = '".$_POST['councilID']."' ");
-		
-		header("Location: business.php");
+
+	$qryeditbusi = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_POST['stprofID'] . "' ");
+	$reseditbusi = mysqli_fetch_assoc($qryeditbusi);
+	$_POST['stprofID'] = $reseditbusi['stprofID'];
+
+	$qry2editbusi = mysqli_query($connection," select * from council_position_table where positionNamecouncil = '".$_POST['positionIDcouncil']."' ");
+	$res2editbusi = mysqli_fetch_assoc($qry2editbusi);
+	$_POST['positionIDcouncil'] = $res2editbusi['positionIDcouncil'];
+
+	mysqli_query($connection, "update council_officers_table set stprofID = '".$_POST['stprofID']."', positionIDcouncil = '".$_POST['positionIDcouncil']."', perpost = '".$_POST['perpost']."' where councilID = '".$_POST['councilID']."' ");
+
+	// echo "update council_officers_table set stprofID = '".$_POST['stprofID']."', positionIDcouncil = '".$_POST['positionIDcouncil']."', perpost = '".$_POST['perpost']."' where councilID = '".$_POST['councilID']."'";
+	 header("Location: business.php");
 
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'delete-nursing-position') {
-	mysqli_query($connection, "delete from council_officers_table where stprofID = '".$_POST['stprofID']."' ");
+	mysqli_query($connection, "delete from council_officers_table where councilID = '".$_POST['councilID']."' ");
 
 		header("Location: nursing.php");
 
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-nursing-position') {
-	mysqli_query($connection, "update council_officers_table set stprofID = '".$_POST['stprofID']."', positionID = '".$_POST['positionID']."', perpost = '".$_POST['perpost']."' where councilID = '".$_POST['councilID']."' ");
+
+	$qryeditnurs = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_POST['stprofID'] . "' ");
+	$reseditnurs = mysqli_fetch_assoc($qryeditnurs);
+	$_POST['stprofID'] = $reseditnurs['stprofID'];
+
+	$qry2editnurs = mysqli_query($connection," select * from council_position_table where positionNamecouncil = '".$_POST['positionIDcouncil']."' ");
+	$res2editnurs = mysqli_fetch_assoc($qry2editnurs);
+	$_POST['positionIDcouncil'] = $res2editnurs['positionIDcouncil'];
+
+	mysqli_query($connection, "update council_officers_table set stprofID = '".$_POST['stprofID']."', positionIDcouncil = '".$_POST['positionIDcouncil']."', perpost = '".$_POST['perpost']."' where councilID = '".$_POST['councilID']."' ");
 		
 		header("Location: nursing.php");
 
@@ -575,7 +605,7 @@ if (isset($_GET['from']) and $_GET['from'] == 'delete-department-position') {
 
 	$dpID = $_GET['departmentClubId'];
 
-	mysqli_query($connection, "delete from departmental_officersandmembers_table where stprofID = '".$_GET['stprofID']."' ");
+	mysqli_query($connection, "delete from departmental_officersandmembers_table where departmentmemID = '".$_GET['departmentmemID']."' ");
 
 		header("Location: list-of-officers-departmental.php?from=checkIDfordepartmentofficer&departmentClubId=".$dpID);
 
@@ -585,17 +615,25 @@ if (isset($_GET['from']) and $_GET['from'] == 'edit-department-position') {
 
 	$dpIDedit = $_GET['departmentClubId'];
 
-	mysqli_query($connection, "update departmental_officersandmembers_table set stprofID = '".$_GET['stprofID']."', positionID = '".$_GET['positionID']."', perpost = '".$_GET['perpost']."' where departmentmemID = '".$_GET['departmentmemID']."' ");
-		
-		header("Location: list-of-officers-departmental.php?from=checkIDfordepartmentofficer&departmentClubId=".$dpIDedit);
+	$qryeditdp = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_GET['stprofID'] . "' ");
+	$reseditdp = mysqli_fetch_assoc($qryeditdp);
+	$_GET['stprofID'] = $reseditdp['stprofID'];
+
+	$qry2editdp = mysqli_query($connection," select * from departmental_position_table where positionNameDP = '".$_GET['positionIDdepartmental']."' ");
+	$res2editdp = mysqli_fetch_assoc($qry2editdp);
+	$_GET['positionIDdepartmental'] = $res2editdp['positionIDdepartmental'];
+
+	mysqli_query($connection, "update departmental_officersandmembers_table set stprofID = '".$_GET['stprofID']."', positionIDdepartmental = '".$_GET['positionIDdepartmental']."', perpost = '".$_GET['perpost']."' where departmentmemID = '".$_GET['departmentmemID']."' ");
+		// echo "update departmental_officersandmembers_table set stprofID = '".$_GET['stprofID']."', positionIDdepartmental = '".$_GET['positionIDdepartmental']."', perpost = '".$_GET['perpost']."' where departmentmemID = '".$_GET['departmentmemID']."'";
+		 header("Location: list-of-officers-departmental.php?from=checkIDfordepartmentofficer&departmentClubId=".$dpIDedit);
 
 }
 
-if (isset($_GET['from']) and $_GET['from'] == 'delete-social-position') {
+if (isset($_GET['from']) and $_GET['from'] == 'delete-social-position-members') {
 
 	$scID = $_GET['socialClubId'];
 
-	mysqli_query($connection, "delete from social_officerandmembers_table where stprofID = '".$_GET['stprofID']."' ");
+	mysqli_query($connection, "delete from social_officerandmembers_table where socialoffID = '".$_GET['socialoffID']."' ");
 	
 		header("Location: list-of-officers-social.php?from=checkIDforsocialofficer&socialClubId=".$scID);
 
@@ -605,9 +643,17 @@ if (isset($_GET['from']) and $_GET['from'] == 'edit-social-position') {
 
 	$scIDedit = $_GET['socialClubId'];
 
-	mysqli_query($connection, "update social_officerandmembers_table set stprofID = '".$_GET['stprofID']."', positionID = '".$_GET['positionID']."', perpost = '".$_GET['perpost']."' where socialoffID = '".$_GET['socialoffID']."' ");
-		
-		header("Location: list-of-officers-social.php?from=checkIDforsocialofficer&socialClubId=".$scIDedit);
+	$qryeditsc = mysqli_query($connection, "select * from list_student_view where fullname = '" . $_GET['stprofID'] . "' ");
+	$reseditsc = mysqli_fetch_assoc($qryeditsc);
+	$_GET['stprofID'] = $reseditsc['stprofID'];
+
+	$qry2editsc = mysqli_query($connection," select * from social_position_table where positionNameSocial = '".$_GET['positionIDsocial']."' ");
+	$res2editsc = mysqli_fetch_assoc($qry2editsc);
+	$_GET['positionIDsocial'] = $res2editsc['positionIDsocial'];
+
+	mysqli_query($connection, "update social_officerandmembers_table set stprofID = '".$_GET['stprofID']."', positionIDsocial = '".$_GET['positionIDsocial']."', perpost = '".$_GET['perpost']."' where socialoffID = '".$_GET['socialoffID']."' ");
+		// echo "update social_officerandmembers_table set stprofID = '".$_GET['stprofID']."', positionIDsocial = '".$_GET['positionIDsocial']."', perpost = '".$_GET['perpost']."' where socialoffID = '".$_GET['socialoffID']."'";
+		 header("Location: list-of-officers-social.php?from=checkIDforsocialofficer&socialClubId=".$scIDedit);
 
 }
 

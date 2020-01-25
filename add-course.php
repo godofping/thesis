@@ -18,7 +18,7 @@ if (!isset($_SESSION['adminID'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2>Courses</h2>
+        <h2><i class="fas fa-graduation-cap"></i> <b>Courses</b></h2>
         <hr>
 
       </div>
@@ -28,7 +28,7 @@ if (!isset($_SESSION['adminID'])) {
     <div class="row">
       <div class="col-md-12">
 
-        <button class="btn blue-gradient" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> ADD COURSE</button>
+        <button class="btn blue-gradient itogglebutton" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> ADD COURSE</button>
 
         <!-- Modal -->
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -105,7 +105,7 @@ if (!isset($_SESSION['adminID'])) {
 
               </div>
               <div class="modal-footer">
-                <button type="submit" class="btn blue-gradient"><i class="fas fa-plus"></i> Add</button>
+                <button type="submit" class="btn blue-gradient itogglebutton"><i class="fas fa-plus"></i> Add</button>
                 </form>
               </div>
             </div>
@@ -141,7 +141,7 @@ if (!isset($_SESSION['adminID'])) {
               <th scope="row"><?php echo $res['CourseName']; ?></th>
               <th scope="row"><?php echo $res['CounName']; ?></th>
               <th scope="row"><?php echo $res['departmentClubName']; ?></th>
-              <td><button class="btn aqua-gradient" data-toggle="modal" data-target="#editModal<?php echo $res['CourseID'] ?>"><i class="far fa-edit"></i></button> <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?php echo $res['CourseID'] ?>"><i class="far fa-trash-alt"></i></button></td>
+              <td><button class="btn aqua-gradient itogglebutton" data-toggle="modal" data-target="#editModal<?php echo $res['CourseID'] ?>"><i class="far fa-edit"></i></button> <button class="btn btn-danger itogglebutton" data-toggle="modal" data-target="#deleteModal<?php echo $res['CourseID'] ?>"><i class="far fa-trash-alt"></i></button></td>
 
             </tr>
 
@@ -209,7 +209,7 @@ if (!isset($_SESSION['adminID'])) {
 
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" class="btn aqua-gradient"><i class="fas fa-check"></i> Update</button>
+                    <button type="submit" class="btn aqua-gradient itogglebutton"><i class="fas fa-check"></i> Update</button>
                     </form>
                   </div>
                 </div>
@@ -241,7 +241,7 @@ if (!isset($_SESSION['adminID'])) {
 
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger">Yes</button>
+                    <button type="submit" class="btn btn-danger itogglebutton">Yes</button>
                     </form>
                   </div>
                 </div>
@@ -278,3 +278,9 @@ $('.dataTables_length').addClass('bs-select');
 });
 
 </script>
+
+<style type="text/css">
+  .itogglebutton{
+  border-radius: 12px;
+}
+</style>

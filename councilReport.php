@@ -54,7 +54,7 @@ if (!isset($_SESSION['adminID'])) {
 
                   $qrydppos = mysqli_query($connection, "select * from council_view where stprofID = ".$res['stprofID']." ");
                         $resultdp = mysqli_fetch_assoc($qrydppos);
-                        $posname = $resultdp['positionName'];
+                        $posname = $resultdp['positionNamecouncil'];
                         ?>
 
                    <li>

@@ -21,7 +21,7 @@ if (!isset($_SESSION['adminID'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2>Departmental Councils Announcement</h2>
+        <h2><i class="fas fa-file"></i> <b>Departmental Councils Announcement</b></h2>
         <hr>
 
       </div>

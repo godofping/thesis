@@ -27,10 +27,10 @@ include("student-header.php");
       
       <div class="container">
         <!-- Section heading -->
-          <main class="text-center py-5 mt-2">
+          <main class="text-center py-5 mt-4">
 
-          <h2 class="animated zoomIn font-weight-bold text-left text-color-test" style="color: white; font-family: Alfa Slab One">Welcome to</h2>
-          <h3 class="animated shake font-weight-bold text-left text-color-test" style="color: white; padding-bottom: 20px; font-family: Alfa Slab One">Student Activity Management Information System</h3>
+          <h2 class="font-weight-bold text-left text-color-test" style="color: black;">Welcome to</h2>
+          <h3 class="font-weight-bold text-left text-color-test" style="color: black; padding-bottom: 20px; ">Student Activity Management Information System</h3>
 
   <div class="container">
 
@@ -41,6 +41,48 @@ include("student-header.php");
 
       $councilName = $rescode['CounName'];
       $dpclubcode = $rescode['departmentcode'];
+      $dpclubName = $rescode['departmentClubName'];
+
+      $qryosaann = mysqli_query($connection, "select * from dsa_announcement_view order by dsaAnnouncementID desc");
+      $resosaann = mysqli_fetch_assoc($qryosaann);
+
+      $timestartosa =  $resosaann['timeStart'];
+      $timeendosa =  $resosaann['timeEnd'];
+      $timeStartSubmittedosa = date('Y-m-d h:i:s', strtotime($timestartosa));
+      $timeEndSubmittedosa = date('Y-m-d h:i:s', strtotime($timeendosa));
+
+
+      $qrycscann = mysqli_query($connection, "select * from csc_announcement_view where isApproved = 'Yes'");
+      $rescsc = mysqli_fetch_assoc($qrycscann);
+
+      $timestartcsc =  $resosaann['timeStart'];
+      $timeendcsc =  $resosaann['timeEnd'];
+      $timeStartSubmittedcsc = date('Y-m-d h:i:s', strtotime($timestartcsc));
+      $timeEndSubmittedcsc = date('Y-m-d h:i:s', strtotime($timeendcsc));
+
+      $qrycouncilann = mysqli_query($connection, "select * from council_club_announcement_view where isApproved = 'Yes'");
+      $rescouncil = mysqli_fetch_assoc($qrycouncilann);
+
+      $timestartcouncil =  $rescouncil['timeStart'];
+      $timeendcouncil =  $rescouncil['timeEnd'];
+      $timeStartSubmittedcouncil = date('Y-m-d h:i:s', strtotime($timestartcouncil));
+      $timeEndSubmittedcouncil = date('Y-m-d h:i:s', strtotime($timeendcouncil));
+
+      $qrydpann = mysqli_query($connection, "select * from departmental_club_announcement_view where isApproved = 'Yes'");
+      $resdpann = mysqli_fetch_assoc($qrydpann);
+
+      $timestartdp =  $resdpann['timeStart'];
+      $timeenddpd =  $resdpann['timeEnd'];
+      $timeStartSubmitteddp = date('Y-m-d h:i:s', strtotime($timestartdp));
+      $timeEndSubmitteddp = date('Y-m-d h:i:s', strtotime($timeenddpd));
+
+      $qrysocialann = mysqli_query($connection, "select * from social_club_announcement_view where isApproved = 'Yes'");
+      $ressocial = mysqli_fetch_assoc($qrysocialann);
+
+      $timestartsocial =  $ressocial['timeStart'];
+      $timeendsocial =  $ressocial['timeEnd'];
+      $timeStartSubmittedsocial = date('Y-m-d h:i:s', strtotime($timestartsocial));
+      $timeEndSubmittedsocial = date('Y-m-d h:i:s', strtotime($timeendsocial));
 
      ?>
 
@@ -50,28 +92,38 @@ include("student-header.php");
   <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="osa-tab" data-toggle="tab" href="#osa" role="tab" aria-controls="osa"
-      aria-selected="true" style="color: black; font-family: Times New Roman">OSA</a>
+      aria-selected="true" style="color: black; font-family: Arial Black, Gadget, sans-serif">OSA<?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeEndSubmittedosa)):?> 
+        <span class="badge badge-danger ml-1">New</span>
+      <?php endif ?></a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="csc-tab" data-toggle="tab" href="#csc" role="tab" aria-controls="csc"
-      aria-selected="false" style="color: black; font-family: Times New Roman">CSC</a>
+      aria-selected="false" style="color: black; font-family: Arial Black, Gadget, sans-serif">CSC<?php if (strtotime(date('Y-m-d h:i:s'))>strtotime($timeEndSubmittedcsc)):?> 
+        <span class="badge badge-danger ml-1">New</span>
+      <?php endif ?></a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="council-tab" data-toggle="tab" href="#council" role="tab" aria-controls="council"
-      aria-selected="false" style="color: black; font-family: Times New Roman"><?php echo $councilName; ?></a>
+      aria-selected="false" style="color: black; font-family: Arial Black, Gadget, sans-serif"><?php echo $councilName; ?><?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeEndSubmittedcouncil)):?> 
+        <span class="badge badge-danger ml-1">New</span>
+      <?php endif ?></a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="departmental-tab" data-toggle="tab" href="#departmental" role="tab" aria-controls="departmental"
-      aria-selected="false" style="color: black; font-family: Times New Roman"><?php echo $dpclubcode; ?> Club</a>
+      aria-selected="false" style="color: black; font-family: Arial Black, Gadget, sans-serif"><?php echo $dpclubcode; ?> Club<?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeEndSubmitteddp)):?> 
+        <span class="badge badge-danger ml-1">New</span>
+      <?php endif ?></a>
   </li>
   <li class="nav-item">
   
       <a class="nav-link" id="social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="social"
-      aria-selected="false" style="color: black; font-family: Times New Roman"><?php 
+      aria-selected="false" style="color: black; font-family: Arial Black, Gadget, sans-serif"><?php 
 
       $qrysocialcode = mysqli_query($connection, "select * from student_social_club_view where stprofID = '".$_SESSION['stprofID']."' ");
        while ($ressocailcode = mysqli_fetch_assoc($qrysocialcode)) {?>
-        <?php echo $ressocailcode['socialClubcode'] ." Club " ?>
+        <?php echo $ressocailcode['socialClubcode'] ." Club " ?><?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeEndSubmittedsocial)):?> 
+        <span class="badge badge-danger ml-1">New</span>
+      <?php endif ?>
       <?php } ?>
        </a>
     
@@ -92,14 +144,14 @@ include("student-header.php");
               <!-- Material form contact -->
     <div class="card z-depth-2">
 
-     <h5 class="card-header blue lighten-1 white-text text-center py-4"><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
-        <strong style="font-family: Alfa Slab One">Office of The Director Student Affairs</strong><br>
+     <h5 class="card-header green accent-4 white-text text-center py-4 card-img">
+        <strong style="font-family: Arial Black, Gadget, sans-serif;">Office of Student Affairs</strong><br>
         <small style="font-family: Alfa Slab One">Notre Dame of Tacurong College</small><br>
         <small style="font-family: Alfa Slab One">City of Tacurong</small>
     </h5>
 
     <!--Card content-->
-    <div class="card-body px-lg-5 pt-0">
+    <div class="card-body  px-lg-5 pt-0">
 
         <!-- Form -->   
         <div class="text-center" style="color: #757575;">
@@ -107,25 +159,26 @@ include("student-header.php");
            
               <!-- To Whom -->
              <div class="md-form mt-5" style="text-align: center;">
-              <p style="color: black;font-family: Alfa Slab One"><?php echo $res['toWhom']; ?></p>
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $res['toWhom']; ?></p>
             </div>
 
             <!-- To Whom -->
             <div class="md-form mt-3" style="text-align: center;">
-              <p style="color: black; font-family: Alfa Slab One"><?php echo $res['subjectann']; ?></p>
+              <p style="color: black; font-family: Arial Black, Gadget, sans-serif"><?php echo $res['subjectann']; ?></p>
             </div> 
 
             <div class="md-form mt-3" style="text-align: left;">
-               <p style="color: black;font-family: Alfa Slab One"> Date: <?php echo date('F d, Y h:i A', strtotime($res['timeStart'])); ?>, until <?php echo date('F d, Y h:i A', strtotime($res['timeEnd'])); ?></p>
+               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> Start: <?php echo date('F d, Y h:i A', strtotime($res['timeStart'])); ?></p>
+               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> End: <?php echo date('F d, Y h:i A', strtotime($res['timeEnd'])); ?></p>
             </div>
 
             <div class="md-form mt-3" style="text-align: left;">
-              <p style="color: black;font-family: Alfa Slab One">Venue: <?php echo $res['venueName']; ?></p>
+              <p style="color: red;font-family: Arial Black, Gadget, sans-serif">Venue: <?php echo $res['venueName']; ?></p>
             </div>
 
             <!--Message-->
             <div class="md-form mt-3" style="text-align: center;">
-              <p style="color: black;font-family: Alfa Slab One"><?php echo $res['message']; ?></p>
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $res['message']; ?></p>
             </div>
 
         </div>
@@ -136,7 +189,7 @@ include("student-header.php");
       </div>
 <!-- Material form contact -->
               <?php else: ?> 
-              <h3 class="mt-5" style="text-align: center;color: black; font-family: Times New Roman">No Announcement</h3>
+              <h5 class="mt-5" style="text-align: center;color: black; font-family: Times New Roman">No Announcement<br>from<br>Office of Student Affairs</h5>
               <?php endif ?>
         </div>
       </div>
@@ -153,10 +206,10 @@ include("student-header.php");
 
       <div class="card z-depth-2">
 
-    <h5 class="card-header blue lighten-1 white-text text-center py-4"><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
-        <strong>Central Student Council</strong><br>
-        <small style="font-size: ">Notre Dame of Tacurong College</small><br>
-        <small>City of Tacurong</small>
+    <h5 class="card-header green accent-4 white-text text-center py-4 card-img">
+        <strong style="font-family: Arial Black, Gadget, sans-serif;">Central Student Council</strong><br>
+        <small style="font-family: Alfa Slab One">Notre Dame of Tacurong College</small><br>
+        <small style="font-family: Alfa Slab One">City of Tacurong</small>
     </h5>
 
     <!--Card content-->
@@ -164,25 +217,26 @@ include("student-header.php");
 
         <!-- Form -->
         <div class="text-center" style="color: #757575;">
-
+  
             <div class="md-form mt-5" style="text-align: center;">
-              <p style="color: black"><?php echo $rescsc['toWhom']; ?></p>
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $rescsc['toWhom']; ?></p>
             </div>
 
             <div class="md-form mt-3" style="text-align: center;">
-              <p style="color: black"><?php echo $rescsc['subjectann']; ?></p>
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $rescsc['subjectann']; ?></p>
             </div> 
 
              <div class="md-form mt-3" style="text-align: left;">
-               <p style="color: black"> Date: <?php echo date('F d, Y h:i A', strtotime($rescsc['timeStart'])); ?>, until <?php echo date('F d, Y h:i A', strtotime($rescsc['timeEnd'])); ?></p>
+               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> Start: <?php echo date('F d, Y h:i A', strtotime($rescsc['timeStart'])); ?></p>
+               <p style="color: black;font-family: Arial Black, Gadget, sans-serif">  End: <?php echo date('F d, Y h:i A', strtotime($rescsc['timeEnd'])); ?></p>
             </div>   
 
             <div class="md-form mt-3" style="text-align: left;">
-              <p style="color: black">Venue: <?php echo $rescsc['venueName']; ?></p>
+              <p style="color: red;font-family: Arial Black, Gadget, sans-serif">Venue: <?php echo $rescsc['venueName']; ?></p>
             </div>        
 
             <div class="md-form mt-3" style="text-align: center;">
-              <p style="color: black"><?php echo $rescsc['message']; ?></p>
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $rescsc['message']; ?></p>
             </div>
 
         </div>
@@ -190,7 +244,7 @@ include("student-header.php");
           </div>
       </div>
     <?php else: ?> 
-      <h3 class="mt-5" style="text-align: center;color: black; font-family: Times New Roman">No Announcement</h3>
+      <h5 class="mt-5" style="text-align: center;color: black; font-family: Times New Roman">No Announcement<br>from<br>Central Student Council</h5>
     <?php endif ?>
 
       </div>
@@ -208,10 +262,10 @@ include("student-header.php");
                 <!-- Material form contact -->
     <div class="card z-depth-2">
 
-    <h5 class="card-header blue lighten-1 white-text text-center py-4"><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
-        <strong><?php echo $resname['CounName']; ?></strong><br>
-        <small style="font-size: ">Notre Dame of Tacurong College</small><br>
-        <small>City of Tacurong</small>
+    <h5 class="card-header green accent-4 white-text text-center py-4 card-img">
+        <strong style="font-family: Arial Black, Gadget, sans-serif;"><?php echo $resname['CounName']; ?></strong><br>
+        <small style="font-family: Alfa Slab One">Notre Dame of Tacurong College</small><br>
+        <small style="font-family: Alfa Slab One">City of Tacurong</small>
     </h5>
 
     <!--Card content-->
@@ -221,24 +275,24 @@ include("student-header.php");
         <form class="text-center" style="color: #757575;">
 
             <div class="md-form mt-5" style="text-align: center;">
-              <p style="color: black"><?php echo $resdpc['toWhom']; ?></p>
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $resdpc['toWhom']; ?></p>
             </div>
 
             <div class="md-form mt-3" style="text-align: center;">
-              <p style="color: black"><?php echo $resdpc['subjectann']; ?></p>
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $resdpc['subjectann']; ?></p>
             </div> 
 
             <div class="md-form mt-3" style="text-align: left;">
-               <p style="color: black"> Date: <?php echo date('F d, Y h:i A', strtotime($resdpc['timeStart'])); ?>, until <?php echo date('F d, Y h:i A', strtotime($resdpc['timeEnd'])); ?></p>
+               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> Date: <?php echo date('F d, Y h:i A', strtotime($resdpc['timeStart'])); ?>, until <?php echo date('F d, Y h:i A', strtotime($resdpc['timeEnd'])); ?></p>
             </div>
             <!-- To Whom -->
             <div class="md-form mt-3" style="text-align: left;">
-              <p style="color: black">Venue: <?php echo $resdpc['venueName']; ?></p>
+              <p style="color: red;font-family: Arial Black, Gadget, sans-serif">Venue: <?php echo $resdpc['venueName']; ?></p>
             </div>
 
             <!--Message-->
             <div class="md-form mt-3" style="text-align: center;">
-              <p style="color: black"><?php echo $resdpc['message']; ?></p>
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $resdpc['message']; ?></p>
             </div>
 
         </form>
@@ -247,7 +301,7 @@ include("student-header.php");
       </div>
 <!-- Material form contact -->
               <?php else: ?> 
-              <h3 class="mt-5" style="text-align: center;color: black; font-family: Times New Roman">No Announcement</h3>  
+              <h5 class="mt-5" style="text-align: center;color: black; font-family: Times New Roman">No Announcement<br>from<br><?php echo $councilName; ?></h5>
               <?php endif ?>
 
   </div>
@@ -267,10 +321,10 @@ include("student-header.php");
               <!-- Material form contact -->
     <div class="card z-depth-2">
 
-    <h5 class="card-header blue lighten-1 white-text text-center py-4"><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
-        <strong><?php echo $resname['departmentClubName']; ?></strong><br>
-        <small style="font-size: ">Notre Dame of Tacurong College</small><br>
-        <small>City of Tacurong</small>
+    <h5 class="card-header green accent-4 white-text text-center py-4 card-img">
+        <strong style="font-family: Arial Black, Gadget, sans-serif;"><?php echo $resname['departmentClubName']; ?></strong><br>
+        <small style="font-family: Alfa Slab One">Notre Dame of Tacurong College</small><br>
+        <small style="font-family: Alfa Slab One">City of Tacurong</small>
     </h5>
 
     <!--Card content-->
@@ -282,23 +336,24 @@ include("student-header.php");
             
 
              <div class="md-form mt-5" style="text-align: center;">
-              <p style="color: black"><?php echo $resdp['toWhom']; ?></p>
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $resdp['toWhom']; ?></p>
             </div>
 
             <div class="md-form mt-3" style="text-align: center;">
-              <p style="color: black"><?php echo $resdp['subjectann']; ?></p>
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $resdp['subjectann']; ?></p>
             </div> 
 
             <div class="md-form mt-3" style="text-align: left;">
-               <p style="color: black"> Date: <?php echo date('F d, Y h:i A', strtotime($resdp['timeStart'])); ?>, until <?php echo date('F d, Y h:i A', strtotime($resdp['timeEnd'])); ?></p>
+               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> Date: <?php echo date('F d, Y h:i A', strtotime($resdp['timeStart'])); ?>, until <?php echo date('F d, Y h:i A', strtotime($resdp['timeEnd'])); ?></p>
+               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> Date: <?php echo date('F d, Y h:i A', strtotime($resdp['timeStart'])); ?>, until <?php echo date('F d, Y h:i A', strtotime($resdp['timeEnd'])); ?></p>
             </div>
 
              <div class="md-form mt-3" style="text-align: left;">
-              <p style="color: black">Venue: <?php echo $resdp['venueName']; ?></p>
+              <p style="color: red;font-family: Arial Black, Gadget, sans-serif">Venue: <?php echo $resdp['venueName']; ?></p>
             </div>
             <!--Message-->
            <div class="md-form mt-3" style="text-align: center;">
-              <p style="color: black"><?php echo $resdp['message']; ?></p>
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $resdp['message']; ?></p>
             </div>
 
           
@@ -309,7 +364,7 @@ include("student-header.php");
       </div>
 <!-- Material form contact -->
               <?php else: ?> 
-              <h3 class="mt-5" style="text-align: center;color: black; font-family: Times New Roman">No Announcement</h3>
+              <h5 class="mt-5" style="text-align: center;color: black; font-family: Times New Roman">No Announcement<br>from<br><?php echo $dpclubName; ?></h5>
              <?php endif ?>
 
     </div>
@@ -327,39 +382,40 @@ include("student-header.php");
 
       <div class="card z-depth-2">
     
-    <h5 class="card-header blue lighten-1 white-text text-center py-4"><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
-        <strong><?php echo $resocial['socialClubName']; ?></strong><br>
-        <small style="font-size: ">Notre Dame of Tacurong College</small><br>
-        <small>City of Tacurong</small>
+    <h5 class="card-header green accent-4 white-text text-center py-4 card-img">
+        <strong style="font-family: Arial Black, Gadget, sans-serif;"><?php echo $resocial['socialClubName']; ?></strong><br>
+        <small style="font-family: Alfa Slab One">Notre Dame of Tacurong College</small><br>
+        <small style="font-family: Alfa Slab One">City of Tacurong</small>
     </h5>
 
     <div class="card-body px-lg-5 pt-0">
         <div class="text-center" style="color: #757575;">
 
             <div class="md-form mt-5" style="text-align: center;">
-              <p style="color: black"><?php echo $resocial['toWhom']; ?></p>
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $resocial['toWhom']; ?></p>
             </div>
 
             <div class="md-form mt-3" style="text-align: center;">
-              <p style="color: black"><?php echo $resocial['subjectann']; ?></p>
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $resocial['subjectann']; ?></p>
             </div> 
 
             <div class="md-form mt-3" style="text-align: left;">
-               <p style="color: black"> Date: <?php echo date('F d, Y h:i A', strtotime($resocial['timeStart'])); ?>, until <?php echo date('F d, Y h:i A', strtotime($resocial['timeEnd'])); ?></p>
+               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> Start: <?php echo date('F d, Y h:i A', strtotime($resocial['timeStart'])); ?></p>
+               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> End: <?php echo date('F d, Y h:i A', strtotime($resocial['timeEnd'])); ?></p>
             </div>
 
             <div class="md-form mt-3" style="text-align: left;">
-              <p style="color: black">Venue: <?php echo $resocial['venueName']; ?></p>
+              <p style="color: red;font-family: Arial Black, Gadget, sans-serif">Venue: <?php echo $resocial['venueName']; ?></p>
             </div>
 
             <div class="md-form mt-3" style="text-align: center;">
-              <p style="color: black"><?php echo $resocial['message']; ?></p>
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $resocial['message']; ?></p>
             </div>
         </div>
           </div>
        </div>
       <?php else: ?> 
-       <h3 class="mt-5" style="text-align: center;color: black; font-family: Times New Roman">No Announcement</h3>   
+       <h5 class="mt-5" style="text-align: center;color: black; font-family: Times New Roman">No Announcement<br>from<br><?php echo $ressocialclub['socialClubName']; ?></h5>  
       <?php endif ?>
 <!-- Material form contact --> 
 
@@ -389,7 +445,7 @@ include("student-header.php");
 <style type="text/css">
  
  body {
-  background-color: #4fc3f7   ; 
+  background-color: #f5f5f5; 
 }
 
  body, html {
@@ -408,8 +464,16 @@ include("student-header.php");
   background-size: 75%;
 }
 
-.text-color-test{
+/*.text-color-test{
   text-shadow: 3px 3px #000000;
+}*/
+
+.card-img{
+
+  background-image: url("http://localhost:8080/thesis/logo/download.png");
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 13%;
 }
 
 </style>

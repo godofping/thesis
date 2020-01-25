@@ -25,7 +25,7 @@ if (!isset($_SESSION['adminID'])) {
           $socialName = $resid['socialClubName'];
           }         
          ?>
-        <h2><?php echo $socialName; ?></h2>
+        <h2><b><?php echo $socialName; ?></b></h2>
         <h5>Officers</h5>
         <hr>
 
@@ -111,7 +111,6 @@ if (!isset($_SESSION['adminID'])) {
                   <input type="text" name="from" value="add-social-officer" hidden>
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn aqua-gradient">Add</button>
                 </form>
                     </div>
@@ -161,42 +160,37 @@ if (!isset($_SESSION['adminID'])) {
                   </div>
                   <div class="modal-body">
                     <form class=" p-2" method="GET" action="controller.php" autocomplete="false">
-
-               
-                        <div class="row">
-                      <div class="col-12">
-                          <div class="form-group">
-                          <small>Student Name</small>
-                          <select class="form-control" name="stprofID" id="allstudentedit<?php echo $res['socialoffID'] ?>" required="">
-                            <?php $qry1 = mysqli_query($connection, " select * from list_social_club_view where socialClubId = '".$resid['socialClubId']."' order by lname asc");
-                            while ($res1 = mysqli_fetch_assoc($qry1)) { ?>
-                              <?php echo '<option value="'.$res1['stprofID'].'">'.$res1['lname'] ." ". $res1['fname'] ." ". $res1['mname'].'</option>'; ?>
-                            <?php } ?>
-                          </select>
-
-                          </div>
-                    </div>
-                    </div>
-
+                    
                     <div class="row">
-                  <div class="col-12">
-                      <div class="form-group">
-                      <small>Position</small>
-                      <select class="form-control" name="positionIDsocial" id="cscpositionedit<?php echo $res['socialoffID'] ?>" required="">
-                        <?php 
-
-                          $qry2 = mysqli_query($connection, "select * from social_position_table order by (positionNameSocial +0) asc, positionNameSocial asc");
-
-                          while ($res2 = mysqli_fetch_assoc($qry2)) { ?>
-                            <option value="<?php echo $res2['positionIDsocial']; ?>"><?php echo $res2['positionNameSocial']; ?></option>
-                         <?php }
-
-                         ?>
-                      </select>
-
+                        <div class="col-12">
+                            <div class="form-group">
+                            <small>Student Name</small>
+                            <input class="form-control" type="text" required="" name="stprofID" list="studentnames"/>
+                            <datalist id="studentnames">
+                                   <?php $qry1 = mysqli_query($connection, "select * from list_social_club_view where socialClubId = '".$resid['socialClubId']."' order by (lname +0) asc, lname asc");
+                                  while ($res1 = mysqli_fetch_assoc($qry1)) { ?>
+                                    <?php echo '<option value="'.$res1['lname'] ." ". $res1['fname'] ." ". $res1['mname'].'">'; ?>
+                              <?php } ?>
+                            </datalist>
+                            </div>
+                        </div>
                       </div>
-                </div>
-                </div>
+
+                        <div class="row">
+                        <div class="col-12">
+                          <div class="form-group">
+                          <small>Position</small>
+                          <input class="form-control" required="" type="text" name="positionIDsocial" list="studentpositions"/>
+                          <datalist id="studentpositions">
+                             <?php $qry2 = mysqli_query($connection, "select * from social_position_table order by (positionNameSocial +0) asc, positionNameSocial asc");
+                          while ($res2 = mysqli_fetch_assoc($qry2)) { ?>
+                              <?php echo '<option value="'.$res2['positionNameSocial'] .'">'; ?>
+                              <?php } ?>
+                          </datalist>
+                          </div>
+                      </div>
+                    </div>
+
                 <small>Can Creat Announcement</small>
                 <div class="row">
                     <div class="col-12">
@@ -241,14 +235,13 @@ if (!isset($_SESSION['adminID'])) {
                         <h5 align="Center">Do you want to remove <?php echo "<br>". $res['lname'] ." ". $res['fname'] ." ". $res['mname'];  ?><br> from being <?php echo $res['positionNameSocial'] ?> ?</h5>
                       </div>
                     </div>
-
+                    <input type="text" name="socialoffID" value="<?php echo $res['socialoffID'];?>" hidden>
                     <input type="text" name="socialClubId" value="<?php echo $socID;?>" hidden>
                     <input type="text" name="stprofID" value="<?php echo $res['stprofID'] ?>" hidden>
-                    <input type="text" name="from" value="delete-social-position" hidden> 
+                    <input type="text" name="from" value="delete-social-position-members" hidden> 
  
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     <button type="submit" class="btn btn-danger">Yes</button>
                     </form>
                   </div>

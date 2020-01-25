@@ -53,7 +53,7 @@ if (!isset($_SESSION['adminID'])) {
 
                   $qrydppos = mysqli_query($connection, "select * from departmental_officersandmembers_view where stprofID = ".$res['stprofID']." ");
                         $resultdp = mysqli_fetch_assoc($qrydppos);
-                        $posname = $resultdp['positionName'];
+                        $posname = $resultdp['positionNameDP'];
                         ?>
 
                    <li>

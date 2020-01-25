@@ -28,7 +28,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2><i class="fas fa-theater-masks"></i> Edit My Social Club</h2>
+        <h2><i class="fas fa-theater-masks"></i> <b>Edit My Social Club</b></h2>
         <hr>
 
       </div>
@@ -62,8 +62,8 @@ if ((time() - $_SESSION['last_time']) > 300) {
          
           <div class="text-center" style="color: #757575;">
               <p class="h4 mt-3" style="color: black; text-align: left;">Course </p>
-              <h4 style="color: black; text-align: left;"><?php echo $res['CourseName'] ?> <button class="btn blue-gradient itogglebutton" data-toggle="modal" data-target="#courseModal">Change</button></h4>
-              <p class="h4 mt-3" style="color: black; text-align: left;">Social Clubs <button class="btn blue-gradient itogglebutton" data-toggle="modal" data-target="#addModal">Add</button></p>
+              <h4 style="color: black; text-align: left;"><?php echo $res['CourseName'] ?> <u><a class="h5 itogglebutton" style="color: #33b5e5" data-toggle="modal" data-target="#courseModal"> <i class="fas fa-sync"></i> Change</a></u></h4>
+              <p class="h4 mt-3" style="color: black; text-align: left;">Social Clubs <u><a class="h5 itogglebutton" style="color: #33b5e5" data-toggle="modal" data-target="#addModal"> <i class="fas fa-plus"></i> Add</a></u></p>
               <?php 
               $qrysocialclub = mysqli_query($connection, "select * from student_social_club_view where stprofID = ".$_SESSION['stprofID']." ");
               while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)) {?>
@@ -71,7 +71,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
               <div class="md-form" style="text-align: left;">
                 <h4 style="color: black"><?php echo $ressocialclub['socialClubName'] ?></h4></<br>
                 <button class="btn blue-gradient itogglebutton" data-toggle="modal" data-target="#editModal<?php echo $ressocialclub['socialClubId'] ?>"><i class="far fa-edit"></i> Edit Club</button>   
-                <button class="btn btn-danger itogglebutton" data-toggle="modal" data-target="#deleteModal<?php echo $ressocialclub['socialClubId'] ?>">Delete Club</button>
+                <button class="btn btn-danger itogglebutton" data-toggle="modal" data-target="#deleteModal<?php echo $ressocialclub['socialClubId'] ?>">Remove Club</button>
               
              
               </div> 
@@ -100,7 +100,7 @@ while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)) {
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Membership</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Change Course</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -133,7 +133,7 @@ while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)) {
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Membership</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Social Club</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -209,7 +209,7 @@ while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)) {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete Social Club</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Remove Social Club</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -220,7 +220,7 @@ while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)) {
               <div class="col-12">
                   <div class="form-group">
           
-                    <p style="text-align: center;">Are you sure to delete your social Club <br> <?php echo $ressocialclub[
+                    <p style="text-align: center;">Are you sure to remove your social club <br> <?php echo $ressocialclub[
                       'socialClubName']; ?>?</p>
 
                     </div>

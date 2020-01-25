@@ -23,7 +23,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2><i class="fas fa-theater-masks"></i> My Club</h2>
+        <h2><i class="fas fa-theater-masks"></i> <b>My Club</b></h2>
         <hr>
 
       </div>

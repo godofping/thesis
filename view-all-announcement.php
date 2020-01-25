@@ -14,7 +14,7 @@ if (!isset($_SESSION['adminID'])) {
 
   <div class="row">
       <div class="col-md-12">
-        <h2>Announcements</h2>
+        <h2><i class="fas fa-file"></i> <b>Announcements</b></h2>
         <hr>
       </div>
     </div>
@@ -22,15 +22,16 @@ if (!isset($_SESSION['adminID'])) {
       <div class="col-md-12">
   
     <div class="row mt-5">
-      <div class="col-md-12 z-depth-2">
+      <div class="col-md-12 z-depth-2 table-radius">
 
         <div class="table-responsive text-nowrap">
 
         <table class="table">
+
           <thead>
             <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Actions</th>
+              <th scope="col"><b>Name</b></th>
+              <th scope="col"><b>Actions</b></th>
             </tr>
           </thead>
           <tbody>
@@ -49,23 +50,23 @@ if (!isset($_SESSION['adminID'])) {
             ?>
 
             <tr>
-              <td scope="row">Central Student Council</td>
-              <td><a href="view-csc-announcement.php"><button type="button" class="btn blue-gradient">View</button></a><?php if ($resultreject1['cnt1'] != 0 ):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject1) ?></span><?php endif ?>
+              <td scope="row"><b>Central Student Council</b></td>
+              <td><a href="view-csc-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a><?php if ($resultreject1['cnt1'] != 0 ):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject1) ?></span><?php endif ?>
             </tr>
             
             <tr>
-              <td scope="row">Departmental Council</td>
-              <td><a href="view-council-announcement.php"><button type="button" class="btn blue-gradient">View</button></a><?php if ( $resultreject['cnt'] != 0 ):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject) ?></span><?php endif ?>
+              <td scope="row"><b>Departmental Council</b></td>
+              <td><a href="view-council-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a><?php if ( $resultreject['cnt'] != 0 ):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject) ?></span><?php endif ?>
             </tr>
 
             <tr>
-              <td scope="row">Departmental Clubs</td>
-              <td><a href="view-departmental-club-announcement.php"><button type="button" class="btn blue-gradient">View</button></a><?php if ($resultreject3['cnt3'] != 0 ):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject3) ?></span><?php endif ?>
+              <td scope="row"><b>Departmental Clubs</b></td>
+              <td><a href="view-departmental-club-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a><?php if ($resultreject3['cnt3'] != 0 ):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject3) ?></span><?php endif ?>
             </tr>
 
              <tr>
-              <td scope="row">Social Clubs</td>
-              <td><a href="view-social-club-announcement.php"><button type="button" class="btn blue-gradient">View</button></a><?php if ($resultreject4['cnt4'] != 0):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject4) ?></span><?php endif ?>
+              <td scope="row"><b>Social Clubs</b></td>
+              <td><a href="view-social-club-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a><?php if ($resultreject4['cnt4'] != 0):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject4) ?></span><?php endif ?>
             </tr>
            
           
@@ -86,3 +87,41 @@ if (!isset($_SESSION['adminID'])) {
 <?php include('footer.php'); ?>
 
 
+<style type="text/css">
+ 
+ body {
+  background-color: #f5f5f5; 
+}
+
+ body, html {
+  height: 100%;
+}
+
+.db {
+  /* The image used */
+  background-image: url("http://localhost:8080/thesis/logo/student.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-size: 75%;
+}
+
+/*.text-color-test{
+  text-shadow: 3px 3px #000000;
+}*/
+
+
+  .btn-rad{
+  border-radius: 12px;
+  width: 120px;
+  }
+
+ .table-radius{
+  border-radius: 12px;
+ }
+
+</style>

@@ -7,6 +7,9 @@ if (!isset($_SESSION['adminID'])) {
 
  include("admin-header.php");
  ?>
+ <body>
+
+   <div class="db"> 
 <!--Main Layout-->
 <main class=" py-5 mt-5">
 
@@ -14,7 +17,7 @@ if (!isset($_SESSION['adminID'])) {
 
   <div class="row">
       <div class="col-md-12">
-        <h2>History of Announcements</h2>
+        <h2><i class="fas fa-file-alt"></i> <b>History of Announcements</b></h2>
         <hr>
       </div>
     </div>
@@ -37,12 +40,12 @@ if (!isset($_SESSION['adminID'])) {
 
             <tr>
               <td scope="row">Approved Announcement</td>
-              <td><a href="view-approve-announcement.php"><button class="btn blue-gradient">View</button></a>
+              <td><a href="view-approve-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a>
             </tr>
 
              <tr>
               <td scope="row">Reject Announcement</td>
-              <td><a href="view-reject-announcement.php"><button class="btn blue-gradient">View</button></a>
+              <td><a href="view-reject-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a>
             </tr>
                   
           </tbody>
@@ -56,9 +59,47 @@ if (!isset($_SESSION['adminID'])) {
 
 </main>
 <!--Main Layout-->
-
+</div>
+</body>
 
 
 <?php include('footer.php'); ?>
 
+<style type="text/css">
+ 
+ body {
+  background-color: #f5f5f5; 
+}
 
+ body, html {
+  height: 100%;
+}
+
+.db {
+  /* The image used */
+  background-image: url("http://localhost:8080/thesis/logo/student.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-size: 75%;
+}
+
+/*.text-color-test{
+  text-shadow: 3px 3px #000000;
+}*/
+
+
+  .btn-rad{
+  border-radius: 12px;
+  width: 120px;
+  }
+
+ .table-radius{
+  border-radius: 12px;
+ }
+
+</style>

@@ -28,7 +28,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2><i class="far fa-folder-open"></i> My Portfolio</h2>
+        <h2><i class="far fa-folder-open"></i> <b>My Portfolio</b></h2>
         <hr>
 
       </div>
@@ -68,9 +68,10 @@ if ((time() - $_SESSION['last_time']) > 300) {
               <!-- Material form contact -->
     <div class="card">
 
-     <h5 class="card-header blue lighten-1 white-text text-center py-4"><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
-        <strong>Notre Dame of Tacurong College</strong><br>
-        <small>City of Tacurong</small>
+     <h5 class="card-header blue lighten-1 white-text text-center py-4 card-img">
+        <strong style="font-family: Arial Black, Gadget, sans-serif;">Notre Dame of Tacurong College</strong><br>
+        <small style="font-family: Alfa Slab One">City of Tacurong</small><br>
+        <strong style="font-family: Arial Black, Gadget, sans-serif;">Office of Student Affairs</strong>
     </h5>
 
     <!--Card content-->
@@ -305,3 +306,15 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
 
 <?php include('footer.php'); ?>
+
+<style type="text/css">
+    
+  .card-img{
+
+  background-image: url("http://localhost:8080/thesis/logo/download.png");
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 10%;
+}
+
+</style>

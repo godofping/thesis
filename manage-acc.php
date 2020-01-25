@@ -39,7 +39,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
            ?>
 
-          <center class="pt-4"><img src="<?php echo $stdimg ?>" height = "150vh" calt="avatar" class=" img-responsive z-depth-2"><br></center>
+          <center class="pt-4"><img src="<?php echo $stdimg ?>" height = "150vh" calt="avatar" class="rounded img-responsive z-depth-2"><br></center>
           <a>
             <div class="mask waves-effect waves-light rgba-white-slight"></div>
           </a>
@@ -72,15 +72,12 @@ if ((time() - $_SESSION['last_time']) > 300) {
           <div class="modal fade" id="changepassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
             <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
-              <div class="modal-content blue lighten-3">
-<form class="border border-light p-3" method="POST" action="controller.php" autocomplete="false">
-                <!--Header-->
-                <div class="modal-header">
-                  <img src="<?php echo $stdimg ?>" alt="avatar" class="img-responsive">
-                </div>
+              <div class="modal-content ">
+                <form class="border border-light p-3" method="POST" action="controller.php" autocomplete="false">
+              
 
                 <!--Body-->
-                <div class="modal-body text-center mb-1 indigo lighten-5">
+                <div class="modal-body text-center mb-1">
                   
                   <h7 class="mt-1 mb-2">Student ID: <?php echo "$username"?></h7>
 
@@ -217,7 +214,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
           </div>
          </div>
           
-          <small>Your Date of Birth</small>
+          <small>Your Birthdate</small>
           
             <div class="row">
           

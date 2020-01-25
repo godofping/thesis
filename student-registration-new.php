@@ -253,10 +253,38 @@ if (!isset($_SESSION['accID'])) {
 
 
     </div>
+    <a href="" data-toggle="modal" data-target="#changepassModal" ><button id="testingbutton"  class="btn aqua-gradient" disabled="true">Submit</button></a>
+    <!-- <button class="btn aqua-gradient" id="testingbutton" type="submit" disabled="true">submit</button> -->
 
-    <button class="btn aqua-gradient" id="testingbutton" type="submit" disabled="true">submit</button>
+      
 
-      <input type="text" name="from" value="register_student_information" hidden>
+          <div class="modal fade" id="changepassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+
+            <!-- Change class .modal-sm to change the size of the modal -->
+            <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-content">
+                <form class="border border-light p-3" method="POST" action="controller.php" autocomplete="false">
+                <div class="modal-header">
+                  <strong class="modal-title w-100" id="myModalLabel" style="font-family: Arial Black, Gadget, sans-serif">Confirmation</strong>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <small>By clicking "YES" means all information is VALID and TRUE."No" if you want to change your information.</small>
+                </div>
+                <input type="text" name="from" value="register_student_information" hidden>
+                <div class="modal-footer">
+                  <button class="btn aqua-gradient mt-1" data-dismiss="modal">Yes</button>
+                  <button type="submit" class="btn success-color">No</button>
+                </div>
+              </form>
+              </div>
+            </div>
+          </div>
+
+      
 
       
 
@@ -326,7 +354,7 @@ $('.form-check-input').on('change', function(evt) {
 
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   
   $("input:checkbox").change(function () {
       var st = this.checked;
@@ -338,5 +366,16 @@ $('.form-check-input').on('change', function(evt) {
       }
   });
 
+
+</script> -->
+
+<script type="text/javascript">
+  
+  $("input:checkbox").click(function(){
+    var st = this.checked;
+     if (st) {
+        $("#testingbutton").attr("disabled",false);
+      }
+  });
 
 </script>

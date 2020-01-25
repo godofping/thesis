@@ -18,7 +18,7 @@ if (!isset($_SESSION['adminID'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2>Students Portfolio</h2>
+        <h2><i class="fas fa-folder-open"></i> <b>Students Portfolio</b></h2>
         <hr>
 
       </div>
@@ -94,7 +94,7 @@ if (!isset($_SESSION['adminID'])) {
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
               <th scope="row"><?php echo ucfirst($res['lname'])." ". ucfirst($res['fname'])  ?></th> 
-              <td><button class="btn aqua-gradient" data-toggle="modal" data-target="#editModal<?php echo $res['stportfolioID'] ?>">View</button></td>
+              <td><button class="btn aqua-gradient itogglebutton" data-toggle="modal" data-target="#editModal<?php echo $res['stportfolioID'] ?>">View</button></td>
 
             </tr>
 

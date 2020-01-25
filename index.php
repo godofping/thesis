@@ -25,7 +25,7 @@ if (isset($_SESSION['accID'])) {
       <form class="text-center border form-border border-light p-3" method="POST" action="controller.php" autocomplete="false">
 
           <img src="http://localhost:8080/thesis/logo/download.png" alt="avatar" class="rounded-circle img-responsive">
-          <p class="h6 mb-3" style="font-family: Times New Roman ">NDTC Student Activity Management Information System</p>
+          <p class="h6 mb-3" style="font-family:">NDTC Student Activity Management Information System</p>
 
           <?php if (isset($_GET['status']) and $_GET['status'] == 'login-failed'): ?>
             <div class="alert alert-danger" role="alert">
@@ -65,7 +65,7 @@ if (isset($_SESSION['accID'])) {
 <style type="text/css">
   
 body {
-  background-color: #b3e5fc; 
+  background-color: #f5f5f5 ; 
 }
 
 form{

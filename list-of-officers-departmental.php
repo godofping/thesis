@@ -25,7 +25,7 @@ if (!isset($_SESSION['adminID'])) {
           $departmentName = $resid['departmentClubName'];
           }         
          ?>
-        <h2><?php echo $departmentName; ?></h2>
+        <h2><b><?php echo $departmentName; ?></b></h2>
         <h5>Officers</h5>
         <hr>
 
@@ -111,7 +111,6 @@ if (!isset($_SESSION['adminID'])) {
                   <input type="text" name="from" value="add-departmental-officer" hidden>
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn aqua-gradient">Add</button>
                 </form>
                     </div>
@@ -162,41 +161,37 @@ if (!isset($_SESSION['adminID'])) {
                   <div class="modal-body">
                     <form class=" p-2" method="GET" action="controller.php" autocomplete="false">
 
-               
-                        <div class="row">
-                      <div class="col-12">
-                          <div class="form-group">
-                          <small>Student Name</small>
-                          <select class="form-control" name="stprofID" id="allstudentedit<?php echo $res['departmentmemID']?>" required="">
-                            <?php $qry1 = mysqli_query($connection, "select * from list_student_view where departmentClubId = '".$resid['departmentClubId']."' order by lname asc");
-                            while ($res1 = mysqli_fetch_assoc($qry1)) { ?>
-                              <?php echo '<option value="'.$res1['stprofID'].'">'.$res1['lname'] ." ". $res1['fname'] ." ". $res1['mname'].'</option>'; ?>
-                            <?php } ?>
-                          </select>
-
-                          </div>
-                    </div>
-                    </div>
-
-                    <div class="row">
-                  <div class="col-12">
-                      <div class="form-group">
-                      <small>Position</small>
-                      <select class="form-control" name="positionIDdepartmental" id="cscpositionedit<?php echo $res['departmentmemID'] ?>" required="">
-                        <?php 
-
-                          $qry2 = mysqli_query($connection, "select * from departmental_position_table order by (positionNameDP +0) asc, positionNameDP asc");
-
-                          while ($res2 = mysqli_fetch_assoc($qry2)) { ?>
-                            <option value="<?php echo $res2['positionIDdepartmental']; ?>"><?php echo $res2['positionNameDP']; ?></option>
-                         <?php }
-
-                         ?>
-                      </select>
-
+                      
+                      <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                            <small>Student Name</small>
+                            <input class="form-control" type="text" required="" name="stprofID" list="studentnames"/>
+                            <datalist id="studentnames">
+                                   <?php $qry1 = mysqli_query($connection, "select * from list_student_view where departmentClubId = '".$resid['departmentClubId']."' order by (lname +0) asc, lname asc");
+                                  while ($res1 = mysqli_fetch_assoc($qry1)) { ?>
+                                    <?php echo '<option value="'.$res1['lname'] ." ". $res1['fname'] ." ". $res1['mname'].'">'; ?>
+                              <?php } ?>
+                            </datalist>
+                            </div>
+                        </div>
                       </div>
-                </div>
-                </div>
+
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="form-group">
+                          <small>Position</small>
+                          <input class="form-control" required="" type="text" name="positionIDdepartmental" list="studentpositions"/>
+                          <datalist id="studentpositions">
+                             <?php $qry2 = mysqli_query($connection, "select * from departmental_position_table order by (positionNameDP +0) asc, positionNameDP asc");
+                          while ($res2 = mysqli_fetch_assoc($qry2)) { ?>
+                              <?php echo '<option value="'.$res2['positionNameDP'] .'">'; ?>
+                              <?php } ?>
+                          </datalist>
+                          </div>
+                      </div>
+                    </div>
+
                 <small>Can Creat Announcement</small>
                 <div class="row">
                     <div class="col-12">
@@ -242,14 +237,13 @@ if (!isset($_SESSION['adminID'])) {
                         <h5 align="Center">Do you want to remove <?php echo "<br>". $res['lname'] ." ". $res['fname'] ." ". $res['mname'];  ?><br> from being <?php echo $res['positionNameDP'] ?> ?</h5>
                       </div>
                     </div>
-
+                    <input type="text" name="departmentmemID" value="<?php echo $res['departmentmemID'] ?>" hidden>
                     <input type="text" name="departmentClubId" value="<?php echo $dpID ?>" hidden>
                     <input type="text" name="stprofID" value="<?php echo $res['stprofID'] ?>" hidden>
                     <input type="text" name="from" value="delete-department-position" hidden>
  
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     <button type="submit" class="btn btn-danger">Yes</button>
                     </form>
                   </div>

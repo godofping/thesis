@@ -18,7 +18,7 @@ if (!isset($_SESSION['adminID'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2>Nursing Council</h2>
+        <h2><b>Nursing Council</b></h2>
         <h5>Officers</h5>
         <hr>
 
@@ -113,7 +113,6 @@ if (!isset($_SESSION['adminID'])) {
                   <input type="text" name="from" value="add-nursing-member" hidden>
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn aqua-gradient">Add</button>
                 </form>
               </div>
@@ -164,41 +163,36 @@ if (!isset($_SESSION['adminID'])) {
                   <div class="modal-body">
                     <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
 
-               
-                        <div class="row">
-                      <div class="col-12">
-                          <div class="form-group">
-                          <small>Student Name</small>
-                          <select class="form-control" name="stprofID" id="allstudentedit<?php echo $res['councilID'] ?>" required="">
-                            <?php $qry1 = mysqli_query($connection, "select * from list_student_view where CounID = '".$councilID."' order by lname asc");
-                            while ($res1 = mysqli_fetch_assoc($qry1)) { ?>
-                              <?php echo '<option value="'.$res1['stprofID'].'">'.$res1['lname'] ." ". $res1['fname'] ." ". $res1['mname'].'</option>'; ?>
-                            <?php } ?>
-                          </select>
-
-                          </div>
-                    </div>
-                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                            <small>Student Name</small>
+                            <input class="form-control" type="text" required="" name="stprofID" list="studentnames"/>
+                            <datalist id="studentnames">
+                                   <?php $qry1 = mysqli_query($connection, "select * from list_student_view where CounID = '".$councilID."' order by (lname +0) asc, lname asc");
+                                  while ($res1 = mysqli_fetch_assoc($qry1)) { ?>
+                                    <?php echo '<option value="'.$res1['lname'] ." ". $res1['fname'] ." ". $res1['mname'].'">'; ?>
+                              <?php } ?>
+                            </datalist>
+                            </div>
+                        </div>
+                      </div>
 
                     <div class="row">
-                  <div class="col-12">
-                      <div class="form-group">
-                      <small>Position</small>
-                      <select class="form-control" name="positionIDcouncil" id="cscpositionedit<?php echo $res['councilID'] ?>" required="">
-                        <?php 
-
-                          $qry2 = mysqli_query($connection, "select * from council_position_table order by (positionNamecouncil +0) asc, positionNamecouncil asc");
-
-                          while ($res2 = mysqli_fetch_assoc($qry2)) { ?>
-                            <option value="<?php echo $res2['positionIDcouncil']; ?>"><?php echo $res2['positionNamecouncil']; ?></option>
-                         <?php }
-
-                         ?>
-                      </select>
-
+                        <div class="col-12">
+                          <div class="form-group">
+                          <small>Position</small>
+                          <input class="form-control" required="" type="text" name="positionIDcouncil" list="studentpositions"/>
+                          <datalist id="studentpositions">
+                             <?php  $qry2 = mysqli_query($connection, "select * from council_position_table order by (positionNamecouncil +0) asc, positionNamecouncil asc");
+                              while ($res2 = mysqli_fetch_assoc($qry2)) { ?>
+                              <?php echo '<option value="'.$res2['positionNamecouncil'] .'">'; ?>
+                              <?php } ?>
+                          </datalist>
+                          </div>
                       </div>
-                </div>
-                </div>
+                    </div>
+
                 <small>Can Creat Announcement</small>
                 <div class="row">
                     <div class="col-12">
@@ -243,7 +237,7 @@ if (!isset($_SESSION['adminID'])) {
                       </div>
                     </div>
 
-                    <input type="text" name="stprofID" value="<?php echo $res['stprofID'] ?>" hidden>
+                    <input type="text" name="councilID" value="<?php echo $res['councilID'] ?>" hidden>
                     <input type="text" name="from" value="delete-nursing-position" hidden>
 
                   </div>

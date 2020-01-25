@@ -18,7 +18,7 @@ if (!isset($_SESSION['adminID'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2>Central Student Council Announcement</h2>
+        <h2><i class="fas fa-file"></i> <b>Central Student Council Announcement</b></h2>
         <hr>
 
       </div>

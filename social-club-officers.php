@@ -18,7 +18,7 @@ if (!isset($_SESSION['adminID'])) {
   <div class="row">
       <div class="col-md-12">
 
-        <h2>Social Clubs</h2>
+        <h2><b>Social Clubs</b></h2>
         <hr>
 
       </div>

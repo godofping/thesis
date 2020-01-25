@@ -74,7 +74,7 @@ if (!isset($_SESSION['adminID'])) {
                             $resultID = mysqli_fetch_assoc($qrysocialpos);
 
                             $socID = $resultID['socialClubId'];
-                            $socpos = $resultID['positionName'];
+                            $socpos = $resultID['positionNameSocial'];
                            ?>
                       <?php if ($res1['socialClubId'] == $socID){
                               echo $socpos;
