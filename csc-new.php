@@ -323,7 +323,7 @@ $('#cscposition').editableSelect();
     function(data){
 
       if (data == "") {
-        $("#test").html(data);
+        alert("Congrats");
       }
       else{
         $("#test").html(data);
