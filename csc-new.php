@@ -129,7 +129,7 @@ if (!isset($_SESSION['adminID'])) {
               <th scope="row"><?php echo $res['positionNamecsc']; ?></th> 
               <th scope="row"><?php echo $res['lname'] ." ". $res['mname'] ." ". $res['fname']; ?></th>
               <th scope="row"><?php echo $res['perpost']; ?></th>
-              <td><button class="btn aqua-gradient" data-toggle="modal" data-target="#editModal<?php echo $res['cscmemID'] ?>"><i class="far fa-edit"></i></button> <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?php echo $res['cscmemID'] ?>"><i class="far fa-trash-alt"></i></button></td>
+              <td><a href="csc-member-edit.php?from=checkIDforeditmemcsc&cscmemID=<?php echo $res['cscmemID'] ?>"><button class="btn aqua-gradient"><i class="far fa-edit"></i></button> <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?php echo $res['cscmemID'] ?>"><i class="far fa-trash-alt"></i></button></td>
 
             </tr>
 
@@ -308,9 +308,9 @@ $('#cscposition').editableSelect();
 
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   
-      
+ 
   $("#buttonsendawawawa").click(function(){
 
     studentname = $("#editstudent").val();
@@ -333,4 +333,4 @@ $('#cscposition').editableSelect();
 
 });
 
-</script>
+</script> -->
