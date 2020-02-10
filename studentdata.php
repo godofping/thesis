@@ -110,7 +110,7 @@ $('.dataTables_length').addClass('bs-select');
 
   .card-img{
 
-  background-image: url("http://localhost:8080/thesis/logo/download.png");
+  background-image: url("logo/download.png");
   background-position: left;
   margin-left: 150px;
   background-repeat: no-repeat;

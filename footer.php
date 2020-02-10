@@ -261,7 +261,7 @@ function display(toWhom, message, subjectann)
         timeout: 8000,                  // Timeout before notification closes automatically.
         vibrate: [100, 100, 100],       // An array of vibration pulses for mobile devices.
         onClick: function() {
-           http://localhost:8080/thesis/students-dashboard.php
+           students-dashboard.php
             console.log(this);
         }  
     });
@@ -393,7 +393,7 @@ function display(toWhom, message, subjectann)
         timeout: 8000,                  // Timeout before notification closes automatically.
         vibrate: [100, 100, 100],       // An array of vibration pulses for mobile devices.
         onClick: function() {
-           http://localhost:8080/thesis/admin-dashboard.php
+           admin-dashboard.php
             console.log(this);
         }  
     });

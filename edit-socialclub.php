@@ -51,7 +51,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
       <div class="card">
 
-         <h5 class="card-header blue lighten-1 white-text text-center py-4"><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
+         <h5 class="card-header blue lighten-1 white-text text-center py-4"><img src="logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
             <strong>Notre Dame of Tacurong College</strong><br>
             <small>City of Tacurong</small>
         </h5>

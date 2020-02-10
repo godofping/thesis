@@ -137,7 +137,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
     <div class="container">
       <div class="card">
     
-    <h5 class="card-header green accent-4 white-text text-center py-4"><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
+    <h5 class="card-header green accent-4 white-text text-center py-4"><img src="logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
         <strong><?php echo $rescsc['socialClubName']; ?></strong><br>
         <small style="font-size: ">Notre Dame of Tacurong College</small><br>
         <small>City of Tacurong</small>

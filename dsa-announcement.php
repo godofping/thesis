@@ -44,7 +44,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
               <!-- Material form contact -->
     <div class="card">
 
-     <h5 class="card-header blue lighten-1 white-text text-center py-4"><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
+     <h5 class="card-header blue lighten-1 white-text text-center py-4"><img src="logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
         <strong>Office of The Director Student Affairs</strong><br>
         <small style="font-size: ">Notre Dame of Tacurong College</small><br>
         <small>City of Tacurong</small>

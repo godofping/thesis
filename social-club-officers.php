@@ -89,7 +89,7 @@ $('.dataTables_length').addClass('bs-select');
 
 .db {
   /* The image used */
-  background-image: url("http://localhost:8080/thesis/logo/student.png");
+  background-image: url("logo/student.png");
 
   /* Full height */
   height: 100%;

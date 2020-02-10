@@ -24,7 +24,7 @@ if (isset($_SESSION['accID'])) {
       <!-- Default form login -->
       <form class="text-center border form-border border-light p-3" method="POST" action="controller.php" autocomplete="false">
 
-          <img src="http://localhost:8080/thesis/logo/download.png" alt="avatar" class="rounded-circle img-responsive">
+          <img src="logo/download.png" alt="avatar" class="rounded-circle img-responsive">
           <p class="h6 mb-3" style="font-family:">NDTC Student Activity Management Information System</p>
 
           <?php if (isset($_GET['status']) and $_GET['status'] == 'login-failed'): ?>

@@ -476,7 +476,7 @@ $('#socialbadge').load('check-st-social-badge.php');
 }
 .db {
   /* The image used */
-  background-image: url("http://localhost:8080/thesis/logo/student.png");
+  background-image: url("logo/student.png");
 
   /* Full height */
   height: 100%;
@@ -493,7 +493,7 @@ $('#socialbadge').load('check-st-social-badge.php');
 
 .card-img{
 
-  background-image: url("http://localhost:8080/thesis/logo/download.png");
+  background-image: url("logo/download.png");
   background-position: left;
   background-repeat: no-repeat;
   background-size: 13%;

@@ -321,7 +321,7 @@ header("Location: index.php");
     
   .card-img{
 
-  background-image: url("http://localhost:8080/thesis/logo/download.png");
+  background-image: url("logo/download.png");
   background-position: left;
   background-repeat: no-repeat;
   background-size: 10%;
