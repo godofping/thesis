@@ -1,7 +1,7 @@
  <header>
 
   <nav class="navbar fixed-top navbar-expand-lg navbar navbar-dark">
-    <a class="navbar-brand" href="students-dashboard.php"><img src="http:/thesis/logo/download.png" height="30" alt="mdb logo"><b style="color: black; font-family: Arial Black, Gadget, sans-serif"> |</b><b style="color: black; font-family: Arial Black, Gadget, sans-serif"> Samis</b></a>
+    <a class="navbar-brand" href="students-dashboard.php"><img src="logo/download.png" height="30" alt="mdb logo"><b style="color: black; font-family: Arial Black, Gadget, sans-serif"> |</b><b style="color: black; font-family: Arial Black, Gadget, sans-serif"> Samis</b></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars" style="color: black"></i>
