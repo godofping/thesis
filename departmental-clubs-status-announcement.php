@@ -23,7 +23,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
   <div class="row">
       <div class="col-md-12">
-
+        <b><a href="departmental-clubs-announcement.php"><i class="fas fa-caret-left"></i> <u>Back</u></a></b>
         <h2>Departmental Clubs Pending Announcement</h2>
         <hr>
 

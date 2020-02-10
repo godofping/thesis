@@ -25,6 +25,7 @@ if (!isset($_SESSION['adminID'])) {
           $socialName = $resid['socialClubName'];
           }         
          ?>
+        <b><a href="social-club-officers.php"><i class="fas fa-caret-left"></i> <u>Back</u></a></b>
         <h2><b><?php echo $socialName; ?></b></h2>
         <h5>Officers</h5>
         <hr>
@@ -34,8 +35,8 @@ if (!isset($_SESSION['adminID'])) {
 
     <div class="row">
       <div class="col-md-12">
-
-        <button class="btn blue-gradient" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> ADD officer</button>
+        
+        <button class="btn blue-gradient itogglebutton" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> ADD officer</button>
 
         <?php 
 
@@ -111,7 +112,7 @@ if (!isset($_SESSION['adminID'])) {
                   <input type="text" name="from" value="add-social-officer" hidden>
 
               <div class="modal-footer">
-                <button type="submit" class="btn aqua-gradient">Add</button>
+                <button type="submit" class="btn aqua-gradient itogglebutton">Add</button>
                 </form>
                     </div>
                   </div>
@@ -121,12 +122,12 @@ if (!isset($_SESSION['adminID'])) {
           </div>
         </div>
 
-        <div class="row mt-5 indigo lighten-5">
-      <div class="col-md-12 z-depth-2">
+        <div class="row mt-5">
+      <div class="col-md-12 z-depth-2 form-border">
 
         <div class="table-responsive text-nowrap">
 
-        <table class="table">
+        <table class="table" id="dtBasicExample">
           <thead>
             <tr>
               <th scope="col">Position</th>
@@ -144,7 +145,7 @@ if (!isset($_SESSION['adminID'])) {
               <th scope="row"><?php echo $res['positionNameSocial']; ?></th> 
               <th scope="row"><?php echo $res['lname'] ." ". $res['mname'] ." ". $res['fname']; ?></th>
               <th scope="row"><?php echo $res['perpost']; ?></th>
-              <td><button class="btn aqua-gradient" data-toggle="modal" data-target="#editModal<?php echo $res['socialoffID'] ?>"><i class="far fa-edit"></i></button> <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?php echo $res['stprofID'] ?>"><i class="far fa-trash-alt"></i></button></td>
+              <td><a href="social-edit-officers.php?from=checkIDforsocialoffice&socialClubId=<?php echo $socialID ?>&socialoffID=<?php echo $res['socialoffID'] ?>"><button class="btn aqua-gradient itogglebutton"><i class="far fa-edit"></i></button></a> <button class="btn btn-danger itogglebutton" data-toggle="modal" data-target="#deleteModal<?php echo $res['stprofID'] ?>"><i class="far fa-trash-alt"></i></button></td>
 
             </tr>
 
@@ -242,7 +243,7 @@ if (!isset($_SESSION['adminID'])) {
  
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger">Yes</button>
+                    <button type="submit" class="btn btn-danger itogglebutton">Yes</button>
                     </form>
                   </div>
                 </div>
@@ -314,5 +315,30 @@ rex();
 $('#allstudent').editableSelect();
 
 $('#cscposition').editableSelect();
+
+</script>
+
+<style type="text/css">
+
+  .form-border{
+  border-radius: 12px;
+  }
+
+  .itogglebutton{
+  border-radius: 12px;
+  }
+
+  .circlebutton{
+    border-radius: 50%;
+  }
+
+</style>
+
+<script type="text/javascript">
+  
+  $(document).ready(function () {
+$('#dtBasicExample').DataTable();
+$('.dataTables_length').addClass('bs-select');
+});
 
 </script>

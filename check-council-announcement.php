@@ -4,10 +4,28 @@ include 'connection.php';
 
 
 $message = "";
+$tomess = "";
 
+$to = $_POST['to'];
+$subject = $_POST['subject'];
+$messages = $_POST['message'];
 $timestart = date('Y-m-d h:i:s', strtotime($_POST['timestart']));
 $timeend = date('Y-m-d h:i:s', strtotime($_POST['timeend']));
 $venue = $_POST['venue'];
+
+// if (empty($to) ) {
+	
+// 	 $tomess .="try";
+// } else {
+// 	# code...
+// }
+
+
+if (strtotime($timeend)<strtotime($timestart)) {
+	$message .="Please Check the time if its correct.";
+}else if (strtotime($timestart)==strtotime($timeend)) {
+	$message .="Please Check the time if its correct.";
+}
 
  $qry= mysqli_query($connection, "select * from dsa_announcement_view where isApproved = 'Yes' and  timeStart >= '" . $timestart . "' and timeEnd < '" . $timeend . "' and venueID = '" . $venue . "' ");
 
@@ -50,7 +68,7 @@ while ($res123 = mysqli_fetch_assoc($qry)) {
 };
 
 
-
+// echo $tomess;
 echo $message;
 
  ?>

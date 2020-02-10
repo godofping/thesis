@@ -92,27 +92,27 @@ include("student-header.php");
   <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="osa-tab" data-toggle="tab" href="#osa" role="tab" aria-controls="osa"
-      aria-selected="true" style="color: black; font-family: Arial Black, Gadget, sans-serif">OSA<?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeEndSubmittedosa)):?> 
-        <span class="badge badge-danger ml-1">New</span>
-      <?php endif ?></a>
+      aria-selected="true" style="color: black; font-family: Arial Black, Gadget, sans-serif">OSA
+         <span id="osabadge" class="badge badge-danger ml-1"></span>     
+      </a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="csc-tab" data-toggle="tab" href="#csc" role="tab" aria-controls="csc"
-      aria-selected="false" style="color: black; font-family: Arial Black, Gadget, sans-serif">CSC<?php if (strtotime(date('Y-m-d h:i:s'))>strtotime($timeEndSubmittedcsc)):?> 
-        <span class="badge badge-danger ml-1">New</span>
-      <?php endif ?></a>
+      aria-selected="false" style="color: black; font-family: Arial Black, Gadget, sans-serif">CSC
+        <span id="cscbadge" class="badge badge-danger ml-1"></span>
+      </a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="council-tab" data-toggle="tab" href="#council" role="tab" aria-controls="council"
-      aria-selected="false" style="color: black; font-family: Arial Black, Gadget, sans-serif"><?php echo $councilName; ?><?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeEndSubmittedcouncil)):?> 
-        <span class="badge badge-danger ml-1">New</span>
-      <?php endif ?></a>
+      aria-selected="false" style="color: black; font-family: Arial Black, Gadget, sans-serif"><?php echo $councilName; ?>
+        <span id="councilbadge" class="badge badge-danger ml-1"></span>
+      </a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="departmental-tab" data-toggle="tab" href="#departmental" role="tab" aria-controls="departmental"
-      aria-selected="false" style="color: black; font-family: Arial Black, Gadget, sans-serif"><?php echo $dpclubcode; ?> Club<?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeEndSubmitteddp)):?> 
-        <span class="badge badge-danger ml-1">New</span>
-      <?php endif ?></a>
+      aria-selected="false" style="color: black; font-family: Arial Black, Gadget, sans-serif"><?php echo $dpclubcode; ?> Club
+        <span id="dpbadge" class="badge badge-danger ml-1"></span>
+      </a>
   </li>
   <li class="nav-item">
   
@@ -121,9 +121,9 @@ include("student-header.php");
 
       $qrysocialcode = mysqli_query($connection, "select * from student_social_club_view where stprofID = '".$_SESSION['stprofID']."' ");
        while ($ressocailcode = mysqli_fetch_assoc($qrysocialcode)) {?>
-        <?php echo $ressocailcode['socialClubcode'] ." Club " ?><?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeEndSubmittedsocial)):?> 
-        <span class="badge badge-danger ml-1">New</span>
-      <?php endif ?>
+        <?php echo $ressocailcode['socialClubcode'] ." Club " ?>
+        <span id="socialbadge" class="badge badge-danger ml-1"></span>
+      
       <?php } ?>
        </a>
     
@@ -144,14 +144,14 @@ include("student-header.php");
               <!-- Material form contact -->
     <div class="card z-depth-2">
 
-     <h5 class="card-header green accent-4 white-text text-center py-4 card-img">
+     <h5 class="card-header green accent-4 white-text text-center py-4 card-img ">
         <strong style="font-family: Arial Black, Gadget, sans-serif;">Office of Student Affairs</strong><br>
         <small style="font-family: Alfa Slab One">Notre Dame of Tacurong College</small><br>
         <small style="font-family: Alfa Slab One">City of Tacurong</small>
     </h5>
 
     <!--Card content-->
-    <div class="card-body  px-lg-5 pt-0">
+    <div class="card-body px-lg-5 pt-0 form-border">
 
         <!-- Form -->   
         <div class="text-center" style="color: #757575;">
@@ -283,8 +283,10 @@ include("student-header.php");
             </div> 
 
             <div class="md-form mt-3" style="text-align: left;">
-               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> Date: <?php echo date('F d, Y h:i A', strtotime($resdpc['timeStart'])); ?>, until <?php echo date('F d, Y h:i A', strtotime($resdpc['timeEnd'])); ?></p>
+               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> Start: <?php echo date('F d, Y h:i A', strtotime($resdpc['timeStart'])); ?></p>
+               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> End: <?php echo date('F d, Y h:i A', strtotime($resdpc['timeEnd'])); ?></p>
             </div>
+
             <!-- To Whom -->
             <div class="md-form mt-3" style="text-align: left;">
               <p style="color: red;font-family: Arial Black, Gadget, sans-serif">Venue: <?php echo $resdpc['venueName']; ?></p>
@@ -344,10 +346,10 @@ include("student-header.php");
             </div> 
 
             <div class="md-form mt-3" style="text-align: left;">
-               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> Date: <?php echo date('F d, Y h:i A', strtotime($resdp['timeStart'])); ?>, until <?php echo date('F d, Y h:i A', strtotime($resdp['timeEnd'])); ?></p>
-               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> Date: <?php echo date('F d, Y h:i A', strtotime($resdp['timeStart'])); ?>, until <?php echo date('F d, Y h:i A', strtotime($resdp['timeEnd'])); ?></p>
+               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> Start: <?php echo date('F d, Y h:i A', strtotime($resdp['timeStart'])); ?></p>
+               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> End: <?php echo date('F d, Y h:i A', strtotime($resdp['timeEnd'])); ?></p>
             </div>
-
+        
              <div class="md-form mt-3" style="text-align: left;">
               <p style="color: red;font-family: Arial Black, Gadget, sans-serif">Venue: <?php echo $resdp['venueName']; ?></p>
             </div>
@@ -435,6 +437,7 @@ include("student-header.php");
           </div>
 
     </div>
+
     </body>  
 
 
@@ -442,10 +445,30 @@ include("student-header.php");
 
 <?php include('footer.php'); ?>
 
+<script type="text/javascript">
+var auto_refresh = setInterval(
+function ()
+{
+$('#osabadge').load('check-osa-badge.php');
+
+if( $('#osabadge').text() == "")
+{
+   $('#osabadge').hide();
+}
+
+
+$('#cscbadge').load('check-st-csc-badge.php');
+$('#councilbadge').load('check-st-council-badge.php');
+$('#dpbadge').load('check-st-dp-badge.php');
+$('#socialbadge').load('check-st-social-badge.php');
+}, 3000); // refresh every 10000 milliseconds
+
+</script>
+  
 <style type="text/css">
  
  body {
-  background-color: #f5f5f5; 
+  background-color: #fefeff; 
 }
 
  body, html {
@@ -464,9 +487,9 @@ include("student-header.php");
   background-size: 75%;
 }
 
-/*.text-color-test{
-  text-shadow: 3px 3px #000000;
-}*/
+.form-border{
+  border-radius: 12px;
+  }
 
 .card-img{
 
@@ -477,3 +500,4 @@ include("student-header.php");
 }
 
 </style>
+

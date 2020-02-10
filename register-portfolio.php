@@ -28,7 +28,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
   <div class="row">
       <div class="col-md-12">
-
+        <b><a href="student-portfolio.php"><i class="fas fa-caret-left"></i> <u>Back</u></a></b>
         <h2><i class="far fa-folder-open"></i> <b>My Portfolio</b></h2>
         <hr>
 

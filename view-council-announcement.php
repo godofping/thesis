@@ -56,13 +56,13 @@ if (!isset($_SESSION['adminID'])) {
               <td><?php echo $rescscann['dateSubmit']; ?></td>
               <td><?php echo $rescscann['toWhom']; ?></td>
               <td><?php echo $rescscann['subjectann']; ?></td> 
-              <td><button class="btn blue-gradient" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['council_announcementID']; ?>">View</button></td>
+              <td><button class="btn blue-gradient itogglebutton" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['council_announcementID']; ?>">View</button></td>
 
             </tr>
 
             <div class="modal fade" id="modalContactForm<?php echo $rescscann['council_announcementID']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header text-center">
                 <h4 class="modal-title w-100 font-weight-bold">Announcement</h4>
@@ -117,7 +117,7 @@ if (!isset($_SESSION['adminID'])) {
                 $timeEndSubmitted = date('Y-m-d h:i:s', strtotime($timeend));
 
 
-                $qry123 = mysqli_query($connection, "select * from dsa_announcement_table where isApproved = 'Yes' and dsaAnnouncementID <> '" . $rescscann['CounID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
+                $qry123 = mysqli_query($connection, "select * from dsa_announcement_view where isApproved = 'Yes' and dsaAnnouncementID <> '" . $rescscann['CounID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
 
                 while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
                  
@@ -142,7 +142,7 @@ if (!isset($_SESSION['adminID'])) {
                  <?php 
 
 
-                $qry123 = mysqli_query($connection, "select * from council_announcement_table where isApproved = 'Yes' and council_announcementID  <> '" . $rescscann['CounID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
+                $qry123 = mysqli_query($connection, "select * from council_club_announcement_view where isApproved = 'Yes' and council_announcementID  <> '" . $rescscann['CounID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
 
                 while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
                  
@@ -166,7 +166,7 @@ if (!isset($_SESSION['adminID'])) {
                  <?php 
 
 
-                $qry123 = mysqli_query($connection, "select * from social_announcement_table where isApproved = 'Yes' and social_announcementID <> '" . $rescscann['CounID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
+                $qry123 = mysqli_query($connection, "select * from social_club_announcement_view where isApproved = 'Yes' and social_announcementID <> '" . $rescscann['CounID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
 
                 while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
                  
@@ -180,13 +180,13 @@ if (!isset($_SESSION['adminID'])) {
             
               <div class="modal-footer d-flex justify-content-center">
                 <?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeStartSubmitted)): ?>
-                <button type="button" class="btn aqua-gradient" data-toggle="modal" data-target="#exampleModalCenter<?php echo $rescscann['council_announcementID']; ?>">Approve <i class="fas fa-paper-plane-o ml-1"></i></button>  
+                <button type="button" class="btn aqua-gradient itogglebutton" data-toggle="modal" data-target="#exampleModalCenter<?php echo $rescscann['council_announcementID']; ?>">Approve <i class="fas fa-paper-plane-o ml-1"></i></button>  
                 <?php endif ?>
 
                 <?php if (strtotime(date('Y-m-d h:i:s'))>strtotime($timeStartSubmitted)): ?>
-                <button type="button" class="btn aqua-gradient" data-toggle="tooltip" data-placement="top" title="Date is expired" disabled="">Date Expired<i class="fas fa-paper-plane-o ml-1"></i></button>  
+                <button type="button" class="btn aqua-gradient itogglebutton" data-toggle="tooltip" data-placement="top" title="Date is expired" disabled="">Date Expired<i class="fas fa-paper-plane-o ml-1"></i></button>  
                 <?php endif ?>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#rejectmodal<?php echo $rescscann['council_announcementID']; ?>">Reject <i class="fas fa-paper-plane-o ml-1"></i></button>
+                <button type="button" class="btn btn-danger itogglebutton" data-toggle="modal" data-target="#rejectmodal<?php echo $rescscann['council_announcementID']; ?>">Reject <i class="fas fa-paper-plane-o ml-1"></i></button>
               </div>
             </form> 
           </div>
@@ -214,8 +214,8 @@ if (!isset($_SESSION['adminID'])) {
                 <p>please confirm!</p>
               </div>
               <div class="modal-footer">
-                <a href="controller.php?from=approve-departmentalcouncil-announcement&council_announcementID=<?php echo $rescscann['council_announcementID']; ?>"><button type="button" class="btn aqua-gradient">Yes</button></a>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                <a href="controller.php?from=approve-departmentalcouncil-announcement&council_announcementID=<?php echo $rescscann['council_announcementID']; ?>"><button type="button" class="btn aqua-gradient itogglebutton">Yes</button></a>
+                <button type="button" class="btn btn-danger itogglebutton" data-dismiss="modal">No</button>
               </div>
             </div>
           </div>
@@ -248,8 +248,8 @@ if (!isset($_SESSION['adminID'])) {
               <input type="text" name="from" value="reject-council-announcement" hidden>
 
               <div class="modal-footer">
-                <button type="submit" class="btn aqua-gradient">Yes</button></a>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                <button type="submit" class="btn aqua-gradient itogglebutton">Yes</button></a>
+                <button type="button" class="btn btn-danger itogglebutton" data-dismiss="modal">No</button>
               </div>
               </form>
             </div>
@@ -282,3 +282,9 @@ $('.dataTables_length').addClass('bs-select');
 });
 
 </script>
+
+<style type="text/css">
+  .itogglebutton{
+  border-radius: 12px;
+}
+</style>

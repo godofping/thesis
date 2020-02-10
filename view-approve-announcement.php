@@ -7,6 +7,9 @@ if (!isset($_SESSION['adminID'])) {
 
  include("admin-header.php");
  ?>
+ <body>
+
+   <div class="db"> 
 <!--Main Layout-->
 <main class=" py-5 mt-5">
 
@@ -37,22 +40,22 @@ if (!isset($_SESSION['adminID'])) {
 
             <tr>
               <td scope="row">Central Student Council</td>
-              <td><a href="view-csc-announcement-approve.php"><button class="btn blue-gradient">View</button></a>
+              <td><a href="view-csc-announcement-approve.php"><button class="btn blue-gradient itogglebutton">View</button></a>
             </tr>
 
              <tr>
               <td scope="row">Departmental Council</td>
-              <td><a href="view-council-announcement-approve.php"><button class="btn blue-gradient">View</button></a>
+              <td><a href="view-council-announcement-approve.php"><button class="btn blue-gradient itogglebutton">View</button></a>
             </tr>
 
             <tr>
               <td scope="row">Departmental Clubs</td>
-              <td><a href="view-departmental-club-announcement-approve.php"><button class="btn blue-gradient">View</button></a>
+              <td><a href="view-departmental-club-announcement-approve.php"><button class="btn blue-gradient itogglebutton">View</button></a>
             </tr>
 
              <tr>
               <td scope="row">Social Clubs</td>
-              <td><a href="view-social-club-announcement-approve.php"><button class="btn blue-gradient">View</button></a>
+              <td><a href="view-social-club-announcement-approve.php"><button class="btn blue-gradient itogglebutton">View</button></a>
             </tr>
                   
           </tbody>
@@ -66,9 +69,47 @@ if (!isset($_SESSION['adminID'])) {
 
 </main>
 <!--Main Layout-->
-
+  </div>
+</boody>
 
 
 <?php include('footer.php'); ?>
 
 
+<style type="text/css">
+ 
+ body {
+  background-color: #f5f5f5; 
+}
+
+ body, html {
+  height: 100%;
+}
+
+.db {
+  /* The image used */
+  background-image: url("http://localhost:8080/thesis/logo/student.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-size: 75%;
+}
+
+/*.text-color-test{
+  text-shadow: 3px 3px #000000;
+}*/
+
+
+  .itogglebutton{
+  border-radius: 12px;
+  }
+
+ .table-radius{
+  border-radius: 12px;
+ }
+
+</style>

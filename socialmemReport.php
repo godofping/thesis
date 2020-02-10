@@ -15,9 +15,37 @@ if (!isset($_SESSION['adminID'])) {
 
   <div class="container">
 
+    <?php 
+          if (isset($_GET['from']) and $_GET['from'] == 'checkIDforsocialofficer') {
+          $qryid = mysqli_query($connection, "select * from social_club_view where socialClubId = '".$_GET['socialClubId']."' ");
+          $resid = mysqli_fetch_assoc($qryid);
+          $socialClubId = $resid['socialClubId'];
+          $socialClubName = $resid['socialClubName'];
+
+          $title = "";
+
+          if (isset($_GET['officer'])) {
+            $title .= 'Officers';
+          }else if (isset($_GET['member'])) {
+            $title .= 'Members';
+          }
+
+          }         
+
+         ?>
+
   <div class="row">
       <div class="col-md-12">
-        <h2><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive"> List of Members of Social Clubs</h2>
+        <h4><a id="print" style="color: #289DE5;" onclick="window.print();">Print Portfolio</a><a href="AdminReport.php" id="back" style="float: right"> Go back</a></h4>  
+        <h5 class=" black-text text-center py-4 card-img">
+            <strong style="font-family: Arial Black, Gadget, sans-serif; margin-right: 300px">Office of Student Affairs</strong><br>
+            <strong style="font-family: Arial Black, Gadget, sans-serif; margin-right: 300px">NOTRE DAME OF TACURONG COLLEGE</strong><br>
+            <small style="font-family: Alfa Slab One; margin-right: 300px">City of Tacurong</small>
+        </h5>
+        <div class="md-form mt-1" style="text-align: center;">
+              <p style="color: black"><b><U>List of <?php echo $title; ?> of <?php echo $socialClubName; ?> Clubs</U></p></b>
+            </div>
+        
         <hr>
       </div>
     </div>
@@ -42,53 +70,44 @@ if (!isset($_SESSION['adminID'])) {
           </thead>
           <tbody>
             <?php 
-            $qry = mysqli_query($connection, "select * from list_student_view");
+            $qry = mysqli_query($connection, "select * from all_social_report_view where socialClubId = '".$socialClubId."' ");
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
               <td scope="row"><?php echo $res['StudentID']; ?></td> 
               <td scope="row"><?php echo $res['lname'] ." ". $res['fname'] ." ". $res['mname']; ?></td>
               <td scope="row">
-                <ul>
-                <?php 
-
-                  $qry1 = mysqli_query($connection, "select * from student_social_club_view where stprofID = '".$res['stprofID']."'");
-                  while($res1 = mysqli_fetch_assoc($qry1)){ ?>
-                   <li>
-                    <?php echo $res1['socialClubName']; ?>
-                  </li>
-
-                 <?php }
-
-                 ?>
-                </ul>
-              </td>
-              <td scope="row">
-                <ul>
-                <?php 
-                  $qry1 = mysqli_query($connection, "select * from student_social_club_view where stprofID = '".$res['stprofID']."'");
-                  while($res1 = mysqli_fetch_assoc($qry1)){ ?>
-                   <li>
                     <?php 
 
-                            $qrysocialpos = mysqli_query($connection, "select * from social_officerandmembers_view where stprofID = ".$res1['stprofID']." ");
+                  $qry1 = mysqli_query($connection, "select * from student_social_club_view where stprofID = '".$res['stprofID']."' and socialClubId = '".$socialClubId."' ");
+                  
+
+                  while ($res1 = mysqli_fetch_assoc($qry1)) {
+                    $socialClubqry = $res1['socialClubId'];
+                    if ($socialClubqry == $socialClubId) {
+                    echo $res['socialClubName'];
+                   }
+                  }
+
+                   ?>
+              </td>
+             <td scope="row"> 
+              <ul>
+                   <li>
+                   <?php 
+                            $qrysocialpos = mysqli_query($connection, "select * from social_officerandmembers_view where stprofID = '".$res['stprofID']."' ");
                             $resultID = mysqli_fetch_assoc($qrysocialpos);
 
                             $socID = $resultID['socialClubId'];
                             $socpos = $resultID['positionNameSocial'];
                            ?>
-                      <?php if ($res1['socialClubId'] == $socID){
+                      <?php if ($socialClubqry == $socID){
                               echo $socpos;
                               }else{
                                 echo "Member";
                               } ?>
                   </li>
-
-                 <?php }
-
-                 ?>
                 </ul>
-              </td>
-
+             </td>   
             </tr>
 
             <?php } ?>
@@ -109,65 +128,24 @@ if (!isset($_SESSION['adminID'])) {
 
 <?php include('footer.php'); ?>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/datatables.min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/datatables.min.css" />
-
-
-<script type="text/javascript">
+<style type="text/css">
   
-  $(document).ready(function () {
-    $('#dtBasicExample').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'csv',
-                className: 'btn btn-outline btn-sm',
-                text: 'Save to CSV',
-                title:"LIST OF MEMBERS OF SOCIAL CLUBS"
-            },
-            {
-                extend: 'excel',
-                className: 'btn btn-outline btn-sm',
-                text: 'Save to Excel',
-                title:"LIST OF MEMBERS OF SOCIAL CLUBS"
-            },
-            {
-                extend: 'print',
-                className: 'btn btn-outline btn-sm',
-                text: 'Print Table',
-                title:"LIST OF MEMBERS OF SOCIAL CLUBS"
-            },
-            {
-                extend: 'pdf',
-                className: 'btn btn-outline btn-sm',
-                text: 'Save to PDF',
-                orientation: 'landscape',
-                pageSize: 'A4',
-                title:"LIST OF MEMBERS OF SOCIAL CLUBS"
-            },
-            {
-                extend: 'copy',
-                className: 'btn btn-outline btn-sm',
-                text: 'Copy to clipboard',
-                title:"LIST OF MEMBERS OF SOCIAL CLUBS"
-            }
-        ]
-    });
-    $('#dtMaterialDesignExample_wrapper').find('label').each(function () {
-        $(this).parent().append($(this).children());
-    });
-    $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('input').each(function () {
-        $('input').attr("placeholder", "Search");
-        $('input').removeClass('form-control-sm');
-    });
-    $('#dtMaterialDesignExample_wrapper .dataTables_length').addClass('d-flex flex-row');
-    $('#dtMaterialDesignExample_wrapper .dataTables_filter').addClass('md-form');
-    $('#dtMaterialDesignExample_wrapper select').removeClass('custom-select custom-select-sm form-control form-control-sm');
-    $('#dtMaterialDesignExample_wrapper select').addClass('mdb-select');
-    $('#dtMaterialDesignExample_wrapper .mdb-select').material_select();
-    $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('label').remove();
-});
-</script>
+  @media print {
+  #print {
+    display: none;
+  }
+  #back {
+    display: none;
+  }
+}
+
+  .card-img{
+
+  background-image: url("http://localhost:8080/thesis/logo/download.png");
+  background-position: left;
+  margin-left: 150px;
+  background-repeat: no-repeat;
+  background-size: 10%;
+}
+
+</style>

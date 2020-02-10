@@ -8,8 +8,8 @@ if (!isset($_SESSION['adminID'])) {
  include("admin-header.php");
  ?>
 
-
-
+<body>
+    <div class="db">
 <!--Main Layout-->
 <main class=" py-5 mt-5">
 
@@ -24,7 +24,7 @@ if (!isset($_SESSION['adminID'])) {
       </div>
     </div>
 
-    <div class="row mt-5 grey lighten-5 z-depth-2">
+    <div class="row mt-5 z-depth-2 form-border">
       <div class="col-md-12">
 
         <div class="table-responsive text-nowrap">
@@ -42,7 +42,7 @@ if (!isset($_SESSION['adminID'])) {
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
               <td scope="row"><?php echo $res['socialClubName']; ?></td>
-              <td><a href="list-of-officers-social.php?from=checkIDforsocialofficer&socialClubId=<?php echo $res['socialClubId']; ?>"><button type="button" class="btn aqua-gradient"><i class="far fa-user"></i> Officers</button></a></td>
+              <td><a href="list-of-officers-social.php?from=checkIDforsocialofficer&socialClubId=<?php echo $res['socialClubId']; ?>"><button type="button" class="btn aqua-gradient itogglebutton"><i class="far fa-user"></i> Officers</button></a></td>
 
             </tr>
 
@@ -61,7 +61,8 @@ if (!isset($_SESSION['adminID'])) {
 
 </main>
 <!--Main Layout-->
-
+</div>
+</body>
 
 
 <?php include('footer.php'); ?>
@@ -74,3 +75,37 @@ $('.dataTables_length').addClass('bs-select');
 });
 
 </script>
+
+<style type="text/css">
+
+   
+ body {
+  background-color: #f5f5f5; 
+}
+
+ body, html {
+  height: 100%;
+}
+
+.db {
+  /* The image used */
+  background-image: url("http://localhost:8080/thesis/logo/student.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-size: 75%;
+}
+  
+  .form-border{
+  border-radius: 12px;
+  }
+
+  .itogglebutton{
+  border-radius: 12px;
+  }
+
+</style>

@@ -118,15 +118,15 @@ if (!isset($_SESSION['adminID'])) {
 
 
     <div class="row mt-5">
-      <div class="col-md-12 z-depth-2">
+      <div class="col-md-12 z-depth-2 form-border">
 
         <div class="table-responsive text-nowrap">
 
         <table class="table" id="dtBasicExample">
           <thead>
             <tr>
-              <th scope="col">Course Name</th>
               <th scope="col">Course Code</th>
+              <th scope="col">Course Name</th>
               <th scope="col">Council</th>
               <th scope="col">Department Name</th>
               <th scope="col">Actions</th>
@@ -280,6 +280,11 @@ $('.dataTables_length').addClass('bs-select');
 </script>
 
 <style type="text/css">
+
+.form-border{
+  border-radius: 12px;
+  }
+
   .itogglebutton{
   border-radius: 12px;
 }

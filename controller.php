@@ -56,14 +56,14 @@ if (isset($_GET['from']) and $_GET['from'] == 'logout') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'add-course') {
 	
-	mysqli_query($connection, "insert into course_table (CourseName,CounID , departmentClubId,coursecode) values ('".$_POST['courseName']."', '".$_POST['CounID']."', '".$_POST['departmentId']."', '".$_POST['coursecode']."' )");
+	mysqli_query($connection, "insert into course_table (CourseName,CounID , departmentClubId,coursecode) values ('".mysqli_real_escape_string($connection,$_POST['courseName'])."', '".$_POST['CounID']."', '".$_POST['departmentId']."', '".mysqli_real_escape_string($connection,$_POST['coursecode'])."' )");
 
 	 header("Location: add-course.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'add-social-club') {
 	
-	mysqli_query($connection, "insert into social_club_table (socialClubName,socialClubcode) values ('" . $_POST['socialClubName'] . "','" . $_POST['socialClubcode'] . "' )");
+	mysqli_query($connection, "insert into social_club_table (socialClubName,socialClubcode) values ('" .mysqli_real_escape_string($connection,$_POST['socialClubName']). "','" .mysqli_real_escape_string($connection,$_POST['socialClubcode']). "' )");
 	
 	header("Location: social-clubs.php");
 
@@ -72,7 +72,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'add-social-club') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'add-department-club') {
 	
-	mysqli_query($connection, "insert into departmental_club_table (departmentClubName,departmentcode) values (' " . $_POST['departmentClubName'] . " ', ' " . $_POST['departmentcode'] . " ' )");
+	mysqli_query($connection, "insert into departmental_club_table (departmentClubName,departmentcode) values (' " .mysqli_real_escape_string($connection,$_POST['departmentClubName']). " ', ' " .mysqli_real_escape_string($connection,$_POST['departmentcode']). " ' )");
 
 	header("Location: departmental-clubs.php");
 }
@@ -107,7 +107,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'add-student-account') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-course-name') {
 	
-	mysqli_query($connection, "update course_table set CourseName = '".$_POST['courseName']."' , coursecode = '".$_POST['coursecode']."', CounID = '".$_POST['CounID']."' , departmentClubId = '".$_POST['departmentId']."'  where CourseID = '".$_POST['courseID']."'");
+	mysqli_query($connection, "update course_table set CourseName = '".mysqli_real_escape_string($connection,$_POST['courseName'])."' , coursecode = '".mysqli_real_escape_string($connection,$_POST['coursecode'])."', CounID = '".$_POST['CounID']."' , departmentClubId = '".$_POST['departmentId']."'  where CourseID = '".$_POST['courseID']."'");
 
 	header("Location: add-course.php");
 }
@@ -138,7 +138,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'edit-student-profile') {
 
 	mysqli_query($connection, "update studentprofile_table set fname = '".mysqli_real_escape_string($connection,$_POST['fname'])."', mname = '".mysqli_real_escape_string($connection,$_POST['mname'])."' , lname = '".mysqli_real_escape_string($connection,$_POST['lname'])."' , address = '".mysqli_real_escape_string($connection,$_POST['address'])."', email = '".mysqli_real_escape_string($connection,$_POST['email'])."', pandg = '".mysqli_real_escape_string($connection,$_POST['pandg'])."', religion = '".mysqli_real_escape_string($connection,$_POST['religion'])."', tribe = '".mysqli_real_escape_string($connection,$_POST['tribe'])."', contactnum = '".mysqli_real_escape_string($connection,$_POST['contractnum'])."', birthday = '".$_POST['birthday']."', gender = '".$_POST['gender']."' where accID = '".$_POST['accID']."'");
 
-	header("Location: manage-acc.php");
+	header("Location: manage-acc-new.php");
 
 }
 
@@ -148,7 +148,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'change-pass') {
 
 	// if ($_POST['StudentPassword'] == $confirmPassword) {
 		mysqli_query($connection,"update student_account_table set StudentPassword = '" . $_POST['StudentPassword'] . "' where accID = '" . $_POST['accID'] . "' ");
-		header("Location: manage-acc.php");
+		header("Location: manage-acc-new.php");
 	// }else{
 	// 	header("Location: manage-acc.php?status=Incorrect-Password");
 	// }
@@ -325,14 +325,16 @@ if (isset($_GET['from']) and $_GET['from'] == 'add-social-officer') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'dsa-announcement') {
 	
-		mysqli_query($connection, "insert into dsa_announcement_table (dateSubmit, toWhom, message, timeStart, timeEnd, subjectann, venueID) values ('".date('Y-m-d h:i:s')."', '".$_POST['to']."', '".$_POST['message']."', '".$_POST['timestart']."', '".$_POST['timeend']."', '".$_POST['subject']."','".$_POST['venueID']."' )");
+		mysqli_query($connection, "insert into dsa_announcement_table (dateSubmit, toWhom, message, timeStart, timeEnd, subjectann, venueID) values ('".date('Y-m-d h:i:s')."', '".mysqli_real_escape_string($connection,$_POST['to'])."', '".mysqli_real_escape_string($connection,$_POST['message'])."', '".$_POST['timestart']."', '".$_POST['timeend']."', '".mysqli_real_escape_string($connection,$_POST['subject'])."','".$_POST['venueID']."' )");
 
 		 header("Location: creat-announcement.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'csc-announcement') {
-	
-		mysqli_query($connection, "insert into csc_announcement_table (dateSubmit, toWhom, message, timeStart, timeEnd, subjectann, venueID) values ('".date('Y-m-d h:i:s')."' ,'".$_POST['to']."', '".$_POST['message']."' , '".$_POST['timestart']."', '".$_POST['timeend']."', '".$_POST['subject']."', '".$_POST['venueID']."')");
+		
+		// mysqli_query($connection, "insert into csc_announcement_table (dateSubmit, toWhom, message, timeStart, timeEnd, subjectann, venueID) values ('".date('Y-m-d h:i:s')."' ,'".$_POST['to']."', '".$_POST['message']."' , '".$_POST['timestart']."', '".$_POST['timeend']."', '".$_POST['subject']."', '".$_POST['venueID']."')");
+
+		mysqli_query($connection, "insert into csc_announcement_table (dateSubmit, toWhom, message, timeStart, timeEnd, subjectann, venueID) values ('".date('Y-m-d h:i:s')."' ,'".mysqli_real_escape_string($connection,$_POST['to'])."', '".mysqli_real_escape_string($connection,$_POST['message'])."' , '".$_POST['timestart']."', '".$_POST['timeend']."', '".mysqli_real_escape_string($connection,$_POST['subject'])."', '".$_POST['venueID']."')");
 
 		 header("Location: csc-announcement.php");
 }
@@ -347,21 +349,21 @@ if (isset($_GET['from']) and $_GET['from'] == 'approve-csc-announcement') {
 
 if (isset($_GET['from']) and $_GET['from'] == 'reject-csc-announcement') {
 	
-		mysqli_query($connection, "update csc_announcement_table set isApproved = 'Reject', annreason = '".$_GET['annreason']."' where csc_announcementID = '" . $_GET['csc_announcementID'] . "'");
+		mysqli_query($connection, "update csc_announcement_table set isApproved = 'Reject', annreason = '".mysqli_real_escape_string($connection,$_GET['annreason'])."' where csc_announcementID = '" . $_GET['csc_announcementID'] . "'");
 
 		 header("Location: view-csc-announcement.php");
 }
 
 if (isset($_GET['from']) and $_GET['from'] == 'resend-csc-announcement') {
 	
-		mysqli_query($connection, "update csc_announcement_table set toWhom = '".$_GET['to']."', subjectann = '".$_GET['subject']."', isApproved = 'No', message = '".$_GET['message']."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."' where csc_announcementID = '" . $_GET['csc_announcementID'] . "'");
+		mysqli_query($connection, "update csc_announcement_table set toWhom = '".mysqli_real_escape_string($connection,$_GET['to'])."', subjectann = '".mysqli_real_escape_string($connection,$_GET['subject'])."', isApproved = 'No', message = '".mysqli_real_escape_string($connection,$_GET['message'])."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."' where csc_announcementID = '" . $_GET['csc_announcementID'] . "'");
 
 		 header("Location: csc-announcement.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'dp-announcement') {
 	
-		mysqli_query($connection, "insert into department_announcement_table (dateSubmit, toWhom, message, departmentClubId, timeStart, timeEnd, subjectann,venueID) values ('".date('Y-m-d h:i:s')."', '".$_POST['to']."', '".$_POST['message']."', '".$_POST['departmentClubId']."','".$_POST['timestart']."','".$_POST['timeend']."','".$_POST['subject']."','".$_POST['venueID']."' )");
+		mysqli_query($connection, "insert into department_announcement_table (dateSubmit, toWhom, message, departmentClubId, timeStart, timeEnd, subjectann,venueID) values ('".date('Y-m-d h:i:s')."', '".mysqli_real_escape_string($connection,$_POST['to'])."', '".mysqli_real_escape_string($connection,$_POST['message'])."', '".$_POST['departmentClubId']."','".$_POST['timestart']."','".$_POST['timeend']."','".mysqli_real_escape_string($connection,$_POST['subject'])."','".$_POST['venueID']."' )");
 
 		 header("Location: departmental-clubs-announcement.php");
 }
@@ -376,21 +378,21 @@ if (isset($_GET['from']) and $_GET['from'] == 'approve-dpclub-announcement') {
 
 if (isset($_GET['from']) and $_GET['from'] == 'reject-dpclub-announcement') {
 
-		mysqli_query($connection, "update department_announcement_table set isApproved = 'Reject', annreason = '".$_GET['annreason']."' where DannouncementID = '" . $_GET['DannouncementID'] . "'");
+		mysqli_query($connection, "update department_announcement_table set isApproved = 'Reject', annreason = '".mysqli_real_escape_string($connection,$_GET['annreason'])."' where DannouncementID = '" . $_GET['DannouncementID'] . "'");
 
 		 header("Location: view-departmental-club-announcement.php");
 }
 
 if (isset($_GET['from']) and $_GET['from'] == 'resend-department-announcement') {
 
-		mysqli_query($connection, "update department_announcement_table set toWhom = '".$_GET['to']."', subjectann = '".$_GET['subject']."', isApproved = 'No', message = '".$_GET['message']."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."' where DannouncementID = '" . $_GET['DannouncementID'] . "'");
+		mysqli_query($connection, "update department_announcement_table set toWhom = '".mysqli_real_escape_string($connection,$_GET['to'])."', subjectann = '".mysqli_real_escape_string($connection,$_GET['subject'])."', isApproved = 'No', message = '".mysqli_real_escape_string($connection,$_GET['message'])."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."' where DannouncementID = '" . $_GET['DannouncementID'] . "'");
 
 		  header("Location: departmental-clubs-reject-announcement.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'social-clubs-announcement') {
 	
-		mysqli_query($connection, "insert into social_announcement_table (dateSubmit, toWhom, message, socialClubId, timeStart, timeEnd, venueID, subjectann) values ('".date('Y-m-d h:i:s')."', '".$_POST['to']."', '".$_POST['message']."', '".$_POST['socialClubId']."', '".$_POST['timestart']."', '".$_POST['timeend']."', '".$_POST['venueID']."', '".$_POST['subject']."' )");
+		mysqli_query($connection, "insert into social_announcement_table (dateSubmit, toWhom, message, socialClubId, timeStart, timeEnd, venueID, subjectann) values ('".date('Y-m-d h:i:s')."', '".mysqli_real_escape_string($connection,$_POST['to'])."', '".mysqli_real_escape_string($connection,$_POST['message'])."', '".$_POST['socialClubId']."', '".$_POST['timestart']."', '".$_POST['timeend']."', '".$_POST['venueID']."', '".mysqli_real_escape_string($connection,$_POST['subject'])."' )");
 		
 		 header("Location: social-clubs-announcement-new.php");
 }
@@ -404,21 +406,21 @@ if (isset($_GET['from']) and $_GET['from'] == 'approve-socialclub-announcement')
 
 if (isset($_GET['from']) and $_GET['from'] == 'reject-socialclub-announcement') {
 	
-		mysqli_query($connection, "update social_announcement_table set isApproved = 'Reject', annreason = '".$_GET['annreason']."' where socialClubId = '" . $_GET['socialClubId'] . "'");
+		mysqli_query($connection, "update social_announcement_table set isApproved = 'Reject', annreason = '".mysqli_real_escape_string($connection,$_GET['annreason'])."' where socialClubId = '" . $_GET['socialClubId'] . "'");
 
 		 header("Location: view-social-club-announcement.php");
 }
 
 if (isset($_GET['from']) and $_GET['from'] == 'resend-socialclub-announcement') {
 	
-		mysqli_query($connection, "update council_announcement_table set toWhom = '".$_GET['to']."', subjectann = '".$_GET['subject']."', isApproved = 'No', message = '".$_GET['message']."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."'  where CounID = '" . $_GET['CounID'] . "'");
+		mysqli_query($connection, "update council_announcement_table set toWhom = '".mysqli_real_escape_string($connection,$_GET['to'])."', subjectann = '".mysqli_real_escape_string($connection,$_GET['subject'])."', isApproved = 'No', message = '".mysqli_real_escape_string($connection,$_GET['message'])."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."'  where CounID = '" . $_GET['CounID'] . "'");
 
 		 header("Location: view-council-announcement.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'deparmental-council-announcement') {
 	
-		mysqli_query($connection, "insert into council_announcement_table (dateSubmit, toWhom, message, CounID, timeStart, timeEnd, subjectann, venueID) values ('".date('Y-m-d h:i:s')."' , '".$_POST['to']."', '".$_POST['message']."', '".$_POST['CounID']."', '".$_POST['timestart']."','".$_POST['timeend']."','".$_POST['subject']."','".$_POST['venueID']."')");
+		mysqli_query($connection, "insert into council_announcement_table (dateSubmit, toWhom, message, CounID, timeStart, timeEnd, subjectann, venueID) values ('".date('Y-m-d h:i:s')."' , '".mysqli_real_escape_string($connection,$_POST['to'])."', '".mysqli_real_escape_string($connection,$_POST['message'])."', '".$_POST['CounID']."', '".$_POST['timestart']."','".$_POST['timeend']."','".mysqli_real_escape_string($connection,$_POST['subject'])."','".$_POST['venueID']."')");
 
 		 header("Location: departmental-council-announce.php");
 }
@@ -432,28 +434,28 @@ if (isset($_GET['from']) and $_GET['from'] == 'approve-departmentalcouncil-annou
 
 if (isset($_GET['from']) and $_GET['from'] == 'reject-council-announcement') {
 	
-		mysqli_query($connection, "update council_announcement_table set isApproved = 'Reject', annreason = '".$_GET['annreason']."' where council_announcementID = '" . $_GET['council_announcementID'] . "'");
+		mysqli_query($connection, "update council_announcement_table set isApproved = 'Reject', annreason = '".mysqli_real_escape_string($connection,$_GET['annreason'])."' where council_announcementID = '" . $_GET['council_announcementID'] . "'");
 
 		 header("Location: view-council-announcement.php");
 }
 
 if (isset($_GET['from']) and $_GET['from'] == 'resend-council-announcement') {
 	
-		mysqli_query($connection, "update council_announcement_table set toWhom = '".$_GET['to']."', subjectann = '".$_GET['subject']."', isApproved = 'No', message = '".$_GET['message']."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."'  where CounID = '" . $_GET['CounID'] . "'");
+		mysqli_query($connection, "update council_announcement_table set toWhom = '".mysqli_real_escape_string($connection,$_GET['to'])."', subjectann = '".mysqli_real_escape_string($connection,$_GET['subject'])."', isApproved = 'No', message = '".mysqli_real_escape_string($connection,$_GET['message'])."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."'  where CounID = '" . $_GET['CounID'] . "'");
 
 		 header("Location: view-council-announcement.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'add-venue') {
 	
-		mysqli_query($connection, "insert into venue_table (venueName) values ('".$_POST['venueName']."')");
+		mysqli_query($connection, "insert into venue_table (venueName) values ('".mysqli_real_escape_string($connection,$_POST['venueName'])."')");
 
 		header("Location: venue.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-venue-name') {
 	
-		mysqli_query($connection, "update venue_table set venueName ='".$_POST['venueName']."' ");
+		mysqli_query($connection, "update venue_table set venueName ='".mysqli_real_escape_string($connection,$_POST['venueName'])."' ");
 
 		header("Location: venue.php");
 }
@@ -659,11 +661,24 @@ if (isset($_GET['from']) and $_GET['from'] == 'edit-social-position') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'register_student_portfolio') {
 
-	mysqli_query($connection, "insert student_portfolio_table (stprofID, styear, sem, schoolyr, act1, rank1, act2, rank2, act3, rank3, act4, rank4, comm1, comm2, comm3, comm4, seminar1, seminar2, seminar3, seminar4) values ('".$_POST['stprofID']."', '".$_POST['styear']."','".$_POST['sem']."','".$_POST['schoolyr']."','".$_POST['act1']."','".$_POST['rank1']."','".$_POST['act2']."','".$_POST['rank2']."','".$_POST['act3']."','".$_POST['rank3']."','".$_POST['act4']."','".$_POST['rank4']."','".$_POST['comm1']."','".$_POST['comm2']."','".$_POST['comm3']."','".$_POST['comm4']."','".$_POST['seminar1']."','".$_POST['seminar2']."','".$_POST['seminar3']."','".$_POST['seminar4']."') ");
+	// mysqli_query($connection, "insert student_portfolio_table (stprofID, styear, sem, schoolyr, act1, rank1, act2, rank2, act3, rank3, act4, rank4, comm1, comm2, comm3, comm4, seminar1, seminar2, seminar3, seminar4) values ('".$_POST['stprofID']."', '".$_POST['styear']."','".$_POST['sem']."','".$_POST['schoolyr']."','".$_POST['act1']."','".$_POST['rank1']."','".$_POST['act2']."','".$_POST['rank2']."','".$_POST['act3']."','".$_POST['rank3']."','".$_POST['act4']."','".$_POST['rank4']."','".$_POST['comm1']."','".$_POST['comm2']."','".$_POST['comm3']."','".$_POST['comm4']."','".$_POST['seminar1']."','".$_POST['seminar2']."','".$_POST['seminar3']."','".$_POST['seminar4']."') ");
+
+	mysqli_query($connection, "insert student_portfolio_table (stprofID, styear, sem, schoolyr, act1, rank1, act2, rank2, act3, rank3, act4, rank4, comm1, comm2, comm3, comm4, seminar1, seminar2, seminar3, seminar4) values ('".$_POST['stprofID']."', '".mysqli_real_escape_string($connection,$_POST['styear'])."','".mysqli_real_escape_string($connection,$_POST['sem'])."','".mysqli_real_escape_string($connection,$_POST['schoolyr'])."','".mysqli_real_escape_string($connection,$_POST['act1'])."','".mysqli_real_escape_string($connection,$_POST['rank1'])."','".mysqli_real_escape_string($connection,$_POST['act2'])."','".$_POST['rank2']."','".$_POST['act3']."','".$_POST['rank3']."','".$_POST['act4']."','".mysqli_real_escape_string($connection,$_POST['rank4'])."','".mysqli_real_escape_string($connection,$_POST['comm1'])."','".mysqli_real_escape_string($connection,$_POST['comm2'])."','".mysqli_real_escape_string($connection,$_POST['comm3'])."','".mysqli_real_escape_string($connection,$_POST['comm4'])."','".mysqli_real_escape_string($connection,$_POST['seminar1'])."','".mysqli_real_escape_string($connection,$_POST['seminar2'])."','".mysqli_real_escape_string($connection,$_POST['seminar3'])."','".mysqli_real_escape_string($connection,$_POST['seminar4'])."') ");
 		
 		header("Location: student-portfolio.php");
 
 }
+
+if (isset($_POST['from']) and $_POST['from'] == 'edit_student_portfolio') {
+
+	mysqli_query($connection, "update student_portfolio_table set styear = '".mysqli_real_escape_string($connection,$_POST['styear'])."', sem = '".mysqli_real_escape_string($connection,$_POST['sem'])."', schoolyr = '".mysqli_real_escape_string($connection,$_POST['schoolyr'])."', act1 = '".mysqli_real_escape_string($connection,$_POST['act1'])."', rank1 = '".mysqli_real_escape_string($connection,$_POST['rank1'])."' , act2 = '".mysqli_real_escape_string($connection,$_POST['act2'])."', rank2 = '".mysqli_real_escape_string($connection,$_POST['rank2'])."', act3 = '".mysqli_real_escape_string($connection,$_POST['act3'])."', rank3 = '".mysqli_real_escape_string($connection,$_POST['rank3'])."', act4 = '".mysqli_real_escape_string($connection,$_POST['act4'])."', rank4 = '".mysqli_real_escape_string($connection,$_POST['rank4'])."', comm1 = '".mysqli_real_escape_string($connection,$_POST['comm1'])."', comm2 = '".mysqli_real_escape_string($connection,$_POST['comm2'])."', comm3 = '".mysqli_real_escape_string($connection,$_POST['comm3'])."', comm4 = '".mysqli_real_escape_string($connection,$_POST['comm4'])."', seminar1 = '".mysqli_real_escape_string($connection,$_POST['seminar1'])."', seminar2 = '".mysqli_real_escape_string($connection,$_POST['seminar2'])."', seminar3 = '".mysqli_real_escape_string($connection,$_POST['seminar3'])."', seminar4 = '".mysqli_real_escape_string($connection,$_POST['seminar4'])."' where stportfolioID = '".$_POST['stportfolioID']."' ");
+
+	// echo "update student_portfolio_table set styear = '".mysqli_real_escape_string($connection,$_POST['styear'])."', sem = '".mysqli_real_escape_string($connection,$_POST['sem'])."', schoolyr = '".mysqli_real_escape_string($connection,$_POST['schoolyr'])."', act1 = '".mysqli_real_escape_string($connection,$_POST['act1'])."', rank1 = '".mysqli_real_escape_string($connection,$_POST['rank1'])."' , act2 = '".mysqli_real_escape_string($connection,$_POST['act2'])."', rank2 = '".mysqli_real_escape_string($connection,$_POST['rank2'])."', act3 = '".mysqli_real_escape_string($connection,$_POST['act3'])."', rank3 = '".mysqli_real_escape_string($connection,$_POST['rank3'])."', act4 = '".mysqli_real_escape_string($connection,$_POST['act4'])."', rank4 = '".mysqli_real_escape_string($connection,$_POST['rank4'])."', comm1 = '".mysqli_real_escape_string($connection,$_POST['comm1'])."', comm2 = '".mysqli_real_escape_string($connection,$_POST['comm2'])."', comm3 = '".mysqli_real_escape_string($connection,$_POST['comm3'])."', comm4 = '".mysqli_real_escape_string($connection,$_POST['comm4'])."', seminar1 = '".mysqli_real_escape_string($connection,$_POST['seminar1'])."', seminar2 = '".mysqli_real_escape_string($connection,$_POST['seminar2'])."', seminar3 = '".mysqli_real_escape_string($connection,$_POST['seminar3'])."', seminar4 = '".mysqli_real_escape_string($connection,$_POST['seminar4'])."' where stportfolioID = '".$_POST['stportfolioID']."'";
+		
+		 header("Location: student-portfolio.php");
+
+}
+
 
 if (isset($_GET['from']) and $_GET['from'] == 'show-button') {
 
@@ -718,7 +733,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'delete-social-club') {
 }	
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-social-name') {
-		mysqli_query($connection, "update social_club_table set socialClubName = '".$_POST['socialClubName']."', socialClubcode = '".$_POST['socialClubcode']."' where socialClubId = '".$_POST['socialClubId']."' ");
+		mysqli_query($connection, "update social_club_table set socialClubName = '".mysqli_real_escape_string($connection,$_POST['socialClubName'])."', socialClubcode = '".mysqli_real_escape_string($connection,$_POST['socialClubcode'])."' where socialClubId = '".$_POST['socialClubId']."' ");
 
 		header("Location: social-clubs.php");
 
@@ -731,7 +746,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'delete-social-name') {
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-dp-name') {
-		mysqli_query($connection, "update departmental_club_table set departmentClubName = '".$_POST['departmentClubName']."', departmentcode = '".$_POST['departmentcode']."' where departmentClubId = '".$_POST['departmentClubId']."' ");
+		mysqli_query($connection, "update departmental_club_table set departmentClubName = '".mysqli_real_escape_string($connection,$_POST['departmentClubName'])."', departmentcode = '".mysqli_real_escape_string($connection,$_POST['departmentcode'])."' where departmentClubId = '".$_POST['departmentClubId']."' ");
 
 		header("Location: departmental-clubs.php");
 
@@ -752,7 +767,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'addnew-social-club') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'add-csc-position') {
 
-		mysqli_query($connection,"insert into csc_position_table (positionNamecsc) values ('".$_POST['positionNamecsc']."')");
+		mysqli_query($connection,"insert into csc_position_table (positionNamecsc) values ('".mysqli_real_escape_string($connection,$_POST['positionNamecsc'])."')");
 
 		header("Location: cscposition.php");
 
@@ -760,7 +775,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'add-csc-position') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-csc-position-name') {
 
-		mysqli_query($connection,"update csc_position_table set positionNamecsc = '".$_POST['positionNamecsc']."' where positionIDcsc = '".$_POST['positionIDcsc']."' ");
+		mysqli_query($connection,"update csc_position_table set positionNamecsc = '".mysqli_real_escape_string($connection,$_POST['positionNamecsc'])."' where positionIDcsc = '".$_POST['positionIDcsc']."' ");
 
 		 header("Location: cscposition.php");
 
@@ -775,7 +790,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'delete-csc-position') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'add-council-position') {
 
-		mysqli_query($connection,"insert into council_position_table (positionNamecouncil) values ('".$_POST['positionNamecouncil']."')");
+		mysqli_query($connection,"insert into council_position_table (positionNamecouncil) values ('".mysqli_real_escape_string($connection,$_POST['positionNamecouncil'])."')");
 
 		header("Location: council-add-position.php");
 
@@ -783,7 +798,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'add-council-position') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-council-position-name') {
 
-		mysqli_query($connection,"update council_position_table set positionNamecouncil = '".$_POST['positionNamecouncil']."' where positionIDcouncil = '".$_POST['positionIDcouncil']."' ");
+		mysqli_query($connection,"update council_position_table set positionNamecouncil = '".mysqli_real_escape_string($connection,$_POST['positionNamecouncil'])."' where positionIDcouncil = '".$_POST['positionIDcouncil']."' ");
 
 		 header("Location: council-add-position.php");
 
@@ -798,7 +813,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'delete-council-position') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'add-deparmental-position') {
 
-		mysqli_query($connection,"insert into departmental_position_table (positionNameDP) values ('".$_POST['positionNameDP']."')");
+		mysqli_query($connection,"insert into departmental_position_table (positionNameDP) values ('".mysqli_real_escape_string($connection,$_POST['positionNameDP'])."')");
 		
 		 header("Location: departmental-add-position.php");
 
@@ -806,7 +821,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'add-deparmental-position') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-deparmental-position-name') {
 
-		mysqli_query($connection,"update departmental_position_table set positionNameDP = '".$_POST['positionNameDP']."' where positionIDdepartmental = '".$_POST['positionIDdepartmental']."' ");
+		mysqli_query($connection,"update departmental_position_table set positionNameDP = '".mysqli_real_escape_string($connection,$_POST['positionNameDP'])."' where positionIDdepartmental = '".$_POST['positionIDdepartmental']."' ");
 
 		 header("Location: departmental-add-position.php");
 
@@ -821,7 +836,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'delete-deparmental-position') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'add-social-position') {
 
-		mysqli_query($connection,"insert into social_position_table (positionNameSocial) values ('".$_POST['positionNameSocial']."')");
+		mysqli_query($connection,"insert into social_position_table (positionNameSocial) values ('".mysqli_real_escape_string($connection,$_POST['positionNameSocial'])."')");
 		
 		 header("Location: social-add-position.php");
 
@@ -829,7 +844,7 @@ if (isset($_POST['from']) and $_POST['from'] == 'add-social-position') {
 
 if (isset($_POST['from']) and $_POST['from'] == 'edit-social-position-name') {
 
-		mysqli_query($connection,"update social_position_table set positionNameSocial = '".$_POST['positionNameSocial']."' where positionIDsocial = '".$_POST['positionIDsocial']."' ");
+		mysqli_query($connection,"update social_position_table set positionNameSocial = '".mysqli_real_escape_string($connection,$_POST['positionNameSocial'])."' where positionIDsocial = '".$_POST['positionIDsocial']."' ");
 
 		 header("Location: social-add-position.php");
 

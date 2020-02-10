@@ -29,7 +29,7 @@ if (!isset($_SESSION['adminID'])) {
     <div class="row">
       <div class="col-md-12">
 
-        <button class="btn blue-gradient" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> ADD CAS-ED officer</button>
+        <button class="btn blue-gradient itogglebutton" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> ADD CAS-ED officer</button>
 
         <?php 
 
@@ -104,7 +104,7 @@ if (!isset($_SESSION['adminID'])) {
                   <input type="text" name="from" value="add-cased-member" hidden>
 
               <div class="modal-footer">
-                <button type="submit" class="btn aqua-gradient">Add</button>
+                <button type="submit" class="btn aqua-gradient itogglebutton">Add</button>
                 </form>
               </div>
             </div>
@@ -114,12 +114,13 @@ if (!isset($_SESSION['adminID'])) {
       </div>
     </div>
   
-    <div class="row mt-5 indigo lighten-5">
-      <div class="col-md-12 z-depth-2">
+  <div class="col-12">
+    <div class="row mt-5">
+      <div class="col-md-12 z-depth-2 form-border">
 
         <div class="table-responsive text-nowrap">
 
-        <table class="table">
+        <table class="table" id="dtBasicExample">
           <thead>
             <tr>
               <th scope="col">Position</th>
@@ -137,78 +138,11 @@ if (!isset($_SESSION['adminID'])) {
               <th scope="row"><?php echo $res['positionNamecouncil']; ?></th> 
               <th scope="row"><?php echo $res['lname'] ." ". $res['mname'] ." ". $res['fname']; ?></th>
               <th scope="row"><?php echo $res['perpost']; ?></th>
-              <td><button class="btn aqua-gradient" data-toggle="modal" data-target="#editModal<?php echo $res['councilID'] ?>"><i class="far fa-edit"></i></button> <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?php echo $res['stprofID'] ?>"><i class="far fa-trash-alt"></i></button></td>
+              <td><a href="council-cased-edit-member.php?from=checkIDforeditmemcouncil&councilID=<?php echo $res['councilID'] ?>"><button class="btn aqua-gradient itogglebutton"><i class="far fa-edit"></i></button></a> <button class="btn btn-danger itogglebutton" data-toggle="modal" data-target="#deleteModal<?php echo $res['stprofID'] ?>"><i class="far fa-trash-alt"></i></button></td>
 
             </tr>
 
-            <!-- Modal -->
-            <div class="modal fade" id="editModal<?php echo $res['councilID'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><ELEMENT></ELEMENT>Edit Position</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
-
-                      <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                            <small>Student Name</small>
-                            <input class="form-control" type="text" required="" name="stprofID" list="studentnames"/>
-                            <datalist id="studentnames">
-                                   <?php $qry1 = mysqli_query($connection, "select * from list_student_view where CounID = '".$councilID."' order by (lname +0) asc, lname asc");
-                                  while ($res1 = mysqli_fetch_assoc($qry1)) { ?>
-                                    <?php echo '<option value="'.$res1['lname'] ." ". $res1['fname'] ." ". $res1['mname'].'">'; ?>
-                              <?php } ?>
-                            </datalist>
-                            </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="form-group">
-                          <small>Position</small>
-                          <input class="form-control" required="" type="text" name="positionIDcouncil" list="studentpositions"/>
-                          <datalist id="studentpositions">
-                             <?php  $qry2 = mysqli_query($connection, "select * from council_position_table order by (positionNamecouncil +0) asc, positionNamecouncil asc");
-                              while ($res2 = mysqli_fetch_assoc($qry2)) { ?>
-                              <?php echo '<option value="'.$res2['positionNamecouncil'] .'">'; ?>
-                              <?php } ?>
-                          </datalist>
-                          </div>
-                      </div>
-                    </div>
-
-                  <small>Can Creat Announcement</small>
-                <div class="row">
-                    <div class="col-12">
-                      <div class="form-group">
-                      <select class="form-control" name="perpost" required="">
-                        <option selected="" disabled=""></option>
-                        <option>Yes</option>
-                        <option>No</option>
-                      </select>
-               
-                      </div>
-                    </div>
-                  </div>
-                    <input type="text" name="councilID" value="<?php echo $res['councilID'] ?>" hidden>
-                    <input type="text" name="from" value="edit-cased-position" hidden>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="submit" class="btn aqua-gradient"><i class="far fa-edit"></i> Update</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- end modal -->
-
+            
             <!-- Modal -->
             <div class="modal fade" id="deleteModal<?php echo $res['stprofID'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -233,7 +167,7 @@ if (!isset($_SESSION['adminID'])) {
 
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger">Yes</button>
+                    <button type="submit" class="btn btn-danger itogglebutton">Yes</button>
                     </form>
                   </div>
                 </div>
@@ -247,7 +181,7 @@ if (!isset($_SESSION['adminID'])) {
         </table>
 
       </div>
-
+      </div>
       </div>
     </div>
   </div>
@@ -307,3 +241,23 @@ $('#cscposition').editableSelect();
 
 </script>
 
+<style type="text/css">
+
+  .form-border{
+  border-radius: 12px;
+  }
+
+  .itogglebutton{
+  border-radius: 12px;
+  }
+
+</style>
+
+<script type="text/javascript">
+  
+  $(document).ready(function () {
+$('#dtBasicExample').DataTable();
+$('.dataTables_length').addClass('bs-select');
+});
+
+</script>

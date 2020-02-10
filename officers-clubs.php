@@ -39,22 +39,22 @@ if (!isset($_SESSION['adminID'])) {
           <tbody>
 
             <tr>
-              <td scope="row">Central Student Council</td>
+              <td scope="row"><b>Central Student Council</b></td>
               <td><a href="csc-new.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a>
             </tr>
 
             <tr>
-              <td scope="row">Departmental Council Clubs</td>
+              <td scope="row"><b>Departmental Council Clubs</b></td>
               <td><a href="council-officers.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a>
             </tr>
 
              <tr>
-              <td scope="row">Departmental Clubs</td>
+              <td scope="row"><b>Departmental Clubs</b></td>
               <td><a href="departmental-clubs-officers.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a>
             </tr>
 
             <tr>
-              <td scope="row">Social Clubs</td>
+              <td scope="row"><b>Social Clubs</b></td>
               <td><a href="social-club-officers.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a>
             </tr>
                   

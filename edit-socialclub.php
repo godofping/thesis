@@ -154,7 +154,7 @@ while ($ressocialclub = mysqli_fetch_assoc($qrysocialclub)) {
                 
               </div>
               <div class="modal-footer">
-                <button type="submit" class="btn btn-success itogglebutton">add</button> 
+                <button type="submit" class="btn blue-gradient itogglebutton">add</button> 
                </form> 
               </div>
             </div>

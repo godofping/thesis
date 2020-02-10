@@ -21,13 +21,13 @@ if ((time() - $_SESSION['last_time']) > 300) {
  ?>
 
 <!--Main Layout-->
-<main class=" py-5 mt-5">
+<main class=" py-5 mt-5" id="testrefresh">
 
   <div class="container">
 
   <div class="row">
       <div class="col-md-12">
-
+        
         <h2><i class="far fa-folder-open"></i> <b>My Portfolio</b></h2>
         <hr>
 
@@ -51,7 +51,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
     <div class="row">
       <div class="col-md-12">
-          <a href="register-portfolio.php" class="btn aqua-gradient mb-4"><i class="fas fa-plus"></i> Create portfolio</a><!-- <a href="" class="btn peach-gradient mb-4"> <i class="far fa-edit"></i> Edit portfolio</a> -->
+          <a href="register-portfolio.php" id="createportfolio" class="btn blue-gradient mb-4 itogglebutton"><i class="fas fa-plus"></i> Create portfolio</a><a href="edit-myportfolio.php" class="btn peach-gradient mb-4 itogglebutton"> <i class="far fa-edit"></i> Edit portfolio</a>
     </div>
   </div>
 
@@ -68,7 +68,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
               <!-- Material form contact -->
     <div class="card">
 
-     <h5 class="card-header blue lighten-1 white-text text-center py-4 card-img">
+     <h5 class="card-header green accent-4 white-text text-center py-4 card-img">
         <strong style="font-family: Arial Black, Gadget, sans-serif;">Notre Dame of Tacurong College</strong><br>
         <small style="font-family: Alfa Slab One">City of Tacurong</small><br>
         <strong style="font-family: Arial Black, Gadget, sans-serif;">Office of Student Affairs</strong>
@@ -307,6 +307,16 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
 <?php include('footer.php'); ?>
 
+<!-- <script type="text/javascript">
+var auto_refresh = setInterval(
+function ()
+{
+$('#testrefresh').load('togglerefresh.php');
+header("Location: index.php");
+}, 500); // refresh every 10000 milliseconds
+
+</script> -->
+
 <style type="text/css">
     
   .card-img{
@@ -315,6 +325,14 @@ if ((time() - $_SESSION['last_time']) > 300) {
   background-position: left;
   background-repeat: no-repeat;
   background-size: 10%;
+}
+
+</style>
+
+<style type="text/css">
+
+.itogglebutton{
+  border-radius: 12px;
 }
 
 </style>

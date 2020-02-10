@@ -53,7 +53,7 @@ if (!isset($_SESSION['adminID'])) {
               <td><?php echo $rescscann['dateSubmit']; ?></td>
               <td><?php echo $rescscann['toWhom']; ?></td>
               <td><?php echo $rescscann['isApproved']; ?></td> 
-              <td><a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['socialClubId']; ?>">View</a></td>
+              <td><a href="" class="btn btn-default blue-gradient mb-4 itogglebutton" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['socialClubId']; ?>">View</a></td>
 
             </tr>
 
@@ -107,14 +107,7 @@ if (!isset($_SESSION['adminID'])) {
                 
             
               <div class="modal-footer d-flex justify-content-center">
-                  
-                <?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeStartSubmitted)): ?>
-                <button type="button" class="btn btn-unique" data-toggle="modal" data-target="#exampleModalCenter<?php echo $rescscann['socialClubId']; ?>">Approve <i class="fas fa-paper-plane-o ml-1"></i></button>  
-                <?php endif ?>
-                <?php if (strtotime(date('Y-m-d h:i:s'))>strtotime($timeStartSubmitted)): ?>
-                <button type="button" class="btn btn-unique" data-toggle="tooltip" data-placement="top" title="Date is expired" disabled="">Date is Expired<i class="fas fa-paper-plane-o ml-1"></i></button>  
-                <?php endif ?>
-                <button type="button" class="btn btn-unique" data-toggle="modal" data-target="#rejectmodal<?php echo $rescscann['socialClubId']; ?>">Reject <i class="fas fa-paper-plane-o ml-1"></i></button>
+                <button type="button" class="btn btn-danger itogglebutton" data-dismiss="modal">Close</button>
               </div>
             </form> 
           </div>
@@ -210,3 +203,9 @@ $('.dataTables_length').addClass('bs-select');
 });
 
 </script>
+
+<style type="text/css">
+  .itogglebutton{
+  border-radius: 12px;
+  }
+</style>

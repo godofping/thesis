@@ -31,7 +31,7 @@ if (!isset($_SESSION['adminID'])) {
 
        <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header text-center">
                 <h4 class="modal-title w-100 font-weight-bold">Write an Announcement</h4>
@@ -85,13 +85,15 @@ if (!isset($_SESSION['adminID'])) {
 
                 <div class="md-form">
                   <i class="fas fa-pencil prefix grey-text"></i>
-                  <textarea type="text" name="message" class="md-textarea form-control" rows="4" required=""></textarea>
+                  <textarea type="text" name="message" class="md-textarea form-control" rows="4" required="" onkeydown="limitText(this.form.message,this.form.countdown,500);" onkeyup='limitText(this.form.message,this.form.countdown,500);'></textarea>
                   <label data-error="wrong" data-success="right" for="form8">Your message</label>
+
                 </div>
 
                   <input type="text" name="from" value="dsa-announcement" hidden>
-            
-              <div class="modal-footer d-flex justify-content-center">
+                  <b>You have 
+                  <input readonly type="text" name="countdown" size="3" value="500">Characters left</b>
+                <div class="modal-footer d-flex justify-content-center">
                   
                 <button type="submit" class="btn btn-success itogglebutton"><i class="far fa-paper-plane"></i> Send</button>
               
@@ -163,7 +165,15 @@ if (!isset($_SESSION['adminID'])) {
 </main>
 <!--Main Layout-->
 
-
+<script type="text/javascript">
+       function limitText(limitField, limitCount, limitNum) {
+          if (limitField.value.length > limitNum) {
+            limitField.value = limitField.value.substring(0, limitNum);
+          } else {
+            limitCount.value = limitNum - limitField.value.length;
+          }
+        }
+</script>
 
 <?php include('footer.php'); ?>
 

@@ -17,9 +17,16 @@ if (!isset($_SESSION['adminID'])) {
 
   <div class="row">
       <div class="col-md-12">
+        <h4><a id="print" style="color: #289DE5;" onclick="window.print();">Print Portfolio</a><a href="approveannouncement.php" id="back" style="float: right"> Go back</a></h4>  
+        <h5 class=" black-text text-center py-4 card-img">
+            <strong style="font-family: Arial Black, Gadget, sans-serif; margin-right: 300px">Office of Student Affairs</strong><br>
+            <strong style="font-family: Arial Black, Gadget, sans-serif; margin-right: 300px">NOTRE DAME OF TACURONG COLLEGE</strong><br>
+            <small style="font-family: Alfa Slab One; margin-right: 300px">City of Tacurong</small>
+        </h5>
+          <div class="md-form mt-1" style="text-align: center;">
+              <p style="color: black"><b><U>Social Clubs Announcement</U></p></b>
+            </div>
 
-        <h2>Social Clubs</h2>
-        <h5>Announcement</h5>
         <hr>
 
       </div>
@@ -32,7 +39,7 @@ if (!isset($_SESSION['adminID'])) {
     <div class="row mt-5">
       <div class="col-md-12">
 
-        <div class="table-responsive text-nowrap" >
+        <div class="table-responsive" >
 
         <table class="table" id="dtBasicExample">
           <thead>
@@ -44,7 +51,7 @@ if (!isset($_SESSION['adminID'])) {
               <th scope="col">Venue</th>
               <th scope="col">to</th>
               <th scope="col">Subject</th>
-
+              <th scope="col">Message</th>
             </tr>
           </thead>
           <tbody>
@@ -59,7 +66,7 @@ if (!isset($_SESSION['adminID'])) {
               <td><?php echo $rescscann['venueName']; ?></td>
               <td><?php echo $rescscann['toWhom']; ?></td>
               <td><?php echo $rescscann['subjectann']; ?></td>
-
+              <td><?php echo $rescscann['message']; ?></td>
             </tr>
 
             <?php } ?>
@@ -80,65 +87,25 @@ if (!isset($_SESSION['adminID'])) {
 
 <?php include('footer.php'); ?>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/datatables.min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/datatables.min.css" />
-
-
-<script type="text/javascript">
+<style type="text/css">
   
-  $(document).ready(function () {
-    $('#dtBasicExample').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'csv',
-                className: 'btn btn-outline btn-sm',
-                text: 'Save to CSV',
-                title:"Social Clubs posted Announcement"
-            },
-            {
-                extend: 'excel',
-                className: 'btn btn-outline btn-sm',
-                text: 'Save to Excel',
-                ttitle:"Social Clubs posted Announcement"
-            },
-            {
-                extend: 'print',
-                className: 'btn btn-outline btn-sm',
-                text: 'Print Table',
-                title:"Social Clubs posted Announcement"
-            },
-            {
-                extend: 'pdf',
-                className: 'btn btn-outline btn-sm',
-                text: 'Save to PDF',
-                orientation: 'landscape',
-                pageSize: 'A4',
-                title:"Social Clubs posted Announcement"
-            },
-            {
-                extend: 'copy',
-                className: 'btn btn-outline btn-sm',
-                text: 'Copy to clipboard',
-                title:"Social Clubs posted Announcement"
-            }
-        ]
-    });
-    $('#dtMaterialDesignExample_wrapper').find('label').each(function () {
-        $(this).parent().append($(this).children());
-    });
-    $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('input').each(function () {
-        $('input').attr("placeholder", "Search");
-        $('input').removeClass('form-control-sm');
-    });
-    $('#dtMaterialDesignExample_wrapper .dataTables_length').addClass('d-flex flex-row');
-    $('#dtMaterialDesignExample_wrapper .dataTables_filter').addClass('md-form');
-    $('#dtMaterialDesignExample_wrapper select').removeClass('custom-select custom-select-sm form-control form-control-sm');
-    $('#dtMaterialDesignExample_wrapper select').addClass('mdb-select');
-    $('#dtMaterialDesignExample_wrapper .mdb-select').material_select();
-    $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('label').remove();
-});
-</script>
+  @media print {
+  #print {
+    display: none;
+  }
+  #back {
+    display: none;
+  }
+
+}
+
+  .card-img{
+
+  background-image: url("http://localhost:8080/thesis/logo/download.png");
+  background-position: left;
+  margin-left: 150px;
+  background-repeat: no-repeat;
+  background-size: 10%;
+}
+
+</style>

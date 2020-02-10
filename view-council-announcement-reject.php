@@ -52,7 +52,7 @@ if (!isset($_SESSION['adminID'])) {
               <td scope="row"><?php echo $rescscann['CounName']; ?></td> 
               <td><?php echo $rescscann['dateSubmit']; ?></td>
               <td><?php echo $rescscann['subjectann']; ?></td> 
-              <td><a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['CounID']; ?>">View</a></td>
+              <td><a href="" class="btn btn-default blue-gradient mb-4 itogglebutton" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['CounID']; ?>">View</a></td>
 
             </tr>
 
@@ -101,88 +101,9 @@ if (!isset($_SESSION['adminID'])) {
                   <textarea type="text" name="message" class="md-textarea form-control" rows="4" readonly=""><?php echo $rescscann['message']; ?></textarea>
                   <label data-error="wrong" data-success="right" for="form8">Your message</label>
                 </div>
-
-            <!--     <ul>
-
-                <?php 
-
-
-                $timestart =  $rescscann['timeStart'];
-                $timeend =  $rescscann['timeEnd'];
-                $timeStartSubmitted = date('Y-m-d h:i:s', strtotime($timestart));
-                $timeEndSubmitted = date('Y-m-d h:i:s', strtotime($timeend));
-
-
-                $qry123 = mysqli_query($connection, "select * from dsa_announcement_table where isApproved = 'Yes' and dsaAnnouncementID <> '" . $rescscann['CounID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
-
-                while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
-                 
-                 <li class="text-danger font-weight-bold">You have a conflict with the "<?php echo $res123['subjectann']; ?>" <br> in this time schedule from "<?php echo date('F d, Y h:i A', strtotime($res123['timeStart'])); ?>" <br> until "<?php echo date('F d, Y h:i A', strtotime($res123['timeEnd'])); ?>" at <?php echo $res123['venueName']; ?>.</li>
-
-                  
-                <?php } ?>
-
-                <?php 
-               
-
-
-
-                $qry123 = mysqli_query($connection, "select * from csc_announcement_view where isApproved = 'Yes' and csc_announcementID <> '" . $rescscann['CounID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
-                while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
-                 
-                 <li class="text-danger font-weight-bold">You have a conflict with the "<?php echo $res123['subjectann']; ?>" <br> in this time schedule from "<?php echo date('F d, Y h:i A', strtotime($res123['timeStart'])); ?>" <br> until "<?php echo date('F d, Y h:i A', strtotime($res123['timeEnd'])); ?>" at <?php echo $res123['venueName']; ?>.</li>
-
-                  
-                <?php } ?>
-
-                 <?php 
-
-
-                $qry123 = mysqli_query($connection, "select * from council_club_announcement_view where isApproved = 'Yes' and council_announcementID  <> '" . $rescscann['CounID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
-
-                while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
-                 
-                 <li class="text-danger font-weight-bold">You have a conflict with the "<?php echo $res123['subjectann']; ?>" <br> in this time schedule from "<?php echo date('F d, Y h:i A', strtotime($res123['timeStart'])); ?>" <br> until "<?php echo date('F d, Y h:i A', strtotime($res123['timeEnd'])); ?>" at <?php echo $res123['venueName']; ?>.</li>
-
-                  
-                <?php } ?>
-
-                <?php 
-
-
-                $qry123 = mysqli_query($connection, "select * from departmental_club_announcement_view where isApproved = 'Yes' and DannouncementID <> '" . $rescscann['CounID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
-
-                while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
-                 
-                 <li class="text-danger font-weight-bold">You have a conflict with the "<?php echo $res123['subjectann']; ?>" <br> in this time schedule from "<?php echo date('F d, Y h:i A', strtotime($res123['timeStart'])); ?>" <br> until "<?php echo date('F d, Y h:i A', strtotime($res123['timeEnd'])); ?>" at <?php echo $res123['venueName']; ?>.</li>
-
-                  
-                <?php } ?>
-
-                 <?php 
-
-
-                $qry123 = mysqli_query($connection, "select * from social_announcement_table where isApproved = 'Yes' and social_announcementID <> '" . $rescscann['CounID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
-
-                while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
-                 
-                 <li class="text-danger font-weight-bold">You have a conflict with the "<?php echo $res123['subjectann']; ?>" <br> in this time schedule from "<?php echo date('F d, Y h:i A', strtotime($res123['timeStart'])); ?>" <br> until "<?php echo date('F d, Y h:i A', strtotime($res123['timeEnd'])); ?>" at <?php echo $res123['venueName']; ?>.</li>
-
-                  
-                <?php } ?>
-                  
-                </ul>
- -->                
-            
+                
               <div class="modal-footer d-flex justify-content-center">
-                <?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeStartSubmitted)): ?>
-                <button type="button" class="btn btn-unique" data-toggle="modal" data-target="#exampleModalCenter<?php echo $rescscann['CounID']; ?>">Approve <i class="fas fa-paper-plane-o ml-1"></i></button>  
-                <?php endif ?>
-
-                <?php if (strtotime(date('Y-m-d h:i:s'))>strtotime($timeStartSubmitted)): ?>
-                <button type="button" class="btn btn-unique" data-toggle="tooltip" data-placement="top" title="Date is expired" disabled="">Date Expired<i class="fas fa-paper-plane-o ml-1"></i></button>  
-                <?php endif ?>
-                <button type="button" class="btn btn-unique" data-toggle="modal" data-target="#rejectmodal<?php echo $rescscann['CounID']; ?>">Reject <i class="fas fa-paper-plane-o ml-1"></i></button>
+                <button type="button" class="btn btn-danger itogglebutton" data-dismiss="modal">Close</button>
               </div>
             </form> 
           </div>
@@ -210,8 +131,8 @@ if (!isset($_SESSION['adminID'])) {
                 <p>Do you want to Approve the Announcement ?</p>
               </div>
               <div class="modal-footer">
-                <a href="controller.php?from=approve-departmentalcouncil-announcement&CounID=<?php echo $rescscann['CounID']; ?>"><button type="button" class="btn btn-unique">Yes</button></a>
-                <button type="button" class="btn btn-unique" data-dismiss="modal">No</button>
+                <a href="controller.php?from=approve-departmentalcouncil-announcement&CounID=<?php echo $rescscann['CounID']; ?>"><button type="button" class="btn blue-gradient itogglebutton">Yes</button></a>
+                <button type="button" class="btn btn-danger itogglebutton" data-dismiss="modal">No</button>
               </div>
             </div>
           </div>
@@ -244,8 +165,8 @@ if (!isset($_SESSION['adminID'])) {
               <input type="text" name="from" value="reject-council-announcement" hidden>
 
               <div class="modal-footer">
-                <button type="submit" class="btn btn-unique">Yes</button></a>
-                <button type="button" class="btn btn-unique" data-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-unique itogglebutton">Yes</button></a>
+                <button type="button" class="btn btn-unique" itogglebutton data-dismiss="modal">No</button>
               </div>
               </form>
             </div>
@@ -278,3 +199,9 @@ $('.dataTables_length').addClass('bs-select');
 });
 
 </script>
+
+<style type="text/css">
+  .itogglebutton{
+  border-radius: 12px;
+  }
+</style>

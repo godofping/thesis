@@ -9,6 +9,13 @@ $timestart = date('Y-m-d h:i:s', strtotime($_POST['timestart']));
 $timeend = date('Y-m-d h:i:s', strtotime($_POST['timeend']));
 $venue = $_POST['venue'];
 
+
+if (strtotime($timeend)<strtotime($timestart)) {
+	$message .="Please Check the time if its correct.";
+}else if (strtotime($timestart)==strtotime($timeend)) {
+	$message .="Please Check the time if its correct.";
+}
+
 $qry= mysqli_query($connection, "select * from dsa_announcement_view  where isApproved = 'Yes' and timeStart between '" . $timestart . "' and '" . $timeend . "' and venueID = '" . $venue . "' ");
 
 while ($res123 = mysqli_fetch_assoc($qry)) {

@@ -52,7 +52,7 @@ if (!isset($_SESSION['adminID'])) {
               <td scope="row"><?php echo date('F d, Y h:i A', strtotime($rescscann['dateSubmit'])); ?></td> 
               <td><?php echo $rescscann['toWhom']; ?></td>
               <td><?php echo $rescscann['subjectann']; ?></td>
-              <td><a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['csc_announcementID']; ?>">View</a></td>
+              <td><a href="" class="btn btn-default blue-gradient mb-4 itogglebutton" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['csc_announcementID']; ?>">View</a></td>
 
             </tr>
 
@@ -103,7 +103,7 @@ if (!isset($_SESSION['adminID'])) {
                 </div>     
             
               <div class="modal-footer d-flex justify-content-center">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger itogglebutton" data-dismiss="modal">Close</button>
               </div>
             </form> 
           </div>
@@ -138,3 +138,9 @@ $('.dataTables_length').addClass('bs-select');
 });
 
 </script>
+
+<style type="text/css">
+  .itogglebutton{
+  border-radius: 12px;
+  }
+</style>

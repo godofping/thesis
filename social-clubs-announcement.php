@@ -102,7 +102,7 @@ if (!isset($_SESSION['accID'])) {
               
                 <div class="modal-footer d-flex justify-content-center">
                     
-                  <button type="submit" class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
+                  <button type="submit" class="btn btn-unique itogglebutton">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
                 
                 </div>
               </form> 
@@ -213,3 +213,8 @@ if (!isset($_SESSION['accID'])) {
 <?php include('footer.php'); ?>
 
 
+<style type="text/css">
+  .itogglebutton{
+  border-radius: 12px;
+}
+</style>

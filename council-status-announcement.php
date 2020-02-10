@@ -21,7 +21,7 @@ if (!isset($_SESSION['accID'])) {
 
   <div class="row">
       <div class="col-md-12">
-
+        <b><a href="departmental-council-announce.php"><i class="fas fa-caret-left"></i> <u>Back</u></a></b>
         <h2>Departmental Councils Pending Announcement</h2>
         <hr>
 

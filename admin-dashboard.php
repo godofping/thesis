@@ -56,22 +56,22 @@ if (!isset($_SESSION['adminID'])) {
 
             <tr>
               <td scope="row"><b>Central Student Council</b></td>
-              <td><a href="view-csc-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a><?php if ($resultreject1['cnt1'] != 0 ):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject1) ?></span><?php endif ?>
+              <td><a href="view-csc-announcement.php"><button type="button" class="btn btn-info itogglebutton"><i class="fas fa-search"></i> View</button><?php if ($resultreject1['cnt1'] != 0 ):?><span id="awcsc" class="badge badge-danger ml-1"></span><?php endif ?></a>
             </tr>
             
             <tr>
               <td scope="row"><b>Departmental Council</b></td>
-              <td><a href="view-council-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a><?php if ( $resultreject['cnt'] != 0 ):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject) ?></span><?php endif ?>
+              <td><a href="view-council-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a><?php if ( $resultreject['cnt'] != 0 ):?><span id="awcouncil" class="badge badge-danger ml-1"></span><?php endif ?>
             </tr>
 
             <tr>
               <td scope="row"><b>Departmental Clubs</b></td>
-              <td><a href="view-departmental-club-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a><?php if ($resultreject3['cnt3'] != 0 ):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject3) ?></span><?php endif ?>
+              <td><a href="view-departmental-club-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a><?php if ($resultreject3['cnt3'] != 0 ):?><span id="awdp" class="badge badge-danger ml-1"></span><?php endif ?>
             </tr>
 
              <tr>
               <td scope="row"><b>Social Clubs</b></td>
-              <td><a href="view-social-club-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a><?php if ($resultreject4['cnt4'] != 0):?><span class="badge badge-danger ml-1"><?php echo array_sum($resultreject4) ?></span><?php endif ?>
+              <td><a href="view-social-club-announcement.php"><button type="button" class="btn btn-info btn-rad"><i class="fas fa-search"></i> View</button></a><?php if ($resultreject4['cnt4'] != 0):?><span id="awsocial" class="badge badge-danger ml-1"></span><?php endif ?>
             </tr>
            
           
@@ -104,6 +104,20 @@ if (!isset($_SESSION['adminID'])) {
 
 <?php include('footer.php'); ?>
 
+<script type="text/javascript">
+var auto_refresh = setInterval(
+function ()
+{totalsumofannouncementsadminheader
+$('#awcsc').load('check-total-ann-dashboard-admin.php');
+$('#awcouncil').load('check-council-badge.php');
+$('#awdp').load('check-dp-badge.php');
+$('#awsocial').load('check-social-badge.php');
+},
+
+ 3000); // refresh every 10000 milliseconds
+
+</script>
+
 <style type="text/css">
  
  body {
@@ -131,6 +145,10 @@ if (!isset($_SESSION['adminID'])) {
   text-shadow: 3px 3px #000000;
 }*/
 
+  
+  .itogglebutton{
+  border-radius: 12px;
+}
 
   .btn-rad{
   border-radius: 12px;

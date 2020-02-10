@@ -44,7 +44,7 @@ if (isset($_SESSION['accID'])) {
           </div>
           </div>
   
-          <button class="btn btn-info btn-block my-4 aqua-gradient" type="submit">Sign in</button>
+          <button class="btn btn-info btn-block my-4 aqua-gradient" type="submit">Log in</button>
 
           <input type="text" name="from" value="login" hidden>
 

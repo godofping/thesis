@@ -1,7 +1,7 @@
  <header>
 
   <nav class="navbar fixed-top navbar-expand-lg navbar navbar-dark">
-    <a class="navbar-brand" href="students-dashboard.php"><img src="http://localhost:8080/thesis/logo/download.png" height="30" alt="mdb logo"><b style="color: black; font-family: Arial Black, Gadget, sans-serif"> |</b><b style="color: #6DAC4FFF; font-family: Arial Black, Gadget, sans-serif"> SAMIS</b></a>
+    <a class="navbar-brand" href="students-dashboard.php"><img src="http:/thesis/logo/download.png" height="30" alt="mdb logo"><b style="color: black; font-family: Arial Black, Gadget, sans-serif"> |</b><b style="color: black; font-family: Arial Black, Gadget, sans-serif"> Samis</b></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars" style="color: black"></i>
@@ -39,38 +39,87 @@
             <i class="fas fa-user-alt"></i><b><?php echo " ".ucfirst($reshey['lname'])." ". ucfirst($reshey['fname']) ?></b>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="MyaccountDropDown">
-            <a class="dropdown-item" href="manage-acc.php"><i class="fas fa-user-cog"></i><b><?php echo " ".ucfirst($reshey['lname'])." ". ucfirst($reshey['fname']) ?></b></a>
+            <a class="dropdown-item" href="manage-acc-new.php"><i class="fas fa-user-cog"></i><b><?php echo " ".ucfirst($reshey['lname'])." ". ucfirst($reshey['fname']) ?></b></a>
             <a class="nav-link" href="controller.php?from=logout" style="color: black"><i class="fas fa-sign-out-alt"></i> <b>Logout</b></a>
           </div>
 
         </li>
 
-        <li class="nav-item dropdown <?php if ($currentpage == 'club'): ?>
+       <!--  <li class="nav-item dropdown <?php if ($currentpage == 'club'): ?>
           active
         <?php endif ?>">
         <a class="nav-link"  href="my-clubs.php" style="color: black;">
             <i class="fas fa-theater-masks"></i> <b>My Clubs</b>
           </a>
-        </li>
+        </li> -->
 
         <?php 
+
+            $qrycode = mysqli_query($connection, "select * from list_student_view where stprofID = '".$_SESSION['stprofID']."'");
+            $rescode = mysqli_fetch_assoc($qrycode);
+            
+            $dpclubcode = $rescode['departmentClubId'];
 
             $qryhey = mysqli_query($connection, "select * from std_prof_view where accID = ".$_SESSION['accID']." ");
             $reshey = mysqli_fetch_assoc($qryhey);
 
-            $qrycscpos = mysqli_query($connection, "select * from csc_members_table where stprofID = '".$_SESSION['stprofID']."' ");
+            $qrycscpos = mysqli_query($connection, "select * from csc_members_table where stprofID = '".$_SESSION['stprofID']."' and perpost = 'Yes' ");
             $rescscpo = mysqli_fetch_assoc($qrycscpos);
 
-            $qyrcouncilpos = mysqli_query($connection,"select * from council_officers_table where stprofID = '".$_SESSION['stprofID']."' ");
+            $makeapostcsc = true;
+
+            if (mysqli_num_rows($qrycscpos) > 0) {
+              $makeapostcsc = false;
+            }
+
+            $qyrcouncilpos = mysqli_query($connection,"select * from council_officers_table where stprofID = '".$_SESSION['stprofID']."' and perpost = 'Yes' ");
             $rescouncilpos = mysqli_fetch_assoc($qyrcouncilpos);
 
-            $qyrdepartpos = mysqli_query($connection,"select * from departmental_officersandmembers_table where stprofID = '".$_SESSION['stprofID']."' ");
+     
+            $makapost = true;
+
+            if (mysqli_num_rows($qyrcouncilpos) > 0)
+            {
+
+              $makapost = false;
+            }
+
+
+
+            $qyrdepartpos = mysqli_query($connection,"select * from departmental_officersandmembers_table where stprofID = '".$_SESSION['stprofID']."' and perpost = 'Yes' ");
             $resdepartpos = mysqli_fetch_assoc($qyrdepartpos);
 
-            $qyrsocialpos = mysqli_query($connection,"select * from social_officerandmembers_table where stprofID = '".$_SESSION['stprofID']."' ");
+            $qyrsocialpos = mysqli_query($connection,"select * from social_officerandmembers_table where stprofID = '".$_SESSION['stprofID']."' and perpost = 'Yes' ");
             $ressocialpos = mysqli_fetch_assoc($qyrsocialpos);
 
-            if (mysqli_num_rows($qrycscpos)>0 || mysqli_num_rows($qyrcouncilpos)>0 || mysqli_num_rows($qyrdepartpos)>0 || mysqli_num_rows($qyrsocialpos)>0 ):?>
+            $qrycscreject = mysqli_query($connection,"select count(*) as cntcsc from csc_announcement_table where isApproved = 'Reject' ");
+            $rescscreject = mysqli_fetch_assoc($qrycscreject);
+
+           
+            $qyrcouncilposcheck = mysqli_query($connection,"select * from council_officers_table where stprofID = '".$_SESSION['stprofID']."' and perpost = 'Yes' ");
+            $rescouncilposcheck = mysqli_num_rows($qyrcouncilposcheck);
+
+          
+            $qrycouncilreject = mysqli_query($connection,"select count(*) as cntcouncil from council_announcement_table where CounID = '".$rescode['CounID']."' and isApproved = 'Reject' ");
+              
+            $rescouncilreject = mysqli_fetch_assoc($qrycouncilreject);
+            
+            
+            $qrydpreject = mysqli_query($connection,"select count(*) as cntdp from department_announcement_table where isApproved = 'Reject' and departmentClubId = '".$dpclubcode."' ");
+            $resdpreject = mysqli_fetch_assoc($qrydpreject);
+
+            $qryssocial = mysqli_query($connection, "select * from list_social_club_view where stprofID = ".$_SESSION['accID']." ");
+            $ressocial = mysqli_fetch_assoc($qryssocial);
+
+            $qrysocialreject = mysqli_query($connection,"select count(*) as cntsocial from social_announcement_table where isApproved = 'Reject' and socialClubId = '".$ressocial['socialClubId']."' ");
+            $ressocialreject = mysqli_fetch_assoc($qrysocialreject);
+
+            $rejectkaputa=array($rescscreject['cntcsc'],$rescouncilreject['cntcouncil'],$resdpreject['cntdp'],$ressocialreject['cntsocial']);
+
+
+            if (mysqli_num_rows($qrycscpos)>0 || mysqli_num_rows($qyrcouncilposcheck)>0 || mysqli_num_rows($qyrdepartpos)>0 || mysqli_num_rows($qyrsocialpos)>0 ):?>
+
+
 
         <li class="nav-item dropdown <?php if ($currentpage == 'creatclub'): ?>
           active
@@ -78,22 +127,23 @@
 
         <a class="nav-link dropdown-toggle" href="#" id="MyaccountDropDown" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false" style="color: black;">
-            <i class="far fa-newspaper"></i><b> Create Announcement</b>
+            <i class="far fa-newspaper"></i><b> Create Announcement</b><?php if ( $rescscreject['cntcsc'] != 0 || $rescouncilreject['cntcouncil'] != 0 || $resdpreject['cntdp'] != 0 || $ressocialreject['cntsocial'] != 0) : ?><span <?php if($makapost){ ?> hidden<?php } ?>  id="totalofreject" class="badge badge-danger ml-1"></span><?php endif ?>
           </a>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="MyaccountDropDown">
             <?php if (mysqli_num_rows($qrycscpos)>0 ): ?>
             <a class="dropdown-item" href="csc-announcement.php">
-              <b>CSC Announcement</b>
+              <b>CSC Announcement <?php if ( $rescscreject['cntcsc'] != 0): ?><span id="cscofreject" class="badge badge-danger ml-1"></span><?php endif ?></b>
             <?php endif ?></a>
             <?php if (mysqli_num_rows($qyrcouncilpos)>0): ?>
-            <a class="dropdown-item" href="departmental-council-announce.php"><b><?php echo $reshey1['CounName']; ?> Announcement</b></a>
+            <a class="dropdown-item" href="departmental-council-announce.php"><b><?php echo $reshey1['CounName']; ?> Announcement<?php if ( $rescouncilreject['cntcouncil'] != 0): ?><span id="councilofreject" class="badge badge-danger ml-1"></span><?php endif ?></b></a>
             <?php endif ?>
             <?php if (mysqli_num_rows($qyrdepartpos)>0): ?>
-            <a class="dropdown-item" href="departmental-clubs-announcement.php"><b><?php echo $reshey1['departmentcode']; ?> Announcement</b></a>
+            <a class="dropdown-item" href="departmental-clubs-announcement.php"><b><?php echo $reshey1['departmentcode']; ?> Announcement<?php if ( $resdpreject['cntdp'] != 0): ?><span id="dpofreject" class="badge badge-danger ml-1"></span><?php endif ?>
+              </b></a>
             <?php endif ?>
             <?php if (mysqli_num_rows($qyrsocialpos)>0): ?>
-            <a class="dropdown-item" href="social-clubs-announcement-new.php"><b><?php echo $ressocailcode['socialClubcode']; ?> Announcement</b></a>
+            <a class="dropdown-item" href="social-clubs-announcement-new.php"><b><?php echo $ressocailcode['socialClubcode']; ?> Announcement<?php if ( $ressocialreject['cntsocial'] != 0): ?><span id="scofreject" class="badge badge-danger ml-1"></span><?php endif ?></b></a>
             <?php endif ?>
           </div>
 
@@ -190,6 +240,24 @@
 
 </header>
 <!--Main Navigation-->
+
+<script type="text/javascript">
+
+
+var auto_refresh = setInterval(
+function ()
+{
+$('#totalofreject').load('check-total-reject.php');
+$('#cscofreject').load('check-csc-reject.php');
+$('#councilofreject').load('check-council-reject.php');
+$('#dpofreject').load('check-departmental-reject.php');
+$('#scofreject').load('check-social-reject.php');
+},
+
+ 3000); // refresh every 10000 milliseconds
+
+</script>
+
 <style type="text/css">
   
   .navbar { background-color: #fafafa ; } 

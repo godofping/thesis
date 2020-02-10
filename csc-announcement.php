@@ -42,16 +42,16 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
         if (mysqli_num_rows($qryposition)>0): ?>
 
-                  <a  href="" class="btn aqua-gradient mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create Announcement</a>
-                   <a href="csc-status-announcement.php" class="btn peach-gradient mb-4"><i class="fas fa-spinner"></i>  Pending Announcement</a>
-                   <a href="csc-reject-announcement.php" class="btn btn-outline-danger mb-4" ><i class="fas fa-exclamation"></i> Reject Announcement<?php if ( $resultreject['cnt'] != 0): ?><span class="badge badge-danger ml-1"><?php echo $resultreject['cnt']; ?></span>
+                  <a  href="" class="btn blue-gradient mb-4 itogglebutton" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus"></i> Create announcement</a>
+                   <a href="csc-status-announcement.php" class="btn peach-gradient mb-4 itogglebutton"><i class="fas fa-spinner"></i>  Pending announcement</a>
+                   <a href="csc-reject-announcement.php" class="btn btn-outline-danger mb-4 itogglebutton" ><i class="fas fa-exclamation"></i> Rejected announcement<?php if ( $resultreject['cnt'] != 0): ?><span class="badge badge-danger ml-1"><?php echo $resultreject['cnt']; ?></span>
           <?php endif ?></a>
         <?php endif ?>
         
         <!-- Creat Announcement Modal -->
         <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header text-center">
                 <h4 class="modal-title w-100 font-weight-bold">Write an Announcement</h4>
@@ -109,17 +109,18 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
                 <div class="md-form">
                   <i class="fas fa-pencil prefix grey-text"></i>
-                  <textarea type="text" name="message" class="md-textarea form-control" rows="4" required=""></textarea>
+                  <textarea type="text" name="message" class="md-textarea form-control" rows="4" required="" onkeydown="limitText(this.form.message,this.form.countdown,500);" onkeyup='limitText(this.form.message,this.form.countdown,500);'></textarea>
                   <label data-error="wrong" data-success="right" for="form8">Your message</label>
                 </div>
 
-                <p id="errors" class="text-danger"></p>
-
+                <b><p id="errors" class="text-danger"></p></b>
+                  <b>You have 
+                  <input readonly type="text" name="countdown" size="3" value="500">Characters left</b>
                   <input type="text" name="from" value="csc-announcement" hidden>
             
               <div class="modal-footer d-flex justify-content-center">
                   
-                <button id="sendButton" type="button" class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
+                <button id="sendButton" type="button" class="btn btn-success itogglebutton"><i class="far fa-paper-plane"></i> Send</button>
                 
                 
               </div>
@@ -143,7 +144,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
                <div class="container">
     <div class="card">
 
-    <h5 class="card-header blue lighten-1 white-text text-center py-4"><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
+    <h5 class="card-header green accent-4 white-text text-center py-4"><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
         <strong>Central Student Council</strong><br>
         <small style="font-size: ">Notre Dame of Tacurong College</small><br>
         <small>City of Tacurong</small>
@@ -181,7 +182,10 @@ if ((time() - $_SESSION['last_time']) > 300) {
         <!-- Form -->
           </div>
       </div>
-    </div>
+      <?php else: ?>
+    </div>    
+               
+              <center><h5 class="mt-5" style="color: black; font-family: Times New Roman;">No Announcement created</h5></center>  
               <?php endif ?>
              
 <!-- Material form contact -->
@@ -238,5 +242,18 @@ else
 });
 </script>
 
+<script type="text/javascript">
+       function limitText(limitField, limitCount, limitNum) {
+          if (limitField.value.length > limitNum) {
+            limitField.value = limitField.value.substring(0, limitNum);
+          } else {
+            limitCount.value = limitNum - limitField.value.length;
+          }
+        }
+</script>
 
-
+<style type="text/css">
+  .itogglebutton{
+  border-radius: 12px;
+}
+</style>

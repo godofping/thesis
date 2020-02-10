@@ -11,14 +11,23 @@ if (!isset($_SESSION['adminID'])) {
 
 
 <!--Main Layout-->
-<main class=" py-5 mt-5">
+<main class=" py-5 mt-3">
 
   <div class="container">
 
   <div class="row">
       <div class="col-md-12">
-        <h2><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive"> Student's Profile Data</h2>
-        <hr>
+        <h4><a id="print" style="color: #289DE5;" onclick="window.print();">Print Portfolio</a><a href="AdminReport.php" id="back" style="float: right"> Go back</a></h4>     
+     
+        <h5 class=" black-text text-center py-4 card-img">
+            <strong style="font-family: Arial Black, Gadget, sans-serif; margin-right: 300px">Office of Student Affairs</strong><br>
+            <strong style="font-family: Arial Black, Gadget, sans-serif; margin-right: 300px">NOTRE DAME OF TACURONG COLLEGE</strong><br>
+            <small style="font-family: Alfa Slab One; margin-right: 300px">City of Tacurong</small>
+        </h5>
+
+        <div class="md-form mt-1" style="text-align: center;">
+              <p style="color: black"><b><U>Student's Profile Data</U></p></b>
+            </div>
       </div>
     </div>
 
@@ -28,13 +37,13 @@ if (!isset($_SESSION['adminID'])) {
     <div class="row mt-5">
       <div class="col-md-12">
 
-        <div class="table-responsive text-nowrap" >
+        <div class="table-responsive" >
 
-        <table class="table" id="dtBasicExample">
+        <table class="table">
           <thead>
             <tr>
-              <th scope="col">Student ID</th>
-              <th scope="col">Student Name</th>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
               <th scope="col">Address</th>
               <th scope="col">Email</th>
               <th scope="col">Contact Number</th>
@@ -49,14 +58,14 @@ if (!isset($_SESSION['adminID'])) {
             $qry = mysqli_query($connection, "select * from list_student_view");
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
-              <td scope="row"><?php echo $res['StudentID']; ?></td> 
-              <td scope="row"><?php echo $res['lname'] ." ". $res['fname']; ?></td>
-              <td scope="row"><?php echo $res['address']; ?></td>
-              <td scope="row"><?php echo $res['email']; ?></td>
-              <td scope="row"><?php echo $res['contactnum']; ?></td>
-              <td scope="row"><?php echo $res['birthday']; ?></td>
-              <td scope="row"><?php echo $res['gender']; ?></td>
-              <td scope="row"><?php echo $res['CourseName']; ?></td>
+              <td scope="row"><b><?php echo $res['StudentID']; ?></b></td> 
+              <td scope="row"><b><?php echo $res['lname'] ." ". $res['fname']." ".$res['mname'] ?></b></td>
+              <td scope="row"><b><?php echo $res['address']; ?></b></td>
+              <td scope="row"><b><?php echo $res['email']; ?></b></td>
+              <td scope="row"><b><?php echo $res['contactnum']; ?></b></td>
+              <td scope="row"><b><?php echo $res['birthday']; ?></b></td>
+              <td scope="row"><b><?php echo $res['gender']; ?></b></td>
+              <td scope="row"><b><?php echo $res['CourseName']; ?></b></td>
            
             </tr>
 
@@ -70,7 +79,8 @@ if (!isset($_SESSION['adminID'])) {
       </div>
     </div>
   </div>
-  
+  </div>
+
 </main>
 <!--Main Layout-->
 
@@ -78,65 +88,33 @@ if (!isset($_SESSION['adminID'])) {
 
 <?php include('footer.php'); ?>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/datatables.min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/datatables.min.css" />
-
-
 <script type="text/javascript">
   
   $(document).ready(function () {
-    $('#dtBasicExample').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'csv',
-                className: 'btn btn-outline btn-sm',
-                text: 'Save to CSV',
-                title:"STUDENT PROFILE DATA"
-            },
-            {
-                extend: 'excel',
-                className: 'btn btn-outline btn-sm',
-                text: 'Save to Excel',
-                title:"STUDENT PROFILE DATA"
-            },
-            {
-                extend: 'print',
-                className: 'btn btn-outline btn-sm',
-                text: 'Print Table',
-                title:"STUDENT PROFILE DATA"
-            },
-            {
-                extend: 'pdf',
-                className: 'btn btn-outline btn-sm',
-                text: 'Save to PDF',
-                orientation: 'landscape',
-                pageSize: 'A4',
-                title:"STUDENT PROFILE DATA"
-            },
-            {
-                extend: 'copy',
-                className: 'btn btn-outline btn-sm',
-                text: 'Copy to clipboard',
-                title:"STUDENT PROFILE DATA"
-            }
-        ]
-    });
-    $('#dtMaterialDesignExample_wrapper').find('label').each(function () {
-        $(this).parent().append($(this).children());
-    });
-    $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('input').each(function () {
-        $('input').attr("placeholder", "Search");
-        $('input').removeClass('form-control-sm');
-    });
-    $('#dtMaterialDesignExample_wrapper .dataTables_length').addClass('d-flex flex-row');
-    $('#dtMaterialDesignExample_wrapper .dataTables_filter').addClass('md-form');
-    $('#dtMaterialDesignExample_wrapper select').removeClass('custom-select custom-select-sm form-control form-control-sm');
-    $('#dtMaterialDesignExample_wrapper select').addClass('mdb-select');
-    $('#dtMaterialDesignExample_wrapper .mdb-select').material_select();
-    $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('label').remove();
+$('#dtBasicExample').DataTable();
+$('.dataTables_length').addClass('bs-select');
 });
+
 </script>
+
+<style type="text/css">
+  
+  @media print {
+  #print {
+    display: none;
+  }
+  #back {
+    display: none;
+  }
+}
+
+  .card-img{
+
+  background-image: url("http://localhost:8080/thesis/logo/download.png");
+  background-position: left;
+  margin-left: 150px;
+  background-repeat: no-repeat;
+  background-size: 10%;
+}
+
+</style>

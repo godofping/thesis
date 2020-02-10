@@ -23,7 +23,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
   <div class="row">
       <div class="col-md-12">
-
+        <b><a href="social-clubs-announcement-new.php"><i class="fas fa-caret-left"></i> <u>Back</u></a></b>
         <h2>Social Clubs Rejected Announcement</h2>
         <hr>
 
@@ -67,13 +67,13 @@ if ((time() - $_SESSION['last_time']) > 300) {
               <td><?php echo $rescscann['dateSubmit']; ?></td>
               <td><?php echo $rescscann['toWhom']; ?></td>
               <td><?php echo $rescscann['subjectann']; ?></td>
-              <td><a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['DannouncementID']; ?>">View</a></td>
+              <td><a href="" class="btn btn-info mb-4 itogglebutton" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['DannouncementID']; ?>">View</a></td>
 
             </tr>
 
             <div class="modal fade" id="modalContactForm<?php echo $rescscann['DannouncementID']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header text-center">
                 <h4 class="modal-title w-100 font-weight-bold">Write an Announcement</h4>
@@ -145,8 +145,8 @@ if ((time() - $_SESSION['last_time']) > 300) {
                 <input type="text" name="DannouncementID" value="<?php echo $rescscann['DannouncementID']; ?>" hidden>
               <input type="text" name="from" value="resend-department-announcement" hidden>
 
-                <button type="submit" class="btn btn-unique">Resend</button></a>
-                <button type="button" class="btn btn-unique" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-success itogglebutton">Resend</button></a>
+                <!-- <button type="button" class="btn btn-danger itogglebutton">Delete</button></a> -->
               </div>
             </form> 
           </div>
@@ -181,3 +181,9 @@ $('.dataTables_length').addClass('bs-select');
 });
 
 </script>
+
+<style type="text/css">
+  .itogglebutton{
+  border-radius: 12px;
+}
+</style>

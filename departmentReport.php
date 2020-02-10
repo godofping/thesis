@@ -15,9 +15,36 @@ if (!isset($_SESSION['adminID'])) {
 
   <div class="container">
 
+    <?php 
+          if (isset($_GET['from']) and $_GET['from'] == 'checkIDfordepartmentofficer') {
+          $qryid = mysqli_query($connection, "select * from departmental_club_view where departmentClubId = '".$_GET['departmentClubId']."' ");
+          $resid = mysqli_fetch_assoc($qryid);
+          $departmentClubId = $resid['departmentClubId'];
+          $departmentClubName = $resid['departmentClubName'];
+
+          $title = "";
+
+          if (isset($_GET['officer'])) {
+            $title .= 'Officers';
+          }else if (isset($_GET['member'])) {
+            $title .= 'Members';
+          }
+
+          }         
+
+         ?>
+
   <div class="row">
       <div class="col-md-12">
-        <h2><img src="http://localhost:8080/thesis/logo/download.png" width="50" height="50" class="rounded-circle img-responsive"> List of Members of Departmental Clubs</h2>
+         <h4><a id="print" style="color: #289DE5;" onclick="window.print();">Print Portfolio</a><a href="AdminReport.php" id="back" style="float: right"> Go back</a></h4>  
+        <h5 class=" black-text text-center py-4 card-img">
+            <strong style="font-family: Arial Black, Gadget, sans-serif; margin-right: 300px">Office of Student Affairs</strong><br>
+            <strong style="font-family: Arial Black, Gadget, sans-serif; margin-right: 300px">NOTRE DAME OF TACURONG COLLEGE</strong><br>
+            <small style="font-family: Alfa Slab One; margin-right: 300px">City of Tacurong</small>
+        </h5>
+        <div class="md-form mt-1" style="text-align: center;">
+              <p style="color: black"><b><U>List of Members of <?php echo $departmentClubName; ?> Clubs</U></p></b>
+            </div>
         <hr>
       </div>
     </div>
@@ -41,7 +68,7 @@ if (!isset($_SESSION['adminID'])) {
           </thead>
           <tbody>
             <?php 
-            $qry = mysqli_query($connection, "select * from list_student_view");
+            $qry = mysqli_query($connection, "select * from list_student_view where departmentClubId = '".$departmentClubId."' ");
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
               <td scope="row"><?php echo $res['StudentID']; ?></td> 
@@ -89,65 +116,24 @@ if (!isset($_SESSION['adminID'])) {
 
 <?php include('footer.php'); ?>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/datatables.min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/datatables.min.css" />
-
-
-<script type="text/javascript">
+<style type="text/css">
   
-  $(document).ready(function () {
-    $('#dtBasicExample').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'csv',
-                className: 'btn btn-outline btn-sm',
-                text: 'Save to CSV',
-                title:"LIST OF MEMBERS OF DEPARTMENTAL CLUBS"
-            },
-            {
-                extend: 'excel',
-                className: 'btn btn-outline btn-sm',
-                text: 'Save to Excel',
-                title:"LIST OF MEMBERS OF DEPARTMENTAL CLUBS"
-            },
-            {
-                extend: 'print',
-                className: 'btn btn-outline btn-sm',
-                text: 'Print Table',
-                title:"LIST OF MEMBERS OF DEPARTMENTAL CLUBS"
-            },
-            {
-                extend: 'pdf',
-                className: 'btn btn-outline btn-sm',
-                text: 'Save to PDF',
-                orientation: 'landscape',
-                pageSize: 'A4',
-                title:"LIST OF MEMBERS OF DEPARTMENTAL CLUBS"
-            },
-            {
-                extend: 'copy',
-                className: 'btn btn-outline btn-sm',
-                text: 'Copy to clipboard',
-                title:"LIST OF MEMBERS OF DEPARTMENTAL CLUBS"
-            }
-        ]
-    });
-    $('#dtMaterialDesignExample_wrapper').find('label').each(function () {
-        $(this).parent().append($(this).children());
-    });
-    $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('input').each(function () {
-        $('input').attr("placeholder", "Search");
-        $('input').removeClass('form-control-sm');
-    });
-    $('#dtMaterialDesignExample_wrapper .dataTables_length').addClass('d-flex flex-row');
-    $('#dtMaterialDesignExample_wrapper .dataTables_filter').addClass('md-form');
-    $('#dtMaterialDesignExample_wrapper select').removeClass('custom-select custom-select-sm form-control form-control-sm');
-    $('#dtMaterialDesignExample_wrapper select').addClass('mdb-select');
-    $('#dtMaterialDesignExample_wrapper .mdb-select').material_select();
-    $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('label').remove();
-});
-</script>
+  @media print {
+  #print {
+    display: none;
+  }
+  #back {
+    display: none;
+  }
+}
+
+  .card-img{
+
+  background-image: url("http://localhost:8080/thesis/logo/download.png");
+  background-position: left;
+  margin-left: 150px;
+  background-repeat: no-repeat;
+  background-size: 10%;
+}
+
+</style>

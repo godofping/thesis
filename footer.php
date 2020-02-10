@@ -248,7 +248,7 @@
   );
 
 
-}, 5000);
+}, 3000);
     
     
 function display(toWhom, message, subjectann)
@@ -380,7 +380,7 @@ function display(toWhom, message, subjectann)
   );
 
 
-}, 5000);
+}, 3000);
     
     
 function display(toWhom, message, subjectann)
