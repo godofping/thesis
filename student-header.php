@@ -1,7 +1,7 @@
  <header>
 
   <nav class="navbar fixed-top navbar-expand-lg navbar navbar-dark">
-    <a class="navbar-brand" href="students-dashboard.php"><img src="logo/download.png" height="30" alt="mdb logo"><b style="color: black; font-family: Arial Black, Gadget, sans-serif"> |</b><b style="color: black; font-family: Arial Black, Gadget, sans-serif"> Samis</b></a>
+    <a class="navbar-brand" href="students-dashboard.php"><img src="logo/download.png" height="30" alt="mdb logo"><b style="color: black; font-family: Arial Black, Gadget, sans-serif"> |</b><b style="color: black; font-family: Arial Black, Gadget, sans-serif"> SAMIS</b></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars" style="color: black"></i>
@@ -36,10 +36,10 @@
 
         <a class="nav-link dropdown-toggle" href="#" id="MyaccountDropDown" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false" style="color: black;">
-            <i class="fas fa-user-alt"></i><b><?php echo " ".ucfirst($reshey['lname'])." ". ucfirst($reshey['fname']) ?></b>
+            <i class="fas fa-user-alt"></i><b><?php echo " ".ucfirst($reshey['lname']).", ". ucfirst($reshey['fname']) ?></b>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="MyaccountDropDown">
-            <a class="dropdown-item" href="manage-acc-new.php"><i class="fas fa-user-cog"></i><b><?php echo " ".ucfirst($reshey['lname'])." ". ucfirst($reshey['fname']) ?></b></a>
+            <a class="dropdown-item" href="manage-acc-new.php"><i class="fas fa-user-cog"></i><b><?php echo " ".ucfirst($reshey['lname']).", ". ucfirst($reshey['fname']) ?></b></a>
             <a class="nav-link" href="controller.php?from=logout" style="color: black"><i class="fas fa-sign-out-alt"></i> <b>Logout</b></a>
           </div>
 

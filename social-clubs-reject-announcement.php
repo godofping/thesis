@@ -42,7 +42,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
         <table class="table" id="dtBasicExample">
           <thead>
             <tr>
-              <th scope="col">Social Club Name</th>
+              
               <th scope="col">Announcement Date</th>
               <th scope="col">to</th>
               <th scope="col">Subject</th>
@@ -63,15 +63,14 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
             while ($rescscann = mysqli_fetch_assoc($qrycscann)) { ?>
                <tr>
-              <td scope="row"><?php echo $rescscann['departmentClubName']; ?></td> 
               <td><?php echo $rescscann['dateSubmit']; ?></td>
               <td><?php echo $rescscann['toWhom']; ?></td>
               <td><?php echo $rescscann['subjectann']; ?></td>
-              <td><a href="" class="btn btn-info mb-4 itogglebutton" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['DannouncementID']; ?>">View</a></td>
+              <td><a href="" class="btn btn-info mb-4 itogglebutton" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['social_announcementID']; ?>">View</a></td>
 
             </tr>
 
-            <div class="modal fade" id="modalContactForm<?php echo $rescscann['DannouncementID']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            <div class="modal fade" id="modalContactForm<?php echo $rescscann['social_announcementID']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -88,11 +87,8 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
                 <?php 
 
-                        $qrydpannname = mysqli_query($connection, " select * from department_announcement_table where DannouncementID = '".$rescscann['DannouncementID']."' ");
+                        $qrydpannname = mysqli_query($connection, " select * from social_club_announcement_view where social_announcementID = '".$rescscann['social_announcementID']."' ");
                         $resultann = mysqli_fetch_assoc($qrydpannname);    
-
-                        $qryvenue = mysqli_query($connection, "select * from departmental_club_announcement_view where departmentClubId = '".$resdpname['departmentClubId']."' ");
-                        $resvenue = mysqli_fetch_assoc($qryvenue);
 
                      ?>  
 
@@ -118,8 +114,8 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
                   <div class="md-form mb-5">  
                    <p class="text-center">Select Venue</p>
-                  <select class="form-control" name="venueID" required="" title="hi">
-                          <option selected="" value="<?php echo $resultann['venueID']; ?>"><?php echo $resvenue['venueName'] ?></option>    
+                  <select class="form-control" name="venueID" required="">
+                          <option selected="" value="<?php echo $resultann['venueID']; ?>"><?php echo $resultann['venueName'] ?></option>    
                           <?php 
 
                             $qry1 = mysqli_query($connection, "select * from venue_table");
@@ -138,15 +134,15 @@ if ((time() - $_SESSION['last_time']) > 300) {
                 </div>
 
                 <ul>
-                  <li class="text-danger font-weight-bold">Your Announcement was Rejected due to this reasons <br>"<?php echo $resultann['annreason']; ?>".</li>
+                  <li class="text-danger font-weight-bold">Your announcement was REJECTED due to the following reason/s: <br>"<?php echo $resultann['annreason']; ?>".</li>
                 </ul>
             
               <div class="modal-footer d-flex justify-content-center">
-                <input type="text" name="DannouncementID" value="<?php echo $rescscann['DannouncementID']; ?>" hidden>
-              <input type="text" name="from" value="resend-department-announcement" hidden>
+                <input type="text" name="social_announcementID" value="<?php echo $rescscann['social_announcementID']; ?>" hidden>
+              <input type="text" name="from" value="resend-socialclub-announcement" hidden>
 
                 <button type="submit" class="btn btn-success itogglebutton">Resend</button></a>
-                <!-- <button type="button" class="btn btn-danger itogglebutton">Delete</button></a> -->
+                <a href="controller.php?from=discard-sc-announcement&social_announcementID=<?php echo $rescscann['social_announcementID']; ?>"><button type="button" class="btn btn-danger itogglebutton">discard</button></a>
               </div>
             </form> 
           </div>

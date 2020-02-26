@@ -132,7 +132,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
                 </div>
 
                 <ul>
-                  <li class="text-danger font-weight-bold">Your Announcement was Rejected due to this reasons <br>"<?php echo $resultann['annreason']; ?>".</li>
+                  <li class="text-danger font-weight-bold">Your announcement was REJECTED due to the following reason/s: <br>"<?php echo $resultann['annreason']; ?>".</li>
                 </ul>
 
               <input type="text" name="csc_announcementID" value="<?php echo $rescscann['csc_announcementID']; ?>" hidden>
@@ -140,7 +140,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
             
               <div class="modal-footer d-flex justify-content-center">
                 <button type="submit" class="btn btn-success itogglebutton">Resend</button></a>
-                <!-- <button type="button" class="btn btn-danger itogglebutton">Delete</button></a> -->
+                <a href="controller.php?from=discard-csc-announcement&csc_announcementID=<?php echo $rescscann['csc_announcementID']; ?>"><button type="button" class="btn btn-danger itogglebutton">discard</button></a>
               </div>
             </form> 
           </div>

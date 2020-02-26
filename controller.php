@@ -358,7 +358,7 @@ if (isset($_GET['from']) and $_GET['from'] == 'resend-csc-announcement') {
 	
 		mysqli_query($connection, "update csc_announcement_table set toWhom = '".mysqli_real_escape_string($connection,$_GET['to'])."', subjectann = '".mysqli_real_escape_string($connection,$_GET['subject'])."', isApproved = 'No', message = '".mysqli_real_escape_string($connection,$_GET['message'])."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."' where csc_announcementID = '" . $_GET['csc_announcementID'] . "'");
 
-		 header("Location: csc-announcement.php");
+		 header("Location: csc-reject-announcement.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'dp-announcement') {
@@ -413,9 +413,9 @@ if (isset($_GET['from']) and $_GET['from'] == 'reject-socialclub-announcement') 
 
 if (isset($_GET['from']) and $_GET['from'] == 'resend-socialclub-announcement') {
 	
-		mysqli_query($connection, "update council_announcement_table set toWhom = '".mysqli_real_escape_string($connection,$_GET['to'])."', subjectann = '".mysqli_real_escape_string($connection,$_GET['subject'])."', isApproved = 'No', message = '".mysqli_real_escape_string($connection,$_GET['message'])."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."'  where CounID = '" . $_GET['CounID'] . "'");
+		mysqli_query($connection, "update social_announcement_table set toWhom = '".mysqli_real_escape_string($connection,$_GET['to'])."', subjectann = '".mysqli_real_escape_string($connection,$_GET['subject'])."', isApproved = 'No', message = '".mysqli_real_escape_string($connection,$_GET['message'])."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."'  where social_announcementID = '" . $_GET['social_announcementID'] . "'");
 
-		 header("Location: view-council-announcement.php");
+		  header("Location:social-clubs-reject-announcement.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'deparmental-council-announcement') {
@@ -441,9 +441,9 @@ if (isset($_GET['from']) and $_GET['from'] == 'reject-council-announcement') {
 
 if (isset($_GET['from']) and $_GET['from'] == 'resend-council-announcement') {
 	
-		mysqli_query($connection, "update council_announcement_table set toWhom = '".mysqli_real_escape_string($connection,$_GET['to'])."', subjectann = '".mysqli_real_escape_string($connection,$_GET['subject'])."', isApproved = 'No', message = '".mysqli_real_escape_string($connection,$_GET['message'])."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."'  where CounID = '" . $_GET['CounID'] . "'");
+		mysqli_query($connection, "update council_announcement_table set toWhom = '".mysqli_real_escape_string($connection,$_GET['to'])."', subjectann = '".mysqli_real_escape_string($connection,$_GET['subject'])."', isApproved = 'No', message = '".mysqli_real_escape_string($connection,$_GET['message'])."', timeStart = '".$_GET['timestart']."', timeEnd = '".$_GET['timeend']."', venueID = '".$_GET['venueID']."'  where council_announcementID = '" . $_GET['council_announcementID'] . "'");
 
-		 header("Location: view-council-announcement.php");
+		 header("Location: council-reject-announcement.php");
 }
 
 if (isset($_POST['from']) and $_POST['from'] == 'add-venue') {
@@ -863,5 +863,42 @@ if (isset($_POST['from']) and $_POST['from'] == 'change-course') {
 		  header("Location: social-add-position.php");
 
 }
+
+if (isset($_GET['from']) and $_GET['from'] == 'discard-csc-announcement') {
+		
+	$csc_announcementID = $_GET['csc_announcementID'];
+
+		mysqli_query($connection,"update csc_announcement_table set isApproved = 'Discard' where csc_announcementID = '".$csc_announcementID."' ");
+		header("Location: csc-reject-announcement.php");
+}	
+
+if (isset($_GET['from']) and $_GET['from'] == 'discard-council-announcement') {
+		
+	$council_announcementID = $_GET['council_announcementID'];
+
+		mysqli_query($connection,"update council_announcement_table set isApproved = 'Discard' where council_announcementID = '".$council_announcementID."' ");
+		header("Location: council-reject-announcement.php");
+		// echo "update council_announcement_table set isApproved = 'Discard' where council_announcementID = '".$council_announcementID."'";
+}
+
+if (isset($_GET['from']) and $_GET['from'] == 'discard-sc-announcement') {
+		
+	$social_announcementID = $_GET['social_announcementID'];
+
+		mysqli_query($connection,"update social_announcement_table set isApproved = 'Discard' where social_announcementID = '".$social_announcementID."' ");
+		header("Location: social-clubs-reject-announcement.php");
+		// echo "update council_announcement_table set isApproved = 'Discard' where council_announcementID = '".$council_announcementID."'";
+}
+
+
+if (isset($_GET['from']) and $_GET['from'] == 'discard-dp-announcement') {
+		
+	$DannouncementID = $_GET['DannouncementID'];
+
+		mysqli_query($connection,"update department_announcement_table set isApproved = 'Discard' where DannouncementID = '".$DannouncementID."' ");
+		header("Location: departmental-clubs-reject-announcement.php");
+		// echo "update council_announcement_table set isApproved = 'Discard' where council_announcementID = '".$council_announcementID."'";
+}
+
 
  ?>

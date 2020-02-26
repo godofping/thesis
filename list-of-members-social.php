@@ -59,7 +59,7 @@ if (!isset($_SESSION['adminID'])) {
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
               <!-- <th scope="row"><?php echo $res['positionName']; ?></th>  -->
-              <th scope="row"><?php echo $res['lname'] ." ". $res['mname'] ." ". $res['fname']; ?></th>
+              <th scope="row"><?php echo $res['lname'] .", ". $res['mname'] ." ". $res['fname']; ?></th>
               <th scope="row"><?php echo $res['CourseName']; ?></th> 
             </tr>
 

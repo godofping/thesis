@@ -94,7 +94,7 @@ if (!isset($_SESSION['adminID'])) {
             $qry = mysqli_query($connection, "select * from student_portfolio_view");
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
-              <th scope="row"><?php echo ucfirst($res['lname'])." ". ucfirst($res['fname'])  ?></th>
+              <th scope="row"><?php echo ucfirst($res['lname']).", ". ucfirst($res['fname'])." ". ucfirst($res['mname'])  ?></th>
               <th scope="row"><?php echo ucfirst($res['schoolyr'])  ?></th>  
               <td><a href="print-portfolio.php?from=checkidforstudentportfolio&stportfolioID=<?php echo $res['stportfolioID'] ?>"><button type="button" class="btn aqua-gradient itogglebutton">View</button></a></td>
 

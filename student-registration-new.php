@@ -1,12 +1,11 @@
-<?php include('header.php');
+ <?php include('header.php');
 if (!isset($_SESSION['accID'])) {
   header("Location: index.php");
 }
-?>
-
+?> 
 
 <div class="container-fluid">
- <form class="grey lighten-5 border border-light p-3 needs-validation" novalidate method="POST" action="controller.php" autocomplete="false" enctype="multipart/form-data">
+ <form class="grey lighten-5 border border-light p-3 needs-validation" method="POST" action="controller.php" novalidate  autocomplete="false" enctype="multipart/form-data">
   <div class="row">
      
   <div class="col-md-4">
@@ -48,27 +47,25 @@ if (!isset($_SESSION['accID'])) {
           
           <p class="h4 mb-4 text-center pt-4">Register your Information</p>
 
-           <div class="row">
-              <div class="col-12">
-                <div class="form-group">
-                <div class="d-flex justify-content-center">
+          <div class="d-flex justify-content-center">
                 <div class="btn aqua-gradient btn-rounded float-left">
                   <span>Choose Picture</span>
-                  <input type="file" name="IMG" required="">
+                  <input type="file" id="IMG" name="IMG" required="">
                   <div class="invalid-feedback">Please select a picture</div>
                 </div>
+                
               </div>
+               <div class="alert alert-danger" id="pictureselect" hidden="true" role="alert">
+                Please Choose a <b>Picture</b>
               </div>
-              </div>
-            </div>
 
             <div class="row">
             <div class="col-12">
               <div class="form-group">
               <small>First Name</small>
-             <input type="text" name="fname" class="form-control md-4" id="fname" required="" placeholder="First Name">
+             <input type="text" name="fname" pattern="[a-zA-Z][a-zA-Z\s\.-/']*" class="form-control md-4" id="fname" required="" placeholder="First Name">
               <div class="invalid-feedback">
-              Please enter your First name.
+              Please enter your First name Letters Only no Numbers.
               </div>
              </div>
             </div>
@@ -78,9 +75,9 @@ if (!isset($_SESSION['accID'])) {
             <div class="col-12">
               <div class="form-group">
                 <small>Middle Name</small>
-             <input type="text" name="mname" class="form-control md-4" id="mname" required="" placeholder="MIddle Name">
+             <input type="text" name="mname" pattern="[a-zA-Z][a-zA-Z\s\.-/']*" class="form-control md-4" id="mname" required="" placeholder="MIddle Name">
               <div class="invalid-feedback">
-              Please enter your Middle name.
+              Please enter your Middle name Letters Only no Numbers.
               </div>
              </div>
             </div>
@@ -90,9 +87,9 @@ if (!isset($_SESSION['accID'])) {
             <div class="col-12">
               <div class="form-group">
                 <small>Last Name</small>
-             <input type="text" name="lname" class="form-control md-4" id="lname" required="" placeholder="Last Name">
+             <input type="text" name="lname" pattern="[a-zA-Z][a-zA-Z\s\.-/']*" class="form-control md-4" id="lname" required="" placeholder="Last Name">
               <div class="invalid-feedback">
-              Please enter your Last name.
+              Please enter your Last name Letters Only no Numbers.
               </div>
              </div>
             </div>
@@ -102,9 +99,9 @@ if (!isset($_SESSION['accID'])) {
             <div class="col-12">
             <div class="form-group">
               <small>Address</small>
-            <input type="text" name="address" id="address" class="form-control md-4" required="" placeholder="Address">
+            <input type="text" name="address" pattern="[a-zA-Z][a-zA-Z\s\.-/']*" id="address" class="form-control md-4" required="" placeholder="Address">
              <div class="invalid-feedback">
-              Please provide a valid Permament Address.
+              Please provide a valid Permament Address Letters Only no Numbers.
               </div>
             </div>
             </div>
@@ -126,9 +123,9 @@ if (!isset($_SESSION['accID'])) {
           <div class="col-12">
           <div class="form-group">
             <small>Parents/Guardian Name</small>
-          <input type="text" name="pandg" class="form-control md-4" id="email" required="" placeholder="Parents/Guardian Name">
+          <input type="text" name="pandg" pattern="[a-zA-Z][a-zA-Z\s\.-/']*" class="form-control md-4" id="email" required="" placeholder="Parents/Guardian Name">
           <div class="invalid-feedback">
-          Please provide a Parents/Guardian Name.
+          Please provide a Parents/Guardian Name Letters Only no Numbers.
           </div>
           </div>
           </div>
@@ -138,18 +135,18 @@ if (!isset($_SESSION['accID'])) {
           <div class="col">
               <div class="form-group">
                 <small>Religion</small>
-            <input type="text" name="religion" class="form-control md-4" id="religion" required="" placeholder="Religion">
+            <input type="text" name="religion" pattern="[a-zA-Z][a-zA-Z\s\.-/']**" class="form-control md-4" id="religion" required="" placeholder="Religion">
             <div class="invalid-feedback">
-            Please provide a Religion.
+            Please provide a Religion Letters Only no Numbers.
             </div>
             </div>
           </div>
           <div class="col">
               <div class="form-group">
                 <small>Tribe</small>
-            <input type="text" name="tribe" class="form-control md-4" id="tribe" required="" placeholder="Tribe">
+            <input type="text" name="tribe" pattern="[a-zA-Z][a-zA-Z\s\.-/']*" class="form-control md-4" id="tribe" required="" placeholder="Tribe">
             <div class="invalid-feedback">
-            Please provide a Tribe.
+            Please provide a Tribe Letters Only no Numbers.
             </div>
             </div>
           </div>
@@ -159,7 +156,7 @@ if (!isset($_SESSION['accID'])) {
           <div class="col-12">
           <div class="form-group">
             <small>Contact Number</small>
-            <input type="text" name="contractnum" class="form-control md-4" required="" placeholder="Contact Number">
+            <input type="Number" name="contractnum" class="form-control md-4" required="" placeholder="Contact Number">
             <div class="invalid-feedback">
           Please provide a Contact Number.
           </div>
@@ -173,10 +170,11 @@ if (!isset($_SESSION['accID'])) {
               <div class="col-12">
                 
                 <div class="form-group">
-                  <input type="date" name="birthday" class="form-control" placeholder="Month" required="">
+                  <input type="date" name="birthday" id="birthday" class="form-control" placeholder="Month" required="">
                   <div class="invalid-feedback">
                    Please enter your birthday.
                   </div>
+                  <div class="alert alert-danger" id="datecheck" hidden="true" role="alert">Age restriction you must be atleast 15yrs old.</div>
                 </div>
               </div>
             </div>
@@ -191,7 +189,7 @@ if (!isset($_SESSION['accID'])) {
                   <option>Female</option>
                 </select>
                 <div class="invalid-feedback">
-                   Please enter your birthday.
+                   Please enter your Gender.
                   </div>
                 </div>
               </div>
@@ -219,7 +217,9 @@ if (!isset($_SESSION['accID'])) {
                   <?php } ?>
 
                 </select>
-
+                 <div class="invalid-feedback">
+                   Please select your Course.
+                  </div>
                 </div>
 
 
@@ -241,20 +241,25 @@ if (!isset($_SESSION['accID'])) {
                     <br>
                       <input type="checkbox" name="socialClubName[]" class="form-check-input" value="<?php echo  $res['socialClubId']; ?>" id="c<?php echo $res['socialClubId']; ?>">
                       <label class="form-check-label" for="c<?php echo $res['socialClubId']; ?>"><?php echo $res['socialClubName']; ?></label>
+
                     <?php }
                    ?>
                   
                 </div>
-
+                <div class="alert alert-danger" id="alerttest" hidden="true" role="alert">
+                Please select <b>atleast 1 Social Club</b>
+              </div>
                 </div>
+
           </div>
           </div>
 
 
 
     </div>
-    <a href="" data-toggle="modal" data-target="#changepassModal" ><button id="testingbutton"  class="btn aqua-gradient" disabled="true">Submit</button></a>
-    <!-- <button class="btn aqua-gradient" id="testingbutton" type="submit" disabled="true">submit</button> -->
+    <!-- <small>*By clicking Submit, you are indicating that you have read, understood, and agree to <small style="color: blue;">User Agreement</small> and <small style="color: blue;">Privacy Policy</small> </small><br> -->
+    <a href="" data-toggle="modal" data-target="#changepassModal" ><button id="testingbutton" class="btn aqua-gradient itogglebutton">Submit</button></a>
+    <!-- <button class="btn aqua-gradient itogglebutton"  data-toggle="modal" data-target="#changepassModal" >submit</button>  -->
 
       
 
@@ -262,22 +267,25 @@ if (!isset($_SESSION['accID'])) {
             aria-hidden="true">
 
             <!-- Change class .modal-sm to change the size of the modal -->
-            <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-dialog modal-m" role="document">
               <div class="modal-content">
                 <form class="border border-light p-3" method="POST" action="controller.php" autocomplete="false">
                 <div class="modal-header">
-                  <strong class="modal-title w-100" id="myModalLabel" style="font-family: Arial Black, Gadget, sans-serif">Confirmation</strong>
+                  <strong class="modal-title w-100" id="myModalLabel" style="font-family: Arial Black, Gadget, sans-serif">Terms & Conditions</strong>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <small>By clicking "YES" means all information is VALID and TRUE."No" if you want to change your information.</small>
+                  <small>By clicking Proceed, you agree to our <a href="privacy-policy.php" target="_newtab">Privacy Policy</a> and <a href="data-policy.php" target="_newtab">Data Policy</a>.</small><br>
+                  <small id="ageapper" hidden="true" style="text-align: left;color: red;">Age restriction you must be atleast 15yrs old.</small>
+                  <small id="socialclub" hidden="true" style="text-align: left;color: red;">Please select <b>atleast 1 Social Club</b></small>
                 </div>
                 <input type="text" name="from" value="register_student_information" hidden>
                 <div class="modal-footer">
-                  <button class="btn aqua-gradient mt-1" data-dismiss="modal">Yes</button>
-                  <button type="submit" class="btn success-color">No</button>
+                  <button type="submit" id="test" class="btn success-color itogglebutton">Proceed</button>
+                  <button class="btn btn-info mt-1 itogglebutton" id="backbutton" hidden="true" data-dismiss="modal">Back</button>
+                  <!-- <button type="submit" class="btn success-color">No</button> -->
                 </div>
               </form>
               </div>
@@ -371,6 +379,70 @@ $('.form-check-input').on('change', function(evt) {
 
 <script type="text/javascript">
   
+  $("#testingbutton").click(function(){
+  
+    function getAge(){
+      var datestring = document.getElementById("birthday").value;
+  
+    if (datestring != "") {
+        var today = new Date();
+        var birthDate = new Date(datestring); //format is mm.dd.yyyy
+        var age = today.getFullYear() - birthDate.getFullYear();
+
+        if(age < 15 || age > 100)
+        {
+            $("#datecheck").attr("hidden",false);
+            $("#test").attr("hidden",true);
+            $("#backbutton").attr("hidden",false);
+            // $("#ageapper").attr("hidden",false);
+        }
+         else 
+        {
+           $("#datecheck").attr("hidden",true); 
+           $("#test").attr("disabled",false);
+           $("#backbutton").attr("hidden",true);
+           $("#test").attr("hidden",false);
+           // $("#ageapper").attr("hidden",true);
+         }
+    } 
+    }
+
+    getAge();
+
+    picture = $("#IMG").val();
+
+    if (picture != "" || picture != null) {
+      $("#pictureselect").attr("hidden",true);
+      }else {
+        $("#test").attr("hidden",false);
+      }
+
+      if ($("input:checkbox").is(':checked')) {
+        $("#alerttest").attr("hidden",true);
+      }else {
+        $("#backbutton").attr("hidden",false);
+      }
+
+    if (!$("input:checkbox").is(':checked') && picture == "" || picture == null) {
+      $("#alerttest").attr("hidden",false);
+      $("#pictureselect").attr("hidden",false);
+      // $("#agreebutton").attr("disabled",false);
+    }else if (!$("input:checkbox").is(':checked')) {
+      $("#alerttest").attr("hidden",false);
+       $("#backbutton").attr("hidden",false);
+      $("#test").attr("hidden",true);
+      // return false;
+    }else if (picture == "" || picture == null) {
+      $("#pictureselect").attr("hidden",false);
+      // return false ;
+      } 
+
+  });
+
+</script>
+
+<!-- <script type="text/javascript">
+  
   $("input:checkbox").click(function(){
     var st = this.checked;
      if (st) {
@@ -378,4 +450,10 @@ $('.form-check-input').on('change', function(evt) {
       }
   });
 
-</script>
+</script> -->
+
+<style type="text/css">
+  .itogglebutton{
+  border-radius: 12px;
+}
+</style>

@@ -52,7 +52,7 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="venue.php"><i class="fas fa-map-marker-alt"></i> <b>Add Venue</b></a></li>
               <li><a class="dropdown-item" href="creat-announcement.php"><i class="fas fa-file-import"></i> <b>Add Announcement</b></a></li>
-              <li><a class="dropdown-item" href="view-all-announcement.php"><i class="fas fa-file"></i> <b>View Announcement</b><?php if ( $resultreject1['cnt1'] != 0 || $resultreject2['cnt2'] != 0 || $resultreject3['cnt3'] != 0 || $resultreject4['cnt4'] != 0) : ?><span id="totalsumofannouncements" class="badge badge-danger ml-1"></span><?php endif ?></a></li>
+              <li><a class="dropdown-item" href="view-all-announcement.php"><i class="fas fa-file"></i> <b> Announcements</b><?php if ( $resultreject1['cnt1'] != 0 || $resultreject2['cnt2'] != 0 || $resultreject3['cnt3'] != 0 || $resultreject4['cnt4'] != 0) : ?><span id="totalsumofannouncements" class="badge badge-danger ml-1"></span><?php endif ?></a></li>
               <li><a class="dropdown-item" href="history-of-announcement.php"><i class="fas fa-file-alt"></i>  <b>History of Announcement</b></a></li>
             </ul>
           </li>

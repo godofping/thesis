@@ -80,18 +80,18 @@ if ((time() - $_SESSION['last_time']) > 300) {
                 </div>
 
                   <div class="md-form mx-5 my-5">
-                    <input type="datetime-local" id="timestart" name="timestart" class="form-control" required="">
+                    <input id="timestart" type="datetime-local" name="timestart" class="form-control" required="" min="<?php echo date("Y-m-d") . "T" . date("H:i") ?>" ><!--  onkeydown="return false" -->
                     <label for="inputMDEx">Date and time Start</label>
                   </div>
 
                   <div class="md-form mx-5 my-5">
-                    <input type="datetime-local" id="timeend" name="timeend" class="form-control" required="">
+                    <input id="timeend" type="datetime-local" name="timeend" class="form-control" required="" min="<?php echo date("Y-m-d") . "T" . date("H:i") ?>" > <!-- onkeydown="return false" -->
                     <label for="inputMDEx">Date and time End</label>
                   </div>
 
                  <div class="md-form mb-5">  
                    <p class="text-center">Select Venue</p>
-                    <select class="form-control" id="venue" name="venueID"title="hi" required="">
+                    <select class="form-control" id="venue" name="venueID" required="">
 
                           <option selected="" readonly=""  disabled=""></option>    
                           <?php 
@@ -243,6 +243,8 @@ else
 </script>
 
 <script type="text/javascript">
+
+
        function limitText(limitField, limitCount, limitNum) {
           if (limitField.value.length > limitNum) {
             limitField.value = limitField.value.substring(0, limitNum);

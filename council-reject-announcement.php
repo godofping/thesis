@@ -60,11 +60,11 @@ if ((time() - $_SESSION['last_time']) > 300) {
               <td><?php echo $rescscann['dateSubmit']; ?></td>
               <td><?php echo $rescscann['toWhom']; ?></td>
               <td><?php echo $rescscann['subjectann']; ?></td>
-              <td><a href="" class="btn btn-info mb-4 itogglebutton" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['CounID']; ?>">View</a></td>
+              <td><a href="" class="btn btn-info mb-4 itogglebutton" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['council_announcementID']; ?>">View</a></td>
 
             </tr>
 
-            <div class="modal fade" id="modalContactForm<?php echo $rescscann['CounID']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            <div class="modal fade" id="modalContactForm<?php echo $rescscann['council_announcementID']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -81,10 +81,10 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
                 <?php 
 
-                        $qrydpannname = mysqli_query($connection, " select * from council_announcement_table where CounID = '".$rescscann['CounID']."' ");
+                        $qrydpannname = mysqli_query($connection, " select * from council_announcement_table where council_announcementID = '".$rescscann['council_announcementID']."' ");
                         $resultann = mysqli_fetch_assoc($qrydpannname);
 
-                        $qryvenue = mysqli_query($connection, " select * from council_club_announcement_view where CounID = '".$rescscann['CounID']."' ");
+                        $qryvenue = mysqli_query($connection, " select * from council_club_announcement_view where council_announcementID = '".$rescscann['council_announcementID']."' ");
                         $resultvenue = mysqli_fetch_assoc($qryvenue);
 
                      ?>  
@@ -111,7 +111,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
                   <div class="md-form mb-5">  
                    <p class="text-center">Select Venue</p>
-                  <select class="form-control" name="venueID" required="" title="hi">
+                  <select class="form-control" name="venueID" required="" >
                           <option selected="" value="<?php echo $resultann['venueID']; ?>"><?php echo $resultvenue['venueName'] ?></option>    
                           <?php 
 
@@ -132,15 +132,15 @@ if ((time() - $_SESSION['last_time']) > 300) {
                 </div>
 
                 <ul>
-                  <li class="text-danger font-weight-bold">Your Announcement was Rejected<br>due to this reasons <br>"<?php echo $resultann['annreason']; ?>".</li>
+                  <li class="text-danger font-weight-bold">Your announcement was REJECTED due to the following reason/s: <br>"<?php echo $resultann['annreason']; ?>".</li>
                 </ul>
 
-              <input type="text" name="CounID" value="<?php echo $rescscann['CounID']; ?>" hidden>
+              <input type="text" name="council_announcementID" value="<?php echo $rescscann['council_announcementID']; ?>" hidden>
               <input type="text" name="from" value="resend-council-announcement" hidden>
-            
+              
               <div class="modal-footer d-flex justify-content-center">
                 <button type="submit" class="btn btn-success itogglebutton">Resend</button></a>
-                <!-- <button type="button" class="btn btn-danger itogglebutton">Delete</button></a> -->
+              <a href="controller.php?from=discard-council-announcement&council_announcementID=<?php echo $rescscann['council_announcementID']; ?>"><button type="button" class="btn btn-danger itogglebutton">discard</button></a>    
               </div>
             </form> 
           </div>

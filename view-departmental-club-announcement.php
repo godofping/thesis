@@ -37,9 +37,8 @@ if (!isset($_SESSION['adminID'])) {
           <thead>
             <tr>
               <th scope="col">Departmental Club Name</th>
-              <th scope="col">Announcement Date</th>
+              <th scope="col">Date Submited</th>
               <th scope="col">to</th>
-              <th scope="col">Approved</th>
               <th scope="col">Actions</th>
 
             </tr>
@@ -49,11 +48,10 @@ if (!isset($_SESSION['adminID'])) {
             $qrycscann = mysqli_query($connection, "select * from departmental_club_announcement_view where isApproved = 'No' ");
             while ($rescscann = mysqli_fetch_assoc($qrycscann)) { ?>
                <tr>
-              <td scope="row"><?php echo $rescscann['departmentClubName']; ?></td> 
-              <td><?php echo $rescscann['dateSubmit']; ?></td>
+              <td scope="row" data-order="acs"><?php echo $rescscann['departmentClubName']; ?></td> 
+              <td data-order="acs"><?php echo $rescscann['dateSubmit']; ?></td>
               <td><?php echo $rescscann['toWhom']; ?></td>
-              <td><?php echo $rescscann['isApproved']; ?></td> 
-              <td><button class="btn aqua-gradient itogglebutton" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['DannouncementID']; ?>">View</blue></td>
+              <td><button class="btn blue-gradient itogglebutton" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['DannouncementID']; ?>">View</blue></td>
 
             </tr>
 
@@ -106,6 +104,7 @@ if (!isset($_SESSION['adminID'])) {
 
                 <ul>
 
+
                 <?php 
 
 
@@ -151,8 +150,7 @@ if (!isset($_SESSION['adminID'])) {
 
                 <?php 
 
-
-                $qry123 = mysqli_query($connection, "select * from departmental_club_announcement_view where isApproved = 'Yes' and DannouncementID <> '" . $rescscann['DannouncementID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
+                $qry123 = mysqli_query($connection, "select * from departmental_club_announcement_view where isApproved = 'Yes' and timeStart between '" . $rescscann['timeStart'] . "' and '" . $rescscann['timeEnd'] . "' and venueID = '" . $rescscann['venueID'] . "' ");
 
                 while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
                  
@@ -173,6 +171,7 @@ if (!isset($_SESSION['adminID'])) {
                   
                 <?php } ?>
                   
+
                 </ul>
             
               <div class="modal-footer d-flex justify-content-center">
@@ -205,13 +204,13 @@ if (!isset($_SESSION['adminID'])) {
 
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Confirm</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Confirmation</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <p>please confirm!</p>
+                <p>Are you sure to confirm this message ?</p>
               </div>
               <div class="modal-footer">
                 <a href="controller.php?from=approve-dpclub-announcement&DannouncementID=<?php echo $rescscann['DannouncementID']; ?>"><button type="button" class="btn aqua-gradient itogglebutton">Yes</button></a>
@@ -239,7 +238,7 @@ if (!isset($_SESSION['adminID'])) {
               <div class="modal-body">
                 <div class="md-form">
                   <i class="fas fa-pencil prefix grey-text"></i>
-                  <textarea type="text" name="annreason" class="md-textarea form-control" rows="4"></textarea>
+                  <textarea type="text" name="annreason" class="md-textarea form-control" rows="4" required=""></textarea>
                   <label data-error="wrong" data-success="right" for="form8">Reason for Rejection</label>
                 </div>
               </div>

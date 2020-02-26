@@ -45,10 +45,10 @@ if (!isset($_SESSION['adminID'])) {
           </thead>
           <tbody>
             <?php 
-            $qrycscann = mysqli_query($connection, "select * from csc_announcement_view where isApproved = 'No'");
+            $qrycscann = mysqli_query($connection, "select * from csc_announcement_view where isApproved = 'No' ");
             while ($rescscann = mysqli_fetch_assoc($qrycscann)) { ?>
                <tr>
-              <td scope="row"><?php echo date('F d, Y h:i A', strtotime($rescscann['dateSubmit'])); ?></td> 
+              <td scope="row" data-order="acs"><?php echo date('F d, Y h:i A', strtotime($rescscann['dateSubmit'])); ?></td> 
               <td><?php echo $rescscann['toWhom']; ?></td>
               <td><?php echo $rescscann['subjectann']; ?></td>
               <td><button class="btn blue-gradient itogglebutton" data-toggle="modal" data-target="#modalContactForm<?php echo $rescscann['csc_announcementID']; ?>">View</blue></td>
@@ -204,13 +204,13 @@ if (!isset($_SESSION['adminID'])) {
 
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Confirm</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Confirmation</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <p>please confirm!</p>
+                <p>Are you sure to confirm this message ?</p>
               </div>
               <div class="modal-footer">
                 <a href="controller.php?from=approve-csc-announcement&csc_announcementID=<?php echo $rescscann['csc_announcementID']; ?>"><button type="button" class="btn aqua-gradient itogglebutton">Yes</button></a>
@@ -238,7 +238,7 @@ if (!isset($_SESSION['adminID'])) {
               <div class="modal-body">
                 <div class="md-form">
                   <i class="fas fa-pencil prefix grey-text"></i>
-                  <textarea type="text" name="annreason" class="md-textarea form-control" rows="4"></textarea>
+                  <textarea type="text" name="annreason" class="md-textarea form-control" rows="4" required=""></textarea>
                   <label data-error="wrong" data-success="right" for="form8">Reason for Rejection</label>
                 </div>
               </div>

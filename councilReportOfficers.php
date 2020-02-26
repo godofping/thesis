@@ -76,7 +76,7 @@ if (!isset($_SESSION['adminID'])) {
             $qry = mysqli_query($connection, "select * from council_report_view where CounID = '".$counID."' ");
             while ($res = mysqli_fetch_assoc($qry)) {?>
               <td scope="row"><b><?php echo $res['StudentID'] ?></b></td>
-              <td scope="row"><b><?php echo $res['lname'] ." ". $res['fname'] ." ". $res['mname']; ?></b></td>
+              <td scope="row"><b><?php echo $res['lname'] .", ". $res['fname'] ." ". $res['mname']; ?></b></td>
               <td scope="row"><b><?php echo $res['CounName']; ?></b></td>
                <td scope="row"><b>
                 <ul>

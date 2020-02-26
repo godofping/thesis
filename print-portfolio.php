@@ -52,7 +52,7 @@ if (!isset($_SESSION['adminID'])) {
             </div>
             
               
-              <p style="color: black; float: left;"><u>Name: <b><?php echo $resid['lname'] ." ". $resid['fname'] ." ". $resid['mname'] ?></b></u></p>
+              <p style="color: black; float: left;"><u>Name: <b><?php echo $resid['lname'] .", ". $resid['fname'] ." ". $resid['mname'] ?></b></u></p>
               <p style="color: black; text-align: right;"><u>Course & Year: <b><?php echo $resid['CourseName'] ?></b></u></p> 
               <p style="color: black; text-align: right; margin-right: 305px; "><u>Year: <b><?php echo $resid['styear'] ?></b></u></p>
               <p class="h5 mb-4 mt-4 text-left ">A] Activities joined/participated:</p>

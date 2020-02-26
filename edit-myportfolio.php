@@ -63,7 +63,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
         <!-- Material input -->
           <div class="md-form">
-            <input type="text" id="form1" disabled="" class="form-control" value="<?php echo "$lnameview" ." ". "$fnameview" ." ". "$mnameview" ?>">
+            <input type="text" id="form1" disabled="" class="form-control" value="<?php echo "$lnameview" .", ". "$fnameview" ." ". "$mnameview" ?>">
             <label for="form1">Name:</label>
           </div>
 

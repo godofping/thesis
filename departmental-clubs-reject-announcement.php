@@ -42,7 +42,6 @@ if ((time() - $_SESSION['last_time']) > 300) {
         <table class="table" id="dtBasicExample">
           <thead>
             <tr>
-              <th scope="col">Departmental Club Name</th>
               <th scope="col">Announcement Date</th>
               <th scope="col">to</th>
               <th scope="col">Subject</th>
@@ -59,7 +58,6 @@ if ((time() - $_SESSION['last_time']) > 300) {
             $qrycscann = mysqli_query($connection, "select * from departmental_club_announcement_view where isApproved = 'Reject' and departmentClubId = '".$resdpname['departmentClubId']."' ");
             while ($rescscann = mysqli_fetch_assoc($qrycscann)) { ?>
                <tr>
-              <td scope="row"><?php echo $rescscann['departmentClubName']; ?></td> 
               <td><?php echo $rescscann['dateSubmit']; ?></td>
               <td><?php echo $rescscann['toWhom']; ?></td>
               <td><?php echo $rescscann['subjectann']; ?></td>
@@ -114,7 +112,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
                   <div class="md-form mb-5">  
                    <p class="text-center">Select Venue</p>
-                  <select class="form-control" name="venueID" required="" title="hi">
+                  <select class="form-control" name="venueID" required="" >
                           <option selected="" value="<?php echo $resultann['venueID']; ?>"><?php echo $resvenue['venueName'] ?></option>    
                           <?php 
 
@@ -134,7 +132,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
                 </div>
 
                 <ul>
-                  <li class="text-danger font-weight-bold">Your Announcement was Rejected due to this reasons <br>"<?php echo $resultann['annreason']; ?>".</li>
+                  <li class="text-danger font-weight-bold">Your announcement was REJECTED due to the following reason/s: <br>"<?php echo $resultann['annreason']; ?>".</li>
                 </ul>
             
               <div class="modal-footer d-flex justify-content-center">
@@ -142,7 +140,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
               <input type="text" name="from" value="resend-department-announcement" hidden>
 
                 <button type="submit" class="btn btn-success itogglebutton">Resend</button></a>
-                <!-- <button type="button" class="btn btn-danger itogglebutton">Delete</button></a> -->
+               <a href="controller.php?from=discard-dp-announcement&DannouncementID=<?php echo $rescscann['DannouncementID']; ?>"><button type="button" class="btn btn-danger itogglebutton">discard</button></a>
               </div>
             </form> 
           </div>

@@ -193,7 +193,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
          <div class="row">
           <div class="col-12">
             <div class="form-group">
-           <input type="text" name="fname" disabled="" class="form-control md-4" required="" value="<?php echo $flname ." ".$mname ." ". $lname;?>">
+           <input type="text" name="fname" disabled="" class="form-control md-4" required="" value="<?php echo $lname .", ".$flname ." ". $mname;?>">
            </div>
           </div>
          </div>

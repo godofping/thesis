@@ -143,7 +143,7 @@ if (!isset($_SESSION['adminID'])) {
             while ($res = mysqli_fetch_assoc($qry)) { ?>
                <tr>
               <th scope="row"><?php echo $res['positionNameDP']; ?></th> 
-              <th scope="row"><?php echo $res['lname'] ." ". $res['mname'] ." ". $res['fname']; ?></th>
+              <th scope="row"><?php echo $res['lname'] .", ". $res['mname'] ." ". $res['fname']; ?></th>
               <th scope="row"><?php echo $res['perpost']; ?></th>
               <td><a href="departmental-edit-officers.php?from=checkIDfordepartmentoffice&departmentClubId=<?php echo $res['departmentClubId'] ?>&departmentmemID=<?php echo $res['departmentmemID'] ?>"><button class="btn aqua-gradient itogglebutton"><i class="far fa-edit"></i></button></a> <button class="btn btn-danger itogglebutton" data-toggle="modal" data-target="#deleteModal<?php echo $res['stprofID'] ?>"><i class="far fa-trash-alt"></i></button></td>
 

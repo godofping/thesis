@@ -24,11 +24,15 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
     <div class="row">
       <div class="col-md-12">
-        <?php  
+        <?php
+
+        $qrysocial = mysqli_query($connection, "select * from student_social_table where stprofID = '" .$_SESSION['stprofID']. "' ");
+        $resulsocial = mysqli_fetch_assoc($qrysocial);
+
         $qryposition = mysqli_query($connection, "select * from social_officerandmembers_view where stprofID = '" .$_SESSION['stprofID']. "' and perpost = 'Yes' ");
         $resultpos = mysqli_fetch_assoc($qryposition);
 
-          $qryrejctbadge = mysqli_query($connection,"select count(*) as cnt from social_announcement_table where isApproved = 'Reject'");
+          $qryrejctbadge = mysqli_query($connection,"select count(*) as cnt from social_announcement_table where isApproved = 'Reject' and socialClubId = '".$resulsocial['socialClubId']."' ");
         $resultreject = mysqli_fetch_assoc($qryrejctbadge);
         if (mysqli_num_rows($qryposition)>0): ?>
           <a  href="" class="btn blue-gradient mb-4 itogglebutton" data-toggle="modal" data-target="#modalContactForm<?php echo $resultpos['socialClubId'] ?>"><i class="fas fa-plus"></i> Create announcement</a>
@@ -68,18 +72,18 @@ if ((time() - $_SESSION['last_time']) > 300) {
                 </div>
 
                   <div class="md-form mx-5 my-5">
-                    <input type="datetime-local" id="timestart" name="timestart" class="form-control" required="">
+                    <input id="timestart" type="datetime-local" name="timestart" class="form-control" required="">
                     <label for="inputMDEx">Date and time Start</label>
                   </div>
 
                   <div class="md-form mx-5 my-5">
-                    <input type="datetime-local" id="timeend" name="timeend" class="form-control" required="">
+                    <input id="timeend" type="datetime-local" name="timeend" class="form-control" required="">
                     <label for="inputMDEx">Date and time End</label>
                   </div>
 
                  <div class="md-form mb-5">  
                    <p class="text-center">Select Venue</p>
-                    <select class="form-control" id="venue" name="venueID"title="hi" required="">
+                    <select class="form-control" id="venue" name="venueID" required="">
 
                           <option selected="" readonly=""  disabled=""></option>    
                           <?php 

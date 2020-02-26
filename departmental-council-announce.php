@@ -99,7 +99,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
                   <div class="md-form mb-5">  
                    <p class="text-center">Select Venue</p>
-                   <select class="form-control" id="venue" name="venueID" required="" title="hi">
+                   <select class="form-control" id="venue" name="venueID" required="" >
                           <option selected="" readonly="" disabled=""></option>    
                           <?php 
 

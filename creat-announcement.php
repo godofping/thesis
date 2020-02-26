@@ -42,7 +42,7 @@ if (!isset($_SESSION['adminID'])) {
 
 
               <div class="modal-body mx-3">
-                <form class=" p-2" method="POST" action="controller.php" autocomplete="false">
+                <form class=" p-2" method="POST" id="formdforsend" action="controller.php" autocomplete="false">
                 <div class="md-form mb-5">
                 
 
@@ -57,18 +57,18 @@ if (!isset($_SESSION['adminID'])) {
                 </div>
 
                 <div class="md-form mx-5 my-5">
-                    <input type="datetime-local" name="timestart" class="form-control" required="">
+                    <input type="datetime-local" id="timestart" name="timestart" class="form-control" required="">
                     <label for="inputMDEx">Date and time Start</label>
                   </div>
 
                   <div class="md-form mx-5 my-5">
-                    <input type="datetime-local" name="timeend" class="form-control" required="">
+                    <input type="datetime-local" id="timeend" name="timeend" class="form-control" required="">
                     <label for="inputMDEx">Date and time End</label>
                   </div>
 
                   <div class="md-form mb-5">  
                    <p class="text-center">Select Venue</p>
-                  <select class="form-control" name="venueID" required="" title="hi">
+                  <select class="form-control" id="venue" name="venueID" required="">
                           <option selected="" readonly="" disabled=""></option>    
                           <?php 
 
@@ -91,11 +91,12 @@ if (!isset($_SESSION['adminID'])) {
                 </div>
 
                   <input type="text" name="from" value="dsa-announcement" hidden>
+                  <b><p id="errors" class="text-danger"></p></b>
                   <b>You have 
                   <input readonly type="text" name="countdown" size="3" value="500">Characters left</b>
                 <div class="modal-footer d-flex justify-content-center">
                   
-                <button type="submit" class="btn btn-success itogglebutton"><i class="far fa-paper-plane"></i> Send</button>
+                <button id="sendButton" type="button" class="btn btn-success itogglebutton"><i class="far fa-paper-plane"></i> Send</button>
               
               </div>
             </form> 
@@ -165,6 +166,54 @@ if (!isset($_SESSION['adminID'])) {
 </main>
 <!--Main Layout-->
 
+<?php include('footer.php'); ?>
+
+<script type="text/javascript">
+  $("#sendButton").click(function(){
+
+    to = $("input[name=to]").val();
+    subject =  $("input[name=subject]").val();
+    timestart =  $("#timestart").val();
+    timeend =  $("#timeend").val();
+    venue = $("#venue").val();
+
+
+
+
+  $.post("check-osa-announcement.php",
+  {
+    to: to,
+    subject: subject,
+    timestart: timestart,
+    timeend: timeend,
+    venue: venue,
+ 
+  },
+
+  function(data){
+    
+ 
+  //  var obj = data;
+
+  // $.each( obj, function( key, value ) {
+  //     alert( key + ": " + value );
+  // });
+
+if (data == "") {
+  $( "#formdforsend" ).submit();
+}
+else
+{
+  $("#errors").html(data);
+}
+
+
+  });
+
+
+});
+</script>
+
 <script type="text/javascript">
        function limitText(limitField, limitCount, limitNum) {
           if (limitField.value.length > limitNum) {
@@ -174,8 +223,6 @@ if (!isset($_SESSION['adminID'])) {
           }
         }
 </script>
-
-<?php include('footer.php'); ?>
 
 <style type="text/css">
   .itogglebutton{
