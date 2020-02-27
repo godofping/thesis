@@ -100,7 +100,7 @@ if (!isset($_SESSION['adminID'])) {
                   <label data-error="wrong" data-success="right" for="form8">Your message</label>
                 </div>
 
-                 <ul>
+                 <ul id="tae<?php echo $rescscann['csc_announcementID']; ?>">
 
                 <?php 
 
@@ -177,7 +177,7 @@ if (!isset($_SESSION['adminID'])) {
               <div class="modal-footer d-flex justify-content-center">
                   
                  <?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeStartSubmitted)): ?>
-                <button type="button" class="btn aqua-gradient itogglebutton" data-toggle="modal" data-target="#exampleModalCenter<?php echo $rescscann['csc_announcementID']; ?>">Approve <i class="fas fa-paper-plane-o ml-1"></i></button>  
+                <button id="igit<?php echo $rescscann['csc_announcementID']; ?>" type="button" class="btn aqua-gradient itogglebutton" data-toggle="modal" data-target="#exampleModalCenter<?php echo $rescscann['csc_announcementID']; ?>">Approve <i class="fas fa-paper-plane-o ml-1"></i></button>  
                 <?php endif ?>
 
 
@@ -288,3 +288,18 @@ $('.dataTables_length').addClass('bs-select');
   border-radius: 12px;
 }
 </style>
+
+
+<?php 
+            $qrycscann = mysqli_query($connection, "select * from csc_announcement_view where isApproved = 'No' ");
+            while ($rescscann = mysqli_fetch_assoc($qrycscann)) { ?>
+
+<script type="text/javascript">
+  if ($('ul#tae<?php echo $rescscann['csc_announcementID']; ?> li').length)
+   {
+    $('#igit<?php echo $rescscann['csc_announcementID']; ?>').prop('disabled', true);
+  }
+</script>
+
+
+<?php } ?>
