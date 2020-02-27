@@ -7,36 +7,68 @@ $message = "";
 
 $timestart = date('Y-m-d h:i:s', strtotime($_POST['timestart']));
 $timeend = date('Y-m-d h:i:s', strtotime($_POST['timeend']));
-$addedtimestart = date('Y-m-d h:i:s',  strtotime('+59 minutes', strtotime($timestart)));
+$addedtimestart = date('Y-m-d h:i:s',  strtotime('+60 minutes', strtotime($timestart)));
 $venue = $_POST['venue'];
 $cbval = $_POST['cbval'];
 
 //(date('Y-m-d h:i:s', strtotime("+59 minutes",$_POST['timestart'])) < $timeend)
 
 
-if ($cbval == 1)
+
+
+//time start is greater than time end;   
+if ($timestart > $timeend)
 {
-	if (($timestart < $timeend) and (date("Y-m-d h:i:s") < $timestart and date("Y-m-d h:i:s") < $timeend) and ($addedtimestart < $timeend))
-	{
-		
-	}
-	else
-	{
-		$message = "Please check the date or time if its correct.";
-	}
+	$message .= "Date time start is higher than date time end.";
 }
 else
 {
-
-		//time start is greater than time end; not the same date; timestart and timeend is already elapsed; interval is less than 1 hour
-	if (($timestart < $timeend) and (date('Y-m-d', strtotime($_POST['timestart'])) == date('Y-m-d', strtotime($_POST['timeend']))) and (date("Y-m-d h:i:s") < $timestart and date("Y-m-d h:i:s") < $timeend) and ($addedtimestart < $timeend))
+	//not the same date;
+	if (date('Y-m-d', strtotime($_POST['timestart'])) != date('Y-m-d', strtotime($_POST['timeend']))) 
 	{
+		$message .= "Date time start and date time end are not the same.";
+	} 
+	else 
+	{
+		//timestart and timeend is already elapsed;
+		if ((date("Y-m-d H:i:s") > date('Y-m-d H:i:s', strtotime($_POST['timestart']))) or (date("Y-m-d H:i:s") > date('Y-m-d H:i:s', strtotime($_POST['timeend'])))) 
+		{
+			$message .= date("Y-m-d h:i:s") . " > " . date('Y-m-d H:i:s', strtotime($_POST['timestart']));
+		} 
+		else 
+		{
+			//interval is less than 1 hour
+			if ($addedtimestart > $timeend) 
+			{
+				$message .= "Date time start and date time end should have 1 hour interval.";
+			} 
+			else 
+			{
+				//if not emergency
+				if ($cbval == 0) 
+				{
+					//if todays date is the same with submitted date time start and end
+					if (date('Y-m-d', strtotime($_POST['timestart'])) == date('Y-m-d') or date('Y-m-d', strtotime($_POST['timeend'])) == date('Y-m-d')) 
+					{
+						$message .= "Date time start and date time end should not the same with todays date.";
+					} 
+					else 
+					{
+						
+					}
+				} 
+				else
+				{
+					# code...
+				}
+				
+				
+			}
+			
+		}
 		
 	}
-	else
-	{
-		$message = "Please check the date or time if its correct.";
-	}
+	
 }
 
 
