@@ -7,29 +7,19 @@ $message = "";
 
 $timestart = date('Y-m-d h:i:s', strtotime($_POST['timestart']));
 $timeend = date('Y-m-d h:i:s', strtotime($_POST['timeend']));
-
-
+$addedtimestart = date('Y-m-d h:i:s',  strtotime('+59 minutes', strtotime($timestart)));
 $venue = $_POST['venue'];
 
 //(date('Y-m-d h:i:s', strtotime("+59 minutes",$_POST['timestart'])) < $timeend)
 
-
 //time start is greater than time end; not the same date; timestart and timeend is already elapsed
-if (($timestart < $timeend) and (date('Y-m-d', strtotime($_POST['timestart'])) == date('Y-m-d', strtotime($_POST['timeend']))) and (date("Y-m-d h:i:s") < $timestart and date("Y-m-d h:i:s") < $timeend)  )
+if (($timestart < $timeend) and (date('Y-m-d', strtotime($_POST['timestart'])) == date('Y-m-d', strtotime($_POST['timeend']))) and (date("Y-m-d h:i:s") < $timestart and date("Y-m-d h:i:s") < $timeend) and ($addedtimestart < $timeend))
 {
 	
 }
 else
 {
 	$message = "Please check the date or time if its correct.";
-}
-
-
-
-if ((strtotime($timeend)<strtotime($timestart)) and (date("Y-m-d h:i:s",strtotime($timestart))>date("Y-m-d h:i:s",strtotime($timeend)))) {
-	$message .="Please check the date or time if its correct."."<br>";
-}else if (strtotime($timestart)==strtotime($timeend)) {
-	$message .="Please check the date or time if its correct."."<br>";
 }
 
  $qry= mysqli_query($connection, "select * from dsa_announcement_view  where isApproved = 'Yes' and ((timeStart <= '" . $timestart . "' and timeEnd > '" . $timestart . "') or (timeStart < '" . $timeend . "' and timeEnd >= '" . $timeend . "') or (timeStart > '" . $timestart . "' and timeEnd < '" . $timeend . "')) and venueID = '" . $venue . "' ");
@@ -47,7 +37,7 @@ while ($res123 = mysqli_fetch_assoc($qry)) {
 
 };
 
-$qry= mysqli_query($connection, "select * from council_club_announcement_view where isApproved = 'Yes' and (timeStart <= '" . $timestart . "' and timeEnd > '" . $timestart . "') or (timeStart < '" . $timeend . "' and timeEnd >= '" . $timeend . "') or (timeStart > '" . $timestart . "' and timeEnd < '" . $timeend . "') and venueID = '" . $venue . "' ");
+$qry= mysqli_query($connection, "select * from council_club_announcement_view where isApproved = 'Yes' and ((timeStart <= '" . $timestart . "' and timeEnd > '" . $timestart . "') or (timeStart < '" . $timeend . "' and timeEnd >= '" . $timeend . "') or (timeStart > '" . $timestart . "' and timeEnd < '" . $timeend . "')) and venueID = '" . $venue . "' ");
 
 while ($res123 = mysqli_fetch_assoc($qry)) {
 
@@ -56,7 +46,7 @@ while ($res123 = mysqli_fetch_assoc($qry)) {
 };
 
 
-$qry= mysqli_query($connection, "select * from departmental_club_announcement_view  where isApproved = 'Yes' and (timeStart <= '" . $timestart . "' and timeEnd > '" . $timestart . "') or (timeStart < '" . $timeend . "' and timeEnd >= '" . $timeend . "') or (timeStart > '" . $timestart . "' and timeEnd < '" . $timeend . "') and venueID = '" . $venue . "' ");
+$qry= mysqli_query($connection, "select * from departmental_club_announcement_view  where isApproved = 'Yes' and ((timeStart <= '" . $timestart . "' and timeEnd > '" . $timestart . "') or (timeStart < '" . $timeend . "' and timeEnd >= '" . $timeend . "') or (timeStart > '" . $timestart . "' and timeEnd < '" . $timeend . "')) and venueID = '" . $venue . "' ");
 
 while ($res123 = mysqli_fetch_assoc($qry)) {
 
@@ -64,7 +54,7 @@ while ($res123 = mysqli_fetch_assoc($qry)) {
 
 };
 
-$qry= mysqli_query($connection, "select * from social_club_announcement_view where isApproved = 'Yes' and (timeStart <= '" . $timestart . "' and timeEnd > '" . $timestart . "') or (timeStart < '" . $timeend . "' and timeEnd >= '" . $timeend . "') or (timeStart > '" . $timestart . "' and timeEnd < '" . $timeend . "') and venueID = '" . $venue . "' ");
+$qry= mysqli_query($connection, "select * from social_club_announcement_view where isApproved = 'Yes' and ((timeStart <= '" . $timestart . "' and timeEnd > '" . $timestart . "') or (timeStart < '" . $timeend . "' and timeEnd >= '" . $timeend . "') or (timeStart > '" . $timestart . "' and timeEnd < '" . $timeend . "')) and venueID = '" . $venue . "' ");
 
 while ($res123 = mysqli_fetch_assoc($qry)) {
 

@@ -80,12 +80,12 @@ if ((time() - $_SESSION['last_time']) > 300) {
                 </div>
 
                   <div class="md-form mx-5 my-5">
-                    <input id="timestart" type="datetime-local" name="timestart" class="form-control" required="" min="<?php echo date("Y-m-d") . "T" . date("H:i") ?>" ><!--  onkeydown="return false" -->
+                    <input id="timestart" type="datetime-local" name="timestart" class="form-control" required="" ><!--  onkeydown="return false" -->
                     <label for="inputMDEx">Date and time Start</label>
                   </div>
 
                   <div class="md-form mx-5 my-5">
-                    <input id="timeend" type="datetime-local" name="timeend" class="form-control" required="" min="<?php echo date("Y-m-d") . "T" . date("H:i") ?>" > <!-- onkeydown="return false" -->
+                    <input id="timeend" type="datetime-local" name="timeend" class="form-control" required="" > <!-- onkeydown="return false" -->
                     <label for="inputMDEx">Date and time End</label>
                   </div>
 
@@ -112,7 +112,13 @@ if ((time() - $_SESSION['last_time']) > 300) {
                   <textarea type="text" name="message" class="md-textarea form-control" rows="4" required="" onkeydown="limitText(this.form.message,this.form.countdown,500);" onkeyup='limitText(this.form.message,this.form.countdown,500);'></textarea>
                   <label data-error="wrong" data-success="right" for="form8">Your message</label>
                 </div>
-
+                
+                <!-- Default unchecked -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                    <label class="custom-control-label" for="defaultUnchecked">For Emergency</label>
+                </div>
+                
                 <b><p id="errors" class="text-danger"></p></b>
                   <b>You have 
                   <input readonly type="text" name="countdown" size="3" value="500">Characters left</b>

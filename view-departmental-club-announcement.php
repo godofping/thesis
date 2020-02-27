@@ -124,10 +124,7 @@ if (!isset($_SESSION['adminID'])) {
                 <?php } ?>
 
                 <?php 
-               
-
-
-
+     
                 $qry123 = mysqli_query($connection, "select * from csc_announcement_view where isApproved = 'Yes' and csc_announcementID <> '" . $rescscann['DannouncementID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
                 while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
                  
@@ -155,7 +152,6 @@ if (!isset($_SESSION['adminID'])) {
                 while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
                  
                  <li class="text-danger font-weight-bold">You have a conflict with the "<?php echo $res123['subjectann']; ?>" <br> in this time schedule from "<?php echo date('F d, Y h:i A', strtotime($res123['timeStart'])); ?>" <br> until "<?php echo date('F d, Y h:i A', strtotime($res123['timeEnd'])); ?>" at <?php echo $res123['venueName']; ?>.</li>
-
                   
                 <?php } ?>
 
@@ -177,7 +173,7 @@ if (!isset($_SESSION['adminID'])) {
               <div class="modal-footer d-flex justify-content-center">
                   
                 <!-- <a href="controller.php?from=approve-dpclub-announcement&DannouncementID=<?php echo $rescscann['DannouncementID']; ?>"><button type="button" class="btn btn-unique">Approve <i class="fas fa-paper-plane-o ml-1"></i></button></a> -->
-                
+
                 <?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeStartSubmitted)): ?>
                 <button type="button" class="btn aqua-gradient itogglebutton" data-toggle="modal" data-target="#exampleModalCenter<?php echo $rescscann['DannouncementID']; ?>">Approve <i class="fas fa-paper-plane-o ml-1"></i></button>  
                 <?php endif ?>
@@ -213,6 +209,9 @@ if (!isset($_SESSION['adminID'])) {
                 <p>Are you sure to confirm this message ?</p>
               </div>
               <div class="modal-footer">
+
+
+
                 <a href="controller.php?from=approve-dpclub-announcement&DannouncementID=<?php echo $rescscann['DannouncementID']; ?>"><button type="button" class="btn aqua-gradient itogglebutton">Yes</button></a>
                 <button type="button" class="btn btn-danger itogglebutton" data-dismiss="modal">No</button>
               </div>
