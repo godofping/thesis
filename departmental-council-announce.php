@@ -64,7 +64,6 @@ if ((time() - $_SESSION['last_time']) > 300) {
 
               <div class="modal-body mx-3">
                 <form class=" p-2" id="formdforsend" method="POST" action="controller.php" autocomplete="false">
-                <div class="md-form mb-5">
                   
                    <?php 
 
@@ -87,18 +86,18 @@ if ((time() - $_SESSION['last_time']) > 300) {
                   <label data-error="wrong" data-success="right" for="form32">Subject: </label>
                 </div>
 
-                <div class="md-form mx-5 my-5">
+                <div class="md-form mb-5">
                     <input id="timestart" type="datetime-local" name="timestart" class="form-control" required="">
                     <label for="inputMDEx">Date and time Start</label>
                   </div>
 
-                  <div class="md-form mx-5 my-5">
+                  <div class="md-form mb-5">
                     <input id="timeend" type="datetime-local" name="timeend" class="form-control" required="">
                     <label for="inputMDEx">Date and time End</label>
                   </div>
 
                   <div class="md-form mb-5">  
-                   <p class="text-center">Select Venue</p>
+                   <p>Select Venue</p>
                    <select class="form-control" id="venue" name="venueID" required="" >
                           <option selected="" readonly="" disabled=""></option>    
                           <?php 
@@ -114,19 +113,26 @@ if ((time() - $_SESSION['last_time']) > 300) {
                         </select>
                       </div>
 
-                <div class="md-form">
-                  <i class="fas fa-pencil prefix grey-text"></i>
-                  <textarea id="message" type="text" name="message" class="md-textarea form-control" rows="4"  required="" onkeydown="limitText(this.form.message,this.form.countdown,500);" onkeyup='limitText(this.form.message,this.form.countdown,500);'></textarea>
+                <div class="md-form mb-5">
+                  <textarea id="message" type="text" name="message" class="md-textarea form-control mb-5" rows="4"  required="" onkeydown="limitText(this.form.message,this.form.countdown,500);" onkeyup='limitText(this.form.message,this.form.countdown,500);'></textarea>
                   <label data-error="wrong" data-success="right" for="form8">Your message</label>
+
+                  <b style="text-align: center;">You have <input readonly type="text" name="countdown" size="3" value="500">characters left</b>
+
                 </div>
 
                 <b><p id="errors" class="text-danger"></p></b>
-                <b>You have 
-                <input readonly type="text" name="countdown" size="3" value="500">Characters left</b>
 
                   <input type="text" name="CounID" value="<?php echo $resstID1['CounID'] ?>" hidden>
                   <input type="text" name="from" value="deparmental-council-announcement" hidden>
-            
+                  
+                  <div class="custom-control custom-checkbox">
+
+                    <input type="checkbox" class="custom-control-input" id="foremer">
+                    <label class="custom-control-label" for="foremer">For Emergency Only</label>
+
+                  </div>
+
               <div class="modal-footer d-flex justify-content-center">
                 <button id="sendButton" type="button" class="btn btn-success itogglebutton"><i class="far fa-paper-plane"></i> Send</button> 
               
@@ -222,6 +228,13 @@ if ((time() - $_SESSION['last_time']) > 300) {
     venue = $("#venue").val();
     message = $("#message").val();
 
+    if ($("input:checkbox").is(':checked')) {
+    cbval = 1;
+    }
+    else
+    {
+       cbval = 0;
+    }
 
 
   $.post("check-council-announcement.php",
@@ -232,6 +245,7 @@ if ((time() - $_SESSION['last_time']) > 300) {
     timeend: timeend,
     venue: venue,
     message: message,
+    cbval: cbval,
   },
 
   function(data){
