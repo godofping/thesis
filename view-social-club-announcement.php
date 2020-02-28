@@ -102,7 +102,7 @@ if (!isset($_SESSION['adminID'])) {
                   <label data-error="wrong" data-success="right" for="form8">Your message</label>
                 </div>
 
-              <ul>
+              <ul id="tae<?php echo $rescscann['social_announcementID']; ?>">
 
                 <?php 
 
@@ -123,11 +123,8 @@ if (!isset($_SESSION['adminID'])) {
                 <?php } ?>
 
                 <?php 
-               
-
-
-
-                $qry123 = mysqli_query($connection, "select * from csc_announcement_view where isApproved = 'Yes' and csc_announcementID <> '" . $rescscann['social_announcementID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
+ 
+                $qry123 = mysqli_query($connection, "select * from csc_announcement_view where isApproved = 'Yes' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
                 while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
                  
                  <li class="text-danger font-weight-bold">You have a conflict with the "<?php echo $res123['subjectann']; ?>" <br> in this time schedule from "<?php echo date('F d, Y h:i A', strtotime($res123['timeStart'])); ?>" <br> until "<?php echo date('F d, Y h:i A', strtotime($res123['timeEnd'])); ?>" at <?php echo $res123['venueName']; ?>.</li>
@@ -138,7 +135,7 @@ if (!isset($_SESSION['adminID'])) {
                  <?php 
 
 
-                $qry123 = mysqli_query($connection, "select * from council_club_announcement_view where isApproved = 'Yes' and council_announcementID  <> '" . $rescscann['social_announcementID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
+                $qry123 = mysqli_query($connection, "select * from council_club_announcement_view where isApproved = 'Yes' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
 
                 while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
                  
@@ -150,7 +147,7 @@ if (!isset($_SESSION['adminID'])) {
                 <?php 
 
 
-                $qry123 = mysqli_query($connection, "select * from departmental_club_announcement_view where isApproved = 'Yes' and DannouncementID <> '" . $rescscann['social_announcementID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
+                $qry123 = mysqli_query($connection, "select * from departmental_club_announcement_view where isApproved = 'Yes' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
 
                 while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
                  
@@ -162,7 +159,7 @@ if (!isset($_SESSION['adminID'])) {
                  <?php 
 
 
-                $qry123 = mysqli_query($connection, "select * from social_club_announcement_view where isApproved = 'Yes' and social_announcementID <> '" . $rescscann['social_announcementID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
+                $qry123 = mysqli_query($connection, "select * from social_club_announcement_view where isApproved = 'Yes' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
 
                 while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
                  
@@ -176,7 +173,7 @@ if (!isset($_SESSION['adminID'])) {
               <div class="modal-footer d-flex justify-content-center">
                   
                 <?php if (strtotime(date('Y-m-d h:i:s'))<strtotime($timeStartSubmitted)): ?>
-                <button type="button" class="btn aqua-gradient itogglebutton" data-toggle="modal" data-target="#exampleModalCenter<?php echo $rescscann['social_announcementID']; ?>">Approve <i class="fas fa-paper-plane-o ml-1"></i></button>  
+                <button id="igit<?php echo $rescscann['social_announcementID']; ?>" type="button" class="btn aqua-gradient itogglebutton" data-toggle="modal" data-target="#exampleModalCenter<?php echo $rescscann['social_announcementID']; ?>">Approve <i class="fas fa-paper-plane-o ml-1"></i></button>  
                 <?php endif ?>
                 <?php if (strtotime(date('Y-m-d h:i:s'))>strtotime($timeStartSubmitted)): ?>
                 <button type="button" class="btn aqua-gradient itogglebutton" data-toggle="tooltip" data-placement="top" title="Date is expired" disabled="">Date is Expired<i class="fas fa-paper-plane-o ml-1"></i></button>  
@@ -234,7 +231,69 @@ if (!isset($_SESSION['adminID'])) {
               <div class="modal-body">
                 <div class="md-form">
                   <i class="fas fa-pencil prefix grey-text"></i>
-                  <textarea type="text" name="annreason" class="md-textarea form-control" rows="4" required=""></textarea>
+                  <?php 
+
+
+                $timestart =  $rescscann['timeStart'];
+                $timeend =  $rescscann['timeEnd'];
+                $timeStartSubmitted = date('Y-m-d h:i:s', strtotime($timestart));
+                $timeEndSubmitted = date('Y-m-d h:i:s', strtotime($timeend));
+
+
+                $qry123 = mysqli_query($connection, "select * from dsa_announcement_table where isApproved = 'Yes' and dsaAnnouncementID <> '" . $rescscann['social_announcementID'] . "' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
+
+                while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
+                 
+                 <textarea type="text" name="annreason" class="md-textarea form-control" rows="4" required="">You have a conflict with the "<?php echo $res123['subjectann']; ?>"in this time schedule from "<?php echo date('F d, Y h:i A', strtotime($res123['timeStart'])); ?>" until "<?php echo date('F d, Y h:i A', strtotime($res123['timeEnd'])); ?>" at <?php echo $res123['venueName']; ?>.</textarea>
+                  
+                <?php } ?>
+
+                <?php 
+ 
+                $qry123 = mysqli_query($connection, "select * from csc_announcement_view where isApproved = 'Yes' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
+                while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
+                 
+                 <textarea type="text" name="annreason" class="md-textarea form-control" rows="4" required="">You have a conflict with the "<?php echo $res123['subjectann']; ?>"in this time schedule from "<?php echo date('F d, Y h:i A', strtotime($res123['timeStart'])); ?>" until "<?php echo date('F d, Y h:i A', strtotime($res123['timeEnd'])); ?>" at <?php echo $res123['venueName']; ?>.</textarea>
+
+                  
+                <?php } ?>
+
+                 <?php 
+
+
+                $qry123 = mysqli_query($connection, "select * from council_club_announcement_view where isApproved = 'Yes' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
+
+                while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
+                 
+                 <textarea type="text" name="annreason" class="md-textarea form-control" rows="4" required="">You have a conflict with the "<?php echo $res123['subjectann']; ?>"in this time schedule from "<?php echo date('F d, Y h:i A', strtotime($res123['timeStart'])); ?>" until "<?php echo date('F d, Y h:i A', strtotime($res123['timeEnd'])); ?>" at <?php echo $res123['venueName']; ?>.</textarea>
+
+                  
+                <?php } ?>
+
+                <?php 
+
+
+                $qry123 = mysqli_query($connection, "select * from departmental_club_announcement_view where isApproved = 'Yes' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
+
+                while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
+                 
+                 <textarea type="text" name="annreason" class="md-textarea form-control" rows="4" required="">You have a conflict with the "<?php echo $res123['subjectann']; ?>"in this time schedule from "<?php echo date('F d, Y h:i A', strtotime($res123['timeStart'])); ?>" until "<?php echo date('F d, Y h:i A', strtotime($res123['timeEnd'])); ?>" at <?php echo $res123['venueName']; ?>.</textarea>
+
+                  
+                <?php } ?>
+
+                 <?php 
+
+
+                $qry123 = mysqli_query($connection, "select * from social_club_announcement_view where isApproved = 'Yes' and timeStart between '" . $timeStartSubmitted . "' and '" . $timeEndSubmitted . "' and venueID = '" . $rescscann['venueID'] . "' ");
+
+                while ($res123 = mysqli_fetch_assoc($qry123)) { ?>
+                 
+                 <textarea type="text" name="annreason" class="md-textarea form-control" rows="4" required="">You have a conflict with the "<?php echo $res123['subjectann']; ?>"in this time schedule from "<?php echo date('F d, Y h:i A', strtotime($res123['timeStart'])); ?>" until "<?php echo date('F d, Y h:i A', strtotime($res123['timeEnd'])); ?>" at <?php echo $res123['venueName']; ?>.</textarea>
+
+                  
+                <?php } ?>
+                 
                   <label data-error="wrong" data-success="right" for="form8">Reason for Rejection</label>
                 </div>
               </div>
@@ -283,3 +342,17 @@ $('.dataTables_length').addClass('bs-select');
   border-radius: 12px;
 }
 </style>
+
+<?php 
+            $qrycscann = mysqli_query($connection, "select * from social_club_announcement_view where isApproved = 'No'");
+            while ($rescscann = mysqli_fetch_assoc($qrycscann)) { ?>
+
+<script type="text/javascript">
+  if ($('ul#tae<?php echo $rescscann['social_announcementID']; ?> li').length)
+   {
+    $('#igit<?php echo $rescscann['social_announcementID']; ?>').prop('disabled', true);
+  }
+</script>
+
+
+<?php } ?>
