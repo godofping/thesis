@@ -132,7 +132,8 @@ if ((time() - $_SESSION['last_time']) > 300) {
                 </div>
 
                 <ul>
-                  <li class="text-danger font-weight-bold">Your announcement was REJECTED due to the following reason/s: <br>"<?php echo $resultann['annreason']; ?>".</li>
+                  <li class="text-danger font-weight-bold">Your announcement was REJECTED due to the following reason/s: <br></li>
+                  <p class="text-danger font-weight-bold" align="justify-content-center">"<?php echo wordwrap($resultann['annreason'],90,"<br>\n") ?>"</p>
                 </ul>
 
               <input type="text" name="council_announcementID" value="<?php echo $rescscann['council_announcementID']; ?>" hidden>
