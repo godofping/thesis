@@ -43,8 +43,6 @@ if (!isset($_SESSION['adminID'])) {
 
               <div class="modal-body mx-3">
                 <form class=" p-2" method="POST" id="formdforsend" action="controller.php" autocomplete="false">
-                <div class="md-form mb-5">
-                
 
                 <div class="md-form mb-5">
                   <input type="text" name="to" class="form-control " required="">
@@ -56,18 +54,18 @@ if (!isset($_SESSION['adminID'])) {
                   <label data-error="wrong" data-success="right" for="form32">Subject: </label>
                 </div>
 
-                <div class="md-form mx-5 my-5">
+                <div class="md-form mb-5">
                     <input type="datetime-local" id="timestart" name="timestart" class="form-control" required="">
                     <label for="inputMDEx">Date and time Start</label>
                   </div>
 
-                  <div class="md-form mx-5 my-5">
+                  <div class="md-form mb-5">
                     <input type="datetime-local" id="timeend" name="timeend" class="form-control" required="">
                     <label for="inputMDEx">Date and time End</label>
                   </div>
 
                   <div class="md-form mb-5">  
-                   <p class="text-center">Select Venue</p>
+                   <p>Select Venue</p>
                   <select class="form-control" id="venue" name="venueID" required="">
                           <option selected="" readonly="" disabled=""></option>    
                           <?php 
@@ -83,17 +81,25 @@ if (!isset($_SESSION['adminID'])) {
                         </select>
                       </div>
 
-                <div class="md-form">
-                  <i class="fas fa-pencil prefix grey-text"></i>
-                  <textarea type="text" name="message" class="md-textarea form-control" rows="4" required="" onkeydown="limitText(this.form.message,this.form.countdown,500);" onkeyup='limitText(this.form.message,this.form.countdown,500);'></textarea>
-                  <label data-error="wrong" data-success="right" for="form8">Your message</label>
+                <div class="md-form mb-5">
+                  <textarea type="text" id="txtarea" name="message" class="md-textarea form-control mb-5" rows="4" required="" onkeydown="limitText(this.form.message,this.form.countdown,500);" onkeyup='limitText(this.form.message,this.form.countdown,500);'></textarea>
+                  <label data-error="wrong" data-success="right" for="txtarea">Your message</label>
+
+                  <b style="text-align: center;">You have <input readonly type="text" name="countdown" size="3" value="500">characters left</b>
 
                 </div>
+                  
+                  <b><p id="errors" class="text-danger"></p></b>
 
                   <input type="text" name="from" value="dsa-announcement" hidden>
-                  <b><p id="errors" class="text-danger"></p></b>
-                  <b>You have 
-                  <input readonly type="text" name="countdown" size="3" value="500">Characters left</b>
+     
+                  <div class="custom-control custom-checkbox">
+
+                    <input type="checkbox" class="custom-control-input" id="foremer">
+                    <label class="custom-control-label" for="foremer">For Emergency Only</label>
+
+                  </div>
+
                 <div class="modal-footer d-flex justify-content-center">
                   
                 <button id="sendButton" type="button" class="btn btn-success itogglebutton"><i class="far fa-paper-plane"></i> Send</button>
@@ -120,7 +126,7 @@ if (!isset($_SESSION['adminID'])) {
   <div class="container">
     <div class="card">
 
-      <h5 class="card-header blue lighten-1 white-text text-center py-4"><img src="logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
+      <h5 class="card-header green accent-4 white-text text-center py-4"><img src="logo/download.png" width="50" height="50" class="rounded-circle img-responsive">
         <strong>Office of Student Affairs</strong><br>
         <small style="font-size: ">Notre Dame of Tacurong College</small><br>
         <small>City of Tacurong</small>
@@ -131,26 +137,25 @@ if (!isset($_SESSION['adminID'])) {
         <!-- Form -->
         <form class="text-center" style="color: #757575;">
 
-              <!-- To Whom -->
-            <div class="md-form mt-5" style="text-align: center;">
-              <p style="color: black"><?php echo $rescsc['toWhom']; ?></p>
+             <div class="md-form mt-5" style="text-align: center;">
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $rescsc['toWhom']; ?></p>
             </div>
 
-            <!-- To Whom -->
-           <div class="md-form mt-3" style="text-align: center;">
-              <p style="color: black"><?php echo $rescsc['subjectann']; ?></p>
+            <div class="md-form mt-3" style="text-align: center;">
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $rescsc['subjectann']; ?></p>
             </div> 
 
             <div class="md-form mt-3" style="text-align: left;">
-               <p style="color: black"> Date: <?php echo date('F d, Y h:i A', strtotime($rescsc['timeStart'])); ?>, until <?php echo date('F d, Y h:i A', strtotime($rescsc['timeEnd'])); ?></p>
+               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> Start: <?php echo date('F d, Y h:i A', strtotime($rescsc['timeStart'])); ?></p>
+               <p style="color: black;font-family: Arial Black, Gadget, sans-serif"> End: <?php echo date('F d, Y h:i A', strtotime($rescsc['timeEnd'])); ?></p>
             </div>
 
             <div class="md-form mt-3" style="text-align: left;">
-              <p style="color: black">Venue: <?php echo $rescsc['venueName']; ?></p>
+              <p style="color: red;font-family: Arial Black, Gadget, sans-serif">Venue: <?php echo $rescsc['venueName']; ?></p>
             </div>
 
              <div class="md-form mt-3" style="text-align: center;">
-              <p style="color: black">Message: <br><br><?php echo $rescsc['message']; ?></p>
+              <p style="color: black;font-family: Arial Black, Gadget, sans-serif"><?php echo $rescsc['message']; ?></p>
             </div>
 
         </form>
@@ -177,8 +182,13 @@ if (!isset($_SESSION['adminID'])) {
     timeend =  $("#timeend").val();
     venue = $("#venue").val();
 
-
-
+    if ($("input:checkbox").is(':checked')) {
+    cbval = 1;
+    }
+    else
+    {
+       cbval = 0;
+    }
 
   $.post("check-osa-announcement.php",
   {
@@ -187,7 +197,8 @@ if (!isset($_SESSION['adminID'])) {
     timestart: timestart,
     timeend: timeend,
     venue: venue,
- 
+    cbval: cbval,
+
   },
 
   function(data){

@@ -33,7 +33,8 @@ else
 		//timestart and timeend is already elapsed;
 		if ((date("Y-m-d H:i:s") > date('Y-m-d H:i:s', strtotime($_POST['timestart']))) or (date("Y-m-d H:i:s") > date('Y-m-d H:i:s', strtotime($_POST['timeend'])))) 
 		{
-			$message .= date("Y-m-d h:i:s") . " > " . date('Y-m-d H:i:s', strtotime($_POST['timestart']));
+			// $message .= date("Y-m-d h:i:s") . " > " . date('Y-m-d H:i:s', strtotime($_POST['timestart']));
+			$message .= "timestart and timeend is already elapsed";
 		} 
 		else 
 		{
@@ -50,7 +51,7 @@ else
 					//if todays date is the same with submitted date time start and end
 					if (date('Y-m-d', strtotime($_POST['timestart'])) == date('Y-m-d') or date('Y-m-d', strtotime($_POST['timeend'])) == date('Y-m-d')) 
 					{
-						$message .= "Date time start and date time end should not the same with todays date.";
+						$message .= "Date time start and date time end should not the same with todays date. <br>If its emergency you should check the checkbox.";
 					} 
 					else 
 					{
