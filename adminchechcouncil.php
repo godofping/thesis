@@ -5,7 +5,7 @@ date_default_timezone_set('Asia/Manila');
 
 $adminID = $_SESSION['adminID'];
 
-$connection = mysqli_connect("localhost", "root", "vertrigo", "project_db");
+$connection = mysqli_connect("localhost", "root", "", "project_db");
 
 //count how many push notifications deployed to the user.
 $qry = mysqli_query($connection, "select count(*) as total from admincouncil_announcement_isread_table where adminID = '".$adminID."' ");

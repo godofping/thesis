@@ -3,7 +3,7 @@
 session_start();
 date_default_timezone_set('Asia/Manila');
 
-$connection = mysqli_connect("localhost", "root", "vertrigo", "project_db");
+$connection = mysqli_connect("localhost", "root", "", "project_db");
 
 $qryheydashboard = mysqli_query($connection, "select * from admin_account_view where adminID = ".$_SESSION['adminID']." ");
             $resheydashboard = mysqli_fetch_assoc($qryheydashboard);

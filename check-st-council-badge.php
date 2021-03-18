@@ -5,7 +5,7 @@ date_default_timezone_set('Asia/Manila');
 
 $stprofID = $_SESSION['stprofID'];
 
-$connection = mysqli_connect("localhost", "root", "vertrigo", "project_db");
+$connection = mysqli_connect("localhost", "root", "", "project_db");
 
 	$qrycode = mysqli_query($connection, "select * from list_student_view where stprofID = '".$_SESSION['stprofID']."'");
 	        $rescode = mysqli_fetch_assoc($qrycode);

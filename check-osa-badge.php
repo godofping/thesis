@@ -5,7 +5,7 @@ date_default_timezone_set('Asia/Manila');
 
 $stprofID = $_SESSION['stprofID'];
 
-$connection = mysqli_connect("localhost", "root", "vertrigo", "project_db");
+$connection = mysqli_connect("localhost", "root", "", "project_db");
 
 $qryosaann = mysqli_query($connection, "select * from dsa_announcement_view order by dsaAnnouncementID desc");
       $resosaann = mysqli_fetch_assoc($qryosaann);
